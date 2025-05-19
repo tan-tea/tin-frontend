@@ -1,0 +1,87 @@
+'use client'
+
+import { useRef, } from 'react';
+import {
+    useStore,
+    createStore,
+} from 'zustand';
+import {
+    persist,
+    createJSONStorage,
+} from 'zustand/middleware';
+
+import type {
+    ApplicationState,
+    ApplicationStore,
+} from 'shared/stores/application-store/types';
+import { defaultInitState, } from 'shared/stores/application-store/constants';
+
+import contextFactory from 'shared/contexts/contextFactory';
+
+const createApplicationStore = (
+    initState: ApplicationState = defaultInitState,
+) => {
+    return createStore<ApplicationStore>()(
+        persist(
+            (set, get) => ({
+                ...initState,
+                setTheme: (theme) => set((state) => ({
+                    ...state,
+                    theme,
+                })),
+                setLanguage: () => set((state) => ({
+                    ...state,
+                    language: state.language === 'en' ? 'es' : 'en',
+                })),
+                setDiscordPayload: (
+                    accessToken: string,
+                    expiresIn: number
+                ) => set((state) => ({
+                    ...state,
+                    discord: {
+                        accessToken,
+                        expiresIn,
+                    },
+                })),
+            }),
+            {
+                name: 'application-storage',
+                storage: createJSONStorage(() => localStorage),
+            }
+        ),
+    );
+};
+
+type ApplicationStoreApi = ReturnType<typeof createApplicationStore>;
+
+const useApplicationStoreContextState: () => ApplicationStoreApi = () => {
+    const storeRef = useRef<ApplicationStoreApi | null>(null);
+    if (!storeRef.current) {
+        storeRef.current = createApplicationStore();
+    }
+
+    return storeRef.current;
+};
+
+const {
+    Provider: ApplicationStoreProvider,
+    useContext: useApplicationStoreContext,
+} = contextFactory(useApplicationStoreContextState);
+
+const useApplicationStore = <T>(
+    selector: (store: ApplicationStore) => T,
+): T => {
+    const applicationStoreContext = useApplicationStoreContext();
+    if (!applicationStoreContext) {
+        throw new Error('useApplicationStore must be used within an ApplicationStoreProvider');
+    }
+
+    return useStore(applicationStoreContext, selector);
+}
+
+export {
+    type ApplicationStoreApi,
+    useApplicationStore,
+    useApplicationStoreContext,
+    ApplicationStoreProvider,
+};

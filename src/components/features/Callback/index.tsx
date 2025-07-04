@@ -1,52 +1,126 @@
 'use client'
 
 import {
-    FC,
-    ReactElement,
     useEffect,
+    useCallback,
+    type FC,
+    type ReactElement,
 } from 'react';
-import { useShallow, } from 'zustand/react/shallow';
+import { useTranslations, } from 'next-intl';
 
 import { useNavigation, } from 'shared/hooks';
-import { useApplicationStore, } from 'shared/stores/application-store';
+import { useContainer, } from 'shared/contexts/container';
 
-type CallbackProps = object;
+import { CommandBus, } from 'contexts/shared/domain/CommandBus';
+import { ExchangeCodeCommand, } from 'contexts/auth/domain/ExchangeCodeCommand';
+
+import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+
+import CallbackMobile from './mobile';
+import CallbackDesktop from './desktop';
+
+type Provider = {
+    [K in string]: (sessionState: string) => void;
+};
+
+type OwnCallbackProps = object;
+
+export type CallbackProps = {
+    t: ReturnType<typeof useTranslations>;
+    navigation: ReturnType<typeof useNavigation>;
+};
 
 export default function Callback(
-    props: CallbackProps
-): ReactElement<FC<CallbackProps>> {
+    props: OwnCallbackProps,
+): ReactElement<FC<OwnCallbackProps>> {
     const {} = props;
 
-    const {
-        navigate,
-    } = useNavigation();
+    const t = useTranslations();
+    const navigation = useNavigation();
 
-    const { setDiscordPayload, } = useApplicationStore(
-        useShallow(store => store),
+    const {
+        resolveDependency,
+    } = useContainer();
+
+    const commandBus = resolveDependency<CommandBus>('CommandBus');
+
+    const handleInstagramLogin: (state: string) => Promise<void> = useCallback(
+        async (sessionState: string) => {
+            const searchParams = new URLSearchParams(window.location.search);
+
+            const code = searchParams.get('code');
+            const state = searchParams.get('state');
+
+            window.history.replaceState(null, '', window.location.pathname);
+
+            if (!state || state !== sessionState) {
+                throw new Error('Invalid state value');
+            }
+
+            if (!code) {
+                throw new Error('No code from provider');
+            }
+
+            const exchangeCodeCommand = new ExchangeCodeCommand({
+                url: process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN_URL!,
+                clientId: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID!,
+                clientSecret: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET!,
+                grantType: 'authorization_code',
+                redirectURI: process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI!,
+                code: code || '',
+            });
+
+            const accessToken = await commandBus.dispatch<string>(exchangeCodeCommand);
+            console.log('Access Token:', accessToken);
+        },
+        [],
+    );
+
+    const handleDiscordLogin: (state: string) => Promise<void> = useCallback(
+        async () => {
+
+        },
+        [],
     );
 
     useEffect(() => {
-        const hash = window.location.hash.substring(1);
-        const params = new URLSearchParams(hash);
+        const handle = async () => {
+            const providers: Provider = {
+                'discord': handleDiscordLogin,
+                'instagram': handleInstagramLogin,
+            };
 
-        const expiresIn = params.get('expires_in');
-        const accessToken = params.get('access_token');
+            const currentAuthSession = sessionStorage.getItem('current_auth');
+            if (!currentAuthSession) {
+                throw new Error('No current auth session');
+            }
 
-        window.history.replaceState(null, '', window.location.pathname);
+            const {
+                state,
+                provider,
+            } = JSON.parse(currentAuthSession);
 
-        if (accessToken) {
-            setDiscordPayload(accessToken, +(expiresIn || 0));
-            navigate('/');
+            if (providers?.[provider]) {
+                await providers?.[provider]?.(state);
+            }
 
-            return;
-        }
+            navigation.navigate('/');
+        };
 
-        navigate('/asd');
-    }, []);
+        handle()
+            .catch((error) => console.error(error));
+
+    }, [handleDiscordLogin, handleInstagramLogin,]);
+
+    const childProps: CallbackProps = {
+        t,
+        navigation,
+    };
 
     return (
-        <div>
-            <h1>Callback</h1>
-        </div>
+        <DeviceDetectorLayout
+            MobileComponent={<CallbackMobile {...childProps}/>}
+            DesktopComponent={<CallbackDesktop {...childProps}/>}
+        />
     );
 };

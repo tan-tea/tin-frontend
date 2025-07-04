@@ -1,9 +1,8 @@
 'use client'
 
-import {
+import type {
     FC,
 } from 'react';
-import { useTranslations, } from 'next-intl';
 
 import {
     Box,
@@ -11,22 +10,21 @@ import {
     Button,
 } from 'ui/index';
 
-import { useNavigation, } from 'shared/hooks';
+import { NotFoundProps, } from 'feature/NotFound';
 
 import BackButton from 'common/BackButton';
 
-type NotFoundDesktopProps = object;
+type NotFoundDesktopProps = NotFoundProps;
 
 const NotFoundDesktop: FC<NotFoundDesktopProps> = (
     props: NotFoundDesktopProps
 ) => {
-    const {} = props;
-
-    const t = useTranslations();
-
     const {
-        navigate,
-    } = useNavigation();
+        t,
+        navigation: {
+            navigate,
+        },
+    } = props;
 
     return (
         <Box

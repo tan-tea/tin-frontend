@@ -44,7 +44,7 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
     } = props;
 
     return (
-        <Card className='flex-1 p-0 w-56 shadow-none border border-gray-100 bg-light-400'>
+        <Card className='flex-1 p-0 w-full md:w-56 shadow-none border border-gray-100 bg-light-400'>
             <CardActionsArea
                 onClick={() => onSelectOption && onSelectOption(value)}
                 sx={{

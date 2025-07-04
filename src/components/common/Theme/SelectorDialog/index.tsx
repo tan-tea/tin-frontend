@@ -43,6 +43,7 @@ const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
     return (
         <Dialog
             maxWidth='md'
+            className='min-w-sm'
             onClose={() => closeDialog('theme-dialog')}
             open={open || false}
             title={t('theme.dialog.title')}

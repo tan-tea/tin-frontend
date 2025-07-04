@@ -3,25 +3,26 @@
 import {
     FC,
 } from 'react';
-import { useTranslations, } from 'next-intl';
 
 import {
     Box,
 } from 'ui/index';
 
-type HomeDesktopProps = object;
+import { HomeProps, } from 'feature/Home';
+
+type HomeDesktopProps = HomeProps;
 
 const HomeDesktop: FC<HomeDesktopProps> = (
     props: HomeDesktopProps
 ) => {
-    const {} = props;
-
-    const t = useTranslations();
+    const {
+        t,
+    } = props;
 
     return (
         <Box
             component='section'
-            className='h-dvh-screen w-full overflow-hidden'
+            className='h-dvh-screen-desktop w-full overflow-hidden'
         >
             <Box className='size-full px-20'>
                 <Box className='size-full grid grid-cols-3 gap-x-12'>

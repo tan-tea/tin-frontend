@@ -1,0 +1,23 @@
+import { ValueObject, } from 'contexts/shared/domain/value-object';
+
+export abstract class NumberValueObject extends ValueObject<number> {
+    constructor(value: number) {
+        super(value);
+    }
+
+    isBiggerThan(other: NumberValueObject): boolean {
+        return this.value > other.value;
+    }
+
+    isBiggerThanOrEqualTo(other: NumberValueObject): boolean {
+        return this.value >= other.value;
+    }
+
+    isLessThan(other: NumberValueObject): boolean {
+        return this.value < other.value;
+    }
+
+    isLessThanOrEqualTo(other: NumberValueObject): boolean {
+        return this.value <= other.value;
+    }
+}

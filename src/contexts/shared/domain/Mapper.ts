@@ -1,3 +1,3 @@
 export interface Mapper {
-    from<T, S = any>(source: S): T;
+    from<T = any, S = any>(source: S): T;
 }

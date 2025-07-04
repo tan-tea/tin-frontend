@@ -13,6 +13,7 @@ import {
     QueryClientProvider,
 } from '@tanstack/react-query';
 import { ThemeProvider, } from '@mui/material/styles';
+import { APIProvider, } from '@vis.gl/react-google-maps';
 
 import theme from 'app/theme';
 import ThemeWatcher from 'common/Theme/Watcher';
@@ -43,7 +44,9 @@ export default function AppProviderLayout(
                             <ApplicationStoreProvider>
                                 <Provider>
                                     <DialogProvider>
-                                        {children}
+                                        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+                                            {children}
+                                        </APIProvider>
                                         <ThemeWatcher/>
                                     </DialogProvider>
                                 </Provider>

@@ -86,7 +86,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             >
                 {t('description')}
             </Text>
-            <Box className='flex items-center justify-center gap-x-6'>
+            <Box className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4 flex-wrap overflow-hidden'>
                 {themeOptions && themeOptions?.map?.(
                     (option) => <ThemeOptionCard key={option?.label} {...option}/>
                 )}

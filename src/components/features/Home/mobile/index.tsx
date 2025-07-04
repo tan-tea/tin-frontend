@@ -1,32 +1,28 @@
 'use client'
 
-import {
+import type {
     FC,
 } from 'react';
-import { useTranslations, } from 'next-intl';
 
 import {
     Box,
-    Text,
-    Card,
 } from 'ui/index';
-import { Blob, } from 'icons/index';
 
-import BackButton from 'common/BackButton';
+import { HomeProps, } from 'feature/Home';
 
-type HomeMobileProps = object;
+type HomeMobileProps = HomeProps;
 
 const HomeMobile: FC<HomeMobileProps> = (
     props: HomeMobileProps
 ) => {
-    const {} = props;
-
-    const t = useTranslations();
+    const {
+        t,
+    } = props;
 
     return (
         <Box
             component='section'
-            className='h-dvh w-full overflow-hidden'
+            className='h-dvh-screen-mobile w-full overflow-hidden'
         >
         </Box>
     );

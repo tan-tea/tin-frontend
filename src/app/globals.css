@@ -197,6 +197,7 @@ body {
     --color-light-600: #d8dee9;
 
     --color-discord: #7289da;
+    --color-instagram: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 
     /* Material UI Component Colors */
     /* Alert */
@@ -347,7 +348,9 @@ body {
     --overlay-24: var(--mui-overlays-24);
 
     --spacing-header-desktop: 108px;
-    --spacing-dvh-screen: calc(100dvh - var(--spacing-header-desktop));
+    --spacing-dvh-screen-desktop: calc(100dvh - var(--spacing-header-desktop));
+    --spacing-header-mobile: 80px;
+    --spacing-dvh-screen-mobile: calc(100dvh - var(--spacing-header-mobile));
 }
 
 /* Material UI base styles */

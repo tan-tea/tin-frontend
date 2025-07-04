@@ -2,38 +2,21 @@ import { Injectable, } from './types';
 
 import { Lifecycle, } from 'tsyringe';
 
-import { RestDiscordClient, } from 'contexts/shared/infrastructure/external/RestDiscordClient';
-import { FetchHttpRepository, } from 'contexts/shared/infrastructure/repositories/FetchHttpRepository';
-import { HttpAuthRepository, } from 'contexts/auth/infrastructure/HttpAuthRepository';
+import { CommandHandlers, } from 'contexts/shared/infrastructure/CommandHandlers';
+import { MemoryCommandBus, } from 'contexts/shared/infrastructure/MemoryCommandBus';
 import { HttpUserRepository, } from 'contexts/user/infrastructure/HttpUserRepository';
+import { HttpAuthRepository, } from 'contexts/auth/infrastructure/HttpAuthRepository';
+import { AuthCommandHandler, } from 'contexts/auth/application/command/AuthCommandHandler';
+import { ExchangeCodeCommandHandler, } from 'contexts/auth/application/command/ExchangeCodeCommandHandler';
 
 export default [
     {
-        token: 'DiscordClient',
-        provider: {
-            useClass: RestDiscordClient,
-        },
-        type: 'ClassProvider',
-        options: {
-            lifecycle: Lifecycle.Transient,
-        },
-    },
-    {
-        token: 'HttpRepository',
-        provider: {
-            useClass: FetchHttpRepository,
-        },
-        type: 'ClassProvider',
-        options: {
-            lifecycle: Lifecycle.Transient,
-        },
-    },
-    {
         token: 'AuthRepository',
         provider: {
-            useClass: HttpAuthRepository,
+            // useClass: HttpAuthRepository,
+            useFactory: () => new HttpAuthRepository(),
         },
-        type: 'ClassProvider',
+        type: 'FactoryProvider',
         options: {
             lifecycle: Lifecycle.Transient,
         },
@@ -41,11 +24,63 @@ export default [
     {
         token: 'UserRepository',
         provider: {
-            useClass: HttpUserRepository,
+            // useClass: HttpUserRepository,
+            useFactory: () => new HttpUserRepository(),
         },
-        type: 'ClassProvider',
+        type: 'FactoryProvider',
         options: {
             lifecycle: Lifecycle.Transient,
+        },
+    },
+    {
+        token: 'CommandHandler',
+        provider: {
+            // useClass: AuthCommandHandler,
+            useFactory: (c) => new AuthCommandHandler(
+                c.resolve('AuthRepository'),
+            ),
+        },
+        type: 'FactoryProvider',
+        options: {
+            lifecycle: Lifecycle.Transient,
+        },
+    },
+    {
+        token: 'CommandHandler',
+        provider: {
+            // useClass: ExchangeCodeCommandHandler,
+            useFactory: (c) => new ExchangeCodeCommandHandler(
+                c.resolve('AuthRepository'),
+            ),
+        },
+        type: 'FactoryProvider',
+        options: {
+            lifecycle: Lifecycle.Transient,
+        },
+    },
+    {
+        token: 'CommandHandlers',
+        provider: {
+            useFactory: (c) => new CommandHandlers(
+                c.resolveAll('CommandHandler'),
+            ),
+        },
+        type: 'FactoryProvider',
+        options: {
+            lifecycle: Lifecycle.Singleton,
+        },
+    },
+    {
+        token: 'CommandBus',
+        provider: {
+            // useClass: MemoryCommandBus,
+            useFactory: (c) => new MemoryCommandBus(
+                c.resolve('CommandHandlers'),
+            ),
+        },
+        type: 'FactoryProvider',
+        options: {
+            lifecycle: Lifecycle.Singleton,
         },
     },
 ] as Array<Injectable>;

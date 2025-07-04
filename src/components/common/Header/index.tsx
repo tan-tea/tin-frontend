@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, } from 'react';
+import { FC, ReactElement, } from 'react';
 
 import {
     Box,
@@ -11,10 +11,29 @@ import UserAvatar from 'common/User/Avatar';
 import ThemeButton from 'common/Header/ThemeButton';
 import SearchButton from 'common/Header/SearchButton';
 
-type HeaderProps = object;
+import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
-const Header: FC<HeaderProps> = (
-    props: HeaderProps
+export type HeaderProps = object;
+
+const HeaderMobile: FC<HeaderProps> = (
+    props: HeaderProps,
+) => {
+    const {} = props;
+
+    return (
+        <AppBar
+            position='fixed'
+            className='z-10 h-header-mobile bg-white shadow-none'
+        >
+            <Box className='size-full flex items-center px-4'>
+                <UserAvatar/>
+            </Box>
+        </AppBar>
+    );
+}
+
+const HeaderDesktop: FC<HeaderProps> = (
+    props: HeaderProps,
 ) => {
     const {} = props;
 
@@ -38,4 +57,17 @@ const Header: FC<HeaderProps> = (
     );
 };
 
-export default Header;
+export default function Header(
+    props: HeaderProps
+): ReactElement<FC<HeaderProps>> {
+    const {} = props;
+
+    const childProps: HeaderProps = {};
+
+    return (
+        <DeviceDetectorLayout
+            MobileComponent={<HeaderMobile {...childProps}/>}
+            DesktopComponent={<HeaderDesktop {...childProps}/>}
+        />
+    );
+};

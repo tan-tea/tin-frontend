@@ -1,43 +1,45 @@
-'use client'
-
 import {
-    inject,
-    injectable,
-} from 'tsyringe';
+    redirect,
+    RedirectType,
+} from 'next/navigation';
 
-import { AuthRepository, } from 'contexts/auth/domain/AuthRepository';
+import { post, } from 'lib/http';
+
+import { Auth, } from 'contexts/auth/domain/Auth';
+import { ExchangeCode, } from 'contexts/auth/domain/ExchangeCode';
+import type { AuthRepository, } from 'contexts/auth/domain/AuthRepository';
+
 import { UrlBuilder, } from 'contexts/shared/infrastructure/builders/UrlBuilder';
-import type { HttpRepository, } from 'contexts/shared/domain/repositories/HttpRepository';
 
-@injectable()
 export class HttpAuthRepository implements AuthRepository {
-    constructor(
-        @inject('HttpRepository') private readonly httpRepository: HttpRepository,
-    ) {}
+    constructor() {}
 
-    redirectToDiscord(state: string): void {
-        const endpoint = new UrlBuilder(process.env.NEXT_PUBLIC_DISCORD_URL!, 'oauth2/authorize')
-            .withParam('response_type=token')
-            .withParam(`client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}`)
-            .withParam(`state=${state}`)
-            .withParam(`scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}`)
-            .withParam(`redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URI}`)
+    async authorize(auth: Auth): Promise<void> {
+        const endpoint = new UrlBuilder(auth.url.value, '')
+            // .withParam('force_reauth=true')
+            .withParam(`client_id=${auth.clientId.value}`)
+            .withParam(`redirect_uri=${auth.redirectURI.value}`)
+            .withParam(`response_type=${auth.responseType.value}`)
+            .withParam(`scope=${auth.scope.value}`)
+            .withParam(`state=${auth.state.value}`)
             .build();
 
-        window.open(endpoint, '_self');
+        redirect(endpoint, RedirectType.replace);
     }
 
-    exchangeDiscordCode(code: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
+    async exchangeCode(code: ExchangeCode): Promise<any> {
+        const endpoint = new UrlBuilder('/api', 'auth')
+            .build();
 
-    createRandomState(length: number = 32): string {
-        const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const randomValues = new Uint8Array(length);
-        crypto.getRandomValues(randomValues);
+        const response = await post<any>(endpoint, {
+            url: code.url.value,
+            clientId: code.clientId.value,
+            clientSecret: code.clientSecret.value,
+            grantType: code.grantType.value,
+            redirectURI: code.redirectURI.value,
+            code: code.code.value,
+        });
 
-        return Array.from(randomValues)
-            .map(byte => charset[byte % charset?.length])
-            .join('');
+        return response.data.access_token;
     }
 }

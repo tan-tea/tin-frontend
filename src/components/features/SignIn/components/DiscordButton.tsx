@@ -14,7 +14,8 @@ import { Discord, } from 'icons/index';
 
 import { useContainer, } from 'shared/contexts/container';
 
-import { RedirectToDiscord, } from 'contexts/auth/application/RedirectToDiscord';
+import { CommandBus, } from 'contexts/shared/domain/CommandBus';
+import { AuthCommand, } from 'contexts/auth/domain/AuthCommand';
 
 type DiscordButtonProps = object;
 
@@ -27,15 +28,23 @@ const DiscordButton: FC<DiscordButtonProps> = (props: DiscordButtonProps) => {
         resolveDependency,
     } = useContainer();
 
-    const redirectToDiscordUseCase = resolveDependency(RedirectToDiscord);
+    const commandBus = resolveDependency<CommandBus>('CommandBus');
 
     const handleDiscordAuthentication: MouseEventHandler = useCallback(
-        (event: MouseEvent) => {
+        async (event: MouseEvent) => {
             event?.preventDefault?.();
             event?.stopPropagation?.();
 
-            if (redirectToDiscordUseCase)
-                redirectToDiscordUseCase?.execute?.();
+            const authCommand = new AuthCommand({
+                state: '',
+                url: process.env.NEXT_PUBLIC_DISCORD_AUTHORIZE_URL!,
+                clientId: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!,
+                redirectURI: process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URI!,
+                responseType: 'code',
+                scope: process.env.NEXT_PUBLIC_DISCORD_SCOPE!,
+            });
+
+            await commandBus.dispatch<Promise<void>>(authCommand);
         },
         [],
     );
@@ -44,9 +53,10 @@ const DiscordButton: FC<DiscordButtonProps> = (props: DiscordButtonProps) => {
         <Button
             block
             size='large'
+            rounded='full'
             variant='contained'
-            className='bg-discord'
-            startIcon={<Discord className='size-6'/>}
+            className='bg-discord text-sm py-3'
+            startIcon={<Discord className='absolute left-0 top-1/2 -translate-y-1/2 ml-4 size-6'/>}
             onClick={handleDiscordAuthentication}
         >
             {t('signin.discord')}

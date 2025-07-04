@@ -14,7 +14,7 @@ import {
     Popper,
 } from 'ui/index';
 
-import { useDiscordUserQuery, } from 'shared/hooks/queries';
+import { useUserQuery, } from 'shared/hooks/queries';
 
 import UserAvatarButton from 'common/User/Avatar/Button';
 import UserBasicInformationCard from 'common/User/BasicInformationCard';
@@ -32,7 +32,7 @@ const UserAvatar: FC<UserAvatarProps> = (
 
     const {
         data: user,
-    } = useDiscordUserQuery();
+    } = useUserQuery();
 
     const handleMouseEnter: MouseEventHandler = (
         event: MouseEvent<HTMLElement>,

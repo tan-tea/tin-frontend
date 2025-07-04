@@ -1,31 +1,23 @@
-import {
+import type {
     FC,
-    Fragment,
     ReactNode,
     ReactElement,
 } from 'react';
 
-import { Box, } from 'ui/index';
+import BaseLayout from 'layout/BaseLayout';
 
-import Header from 'common/Header';
-
-type BaseLayoutProps = {
+type LayoutProps = {
     children: ReactNode;
 };
 
-export default function BaseLayout(
-    props: BaseLayoutProps
-): ReactElement<FC<BaseLayoutProps>> {
+export default function Layout(
+    props: LayoutProps
+): ReactElement<FC<LayoutProps>> {
     const {
         children,
     } = props;
 
     return (
-        <Fragment>
-            <Header/>
-            <Box className='relative top-header-desktop'>
-                {children}
-            </Box>
-        </Fragment>
+        <BaseLayout children={children}/>
     );
 };

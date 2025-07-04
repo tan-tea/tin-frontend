@@ -4,7 +4,7 @@ import {
 } from 'lib/utils/constants';
 
 export function getDiscordAssetExtension(asset: string): string {
-    const isGif = asset.startsWith('a_');
+    const isGif = asset?.startsWith?.('a_');
     return isGif
         ? AVAILABLE_EXTENSIONS['gif']
         : AVAILABLE_EXTENSIONS['photo']
@@ -40,4 +40,15 @@ export function getDiscordBanner(user: any): string {
     ];
 
     return result.join('');
+}
+
+
+export function createRandomState(length: number = 32): string {
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const randomValues = new Uint8Array(length);
+    crypto.getRandomValues(randomValues);
+
+    return Array.from(randomValues)
+        .map(byte => charset[byte % charset?.length])
+        .join('');
 }

@@ -38,9 +38,13 @@ export async function GET(
         return NextResponse.json<Response>(response);
     } catch (err) {
         return NextResponse
-            .json<Response>({
-                error: true,
-                message: 'Something went wrong',
-            }, { status: 400, });
+            .json<Response>(
+                {
+                    error: true,
+                    message: 'Something went wrong',
+                }, {
+                    status: 400,
+                }
+            );
     }
 }

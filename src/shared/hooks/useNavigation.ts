@@ -4,10 +4,7 @@ import {
     useEffect,
     useCallback,
 } from 'react';
-import {
-    getTime,
-    formatISO,
-} from 'date-fns';
+import { formatISO, } from 'date-fns';
 import {
     useRouter,
     useParams,
@@ -27,11 +24,13 @@ type NavigationOptions = Parameters<ReturnType<typeof useRouter>['push']>[1];
 
 type UseNavigation = {
     router: ReturnType<typeof useRouter>;
+    pathname: ReturnType<typeof usePathname>;
     navigate: (
         href: string,
         options?: NavigationOptions,
     ) => void;
     back: () => void | Promise<void>;
+    isActivePath: (path: string) => boolean;
 };
 
 export const useNavigation: () => UseNavigation = () => {
@@ -65,6 +64,9 @@ export const useNavigation: () => UseNavigation = () => {
 
         return navigate('/');
     };
+
+    const isActivePath: UseNavigation['isActivePath'] =
+        (path: string) => pathname === path;
 
     const saveHistory = useCallback(
         async (history: History) => {
@@ -134,5 +136,7 @@ export const useNavigation: () => UseNavigation = () => {
         back,
         navigate,
         router,
+        pathname,
+        isActivePath,
     };
 }

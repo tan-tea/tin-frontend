@@ -5,19 +5,13 @@ type ApplicationLanguage = 'en' | 'es';
 type ApplicationState = {
     theme: ApplicationTheme;
     language: ApplicationLanguage;
-    discord: {
-        accessToken: string | null;
-        expiresIn: number | null;
-    };
+    geolocation: GeolocationPosition;
 };
 
 type ApplicationActions = {
     setTheme: (theme: ApplicationTheme) => void;
     setLanguage: () => void;
-    setDiscordPayload: (
-        accessToken: string,
-        expiresIn: number,
-    ) => void;
+    setGeolocation: (geolocation: GeolocationPosition) => void;
 };
 
 type ApplicationStore = ApplicationState & ApplicationActions;

@@ -30,7 +30,7 @@ function registerDependency(dependency: Injectable): void {
     ),
     'FactoryProvider': () => container.register<any>(
         dependency.token,
-        dependency.provider as FactoryProvider<any>
+        dependency.provider as FactoryProvider<any>,
     ),
     'TokenProvider': () => container.register<any>(
         dependency.token,

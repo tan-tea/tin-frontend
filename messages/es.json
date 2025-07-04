@@ -1,7 +1,55 @@
 {
+    "shared": {
+        "back": "Volver",
+        "cancel": "Cancelar",
+        "accept": "Aceptar",
+        "saveChanges": "Guardar cambios"
+    },
+    "theme": {
+        "tooltip": "Cambiar tema",
+        "dialog": {
+            "title": "Configuraci\u00f3n de apariencia",
+            "description": "Choose your preferred interface appearance. You have the option to pick a theme manually or enable automatic theme switching that aligns with your system settings.",
+            "system": {
+                "title": "Tema del sistema",
+                "label": "Default",
+                "description": "This theme will use the theme your system is using."
+            },
+            "dark": {
+                "title": "Tema oscuro",
+                "label": "Dark mode",
+                "description": "Eye-friendly design for low-light environments."
+            },
+            "light": {
+                "title": "Tema claro",
+                "label": "Ligh mode",
+                "description": "Active when your system is configured to use light mode."
+            }
+        }
+    },
+    "search": {
+        "tooltip": "Search"
+    },
+    "header": {
+        "greet": "Welcome"
+    },
     "signin": {
         "title": "Fast and secure login.",
         "description": "Sign in with your favorite platform — simple, secure, and password-free. We support Discord, Google, and more so you can log in with just a click. Your data stays safe, and you get instant access — no forms, no hassle.",
-        "discord": "Continue with Discord"
+        "discord": "Continue with Discord",
+        "instagram": "Continue with Instagram",
+        "mobile": {
+            "title": "Get started",
+            "description": "Your data stays safe, and you get instant access — no forms, no hassle."
+        }
+    },
+    "notFound": {
+        "title": "Oops... We couldn't find this page",
+        "description": "Looks like this page got lost along the way. Check the URL or head back home.",
+        "home": "Go home"
+    },
+    "callback": {
+        "title": "",
+        "description": ""
     }
 }

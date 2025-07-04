@@ -10,8 +10,8 @@ import {
 import { useMediaQuery, } from 'react-responsive';
 
 type DeviceDetectorLayoutProps = {
-    mobileComponent: Required<ReactNode>;
-    desktopComponent: Required<ReactNode>;
+    MobileComponent: Required<ReactNode>;
+    DesktopComponent: Required<ReactNode>;
 };
 
 export default memo<DeviceDetectorLayoutProps>(
@@ -19,8 +19,8 @@ export default memo<DeviceDetectorLayoutProps>(
         props: DeviceDetectorLayoutProps
     ): ReactElement<FC<DeviceDetectorLayoutProps>> {
         const {
-            mobileComponent,
-            desktopComponent,
+            MobileComponent,
+            DesktopComponent,
         } = props;
 
         const isMobile = useMediaQuery({
@@ -31,8 +31,8 @@ export default memo<DeviceDetectorLayoutProps>(
 
         return (
             <Fragment>
-                {isMobile && mobileComponent}
-                {isDesktop && desktopComponent}
+                {isMobile && MobileComponent}
+                {isDesktop && DesktopComponent}
             </Fragment>
         );
     }

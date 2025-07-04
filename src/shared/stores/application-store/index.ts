@@ -33,15 +33,9 @@ const createApplicationStore = (
                     ...state,
                     language: state.language === 'en' ? 'es' : 'en',
                 })),
-                setDiscordPayload: (
-                    accessToken: string,
-                    expiresIn: number
-                ) => set((state) => ({
+                setGeolocation: (geolocation) => set((state) => ({
                     ...state,
-                    discord: {
-                        accessToken,
-                        expiresIn,
-                    },
+                    geolocation,
                 })),
             }),
             {

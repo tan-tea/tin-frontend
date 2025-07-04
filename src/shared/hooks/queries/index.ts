@@ -1,1 +1,1 @@
-export { default as useDiscordUserQuery, } from './useDiscordUserQuery';
+export { default as useUserQuery, } from './useUserQuery';

@@ -1,24 +1,37 @@
 'use client'
 
-import {
+import type {
     FC,
     ReactElement,
 } from 'react';
+import { useTranslations, } from 'next-intl';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
 import HomeMobile from './mobile';
 import HomeDesktop from './desktop';
 
-type NotFoundProps = object;
+type OwnHomeProps = object;
+
+export type HomeProps = {
+    t: ReturnType<typeof useTranslations>;
+};
 
 export default function Home(
-    props: NotFoundProps
-): ReactElement<FC<NotFoundProps>> {
+    props: OwnHomeProps,
+): ReactElement<FC<OwnHomeProps>> {
+    const {} = props;
+
+    const t = useTranslations();
+
+    const childProps: HomeProps = {
+        t,
+    };
+
     return (
         <DeviceDetectorLayout
-            mobileComponent={<HomeMobile {...props}/>}
-            desktopComponent={<HomeDesktop {...props}/>}
+            MobileComponent={<HomeMobile {...childProps}/>}
+            DesktopComponent={<HomeDesktop {...childProps}/>}
         />
     );
 };

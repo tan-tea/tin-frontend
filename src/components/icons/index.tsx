@@ -1,11 +1,13 @@
 import Blob from './Blob';
 import Logo from './Logo';
 import Discord from './Discord';
+import Instagram from './Instagram';
 
 export {
     Blob,
     Logo,
     Discord,
+    Instagram,
 };
 export {
     Sun,
@@ -17,4 +19,8 @@ export {
     MoveLeft,
     Paintbrush,
     ChevronDown,
+    House,
+    Map,
+    Heart,
+    Bell,
 } from 'lucide-react';

@@ -1,24 +1,42 @@
 'use client'
 
-import {
+import type {
     FC,
     ReactElement,
 } from 'react';
+import { useTranslations, } from 'next-intl';
+
+import { useNavigation, } from 'shared/hooks';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
 import NotFoundMobile from './mobile';
 import NotFoundDesktop from './desktop';
 
-type NotFoundProps = object;
+type OwnNotFoundProps = object;
+
+export type NotFoundProps = {
+    t: ReturnType<typeof useTranslations>;
+    navigation: ReturnType<typeof useNavigation>;
+};
 
 export default function NotFound(
-    props: NotFoundProps
-): ReactElement<FC<NotFoundProps>> {
+    props: OwnNotFoundProps
+): ReactElement<FC<OwnNotFoundProps>> {
+    const {} = props;
+
+    const t = useTranslations();
+    const navigation = useNavigation();
+
+    const childProps: NotFoundProps = {
+        t,
+        navigation,
+    };
+
     return (
         <DeviceDetectorLayout
-            mobileComponent={<NotFoundMobile {...props}/>}
-            desktopComponent={<NotFoundDesktop {...props}/>}
+            MobileComponent={<NotFoundMobile {...childProps}/>}
+            DesktopComponent={<NotFoundDesktop {...childProps}/>}
         />
     );
 };

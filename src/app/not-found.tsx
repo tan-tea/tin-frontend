@@ -1,4 +1,4 @@
-import {
+import type {
     FC,
     ReactElement,
 } from 'react';

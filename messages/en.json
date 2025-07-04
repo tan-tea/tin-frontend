@@ -1,9 +1,9 @@
 {
     "shared": {
-        "back": "Go back",
-        "cancel": "Cancelar",
-        "accept": "Aceptar",
-        "saveChanges": "Guardar cambios"
+        "back": "Go Back",
+        "cancel": "Cancel",
+        "accept": "Accept",
+        "saveChanges": "Save Changes"
     },
     "theme": {
         "tooltip": "Change theme",
@@ -36,11 +36,20 @@
     "signin": {
         "title": "Fast and secure login.",
         "description": "Sign in with your favorite platform — simple, secure, and password-free. We support Discord, Google, and more so you can log in with just a click. Your data stays safe, and you get instant access — no forms, no hassle.",
-        "discord": "Continue with Discord"
+        "discord": "Continue with Discord",
+        "instagram": "Continue with Instagram",
+        "mobile": {
+            "title": "Get started",
+            "description": "Your data stays safe, and you get instant access — no forms, no hassle."
+        }
     },
     "notFound": {
         "title": "Oops... We couldn't find this page",
         "description": "Looks like this page got lost along the way. Check the URL or head back home.",
         "home": "Go home"
+    },
+    "callback": {
+        "title": "",
+        "description": ""
     }
 }

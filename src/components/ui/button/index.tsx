@@ -28,6 +28,9 @@ const button = tv({
             lg: 'rounded-lg',
             full: 'rounded-full',
         },
+        mobile: {
+            true: 'py-3 text-sm',
+        },
     },
     defaultVariants: {
         rounded: 'md',
@@ -58,6 +61,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
         className,
         startIcon,
         endIcon,
+        mobile,
         color = 'primary',
         variant = 'outlined',
         tabIndex = 0,
@@ -83,6 +87,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
         <RootButton
             {...rest}
             className={button({
+                mobile,
                 rounded,
                 className,
             })}

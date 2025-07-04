@@ -1,5 +1,7 @@
+import { Auth, } from 'contexts/auth/domain/Auth';
+import { ExchangeCode, } from 'contexts/auth/domain/ExchangeCode';
+
 export interface AuthRepository {
-    redirectToDiscord(state: string): void;
-    exchangeDiscordCode(code: string): Promise<any>;
-    createRandomState(length?: number): string;
+    authorize(auth: Auth): Promise<void>;
+    exchangeCode(code: ExchangeCode): Promise<string>;
 }

@@ -44,6 +44,7 @@ type DialogProps = DialogVariants & Pick<
     | 'open'
     | 'onClose'
     | 'maxWidth'
+    | 'disableEscapeKeyDown'
 > & {
     title?: string;
     content?: ReactNode;

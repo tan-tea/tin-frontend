@@ -25,7 +25,7 @@ const ThemeButton: FC<ThemeButtonProps> = (
 
     return (
         <Tooltip title={t('theme.tooltip')}>
-            <Box>
+            <Box className='justify-self-center'>
                 <Button
                     size='large'
                     color='primary'

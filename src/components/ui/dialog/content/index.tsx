@@ -15,7 +15,7 @@ import {
 } from '@mui/material/DialogContent';
 
 const dialogContent = tv({
-    base: 'p-6 pt-0',
+    base: 'p-4 md:p-6 pt-0',
 });
 
 type DialogContentVariants = VariantProps<typeof dialogContent>;

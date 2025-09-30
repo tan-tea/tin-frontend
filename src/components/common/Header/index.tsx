@@ -1,6 +1,9 @@
 'use client'
 
-import { FC, ReactElement, } from 'react';
+import type {
+    FC,
+    ReactElement,
+} from 'react';
 
 import {
     Box,
@@ -10,6 +13,7 @@ import {
 import UserAvatar from 'common/User/Avatar';
 import ThemeButton from 'common/Header/ThemeButton';
 import SearchButton from 'common/Header/SearchButton';
+import LanguageButton from 'common/Header/LanguageButton';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
@@ -23,10 +27,14 @@ const HeaderMobile: FC<HeaderProps> = (
     return (
         <AppBar
             position='fixed'
-            className='z-10 h-header-mobile bg-white shadow-none'
+            className='z-10 h-header-mobile bg-dark rounded-b-2xl shadow-none'
         >
             <Box className='size-full flex items-center px-4'>
                 <UserAvatar/>
+                <Box className='ml-auto flex items-center gap-x-4 text-black'>
+                    <ThemeButton/>
+                    <LanguageButton/>
+                </Box>
             </Box>
         </AppBar>
     );

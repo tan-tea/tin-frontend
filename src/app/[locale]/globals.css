@@ -1,73 +1,3 @@
-/* @layer theme, base, mui, components, utilities;
-
-@import 'tailwindcss';
-
-@plugin 'tailwindcss-animate';
-
-:root {
-    --background: #ffffff;
-    --foreground: #171717;
-}
-
-@theme {
-    --color-primary-50: #f3faf3;
-    --color-primary-100: #e3f5e3;
-    --color-primary-200: #c8eac9;
-    --color-primary-300: #9dd89f;
-    --color-primary-400: #6bbd6e;
-    --color-primary-500: #4caf50;
-    --color-primary-600: #358438;
-    --color-primary-700: #2d6830;
-    --color-primary-800: #275429;
-    --color-primary-900: #224525;
-    --color-primary-950: #0e2510;
-    --color-secondary-50: #f4fce9;
-    --color-secondary-100: #e7f7d0;
-    --color-secondary-200: #d0efa7;
-    --color-secondary-300: #a8e063;
-    --color-secondary-400: #94d348;
-    --color-secondary-500: #74b929;
-    --color-secondary-600: #58931d;
-    --color-secondary-700: #44711a;
-    --color-secondary-800: #395a1a;
-    --color-secondary-900: #314c1b;
-    --color-secondary-950: #172a09;
-    --color-gray-50: #f6f6f6;
-    --color-gray-100: #e7e7e7;
-    --color-gray-200: #d1d1d1;
-    --color-gray-300: #b0b0b0;
-    --color-gray-400: #808080;
-    --color-gray-500: #6d6d6d;
-    --color-gray-600: #5d5d5d;
-    --color-gray-700: #4f4f4f;
-    --color-gray-800: #454545;
-    --color-gray-900: #3d3d3d;
-    --color-gray-950: #262626;
-    --font-primary: "Poppins", "serif";
-    --font-secondary: "Raleway", "serif";
-    --spacing-header-desktop: 108px;
-}
-
-@theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-}
-
-body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-primary);
-} */
-
 @layer theme, base, mui, components, utilities;
 
 @import 'tailwindcss';
@@ -78,6 +8,7 @@ body {
 
 :root {
     --background: #ffffff;
+    /* --background: #020300; */
     --foreground: #171717;
 }
 
@@ -187,6 +118,7 @@ body {
     --color-gray-A400: var(--mui-palette-grey-A400);
     --color-gray-A700: var(--mui-palette-grey-A700);
 
+    --color-dark: var(--background);
     --color-dark-300: #4c566a;
     --color-dark-400: #434c5e;
     --color-dark-500: #3b4252;

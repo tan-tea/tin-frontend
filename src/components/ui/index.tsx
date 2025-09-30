@@ -17,6 +17,22 @@ import Popper from './popper';
 import Spinner from './spinner';
 import Tooltip from './tooltip';
 import TextField from './text-field';
+import Field from './field';
+import Input, {
+    input,
+    type InputProps,
+    type InputVariants,
+} from './field/input';
+import Label, {
+    label,
+    type LabelProps,
+    type LabelVariants,
+} from './field/label';
+import IconButton, {
+    iconButton,
+    type IconButtonProps,
+    type IconButtonVariants,
+} from './icon-button';
 
 export {
     Box,
@@ -38,4 +54,19 @@ export {
     Spinner,
     Tooltip,
     TextField,
+    Input,
+    input,
+    Field,
+    Label,
+    label,
+    IconButton,
+    iconButton,
 };
+export type {
+    InputProps,
+    InputVariants,
+    LabelProps,
+    LabelVariants,
+    IconButtonProps,
+    IconButtonVariants
+}

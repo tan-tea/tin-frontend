@@ -1,6 +1,6 @@
 import { Injectable, } from './types';
 
-import { Lifecycle, } from 'tsyringe';
+import { instanceCachingFactory, Lifecycle, } from 'tsyringe';
 
 import { CommandHandlers, } from 'contexts/shared/infrastructure/CommandHandlers';
 import { MemoryCommandBus, } from 'contexts/shared/infrastructure/MemoryCommandBus';
@@ -13,7 +13,6 @@ export default [
     {
         token: 'AuthRepository',
         provider: {
-            // useClass: HttpAuthRepository,
             useFactory: () => new HttpAuthRepository(),
         },
         type: 'FactoryProvider',
@@ -24,7 +23,6 @@ export default [
     {
         token: 'UserRepository',
         provider: {
-            // useClass: HttpUserRepository,
             useFactory: () => new HttpUserRepository(),
         },
         type: 'FactoryProvider',
@@ -35,7 +33,6 @@ export default [
     {
         token: 'CommandHandler',
         provider: {
-            // useClass: AuthCommandHandler,
             useFactory: (c) => new AuthCommandHandler(
                 c.resolve('AuthRepository'),
             ),
@@ -48,7 +45,6 @@ export default [
     {
         token: 'CommandHandler',
         provider: {
-            // useClass: ExchangeCodeCommandHandler,
             useFactory: (c) => new ExchangeCodeCommandHandler(
                 c.resolve('AuthRepository'),
             ),
@@ -61,8 +57,8 @@ export default [
     {
         token: 'CommandHandlers',
         provider: {
-            useFactory: (c) => new CommandHandlers(
-                c.resolveAll('CommandHandler'),
+            useFactory: instanceCachingFactory(
+                (c) => new CommandHandlers(c.resolveAll('CommandHandler')),
             ),
         },
         type: 'FactoryProvider',
@@ -73,9 +69,8 @@ export default [
     {
         token: 'CommandBus',
         provider: {
-            // useClass: MemoryCommandBus,
-            useFactory: (c) => new MemoryCommandBus(
-                c.resolve('CommandHandlers'),
+            useFactory: instanceCachingFactory(
+                (c) => new MemoryCommandBus(c.resolve('CommandHandlers')),
             ),
         },
         type: 'FactoryProvider',

@@ -15,7 +15,7 @@ import {
 } from '@mui/material/DialogActions';
 
 const dialogActions = tv({
-    base: 'p-6 pt-4 gap-x-2',
+    base: 'p-4 pt-0 gap-x-2 md:pt-6 md:p-6',
 });
 
 type DialogActionsVariants = VariantProps<typeof dialogActions>;

@@ -1,7 +1,6 @@
 'use client'
 
 import {
-    useRef,
     useState,
     useCallback,
 } from 'react';
@@ -17,25 +16,19 @@ type DialogContextState = {
     closeDialog: (id: DialogProps['id']) => void;
     getDialog: (id: DialogProps['id']) => DialogProps;
     isDialogOpen: (id: DialogProps['id']) => boolean;
+    closeAllDialogs: () => void;
 };
 
 const useDialogContextState: () => DialogContextState = () => {
-    const dialogsRef = useRef<any[]>([]);
+    const [dialogsState, setDialogsState,] = useState<Array<DialogProps>>(DEFAULT_DIALOGS_STATE);
 
-    const [dialogsState = [], setDialogsState,] = useState<Array<DialogProps>>(DEFAULT_DIALOGS_STATE);
-
-    const openDialog = useCallback(
+    const isDialogOpen = useCallback(
         (id: DialogProps['id']) => {
-            setDialogsState(
-                (state) => state?.map?.(
-                    (dialog) => dialog?.id === id
-                        ? { ...dialog, open: true, }
-                        : dialog
-                ),
-            );
+            const currentDialog = dialogsState?.find?.(d => d?.id === id);
+            return currentDialog?.open;
         },
-        [],
-    ) as DialogContextState['openDialog'];
+        [dialogsState,],
+    ) as DialogContextState['isDialogOpen'];
 
     const closeDialog = useCallback(
         (id: DialogProps['id']) => {
@@ -50,6 +43,21 @@ const useDialogContextState: () => DialogContextState = () => {
         [],
     ) as DialogContextState['closeDialog'];
 
+    const openDialog = useCallback(
+        (id: DialogProps['id']) => {
+            if (isDialogOpen(id)) closeDialog(id);
+
+            setDialogsState(
+                (state) => state?.map?.(
+                    (dialog) => dialog?.id === id
+                        ? { ...dialog, open: true, }
+                        : dialog
+                ),
+            );
+        },
+        [],
+    ) as DialogContextState['openDialog'];
+
     const getDialog = useCallback(
         (id: DialogProps['id']) => {
             const currentDialog = dialogsState?.find?.(d => d?.id === id);
@@ -58,13 +66,16 @@ const useDialogContextState: () => DialogContextState = () => {
         [],
     ) as DialogContextState['getDialog'];
 
-    const isDialogOpen = useCallback(
-        (id: DialogProps['id']) => {
-            const currentDialog = dialogsState?.find?.(d => d?.id === id);
-            return currentDialog?.open;
+    const closeAllDialogs = useCallback(
+        () => {
+            const newState = dialogsState?.map?.(dialog => ({
+                ...dialog,
+                open: false,
+            }));
+            setDialogsState(newState);
         },
         [],
-    ) as DialogContextState['isDialogOpen'];
+    ) as DialogContextState['closeAllDialogs'];
 
     return {
         dialogs: dialogsState,
@@ -72,6 +83,7 @@ const useDialogContextState: () => DialogContextState = () => {
         closeDialog,
         getDialog,
         isDialogOpen,
+        closeAllDialogs,
     };
 };
 

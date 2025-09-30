@@ -19,7 +19,7 @@ const textField = tv({
     slots: {
         root: 'bg-transparent',
         control: 'font-primary rounded-lg',
-        input: 'py-2 px-4',
+        input: 'pt-3 pb-2 px-4 text-white',
         info: 'text-sm font-primary text-gray-600',
     },
 });
@@ -33,7 +33,7 @@ const {
 
 type TextFieldVariants = VariantProps<typeof textField>;
 
-type TextFieldProps = {
+type TextFieldProps = TextFieldVariants & {
     id?: string;
     className?: string;
     block?: boolean;
@@ -78,6 +78,7 @@ const TextField: FC<TextFieldProps> = (props: TextFieldProps) => {
             className={root({
                 className,
             })}
+            size='medium'
             color='primary'
             id={id}
             name={name}

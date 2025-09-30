@@ -2,7 +2,7 @@
 
 import 'reflect-metadata';
 
-import {
+import type {
     FC,
     ReactNode,
     ReactElement,
@@ -15,7 +15,7 @@ import {
 import { ThemeProvider, } from '@mui/material/styles';
 import { APIProvider, } from '@vis.gl/react-google-maps';
 
-import theme from 'app/theme';
+import theme from 'app/[locale]/theme';
 import ThemeWatcher from 'common/Theme/Watcher';
 
 import { DialogProvider, } from 'shared/contexts/dialog';

@@ -1,8 +1,9 @@
 'use client'
 
-import {
+import type {
     FC,
     ReactNode,
+    MouseEventHandler,
 } from 'react';
 
 import { ApplicationTheme, } from 'shared/stores/application-store/types';
@@ -21,7 +22,7 @@ type ThemeOptionCardProps = {
     title: string;
     image: string;
     label: string;
-    isActive?: boolean;
+    selected?: boolean;
     description: string;
     value: ApplicationTheme;
     onSelectOption: (value: ApplicationTheme) => void;
@@ -37,21 +38,23 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
         title,
         image,
         label,
-        isActive,
+        selected,
         description,
         value,
         onSelectOption,
     } = props;
 
+    const handleClick: MouseEventHandler = () => {
+        if (!onSelectOption) return;
+
+        onSelectOption(value);
+    };
+
     return (
         <Card className='flex-1 p-0 w-full md:w-56 shadow-none border border-gray-100 bg-light-400'>
             <CardActionsArea
-                onClick={() => onSelectOption && onSelectOption(value)}
-                sx={{
-                    ...(isActive && {
-                        backgroundColor: 'var(--color-primary)',
-                    }),
-                }}
+                onClick={handleClick}
+                className={selected ? 'bg-primary-light' : ''}
             >
                 <CardHeader
                     avatar={icon}
@@ -59,14 +62,14 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
                 />
                 <CardMedia
                     component='img'
-                    className='w-full h-36 object-fill bg-gray-200'
+                    className='hidden w-full h-36 object-fill bg-gray-200 md:block'
                     image={image}
                 />
                 <CardContent>
                     <Text
                         variant='h2'
                         component='h3'
-                        className='text-lg'
+                        className='hidden text-lg md:block'
                     >
                         {label}
                     </Text>

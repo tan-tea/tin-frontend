@@ -2,9 +2,11 @@
 
 import {
     useMemo,
+    useState,
     type FC,
     type ComponentProps,
 } from 'react';
+import { motion } from 'motion/react';
 
 import {
     Box,
@@ -15,9 +17,9 @@ import {
     House,
     Heart,
 } from 'icons/index';
+import { useNavigation, } from 'shared/hooks';
 
 import BottomNavigationItem from 'common/BottomNavigation/Item';
-import { useNavigation } from 'shared/hooks';
 
 type BottomNavigationProps = object;
 
@@ -36,38 +38,70 @@ const BottomNavigation: FC<BottomNavigationProps> = (
         () => [
             {
                 Icon: House,
-                onClick: () => navigate('/'),
+                label: 'Home',
+                onClick: () => {
+                    navigate('/');
+                    setCurrentTab('Home');
+                },
                 selected: isActivePath('/'),
             },
             {
                 Icon: Map,
-                onClick: () => navigate('/browse'),
+                label: 'Map',
+                onClick: () => {
+                    navigate('/browse');
+                    setCurrentTab('Map');
+                },
                 selected: isActivePath('/browse'),
             },
             {
                 Icon: Heart,
-                onClick: () => navigate('/favorites'),
-                selected: isActivePath('/favorites'),
+                label: 'Favorites',
+                onClick: () => {
+                    navigate('/new');
+                    setCurrentTab('Favorites');
+                },
+                selected: isActivePath('/new'),
             },
             {
                 Icon: Bell,
-                onClick: () => navigate('/notifications'),
+                label: 'Notifications',
+                onClick: () => {
+                    navigate('/notifications');
+                    setCurrentTab('Notifications');
+                },
                 selected: isActivePath('/notifications'),
             },
         ],
         [pathname,],
     );
 
+    const [currentTab, setCurrentTab,] = useState<string | null>(
+        items.find?.(s => s?.selected)?.label || 'Home'
+    );
+
     return (
-        <Box className='z-50 fixed bottom-0 left-0 w-full h-24 p-4 bg-transparent'>
+        <Box className='z-50 fixed bottom-0 left-0 w-full h-auto p-4 bg-transparent'>
             <Box
                 role='menubar'
                 component='nav'
                 aria-description='bottom navigation'
-                className='size-full grid grid-cols-4 items-center rounded-xl border border-gray-200 bg-white'
+                className='w-full h-auto p-4 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark'
             >
-                {items?.map?.((item, index) => (
-                    <BottomNavigationItem key={index} {...item}/>
+                {items?.map?.(item => (
+                    <BottomNavigationItem key={item?.label} {...item}>
+                        {currentTab === item?.label && (
+                            <motion.div
+                                layoutId='highlight'
+                                className='absolute inset-0 bg-primary-light rounded-xl -z-10'
+                                transition={{
+                                    type: 'spring',
+                                    stiffness: 500,
+                                    damping: 30,
+                                }}
+                            />
+                        )}
+                    </BottomNavigationItem>
                 ))}
             </Box>
         </Box>

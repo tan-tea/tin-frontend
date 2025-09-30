@@ -12,7 +12,7 @@ import {
 } from '@mui/material/CardContent';
 
 const cardContent = tv({
-    base: '',
+    base: 'pt-0 md:pt-4',
 });
 
 type CardContentVariants = VariantProps<typeof cardContent>;

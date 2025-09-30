@@ -37,6 +37,14 @@ const createApplicationStore = (
                     ...state,
                     geolocation,
                 })),
+                setShowHeader: (show: boolean) => set((state) => ({
+                    ...state,
+                    showHeader: show,
+                })),
+                setShowBottomNavigation: (show: boolean) => set((state) => ({
+                    ...state,
+                    showBottomNavigation: show,
+                })),
             }),
             {
                 name: 'application-storage',

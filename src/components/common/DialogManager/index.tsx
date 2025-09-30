@@ -1,8 +1,8 @@
 'use client'
 
 import {
-    FC,
     Fragment,
+    type FC,
 } from 'react';
 
 import { useDialog, } from 'shared/contexts/dialog';

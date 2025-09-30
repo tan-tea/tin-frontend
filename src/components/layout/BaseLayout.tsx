@@ -23,6 +23,8 @@ import DeviceDetectorLayout from './DeviceDetectorLayout';
 
 export type BaseLayoutProps = {
     children: ReactNode;
+    showHeader?: boolean;
+    showBottomNavigation?: boolean;
 };
 
 const BaseLayoutMobile: FC<BaseLayoutProps> = (
@@ -30,15 +32,17 @@ const BaseLayoutMobile: FC<BaseLayoutProps> = (
 ) => {
     const {
         children,
+        showHeader,
+        showBottomNavigation,
     } = props;
 
     return (
         <Fragment>
-            <Header/>
-            <Box className='relative top-header-mobile'>
+            {showHeader && <Header />}
+            <Box className={`relative ${showHeader ? 'top-header-mobile' : ''}`}>
                 {children}
             </Box>
-            <BottomNavigation/>
+            {showBottomNavigation && <BottomNavigation />}
         </Fragment>
     );
 }
@@ -48,14 +52,17 @@ const BaseLayoutDesktop: FC<BaseLayoutProps> = (
 ) => {
     const {
         children,
+        showHeader,
+        showBottomNavigation,
     } = props;
 
     return (
         <Fragment>
-            <Header/>
-            <Box className='relative top-header-desktop'>
+            {showHeader && <Header />}
+            <Box className={`relative ${showHeader ? 'top-header-desktop' : ''}`}>
                 {children}
             </Box>
+            {showBottomNavigation && <BottomNavigation />}
         </Fragment>
     );
 }
@@ -72,7 +79,11 @@ export default function BaseLayout(
         requestGeolocationPermission,
     } = useGeolocation();
 
-    const { setGeolocation, } = useApplicationStore(
+    const {
+        showHeader,
+        showBottomNavigation,
+        setGeolocation,
+    } = useApplicationStore(
         useShallow(store => store),
     );
 
@@ -85,10 +96,16 @@ export default function BaseLayout(
         setGeolocation(position);
     }, [geolocationPosition, requestGeolocationPermission,]);
 
+    const childProps: BaseLayoutProps = {
+        children,
+        showHeader,
+        showBottomNavigation,
+    };
+
     return (
         <DeviceDetectorLayout
-            MobileComponent={<BaseLayoutMobile children={children}/>}
-            DesktopComponent={<BaseLayoutDesktop children={children}/>}
+            MobileComponent={<BaseLayoutMobile {...childProps}/>}
+            DesktopComponent={<BaseLayoutDesktop {...childProps}/>}
         />
     );
 }

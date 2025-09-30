@@ -42,7 +42,6 @@ export function getDiscordBanner(user: any): string {
     return result.join('');
 }
 
-
 export function createRandomState(length: number = 32): string {
     const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const randomValues = new Uint8Array(length);

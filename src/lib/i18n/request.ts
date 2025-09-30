@@ -1,14 +1,42 @@
+import { Formats, hasLocale, } from 'next-intl';
 import { getRequestConfig, } from 'next-intl/server';
 
-export default getRequestConfig(async ({
-    requestLocale,
-}) => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  const locale = 'en';
+import { routing } from 'lib/i18n/routing';
 
-  return {
-    locale,
-    messages: (await import(`messages/${locale}.json`)).default,
-  };
-});
+export const formats: Formats = {
+    dateTime: {
+        short: {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+        },
+    },
+    number: {
+        precise: {
+            maximumFractionDigits: 5,
+        },
+    },
+    list: {
+        enumeration: {
+            style: 'long',
+            type: 'conjunction',
+        },
+    },
+} satisfies Formats;
+
+export default getRequestConfig(
+    async ({
+        requestLocale,
+    }) => {
+        const requested = await requestLocale;
+
+        const locale = hasLocale(routing.locales, requested)
+            ? requested
+            : routing.defaultLocale;
+
+        return {
+            locale,
+            messages: (await import(`messages/${locale}.json`)).default,
+        };
+    }
+);

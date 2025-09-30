@@ -1,23 +1,24 @@
 import './globals.css';
-
 import 'reflect-metadata';
 
-import {
+import type {
     FC,
     ReactNode,
     ReactElement,
 } from 'react';
-import {
-    type Viewport,
-    type Metadata,
+import type {
+    Viewport,
+    Metadata,
 } from 'next';
 import {
     Poppins,
     Raleway,
 } from 'next/font/google';
-import { getLocale, } from 'next-intl/server';
-import { NextIntlClientProvider, } from 'next-intl';
+import { notFound, } from 'next/navigation';
+import { hasLocale, NextIntlClientProvider, } from 'next-intl';
 import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
+
+import { routing } from 'lib/i18n/routing';
 
 import AppProviderLayout from 'layout/AppProviderLayout';
 
@@ -60,16 +61,21 @@ const raleway = Raleway();
 
 type RootLayoutProps = {
     children: ReactNode;
+    params: Promise<{ locale: string; }>;
 };
 
 export default async function RootLayout(
     props: RootLayoutProps
 ): Promise<ReactElement<FC<RootLayoutProps>>> {
     const {
+        params,
         children,
     } = props;
 
-    const locale = await getLocale();
+    const { locale, } = await params;
+    if (!hasLocale(routing.locales, locale)) {
+        notFound();
+    }
 
     return (
         <html

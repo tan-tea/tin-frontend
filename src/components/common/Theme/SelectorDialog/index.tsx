@@ -37,14 +37,14 @@ const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
 
     // TODO: UNDO WHEN CANCEL ON THEME SELECTION.
     const handleSave = () => {
-        closeDialog('theme-dialog');
+        closeDialog('theme');
     };
 
     return (
         <Dialog
             maxWidth='md'
             className='min-w-sm'
-            onClose={() => closeDialog('theme-dialog')}
+            onClose={() => closeDialog('theme')}
             open={open || false}
             title={t('theme.dialog.title')}
             content={<ThemeSelectorDialogContent
@@ -52,8 +52,9 @@ const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
                 onSelectTheme={setTheme}
             />}
             actions={<ThemeSelectorDialogActions
+                t={t}
                 onSave={handleSave}
-                onCancel={() => closeDialog('theme-dialog')}
+                onCancel={() => closeDialog('theme')}
             />}
         />
     );

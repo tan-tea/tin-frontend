@@ -64,6 +64,9 @@ const theme = createTheme({
     typography: {
         fontFamily: 'var(--font-primary)',
     },
+    components: {
+        MuiTextField: {}
+    }
 });
 
 export default theme;

@@ -21,7 +21,9 @@ const defaultInitState: ApplicationState = {
         },
         timestamp: Date.now(),
         toJSON: () => {},
-    }
+    },
+    showHeader: true,
+    showBottomNavigation: true,
 };
 
 export {

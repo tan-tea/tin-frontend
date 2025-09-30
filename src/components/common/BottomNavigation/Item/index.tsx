@@ -2,6 +2,7 @@
 
 import type {
     FC,
+    ReactNode,
     ComponentType,
     MouseEventHandler,
 } from 'react';
@@ -11,21 +12,19 @@ import {
 } from 'tailwind-variants';
 import { LucideProps, } from 'lucide-react';
 
-import {
-    Box,
-    Button,
-} from 'ui/index';
+import { Box, } from 'ui/index';
+import { BaseIcon, } from 'icons/index';
 
 const bottomNavigationItem = tv({
     slots: {
-        button: 'size-12',
-        icon: 'size-6 text-gray-900 dark:text-gray-300',
+        button: 'relative h-auto w-auto flex items-center gap-x-[6px] py-2 px-4 rounded-xl',
+        icon: 'dark:text-gray-300',
     },
     variants: {
         selected: {
             true: {
                 icon: 'text-primary',
-                // button: 'bg-gradient-to-r from-primary via-secondary to-info',
+                button: 'text-primary font-bold',
             },
         },
     },
@@ -35,7 +34,9 @@ type BottomNavigationItemVariants = VariantProps<typeof bottomNavigationItem>;
 
 type BottomNavigationItemProps = BottomNavigationItemVariants & {
     Icon: ComponentType<LucideProps>;
+    label: string;
     onClick: MouseEventHandler;
+    children?: ReactNode;
 };
 
 const BottomNavigationItem: FC<BottomNavigationItemProps> = (
@@ -43,8 +44,10 @@ const BottomNavigationItem: FC<BottomNavigationItemProps> = (
 ) => {
     const {
         Icon,
+        label,
         onClick,
         selected,
+        children,
     } = props;
 
     const {
@@ -52,24 +55,20 @@ const BottomNavigationItem: FC<BottomNavigationItemProps> = (
         button,
     } = bottomNavigationItem({ selected, });
 
-    const iconProps: Omit<LucideProps, 'ref'> = {
-        className: icon(),
-        strokeWidth: 2,
-        absoluteStrokeWidth: true,
-    };
-
     return (
         <Box className='justify-self-center'>
-            <Button
-                size='large'
-                color='primary'
-                variant='text'
-                rounded='lg'
-                className={button()}
+            <Box
+                className={button({
+                    className: 'relative z-20',
+                })}
                 onClick={onClick}
             >
-                {<Icon {...iconProps}/>}
-            </Button>
+                {<BaseIcon Icon={Icon} className={icon()}/>}
+                {selected && label && (
+                    <Box className='font-primary text-sm'>{label}</Box>
+                )}
+                {children}
+            </Box>
         </Box>
     );
 }

@@ -2,6 +2,7 @@
     "shared": {
         "back": "Go Back",
         "cancel": "Cancel",
+        "close": "Close",
         "accept": "Accept",
         "saveChanges": "Save Changes"
     },
@@ -25,6 +26,12 @@
                 "label": "Ligh mode",
                 "description": "Active when your system is configured to use light mode."
             }
+        }
+    },
+    "language": {
+        "tooltip": "Change language",
+        "dialog": {
+            "title": "Language Settings"
         }
     },
     "search": {

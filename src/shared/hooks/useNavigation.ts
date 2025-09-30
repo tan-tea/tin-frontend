@@ -3,14 +3,14 @@
 import {
     useEffect,
     useCallback,
+    useTransition,
 } from 'react';
 import { formatISO, } from 'date-fns';
+import { useParams, useSearchParams, } from 'next/navigation';
 import {
     useRouter,
-    useParams,
     usePathname,
-    useSearchParams,
-} from 'next/navigation';
+} from 'lib/i18n/navigation';
 
 import {
     History,
@@ -31,12 +31,15 @@ type UseNavigation = {
     ) => void;
     back: () => void | Promise<void>;
     isActivePath: (path: string) => boolean;
+    changeLanguage: (locale: string) => void;
 };
 
 export const useNavigation: () => UseNavigation = () => {
     const {
         database,
     } = useDatabase();
+
+    const [_, startTransition,] = useTransition();
 
     const router = useRouter();
     const params = useParams();
@@ -67,6 +70,15 @@ export const useNavigation: () => UseNavigation = () => {
 
     const isActivePath: UseNavigation['isActivePath'] =
         (path: string) => pathname === path;
+
+    const changeLanguage: UseNavigation['changeLanguage'] = (locale: string) => {
+        startTransition(() => {
+            router.replace(
+                { pathname, params, },
+                { locale, }
+            );
+        })
+    };
 
     const saveHistory = useCallback(
         async (history: History) => {
@@ -138,5 +150,6 @@ export const useNavigation: () => UseNavigation = () => {
         router,
         pathname,
         isActivePath,
+        changeLanguage,
     };
 }

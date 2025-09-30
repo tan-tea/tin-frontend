@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, } from 'react';
+import type { FC, } from 'react';
 
 import {
     Box,
@@ -25,7 +25,7 @@ const UserAvatarContent: FC<UserAvatarContentProps> = (
             <Text
                 variant='body1'
                 component='p'
-                className='leading-2 font-secondary text-sm font-base text-gray-800 dark:text-gray-200'
+                className='leading-2 font-secondary text-sm font-base  dark:text-gray-200'
             >
                 {label}
             </Text>

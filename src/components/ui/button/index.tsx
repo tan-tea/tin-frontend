@@ -1,12 +1,12 @@
 'use client'
 
 import {
-    FC,
-    Ref,
     memo,
-    MouseEvent,
-    KeyboardEvent,
-    ComponentProps,
+    type FC,
+    type Ref,
+    type MouseEvent,
+    type KeyboardEvent,
+    type ComponentProps,
 } from 'react';
 import {
     tv,
@@ -22,18 +22,27 @@ import { Spinner, } from 'ui/index';
 const button = tv({
     base: 'normal-case rounded-lg',
     variants: {
+        color: {
+            primary: 'bg-primary text-white border-white',
+        },
         rounded: {
             sm: 'rounded-sm',
             md: 'rounded-md',
             lg: 'rounded-lg',
+            xl: 'rounded-xl',
+            xxl: 'rounded-2xl',
             full: 'rounded-full',
         },
         mobile: {
             true: 'py-3 text-sm',
         },
+        selected: {
+            true: '',
+        }
     },
     defaultVariants: {
         rounded: 'md',
+        selected: false,
     }
 });
 
@@ -58,6 +67,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
         ref,
         children,
         size,
+        selected,
         className,
         startIcon,
         endIcon,
@@ -90,6 +100,9 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
                 mobile,
                 rounded,
                 className,
+                ...(selected && {
+                    color,
+                }),
             })}
             ref={ref}
             size={size}

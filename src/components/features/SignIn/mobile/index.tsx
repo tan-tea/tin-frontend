@@ -10,9 +10,9 @@ import {
     Card,
 } from 'ui/index';
 
-import { SignInProps, } from 'feature/SignIn';
-
 import BackButton from 'common/BackButton';
+
+import { SignInProps, } from 'feature/SignIn';
 
 import DiscordButton from 'feature/SignIn/components/DiscordButton';
 import InstagramButton from 'feature/SignIn/components/InstagramButton';

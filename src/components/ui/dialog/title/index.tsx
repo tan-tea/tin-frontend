@@ -15,7 +15,7 @@ import {
 } from '@mui/material/DialogTitle';
 
 const dialogTitle = tv({
-    base: 'font-bold font-secondary text-xl p-6 pb-4',
+    base: 'font-bold font-secondary text-lg text-center md:text-xl md:text-left p-4 md:p-6 md:pb-0',
 });
 
 type DialogTitleVariants = VariantProps<typeof dialogTitle>;

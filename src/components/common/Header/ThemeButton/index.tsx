@@ -1,16 +1,21 @@
 'use client'
 
-import { FC, } from 'react';
+import type {
+    FC,
+    MouseEventHandler,
+} from 'react';
 import { useTranslations, } from 'next-intl';
+import { useShallow, } from 'zustand/shallow';
 
 import {
     Box,
-    Button,
     Tooltip,
+    IconButton,
 } from 'ui/index';
-import { SunMoon, } from 'icons/index';
+import { Moon, SunMoon, } from 'icons/index';
 
 import { useDialog, } from 'shared/contexts/dialog';
+import { useApplicationStore } from 'shared/stores/application-store';
 
 type ThemeButtonProps = object;
 
@@ -21,25 +26,29 @@ const ThemeButton: FC<ThemeButtonProps> = (
 
     const t = useTranslations();
 
-    const { openDialog, } = useDialog();
+    const {
+        openDialog,
+        isDialogOpen,
+    } = useDialog();
+
+    const {
+        theme,
+    } = useApplicationStore(
+        useShallow(store => store)
+    );
+
+    const handleClick: MouseEventHandler = () => openDialog('theme');
+
+    const selected = isDialogOpen('theme');
 
     return (
         <Tooltip title={t('theme.tooltip')}>
             <Box className='justify-self-center'>
-                <Button
-                    size='large'
-                    color='primary'
-                    variant='text'
-                    rounded='lg'
-                    className='size-12'
-                    onClick={() => openDialog('theme-dialog')}
-                >
-                    <SunMoon
-                        className='size-6 text-gray-600 dark:text-gray-300'
-                        strokeWidth={2}
-                        absoluteStrokeWidth
-                    />
-                </Button>
+                <IconButton
+                    selected={selected}
+                    Icon={theme === 'dark' ? SunMoon : Moon}
+                    onClick={handleClick}
+                />
             </Box>
         </Tooltip>
     );

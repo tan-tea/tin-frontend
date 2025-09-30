@@ -49,7 +49,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
                 image: '/vercel.svg',
                 label: t('system.label'),
                 value: 'system',
-                isActive: currentTheme === 'system',
+                selected: currentTheme === 'system',
                 description: t('system.description'),
                 onSelectOption: handleSelectOption,
             },
@@ -59,7 +59,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
                 image: '/vercel.svg',
                 label: t('light.label'),
                 value: 'light',
-                isActive: currentTheme === 'light',
+                selected: currentTheme === 'light',
                 description: t('light.description'),
                 onSelectOption: handleSelectOption,
             },
@@ -69,7 +69,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
                 image: '/vercel.svg',
                 label: t('dark.label'),
                 value: 'dark',
-                isActive: currentTheme === 'dark',
+                selected: currentTheme === 'dark',
                 description: t('dark.description'),
                 onSelectOption: handleSelectOption,
             },
@@ -82,7 +82,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             <Text
                 variant='body2'
                 component='p'
-                className='text-sm text-gray-800'
+                className='text-xs text-center md:text-left md:text-sm text-gray-800'
             >
                 {t('description')}
             </Text>

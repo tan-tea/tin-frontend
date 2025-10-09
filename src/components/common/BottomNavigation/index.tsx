@@ -7,15 +7,16 @@ import {
     type ComponentProps,
 } from 'react';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 
 import {
     Box,
 } from 'ui/index';
 import {
     Map,
-    Bell,
+    Search,
     House,
-    Heart,
+    MessageCircleQuestion,
 } from 'icons/index';
 import { useNavigation, } from 'shared/hooks';
 
@@ -28,6 +29,8 @@ const BottomNavigation: FC<BottomNavigationProps> = (
 ) => {
     const {} = props;
 
+    const t = useTranslations('bottomNavigation');
+
     const {
         pathname,
         navigate,
@@ -38,46 +41,46 @@ const BottomNavigation: FC<BottomNavigationProps> = (
         () => [
             {
                 Icon: House,
-                label: 'Home',
+                label: t('home'),
                 onClick: () => {
                     navigate('/');
-                    setCurrentTab('Home');
+                    setCurrentTab(t('home'));
                 },
                 selected: isActivePath('/'),
             },
             {
+                Icon: Search,
+                label: t('search'),
+                onClick: () => {
+                    navigate('/search');
+                    setCurrentTab(t('search'));
+                },
+                selected: isActivePath('/search'),
+            },
+            {
                 Icon: Map,
-                label: 'Map',
+                label: t('browse'),
                 onClick: () => {
                     navigate('/browse');
-                    setCurrentTab('Map');
+                    setCurrentTab(t('browse'));
                 },
                 selected: isActivePath('/browse'),
             },
             {
-                Icon: Heart,
-                label: 'Favorites',
+                Icon: MessageCircleQuestion,
+                label: t('help'),
                 onClick: () => {
-                    navigate('/new');
-                    setCurrentTab('Favorites');
+                    navigate('/help');
+                    setCurrentTab(t('help'));
                 },
-                selected: isActivePath('/new'),
-            },
-            {
-                Icon: Bell,
-                label: 'Notifications',
-                onClick: () => {
-                    navigate('/notifications');
-                    setCurrentTab('Notifications');
-                },
-                selected: isActivePath('/notifications'),
+                selected: isActivePath('/help'),
             },
         ],
         [pathname,],
     );
 
     const [currentTab, setCurrentTab,] = useState<string | null>(
-        items.find?.(s => s?.selected)?.label || 'Home'
+        items.find?.(s => s?.selected)?.label || t('home')
     );
 
     return (

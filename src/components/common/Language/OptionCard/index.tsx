@@ -2,8 +2,8 @@
 
 import type {
     FC,
-    MouseEventHandler,
     ReactNode,
+    MouseEventHandler,
 } from 'react';
 
 import { ApplicationLanguage, } from 'shared/stores/application-store/types';
@@ -12,9 +12,12 @@ import {
     Text,
     Card,
     CardActionsArea,
+    CardHeader,
 } from 'ui/index';
 
 type LanguageOptionCardProps = {
+    icon: ReactNode;
+    title: string;
     selected: boolean;
     value: ApplicationLanguage;
     onSelectOption: (value: ApplicationLanguage) => void;
@@ -26,6 +29,8 @@ const LanguageOptionCard: FC<LanguageOptionCardProps> = (
     props: LanguageOptionCardProps,
 ) => {
     const {
+        icon,
+        title,
         selected,
         value,
         onSelectOption,
@@ -43,7 +48,10 @@ const LanguageOptionCard: FC<LanguageOptionCardProps> = (
                 onClick={handleClick}
                 className={selected ? 'bg-primary-light' : ''}
             >
-
+                <CardHeader
+                    avatar={icon}
+                    title={title}
+                />
             </CardActionsArea>
         </Card>
     );

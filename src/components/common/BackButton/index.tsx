@@ -11,7 +11,7 @@ import { useTranslations, } from 'next-intl';
 import {
     Button,
 } from 'ui/index';
-import { MoveLeft, } from 'icons/index';
+import { BaseIcon, MoveLeft, } from 'icons/index';
 
 import { useNavigation, } from 'shared/hooks';
 
@@ -49,11 +49,7 @@ const BackButton: FC<BackButtonProps> = (props: BackButtonProps) => {
             className={backButton({
                 className,
             })}
-            startIcon={<MoveLeft
-                className='size-6'
-                strokeWidth={1}
-                absoluteStrokeWidth
-            />}
+            startIcon={<BaseIcon Icon={MoveLeft}/>}
             onClick={handleClick}>
             {t('shared.back')}
         </Button>

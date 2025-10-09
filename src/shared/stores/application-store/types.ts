@@ -12,7 +12,7 @@ type ApplicationState = {
 
 type ApplicationActions = {
     setTheme: (theme: ApplicationTheme) => void;
-    setLanguage: () => void;
+    setLanguage: (language: ApplicationLanguage) => void;
     setGeolocation: (geolocation: GeolocationPosition) => void;
     setShowHeader: (show: boolean) => void;
     setShowBottomNavigation: (show: boolean) => void;

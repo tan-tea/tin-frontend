@@ -2,6 +2,7 @@ import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
 } from 'lib/utils/constants';
+import type { Currency } from 'lib/utils/types';
 
 export function getDiscordAssetExtension(asset: string): string {
     const isGif = asset?.startsWith?.('a_');
@@ -50,4 +51,20 @@ export function createRandomState(length: number = 32): string {
     return Array.from(randomValues)
         .map(byte => charset[byte % charset?.length])
         .join('');
+}
+
+export function formatCurrency(
+    currency: Currency,
+    value: number,
+): string {
+    const localesAsCurrency: { [K in Currency]: string } = {
+        'COP': 'es-CO',
+        'USD': 'en-EN',
+    };
+
+    return Intl.NumberFormat(localesAsCurrency[currency], {
+        style: 'currency',
+        currency,
+        maximumFractionDigits: 0,
+    }).format(value);
 }

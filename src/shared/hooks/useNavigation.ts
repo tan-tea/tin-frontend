@@ -32,6 +32,7 @@ type UseNavigation = {
     back: () => void | Promise<void>;
     isActivePath: (path: string) => boolean;
     changeLanguage: (locale: string) => void;
+    isChangingLanguage: boolean;
 };
 
 export const useNavigation: () => UseNavigation = () => {
@@ -39,7 +40,7 @@ export const useNavigation: () => UseNavigation = () => {
         database,
     } = useDatabase();
 
-    const [_, startTransition,] = useTransition();
+    const [isPending, startTransition,] = useTransition();
 
     const router = useRouter();
     const params = useParams();
@@ -74,10 +75,10 @@ export const useNavigation: () => UseNavigation = () => {
     const changeLanguage: UseNavigation['changeLanguage'] = (locale: string) => {
         startTransition(() => {
             router.replace(
-                { pathname, params, },
+                { pathname, },
                 { locale, }
             );
-        })
+        });
     };
 
     const saveHistory = useCallback(
@@ -151,5 +152,6 @@ export const useNavigation: () => UseNavigation = () => {
         pathname,
         isActivePath,
         changeLanguage,
+        isChangingLanguage: isPending,
     };
 }

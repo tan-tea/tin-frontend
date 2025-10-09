@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     },
     env: {},
     devIndicators: false,
+    allowedDevOrigins: ['http://172.23.94.42'],
     async redirects() {
         return [];
     },

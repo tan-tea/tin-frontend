@@ -1,8 +1,8 @@
 'use client'
 
 import {
-    FC,
     memo,
+    type FC,
 } from 'react';
 import {
     tv,
@@ -15,8 +15,14 @@ import {
 
 const text = tv({
     base: 'text-base font-primary font-normal m-0 p-0 bg-transparent',
-    variants: {},
-    defaultVariants: {},
+    variants: {
+        through: {
+            true: 'line-through',
+        },
+    },
+    defaultVariants: {
+        through: false,
+    },
 });
 
 type TextVariants = VariantProps<typeof text>;
@@ -25,6 +31,7 @@ type TextProps = TextVariants & RootTypographyProps;
 
 const Text: FC<TextProps> = (props) => {
     const {
+        through,
         children,
         className,
         ...rest
@@ -33,6 +40,7 @@ const Text: FC<TextProps> = (props) => {
     return (
         <RootTypography
             className={text({
+                through,
                 className,
             })}
             children={children}

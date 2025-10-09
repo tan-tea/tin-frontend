@@ -1,28 +1,37 @@
 'use client'
 
 import {
+    Fragment,
     type FC,
     type ReactNode,
     type ReactElement,
-    Fragment,
-    useEffect,
 } from 'react';
+import { useHydrateAtoms } from 'jotai/utils';
 import { useShallow, } from 'zustand/react/shallow';
 
-import { useGeolocation, } from 'shared/hooks';
+import { useSyncLanguageWithRouter, } from 'shared/hooks';
+import {
+    workspaceAtom,
+    currentShopAtom,
+    hydratedWorkspaceAtom,
+} from 'shared/state/wm';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import {
-    Box,
-} from 'ui/index';
+import { WorkspacePrimitives } from 'contexts/wm/workspace/domain/Workspace';
+
+import { Box, } from 'ui/index';
 
 import Header from 'common/Header';
 import BottomNavigation from 'common/BottomNavigation';
 
 import DeviceDetectorLayout from './DeviceDetectorLayout';
 
-export type BaseLayoutProps = {
+type OwnBaseLayoutProps = {
     children: ReactNode;
+    initialWorkspace: WorkspacePrimitives;
+}
+
+export type BaseLayoutProps = Omit<OwnBaseLayoutProps, 'initialWorkspace'> & {
     showHeader?: boolean;
     showBottomNavigation?: boolean;
 };
@@ -38,11 +47,11 @@ const BaseLayoutMobile: FC<BaseLayoutProps> = (
 
     return (
         <Fragment>
-            {showHeader && <Header />}
-            <Box className={`relative ${showHeader ? 'top-header-mobile' : ''}`}>
+            {showHeader && <Header/>}
+            <Box className={`relative bg-inherit dark:bg-dark-600 ${showHeader ? 'top-header-mobile' : ''}`}>
                 {children}
             </Box>
-            {showBottomNavigation && <BottomNavigation />}
+            {showBottomNavigation && <BottomNavigation/>}
         </Fragment>
     );
 }
@@ -58,49 +67,47 @@ const BaseLayoutDesktop: FC<BaseLayoutProps> = (
 
     return (
         <Fragment>
-            {showHeader && <Header />}
-            <Box className={`relative ${showHeader ? 'top-header-desktop' : ''}`}>
+            {showHeader && <Header/>}
+            <Box className={`relative bg-inherit ${showHeader ? 'top-header-desktop' : ''}`}>
                 {children}
             </Box>
-            {showBottomNavigation && <BottomNavigation />}
+            {showBottomNavigation && <BottomNavigation/>}
         </Fragment>
     );
 }
 
 export default function BaseLayout(
-    props: BaseLayoutProps,
-): ReactElement<FC<BaseLayoutProps>> {
+    props: OwnBaseLayoutProps,
+): ReactElement<FC<OwnBaseLayoutProps>> | null {
     const {
         children,
+        initialWorkspace,
     } = props;
 
-    const {
-        geolocationPosition,
-        requestGeolocationPermission,
-    } = useGeolocation();
+    useHydrateAtoms([
+        [ workspaceAtom, initialWorkspace, ],
+        [ hydratedWorkspaceAtom, initialWorkspace, ],
+        [ currentShopAtom, initialWorkspace?.shops?.find?.((s: any) => s?.is_primary), ],
+    ] as const);
 
     const {
         showHeader,
         showBottomNavigation,
-        setGeolocation,
     } = useApplicationStore(
         useShallow(store => store),
     );
 
-    useEffect(() => {
-        if (!navigator.geolocation) return
-
-        let position = geolocationPosition;
-        if (!position) position = requestGeolocationPermission();
-
-        setGeolocation(position);
-    }, [geolocationPosition, requestGeolocationPermission,]);
+    const {
+        loading,
+    } = useSyncLanguageWithRouter();
 
     const childProps: BaseLayoutProps = {
         children,
         showHeader,
         showBottomNavigation,
     };
+
+    if (!initialWorkspace || loading) return null;
 
     return (
         <DeviceDetectorLayout

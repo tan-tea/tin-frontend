@@ -1,24 +1,10 @@
-export type Primitives = String | string | number | Boolean | boolean | Date;
-
-export abstract class ValueObject<T extends Primitives> {
-    readonly value: T;
-
-    constructor(value: T) {
-        this.value = value;
-        this.ensureValueIsDefined(value);
-    }
-
-    private ensureValueIsDefined(value: T): void {
-        if (value === null || value === undefined) {
-            throw new Error('Value must be defined');
-        }
-    }
-
-    equals(other: ValueObject<T>): boolean {
-        return other.constructor.name === this.constructor.name && other.value === this.value;
-    }
-
-    toString(): string {
-        return this.value.toString();
-    }
-}
+export { type Primitives, ValueObject } from './ValueObject';
+export { StringValueObject } from './StringValueObject';
+export { DateValueObject } from './DateValueObject';
+export { NumberValueObject } from './NumberValueObject';
+export { EnumValueObject } from './EnumValueObject';
+export { UrlValueObject } from './UrlValueObject';
+export { UuidValueObject } from './UuidValueObject'
+export { BooleanValueObject } from './BooleanValueObject';
+// export { CreatedAt } from './created-at';
+// export { UpdatedAt } from './updated-at';

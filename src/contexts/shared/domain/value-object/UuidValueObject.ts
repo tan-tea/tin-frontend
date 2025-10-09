@@ -5,14 +5,14 @@ import {
 
 import { ValueObject, } from 'contexts/shared/domain/value-object';
 
-export class Uuid extends ValueObject<string> {
+export class UuidValueObject extends ValueObject<string> {
     constructor(value: string) {
         super(value);
         this.ensureIsValidUuid(value);
     }
 
-    static random(): Uuid {
-        return new Uuid(v4());
+    static random(): UuidValueObject {
+        return new UuidValueObject(v4());
     }
 
     private ensureIsValidUuid(value: string): void {

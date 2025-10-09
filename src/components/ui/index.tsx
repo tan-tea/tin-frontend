@@ -10,7 +10,6 @@ import DialogTitle from './dialog/title';
 import DialogActions from './dialog/actions';
 import DialogContent from './dialog/content';
 import Text from './text';
-import Avatar from './avatar';
 import AppBar from './app-bar';
 import Button from './button';
 import Popper from './popper';
@@ -18,6 +17,11 @@ import Spinner from './spinner';
 import Tooltip from './tooltip';
 import TextField from './text-field';
 import Field from './field';
+import Avatar, {
+    avatar,
+    type AvatarProps,
+    type AvatarVariants,
+} from './avatar';
 import Input, {
     input,
     type InputProps,
@@ -33,6 +37,11 @@ import IconButton, {
     type IconButtonProps,
     type IconButtonVariants,
 } from './icon-button';
+import Dropdown, {
+    dropdown,
+    type DropdownProps,
+    type DropdownVariants,
+} from './dropdown';
 
 export {
     Box,
@@ -47,13 +56,14 @@ export {
     DialogActions,
     DialogContent,
     Text,
-    Avatar,
     AppBar,
     Button,
     Popper,
     Spinner,
     Tooltip,
     TextField,
+    Avatar,
+    avatar,
     Input,
     input,
     Field,
@@ -61,12 +71,18 @@ export {
     label,
     IconButton,
     iconButton,
+    Dropdown,
+    dropdown,
 };
 export type {
+    AvatarProps,
+    AvatarVariants,
     InputProps,
     InputVariants,
     LabelProps,
     LabelVariants,
     IconButtonProps,
-    IconButtonVariants
+    IconButtonVariants,
+    DropdownProps,
+    DropdownVariants,
 }

@@ -45,6 +45,7 @@ const LanguageButton: FC<LanguageButtonProps> = (
         <Tooltip title={t('language.tooltip')}>
             <Box className='justify-self-center'>
                 <IconButton
+                    borderless
                     selected={selected}
                     Icon={Languages}
                     onClick={handleClick}

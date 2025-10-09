@@ -7,7 +7,6 @@ import type {
     ReactNode,
     ReactElement,
 } from 'react';
-import { Provider, } from 'jotai';
 import {
     QueryClient,
     QueryClientProvider,
@@ -42,14 +41,12 @@ export default function AppProviderLayout(
                     <DatabaseProvider>
                         <QueryClientProvider client={queryClient}>
                             <ApplicationStoreProvider>
-                                <Provider>
-                                    <DialogProvider>
-                                        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
-                                            {children}
-                                        </APIProvider>
-                                        <ThemeWatcher/>
-                                    </DialogProvider>
-                                </Provider>
+                                <DialogProvider>
+                                    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+                                        {children}
+                                    </APIProvider>
+                                    <ThemeWatcher/>
+                                </DialogProvider>
                             </ApplicationStoreProvider>
                         </QueryClientProvider>
                     </DatabaseProvider>

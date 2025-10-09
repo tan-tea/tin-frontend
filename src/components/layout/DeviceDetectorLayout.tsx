@@ -1,39 +1,26 @@
 'use client'
 
-import {
-    FC,
-    memo,
-    Fragment,
-    ReactNode,
+import type {
     ReactElement,
 } from 'react';
 import { useMediaQuery, } from 'react-responsive';
 
 type DeviceDetectorLayoutProps = {
-    MobileComponent: Required<ReactNode>;
-    DesktopComponent: Required<ReactNode>;
+    MobileComponent: ReactElement;
+    DesktopComponent: ReactElement;
 };
 
-export default memo<DeviceDetectorLayoutProps>(
-    function DeviceDetectorLayout(
-        props: DeviceDetectorLayoutProps
-    ): ReactElement<FC<DeviceDetectorLayoutProps>> {
-        const {
-            MobileComponent,
-            DesktopComponent,
-        } = props;
+export default function DeviceDetectorLayout(
+    props: DeviceDetectorLayoutProps
+): ReactElement {
+    const {
+        MobileComponent,
+        DesktopComponent,
+    } = props;
 
-        const isMobile = useMediaQuery({
-            maxWidth: '768px',
-        });
+    const isMobile = useMediaQuery({
+        maxWidth: 768,
+    });
 
-        const isDesktop = !isMobile;
-
-        return (
-            <Fragment>
-                {isMobile && MobileComponent}
-                {isDesktop && DesktopComponent}
-            </Fragment>
-        );
-    }
-);
+    return isMobile ? MobileComponent : DesktopComponent;
+}

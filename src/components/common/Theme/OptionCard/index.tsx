@@ -51,7 +51,10 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
     };
 
     return (
-        <Card className='flex-1 p-0 w-full md:w-56 shadow-none border border-gray-100 bg-light-400'>
+        <Card
+            shadow='none'
+            className='flex-1 p-0 w-full md:w-56 border border-gray-100 bg-light-400'
+        >
             <CardActionsArea
                 onClick={handleClick}
                 className={selected ? 'bg-primary-light' : ''}

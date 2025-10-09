@@ -23,6 +23,7 @@ import ThemeOptionCard, {
 } from 'common/Theme/OptionCard';
 
 type ThemeSelectorDialogContentProps = {
+    t: ReturnType<typeof useTranslations>;
     currentTheme: ApplicationTheme;
     onSelectTheme: (theme: ApplicationTheme) => void;
 };
@@ -31,11 +32,10 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
     props: ThemeSelectorDialogContentProps,
 ) => {
     const {
+        t,
         currentTheme,
         onSelectTheme,
     } = props;
-
-    const t = useTranslations('theme.dialog');
 
     const handleSelectOption = (
         value: ApplicationTheme
@@ -45,32 +45,32 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
         () => [
             {
                 icon: <Monitor/>,
-                title: t('system.title'),
+                title: t('theme.dialog.system.title'),
                 image: '/vercel.svg',
-                label: t('system.label'),
+                label: t('theme.dialog.system.label'),
                 value: 'system',
                 selected: currentTheme === 'system',
-                description: t('system.description'),
+                description: t('theme.dialog.system.description'),
                 onSelectOption: handleSelectOption,
             },
             {
                 icon: <Sun/>,
-                title: t('light.title'),
+                title: t('theme.dialog.light.title'),
                 image: '/vercel.svg',
-                label: t('light.label'),
+                label: t('theme.dialog.light.label'),
                 value: 'light',
                 selected: currentTheme === 'light',
-                description: t('light.description'),
+                description: t('theme.dialog.light.description'),
                 onSelectOption: handleSelectOption,
             },
             {
                 icon: <Moon/>,
-                title: t('dark.title'),
+                title: t('theme.dialog.dark.title'),
                 image: '/vercel.svg',
-                label: t('dark.label'),
+                label: t('theme.dialog.dark.label'),
                 value: 'dark',
                 selected: currentTheme === 'dark',
-                description: t('dark.description'),
+                description: t('theme.dialog.dark.description'),
                 onSelectOption: handleSelectOption,
             },
         ] as Array<ThemeOption>,
@@ -82,9 +82,9 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             <Text
                 variant='body2'
                 component='p'
-                className='text-xs text-center md:text-left md:text-sm text-gray-800'
+                className='hidden text-xs text-center md:block md:text-left md:text-sm text-gray-800'
             >
-                {t('description')}
+                {t('theme.dialog.description')}
             </Text>
             <Box className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4 flex-wrap overflow-hidden'>
                 {themeOptions && themeOptions?.map?.(

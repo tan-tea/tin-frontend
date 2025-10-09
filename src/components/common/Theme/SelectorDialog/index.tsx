@@ -1,21 +1,18 @@
 'use client'
 
-import { FC, } from 'react';
+import type { FC, } from 'react';
 import { useTranslations, } from 'next-intl';
 import { useShallow, } from 'zustand/react/shallow';
-
-import {
-    Dialog,
-} from 'ui/index';
 
 import { useDialog, } from 'shared/contexts/dialog';
 import { DialogProps, } from 'shared/contexts/dialog/types';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
+import SelectorDialog from 'common/SelectorDialog';
+import SelectorDialogActions from 'common/SelectorDialog/Actions';
 import ThemeSelectorDialogContent from 'common/Theme/SelectorDialog/Content';
-import ThemeSelectorDialogActions from 'common/Theme/SelectorDialog/Actions';
 
-type ThemeSelectorDialogProps = Omit<DialogProps, 'Component'>;
+type ThemeSelectorDialogProps = Pick<DialogProps, 'open'>;
 
 const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
     props: ThemeSelectorDialogProps,
@@ -35,25 +32,18 @@ const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
         useShallow(store => store),
     );
 
-    // TODO: UNDO WHEN CANCEL ON THEME SELECTION.
-    const handleSave = () => {
-        closeDialog('theme');
-    };
-
     return (
-        <Dialog
-            maxWidth='md'
-            className='min-w-sm'
+        <SelectorDialog
+            open={open}
             onClose={() => closeDialog('theme')}
-            open={open || false}
             title={t('theme.dialog.title')}
             content={<ThemeSelectorDialogContent
+                t={t}
                 currentTheme={theme}
                 onSelectTheme={setTheme}
             />}
-            actions={<ThemeSelectorDialogActions
+            actions={<SelectorDialogActions
                 t={t}
-                onSave={handleSave}
                 onCancel={() => closeDialog('theme')}
             />}
         />

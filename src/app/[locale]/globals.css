@@ -1,6 +1,7 @@
 @layer theme, base, mui, components, utilities;
 
 @import 'tailwindcss';
+@import 'tailwind-scrollbar-hide/v4';
 
 @plugin 'tailwindcss-animate';
 
@@ -343,7 +344,7 @@
 }
 
 body {
-    background: var(--background);
+    /* background: var(--background); */
     color: var(--color-dark-600);
     font-family: var(--font-primary);
 }

@@ -6,6 +6,9 @@ import {
     useEffect,
     useState,
 } from 'react';
+import { useShallow } from 'zustand/shallow';
+
+import { useApplicationStore } from 'shared/stores/application-store';
 
 const POSITION_OPTIONS: PositionOptions = {
     enableHighAccuracy: false,
@@ -17,15 +20,23 @@ type UseGeolocation = {
     requestGeolocationPermission: () => GeolocationPosition;
 };
 
-export const useGeolocation: () => UseGeolocation = () => {
+type UseGeolocationHandler = () => UseGeolocation;
+
+export const useGeolocation: UseGeolocationHandler = () => {
     const geolocationWatchIdRef = useRef<number | null>(null);
 
+    const {
+        geolocation,
+        setGeolocation,
+    } = useApplicationStore(
+        useShallow(store => store),
+    );
+
     const [geolocationError, setGeolocationError,] = useState<GeolocationPositionError | null>(null);
-    const [geolocationPosition, setGeolocationPosition,] = useState<GeolocationPosition | null>(null);
 
     const onSuccess = useCallback(
         (position: GeolocationPosition) =>
-            setGeolocationPosition(position),
+            setGeolocation(position),
         [],
     );
 
@@ -38,6 +49,9 @@ export const useGeolocation: () => UseGeolocation = () => {
     const watchGeolocationPosition = useCallback(
         () => {
             if (!navigator.geolocation) return;
+
+            if (geolocationWatchIdRef.current)
+                geolocationWatchIdRef.current = null;
 
             const watchId = navigator
                 .geolocation
@@ -57,6 +71,7 @@ export const useGeolocation: () => UseGeolocation = () => {
                 ?.geolocation
                 ?.getCurrentPosition?.(onSuccess, onError, POSITION_OPTIONS);
 
+            return geolocation;
         },
         [onSuccess, onError,],
     ) as UseGeolocation['requestGeolocationPermission'];
@@ -74,7 +89,7 @@ export const useGeolocation: () => UseGeolocation = () => {
 
     return {
         geolocationError,
-        geolocationPosition,
+        geolocationPosition: geolocation,
         requestGeolocationPermission,
     };
 };

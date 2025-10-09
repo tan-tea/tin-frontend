@@ -1,13 +1,19 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
+import {
+    useState,
+    type FC,
+    type ReactElement,
 } from 'react';
+import { useAtomValue } from 'jotai';
+
+import { useScroll } from 'shared/hooks';
+import { hydratedWorkspaceAtom } from 'shared/state/wm';
 
 import {
     Box,
     AppBar,
+    Dropdown,
 } from 'ui/index';
 
 import UserAvatar from 'common/User/Avatar';
@@ -17,21 +23,47 @@ import LanguageButton from 'common/Header/LanguageButton';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
-export type HeaderProps = object;
+type OwnHeaderProps = object;
+
+export type HeaderProps = {
+    scrolling: boolean;
+    shops: Array<any>;
+};
 
 const HeaderMobile: FC<HeaderProps> = (
     props: HeaderProps,
 ) => {
-    const {} = props;
+    const {
+        shops,
+        scrolling,
+    } = props;
+
+    const [open, setOpen] = useState<boolean>(false);
+
+    const defaultShop = shops?.find?.(s => s?.is_primary);
 
     return (
         <AppBar
             position='fixed'
-            className='z-10 h-header-mobile bg-dark rounded-b-2xl shadow-none'
+            scrolling={scrolling}
+            className='z-50 h-header-mobile bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
         >
             <Box className='size-full flex items-center px-4'>
-                <UserAvatar/>
-                <Box className='ml-auto flex items-center gap-x-4 text-black'>
+                {/* <UserAvatar/> */}
+                <Box className='ml-auto flex items-center gap-x-3'>
+                    <Dropdown
+                        option={{
+                            label: defaultShop?.name,
+                            value: defaultShop?.id,
+                        }}
+                        options={shops?.map(s => ({
+                            label: s?.name,
+                            value: s?.id,
+                        }))}
+                        open={open}
+                        onOpenChange={(open) => setOpen(open)}
+                        onSelectOption={(option) => console.log('selected', option)}
+                    />
                     <ThemeButton/>
                     <LanguageButton/>
                 </Box>
@@ -66,11 +98,20 @@ const HeaderDesktop: FC<HeaderProps> = (
 };
 
 export default function Header(
-    props: HeaderProps
-): ReactElement<FC<HeaderProps>> {
+    props: OwnHeaderProps,
+): ReactElement<FC<OwnHeaderProps>> {
     const {} = props;
 
-    const childProps: HeaderProps = {};
+    const {
+        moving,
+    } = useScroll();
+
+    const workspace = useAtomValue(hydratedWorkspaceAtom);
+
+    const childProps: HeaderProps = {
+        scrolling: moving,
+        shops: workspace?.shops || [],
+    };
 
     return (
         <DeviceDetectorLayout

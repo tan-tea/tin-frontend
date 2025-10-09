@@ -1,3 +1,3 @@
-import { ValueObject, } from 'contexts/shared/domain/value-object';
+import { ValueObject, } from './ValueObject';
 
 export abstract class StringValueObject extends ValueObject<string> {}

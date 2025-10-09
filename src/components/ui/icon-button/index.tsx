@@ -47,6 +47,10 @@ export const iconButton = tv({
             selected: true,
             className: 'text-primary',
         },
+        {
+            selected: false,
+            className: 'text-gray-600 dark:text-light-600'
+        }
     ],
 });
 
@@ -74,7 +78,7 @@ const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
     const childProps: LucideProps = {
         className: `${iconSize} ${selected && 'fill-primary'}`,
         strokeWidth: 2,
-        absoluteStrokeWidth: true,
+        absoluteStrokeWidth: false,
     };
 
     return (

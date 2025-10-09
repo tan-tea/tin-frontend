@@ -41,7 +41,6 @@ const CardHeader: FC<CardHeaderProps> = (props: CardHeaderProps) => {
     return (
         <RootCardHeader
             {...rest}
-            children={children}
             className={base({
                 className,
             })}

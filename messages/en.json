@@ -1,10 +1,36 @@
 {
+    "titles": {
+        "default": "My App",
+        "template": "%s | My App",
+        "description": "",
+        "home": {
+            "title": "Home",
+            "description": "Main homepage"
+        },
+        "loading": {
+            "title": "Loading",
+            "description": "Loading page"
+        },
+        "notFound": {
+            "title": "404",
+            "description": "Not found page"
+        },
+        "search": {
+            "title": "",
+            "description": ""
+        },
+        "help": {
+            "title": "",
+            "description": ""
+        }
+    },
     "shared": {
         "back": "Go Back",
         "cancel": "Cancel",
         "close": "Close",
         "accept": "Accept",
-        "saveChanges": "Save Changes"
+        "saveChanges": "Save Changes",
+        "discount": "{discount}% off"
     },
     "theme": {
         "tooltip": "Change theme",
@@ -31,7 +57,18 @@
     "language": {
         "tooltip": "Change language",
         "dialog": {
-            "title": "Language Settings"
+            "title": "Language Settings",
+            "description": "",
+            "es": {
+                "title": "Spanish",
+                "label": "",
+                "description": ""
+            },
+            "en": {
+                "title": "English",
+                "label": "",
+                "description": ""
+            }
         }
     },
     "search": {
@@ -39,6 +76,12 @@
     },
     "header": {
         "greet": "Welcome"
+    },
+    "bottomNavigation": {
+        "home": "Home",
+        "search": "Search",
+        "browse": "Map",
+        "help": "Help"
     },
     "signin": {
         "title": "Fast and secure login.",
@@ -49,6 +92,9 @@
             "title": "Get started",
             "description": "Your data stays safe, and you get instant access — no forms, no hassle."
         }
+    },
+    "loading": {
+        "message": "Loading..."
     },
     "notFound": {
         "title": "Oops... We couldn't find this page",

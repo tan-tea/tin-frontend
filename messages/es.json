@@ -1,37 +1,74 @@
 {
+    "titles": {
+        "default": "Katalog",
+        "template": "%s | Katalog",
+        "description": "",
+        "home": {
+            "title": "Inicio",
+            "description": "Main homepage"
+        },
+        "loading": {
+            "title": "Cargando",
+            "description": "Loading page"
+        },
+        "notFound": {
+            "title": "404",
+            "description": "Not found page"
+        },
+        "search": {
+            "title": "",
+            "description": ""
+        },
+        "help": {
+            "title": "",
+            "description": ""
+        }
+    },
     "shared": {
-        "back": "Volver",
+        "back": "Atras",
         "cancel": "Cancelar",
         "close": "Cerrar",
         "accept": "Aceptar",
-        "saveChanges": "Guardar cambios"
+        "saveChanges": "Guardar cambios",
+        "discount": "{discount}% off"
     },
     "theme": {
         "tooltip": "Cambiar tema",
         "dialog": {
-            "title": "Configuraci\u00f3n de apariencia",
+            "title": "Configuracion de apariencia",
             "description": "Choose your preferred interface appearance. You have the option to pick a theme manually or enable automatic theme switching that aligns with your system settings.",
             "system": {
-                "title": "Tema del sistema",
+                "title": "Sistema",
                 "label": "Default",
                 "description": "This theme will use the theme your system is using."
             },
             "dark": {
-                "title": "Tema oscuro",
+                "title": "Oscuro",
                 "label": "Dark mode",
                 "description": "Eye-friendly design for low-light environments."
             },
             "light": {
-                "title": "Tema claro",
+                "title": "Claro",
                 "label": "Ligh mode",
                 "description": "Active when your system is configured to use light mode."
             }
         }
     },
     "language": {
-        "tooltip": "Change language",
+        "tooltip": "Cambiar idioma",
         "dialog": {
-            "title": "Language Settings"
+            "title": "Configuracion del idioma",
+            "description": "",
+            "es": {
+                "title": "Español",
+                "label": "",
+                "description": ""
+            },
+            "en": {
+                "title": "Ingles",
+                "label": "",
+                "description": ""
+            }
         }
     },
     "search": {
@@ -39,6 +76,12 @@
     },
     "header": {
         "greet": "Welcome"
+    },
+    "bottomNavigation": {
+        "home": "Inicio",
+        "search": "Buscar",
+        "browse": "Mapa",
+        "help": "Ayuda"
     },
     "signin": {
         "title": "Fast and secure login.",

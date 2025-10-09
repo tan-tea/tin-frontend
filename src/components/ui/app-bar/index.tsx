@@ -1,28 +1,40 @@
 'use client'
 
 import {
-    FC,
     memo,
+    type FC,
 } from 'react';
 import {
     default as RootAppBar,
     AppBarProps as RootAppBarProps,
 } from '@mui/material/AppBar';
-import { tv, } from 'tailwind-variants';
+import {
+    tv,
+    type VariantProps,
+} from 'tailwind-variants';
+
+const appBar = tv({
+    base: 'w-full overflow-hidden transition-transform duration-300 ease-in-out',
+    variants: {
+        scrolling: {
+            true: '-translate-y-full',
+            false: 'translate-y-0',
+        },
+    },
+});
+
+type AppBarVariants = VariantProps<typeof appBar>;
 
 type PickedRootAppBarProps = 'position'
 | 'className'
 | 'children';
 
-type AppBarProps = Pick<RootAppBarProps, PickedRootAppBarProps>;
-
-const appBar = tv({
-    base: 'w-full overflow-hidden',
-});
+type AppBarProps = Pick<RootAppBarProps, PickedRootAppBarProps> & AppBarVariants;
 
 const AppBar: FC<AppBarProps> = (props: AppBarProps) => {
     const {
         children,
+        scrolling,
         position,
         className,
         ...rest
@@ -30,11 +42,13 @@ const AppBar: FC<AppBarProps> = (props: AppBarProps) => {
 
     return <RootAppBar
         className={appBar({
+            scrolling,
             className,
         })}
         position={position}
-        children={children}
-    />;
+    >
+        {children}
+    </RootAppBar>;
 };
 
 export default memo(AppBar);

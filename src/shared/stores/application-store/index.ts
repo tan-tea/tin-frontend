@@ -29,9 +29,9 @@ const createApplicationStore = (
                     ...state,
                     theme,
                 })),
-                setLanguage: () => set((state) => ({
+                setLanguage: (language) => set((state) => ({
                     ...state,
-                    language: state.language === 'en' ? 'es' : 'en',
+                    language,
                 })),
                 setGeolocation: (geolocation) => set((state) => ({
                     ...state,
@@ -49,7 +49,12 @@ const createApplicationStore = (
             {
                 name: 'application-storage',
                 storage: createJSONStorage(() => localStorage),
-            }
+                partialize: (state) => Object.fromEntries(
+                    Object
+                        .entries(state)
+                        .filter(([key]) => !['showHeader', 'showBottomNavigation',].includes(key)),
+                ),
+            },
         ),
     );
 };

@@ -45,6 +45,7 @@ const ThemeButton: FC<ThemeButtonProps> = (
         <Tooltip title={t('theme.tooltip')}>
             <Box className='justify-self-center'>
                 <IconButton
+                    borderless
                     selected={selected}
                     Icon={theme === 'dark' ? SunMoon : Moon}
                     onClick={handleClick}

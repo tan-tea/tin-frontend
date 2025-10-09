@@ -1,6 +1,8 @@
 import type { ElementType, FC, } from 'react';
 import { LucideProps } from 'lucide-react';
 
+import Es from './Es';
+import En from './En';
 import Blob from './Blob';
 import Logo from './Logo';
 import Discord from './Discord';
@@ -32,6 +34,8 @@ const BaseIcon: FC<BaseIconProps> = (
 };
 
 export {
+    Es,
+    En,
     Blob,
     Logo,
     Discord,
@@ -47,10 +51,12 @@ export {
     SunMoon,
     MoveLeft,
     Paintbrush,
+    ChevronUp,
     ChevronDown,
     House,
     Map,
     Heart,
     Bell,
     Languages,
+    MessageCircleQuestion,
 } from 'lucide-react';

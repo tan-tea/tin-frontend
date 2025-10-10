@@ -17,6 +17,7 @@ const HomeDesktop: FC<HomeDesktopProps> = (
 ) => {
     const {
         t,
+        offers,
     } = props;
 
     return (

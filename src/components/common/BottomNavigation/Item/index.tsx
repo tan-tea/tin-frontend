@@ -18,7 +18,7 @@ import { BaseIcon, } from 'icons/index';
 const bottomNavigationItem = tv({
     slots: {
         button: 'relative h-auto w-auto flex items-center gap-x-[6px] py-2 px-4 rounded-xl',
-        icon: 'dark:text-gray-300',
+        icon: 'dark:text-light-400',
     },
     variants: {
         selected: {
@@ -26,6 +26,9 @@ const bottomNavigationItem = tv({
                 icon: 'text-primary',
                 button: 'text-primary font-bold',
             },
+            false: {
+                button: 'dark:text-light-600'
+            }
         },
     },
 });

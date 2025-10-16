@@ -42,6 +42,11 @@ import Dropdown, {
     type DropdownProps,
     type DropdownVariants,
 } from './dropdown';
+import Separator, {
+    separator,
+    type SeparatorProps,
+    type SeparatorVariants,
+} from './separator';
 
 export {
     Box,
@@ -73,6 +78,8 @@ export {
     iconButton,
     Dropdown,
     dropdown,
+    Separator,
+    separator,
 };
 export type {
     AvatarProps,
@@ -85,4 +92,6 @@ export type {
     IconButtonVariants,
     DropdownProps,
     DropdownVariants,
+    SeparatorProps,
+    SeparatorVariants,
 }

@@ -11,7 +11,7 @@ import { useNavigation, } from 'shared/hooks';
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
 import LoadingMobile from './mobile';
-import LoadingDesktop from './desktop';
+// import LoadingDesktop from './desktop';
 
 type OwnLoadingProps = object;
 
@@ -36,7 +36,7 @@ export default function Loading(
     return (
         <DeviceDetectorLayout
             MobileComponent={<LoadingMobile {...childProps}/>}
-            DesktopComponent={<LoadingDesktop {...childProps}/>}
+            DesktopComponent={<LoadingMobile {...childProps}/>}
         />
     );
 };

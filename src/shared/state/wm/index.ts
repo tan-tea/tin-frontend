@@ -1,3 +1,5 @@
+'use client'
+
 import { atom, } from 'jotai';
 
 import { createClient } from 'lib/supabase/client';

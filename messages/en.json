@@ -93,6 +93,12 @@
             "description": "Your data stays safe, and you get instant access — no forms, no hassle."
         }
     },
+    "productDetail": {
+        "title": "Product detail",
+        "availableOptions": "Available options",
+        "description": "Description",
+        "notProvided": "Oops... No description provided."
+    },
     "loading": {
         "message": "Loading..."
     },

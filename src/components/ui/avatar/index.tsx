@@ -1,13 +1,18 @@
 'use client'
 
 import type { FC } from 'react';
-import { motion, type HTMLMotionProps, } from 'motion/react';
+import {
+    motion,
+    type HTMLMotionProps,
+} from 'motion/react';
 import {
     tv,
     type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
 import { Avatar as BaseAvatar, } from '@base-ui-components/react/avatar';
+
+import { getValueInitials } from 'lib/utils';
 
 export const avatar = tv({
     slots: {
@@ -106,7 +111,7 @@ const Avatar: FC<AvatarProps> = (props: AvatarProps) => {
             />
             {alt && (
                 <BaseAvatar.Fallback className={fallback()}>
-                    {alt}
+                    {getValueInitials(alt)}
                 </BaseAvatar.Fallback>
             )}
         </BaseAvatar.Root>

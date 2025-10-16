@@ -20,12 +20,14 @@ const backButton = tv({
 });
 
 type BackButtonProps = {
+    showLabel?: boolean;
     className?: string;
 };
 
 const BackButton: FC<BackButtonProps> = (props: BackButtonProps) => {
     const {
         className,
+        showLabel = true,
         ...rest
     } = props;
 
@@ -51,7 +53,7 @@ const BackButton: FC<BackButtonProps> = (props: BackButtonProps) => {
             })}
             startIcon={<BaseIcon Icon={MoveLeft}/>}
             onClick={handleClick}>
-            {t('shared.back')}
+            {showLabel && t('shared.back')}
         </Button>
     );
 };

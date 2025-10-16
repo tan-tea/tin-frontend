@@ -49,6 +49,7 @@ const HomeMobile: FC<HomeMobileProps> = (
                 <Box className='size-full flex-1 grid grid-cols-2 gap-2'>
                     {offers && offers?.length > 0 && offers?.map?.(offer => (
                         <ProductCard
+                            id={offer?.id}
                             key={offer?.id}
                             image={offer?.banner}
                             title={offer?.title}

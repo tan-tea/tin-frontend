@@ -10,8 +10,6 @@ import {
 } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
 
-import { formatCurrency } from 'lib/utils';
-
 import {
     Box,
     Text,
@@ -21,24 +19,19 @@ import {
     CardActionsArea,
 } from 'ui/index';
 
+import PriceWithDiscount from 'common/PriceWithDiscount';
+
 const productCard = tv({
     slots: {
         card: 'p-0 overflow-visible bg-transparent dark:text-light-600',
-        imageWrapper: 'w-full h-40 object-fill rounded-[inherit] border border-gray-200 bg-light-400 dark:border-none',
-        priceValue: 'text-lg text-primary font-bold leading-4 md:text-xl',
-    },
-    variants: {
-        hasDiscount: {
-            true: {
-                priceValue: 'text-base',
-            },
-        },
+        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-gray-200 bg-light-400 dark:border-none',
     },
 });
 
 type ProductCardVariants = VariantProps<typeof productCard>;
 
 type ProductCardProps = Omit<ProductCardVariants, 'hasDiscount'> & {
+    id: string;
     image?: string;
     badge?: string;
     title: string;
@@ -52,6 +45,7 @@ const ProductCard: FC<ProductCardProps> = (
     props: ProductCardProps,
 ) => {
     const {
+        id,
         badge,
         title,
         description,
@@ -64,13 +58,11 @@ const ProductCard: FC<ProductCardProps> = (
     const t = useTranslations('shared');
 
     const hasDiscount = discount > 0;
-    const priceWithDiscount = price * (1 - discount / 100);
 
     const {
         card,
-        priceValue,
         imageWrapper,
-    } = productCard({ hasDiscount, });
+    } = productCard();
 
     const handleClick: MouseEventHandler = () => {};
 
@@ -82,7 +74,10 @@ const ProductCard: FC<ProductCardProps> = (
                 className,
             })}
         >
-            <CardActionsArea onClick={handleClick}>
+            <CardActionsArea
+                href={`/product/${id}`}
+                onClick={handleClick}
+            >
                 <CardMedia
                     badge={badge ? badge : hasDiscount ? t('discount', { discount, }) : undefined}
                     component='img'
@@ -93,7 +88,7 @@ const ProductCard: FC<ProductCardProps> = (
                     <Text
                         variant='h2'
                         component='h2'
-                        className='text-sm font-secondary leading-4.5 font-bold md:text-lg'
+                        className='text-base font-secondary leading-4.5 font-bold md:text-lg'
                     >
                         {title}
                     </Text>
@@ -106,25 +101,11 @@ const ProductCard: FC<ProductCardProps> = (
                             {description}
                         </Text>
                     )}
-                    <Box className='w-full h-6 flex items-center gap-x-1'>
-                        <Text
-                            through={hasDiscount}
-                            variant='h1'
-                            component='h3'
-                            className={priceValue()}
-                        >
-                            {formatCurrency('COP', price)}
-                        </Text>
-                        {hasDiscount && (
-                            <Text
-                                variant='h1'
-                                component='h3'
-                                className={priceValue()}
-                            >
-                                {formatCurrency('COP', priceWithDiscount)}
-                            </Text>
-                        )}
-                    </Box>
+                    <PriceWithDiscount
+                        price={price}
+                        discount={discount}
+                        className='text-sm'
+                    />
                 </CardContent>
             </CardActionsArea>
         </Card>

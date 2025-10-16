@@ -14,7 +14,7 @@ import {
 } from '@mui/material/Typography';
 
 const text = tv({
-    base: 'text-base font-primary font-normal m-0 p-0 bg-transparent',
+    base: 'text-base font-primary font-normal m-0 p-0 bg-transparent text-inherit',
     variants: {
         through: {
             true: 'line-through',

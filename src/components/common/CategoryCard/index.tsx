@@ -24,7 +24,7 @@ const CategoryCard: FC<CategoryCardProps> = (
     } = props;
 
     return (
-        <Box className='shrink-0 flex flex-col gap-y-1.5 items-center justify-center w-18 h-auto bg-light-400 rounded-4xl pt-2 pb-4 dark:bg-dark-500'>
+        <Box className='shrink-0 flex flex-col px-2 gap-y-1.5 items-center justify-center w-18 h-auto bg-light-400 rounded-4xl pt-2 pb-4 dark:bg-dark-500'>
             <Avatar
                 size='xxxl'
                 src={banner}

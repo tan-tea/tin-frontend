@@ -48,7 +48,7 @@ const BaseLayoutMobile: FC<BaseLayoutProps> = (
     return (
         <Fragment>
             {showHeader && <Header/>}
-            <Box className={`relative bg-inherit dark:bg-dark-600 ${showHeader ? 'top-header-mobile' : ''}`}>
+            <Box className={`relative bg-inherit dark:bg-dark-600 dark:text-light-600 ${showHeader ? 'top-header-mobile' : ''}`}>
                 {children}
             </Box>
             {showBottomNavigation && <BottomNavigation/>}

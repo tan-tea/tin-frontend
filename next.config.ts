@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
     async rewrites() {
         return [];
     },
+    images: {
+        remotePatterns: [
+            {
+                hostname: '**',
+            },
+        ],
+    }
 };
 
 const withNextIntl = createNextIntlPlugin('./src/lib/i18n/request.ts');

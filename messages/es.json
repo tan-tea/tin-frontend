@@ -93,6 +93,15 @@
             "description": "Your data stays safe, and you get instant access — no forms, no hassle."
         }
     },
+    "productDetail": {
+        "title": "Detalles del producto",
+        "availableOptions": "Opciones disponibles",
+        "description": "Descripción",
+        "notProvided": "Oops... No se ha proporcionado una descripción."
+    },
+    "loading": {
+        "message": "Cargando..."
+    },
     "notFound": {
         "title": "Oops... We couldn't find this page",
         "description": "Looks like this page got lost along the way. Check the URL or head back home.",

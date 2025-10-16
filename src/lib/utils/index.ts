@@ -1,3 +1,5 @@
+import * as R from 'remeda';
+
 import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
@@ -67,4 +69,16 @@ export function formatCurrency(
         currency,
         maximumFractionDigits: 0,
     }).format(value);
+}
+
+export function getValueInitials(value: string): string {
+  return R.pipe(
+    value ?? '',
+    (v) => v.trim(),
+    (v) => v.split(' '),
+    (arr) => R.filter(arr, (x) => x.length > 0),
+    (arr) => R.take(arr, 2),
+    (arr) => arr.map((word) => word[0]?.toUpperCase() || ''),
+    (arr) => arr.join('')
+  );
 }

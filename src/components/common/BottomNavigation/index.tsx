@@ -93,7 +93,7 @@ const BottomNavigation: FC<BottomNavigationProps> = (
             >
                 {items?.map?.(item => (
                     <BottomNavigationItem key={item?.label} {...item}>
-                        {currentTab === item?.label && (
+                        {item?.selected && currentTab === item?.label && (
                             <motion.div
                                 layoutId='highlight'
                                 className='absolute inset-0 bg-primary-light rounded-xl -z-10'

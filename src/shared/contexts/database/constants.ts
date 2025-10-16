@@ -1,3 +1,5 @@
+'use client'
+
 import { Dexie, } from 'dexie';
 
 const DATABASE_NAME: string = 'cache';

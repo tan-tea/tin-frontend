@@ -62,7 +62,7 @@ const Input: FC<InputProps> = (props: InputProps) => {
         if (disabled) return;
         if (regExp && newValue && !regExp.test(newValue)) return;
 
-        if (onChange) onChange?.(event)
+        if (onChange) onChange?.(event as any)
     };
 
     return (

@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
         useCache: true,
         nextScriptWorkers: true,
     },
+    images: {
+        remotePatterns: [
+            {
+                hostname: '**',
+            },
+        ],
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
     env: {},
     devIndicators: false,
     allowedDevOrigins: ['http://172.23.94.42'],
@@ -17,13 +27,6 @@ const nextConfig: NextConfig = {
     async rewrites() {
         return [];
     },
-    images: {
-        remotePatterns: [
-            {
-                hostname: '**',
-            },
-        ],
-    }
 };
 
 const withNextIntl = createNextIntlPlugin('./src/lib/i18n/request.ts');

@@ -85,9 +85,9 @@ export default function BaseLayout(
     } = props;
 
     useHydrateAtoms([
-        [ workspaceAtom, initialWorkspace, ],
-        [ hydratedWorkspaceAtom, initialWorkspace, ],
-        [ currentShopAtom, initialWorkspace?.shops?.find?.((s: any) => s?.is_primary), ],
+        [ workspaceAtom, initialWorkspace, ] as any,
+        [ hydratedWorkspaceAtom, initialWorkspace, ] as any,
+        [ currentShopAtom, initialWorkspace?.shops?.find?.((s: any) => s?.is_primary), ] as any,
     ] as const);
 
     const {

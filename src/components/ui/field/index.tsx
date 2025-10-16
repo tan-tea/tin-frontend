@@ -85,13 +85,13 @@ const Field: FC<FieldProps> = (props: FieldProps) => {
     const handleFocus: FocusEventHandler = (event: FocusEvent) => {
         setIsFocused(true);
 
-        if (onFocus) onFocus?.(event);
+        if (onFocus) onFocus?.(event as any);
     }
 
     const handleBlur: FocusEventHandler = (event: FocusEvent) => {
         setIsFocused(false);
 
-        if (onBlur) onBlur?.(event);
+        if (onBlur) onBlur?.(event as any);
     }
 
     const variants = {

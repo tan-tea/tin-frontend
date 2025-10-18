@@ -3,10 +3,20 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
-import { createClient } from 'lib/supabase/server';
 import { getTranslations, } from 'next-intl/server';
 
+import {
+    createClient,
+    createStaticClient,
+} from 'lib/supabase/server';
+
 import ProductDetail from 'feature/ProductDetail';
+
+type ProductDetailStaticParams = {
+    params: Awaited<{
+        locale: string;
+    }>;
+}
 
 type ProductDetailPageProps = {
     params: Promise<{
@@ -28,8 +38,25 @@ export async function generateMetadata(
     };
 }
 
-export async function generateStaticParams(): Promise<Array<any>> {
-    return [];
+export async function generateStaticParams(
+    props: ProductDetailStaticParams
+): Promise<Array<any>> {
+    const {
+        params: {
+            locale,
+        },
+    } = props;
+
+    const supabase = createStaticClient();
+
+    const {
+        data: offers,
+    } = await supabase.from('offers').select('id');
+
+    return offers?.map?.((offer: any) => ({
+        id: offer.id,
+        locale: locale || 'en',
+    })) || [];
 }
 
 export default async function ProductDetailPage(
@@ -41,7 +68,6 @@ export default async function ProductDetailPage(
 
     const {
         id,
-        locale,
     } = await params;
 
     const supabase = await createClient();

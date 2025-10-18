@@ -8,6 +8,19 @@ import {
     SUPABASE_KEY,
 } from 'lib/supabase/constants';
 
+export function createStaticClient() {
+    return createServerClient(
+        SUPABASE_URL!,
+        SUPABASE_KEY!,
+        {
+            cookies: {
+                getAll: () => [],
+                setAll: () => {},
+            },
+        },
+    );
+}
+
 export async function createClient() {
     const cookieStore = await cookies();
 

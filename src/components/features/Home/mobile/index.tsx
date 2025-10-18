@@ -36,7 +36,7 @@ const HomeMobile: FC<HomeMobileProps> = (
         >
             <Box className='size-full overflow-y-scroll p-4 pt-0 flex flex-col gap-y-4'>
                 {categories && categories?.length > 0 && (
-                    <Box className='w-full h-auto flex items-center gap-x-4 overflow-x-scroll scrollbar-hide'>
+                    <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories?.map?.(category => (
                             <CategoryCard
                                 key={category?.id}

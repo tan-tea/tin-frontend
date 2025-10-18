@@ -89,7 +89,7 @@ const BottomNavigation: FC<BottomNavigationProps> = (
                 role='menubar'
                 component='nav'
                 aria-description='bottom navigation'
-                className='w-full h-auto p-4 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark dark:bg-dark-400 dark:border-none'
+                className='w-full h-auto p-2 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark dark:bg-dark-400 dark:border-none'
             >
                 {items?.map?.(item => (
                     <BottomNavigationItem key={item?.label} {...item}>

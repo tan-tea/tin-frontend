@@ -37,7 +37,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
     return (
         <Box
             component='section'
-            className='relative h-dvh bg-inherit overflow-hidden'
+            className='relative size-full bg-inherit pb-6'
         >
             <Box className='size-full p-4'>
                 <Box

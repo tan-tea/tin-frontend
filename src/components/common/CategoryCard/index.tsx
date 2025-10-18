@@ -35,7 +35,7 @@ const CategoryCard: FC<CategoryCardProps> = (
             <Text
                 variant='body1'
                 component='p'
-                className='w-full font-secondary font-normal text-xs leading-3.5 text-center truncate text-dark-600 dark:text-light-600'
+                className='w-full font-secondary font-normal text-xs leading-3.5 text-center text-dark-600 dark:text-light-600'
             >
                 {label}
             </Text>

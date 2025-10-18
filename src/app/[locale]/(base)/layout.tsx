@@ -4,9 +4,7 @@ import type {
     ReactElement,
 } from 'react';
 
-import {
-    createSSRClient,
-} from 'lib/supabase';
+import { createClient, } from 'lib/supabase/server';
 
 import BaseLayout from 'layout/BaseLayout';
 
@@ -21,7 +19,8 @@ export default async function Layout(
         children,
     } = props;
 
-    const supabase = await createSSRClient();
+    const supabase = await createClient();
+
     const {
         data: workspace,
     } = await supabase.from('workspaces').select(`

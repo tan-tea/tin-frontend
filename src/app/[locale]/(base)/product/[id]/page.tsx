@@ -3,7 +3,7 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
-import { createSSRClient } from 'lib/supabase';
+import { createClient } from 'lib/supabase/server';
 import { getTranslations, } from 'next-intl/server';
 
 import ProductDetail from 'feature/ProductDetail';
@@ -44,7 +44,7 @@ export default async function ProductDetailPage(
         locale,
     } = await params;
 
-    const supabase = await createSSRClient();
+    const supabase = await createClient();
 
     const {
         data: offer,

@@ -14,8 +14,6 @@ import {
     Popper,
 } from 'ui/index';
 
-import { useUserQuery, } from 'shared/hooks/queries';
-
 import UserAvatarButton from 'common/User/Avatar/Button';
 import UserBasicInformationCard from 'common/User/BasicInformationCard';
 
@@ -29,10 +27,6 @@ const UserAvatar: FC<UserAvatarProps> = (
     const popoverTimeoutRef = useRef<number | null>(null);
 
     const [anchorElement, setAnchorElement,] = useState<HTMLElement | null>(null);
-
-    const {
-        data: user,
-    } = useUserQuery();
 
     const handleMouseEnter: MouseEventHandler = (
         event: MouseEvent<HTMLElement>,
@@ -60,7 +54,7 @@ const UserAvatar: FC<UserAvatarProps> = (
     return (
         <Fragment>
             <UserAvatarButton
-                user={user}
+                // user={user}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
             />
@@ -71,7 +65,9 @@ const UserAvatar: FC<UserAvatarProps> = (
                 placement='bottom-start'
                 className='z-20'
             >
-                <UserBasicInformationCard user={user}/>
+                <UserBasicInformationCard
+                    // user={user}
+                />
             </Popper>
         </Fragment>
     );

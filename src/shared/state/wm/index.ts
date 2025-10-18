@@ -2,7 +2,7 @@
 
 import { atom, } from 'jotai';
 
-import { createClient } from 'lib/supabase/client';
+import { createClient } from 'lib/supabase/browser';
 import { DATABASE_INSTANCE } from 'shared/contexts/database/constants';
 import { WorkspacePrimitives } from 'contexts/wm/workspace/domain/Workspace';
 

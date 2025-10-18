@@ -1,3 +1,5 @@
+'use client'
+
 import contextFactory from 'shared/contexts/contextFactory';
 import useDialogContextState from 'shared/contexts/dialog/useDialogContextState';
 

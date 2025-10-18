@@ -1,11 +1,13 @@
+'use client'
+
 import {
-    FC,
     JSX,
     memo,
     useContext,
     createContext,
-    PropsWithChildren,
-    MemoExoticComponent,
+    type FC,
+    type PropsWithChildren,
+    type MemoExoticComponent,
 } from 'react';
 
 type ContextFactoryResult<T> = {

@@ -12,7 +12,7 @@ import {
 } from 'ui/index';
 
 type UserBasicInformationCardProps = {
-    user: any;
+    user?: any;
 };
 
 const UserBasicInformationCard: FC<UserBasicInformationCardProps> = (

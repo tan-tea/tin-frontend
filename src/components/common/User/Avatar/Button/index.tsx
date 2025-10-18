@@ -17,7 +17,7 @@ import { ChevronDown, } from 'icons/index';
 import UserAvatarContent from 'common/User/Avatar/Content';
 
 type UserAvatarButtonProps = {
-    user: any;
+    user?: any;
     handleMouseEnter?: MouseEventHandler;
     handleMouseLeave?: MouseEventHandler;
 };

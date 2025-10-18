@@ -8,8 +8,7 @@ import {
     SUPABASE_KEY,
 } from 'lib/supabase/constants';
 
-// async function createSSRClient(): Promise<ReturnType<typeof createServerClient>> {
-async function createSSRClient() {
+export async function createClient() {
     const cookieStore = await cookies();
 
     return createServerClient(
@@ -33,7 +32,3 @@ async function createSSRClient() {
         },
     );
 }
-
-export {
-    createSSRClient,
-};

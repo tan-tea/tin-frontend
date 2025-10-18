@@ -14,32 +14,18 @@ import {
     Poppins,
     Raleway,
 } from 'next/font/google';
+import { Provider } from 'jotai';
 import {
     hasLocale,
     NextIntlClientProvider,
 } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
 import { notFound, } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
 
 import { routing } from 'lib/i18n/routing';
 
 import AppProviderLayout from 'layout/AppProviderLayout';
-import { Provider } from 'jotai';
-
-export const viewport: Viewport = {
-    themeColor: [
-        {
-            media: '(prefers-color-scheme: light)',
-            color: '#000000',
-        },
-        {
-            media: '(prefers-color-scheme: dark)',
-            color: '#ffffff',
-        },
-    ],
-    userScalable: true,
-};
 
 const poppins = Poppins({
     subsets: ['latin',],
@@ -59,6 +45,21 @@ type RootLayoutProps = {
     children: ReactNode;
     params: Promise<{ locale: string; }>;
 };
+
+export const viewport: Viewport = {
+    themeColor: [
+        {
+            media: '(prefers-color-scheme: light)',
+            color: '#000000',
+        },
+        {
+            media: '(prefers-color-scheme: dark)',
+            color: '#ffffff',
+        },
+    ],
+    userScalable: true,
+};
+
 
 export async function generateMetadata(
     props: RootLayoutProps

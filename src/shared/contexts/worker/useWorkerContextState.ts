@@ -21,17 +21,17 @@ type WorkerContextState = {
 };
 
 const useWorkerContextState: () => WorkerContextState = () => {
-    const registeredWorkersRef = useRef<WorkerRegistry>({} as unknown as WorkerRegistry);
+    const registeredWorkersRef = useRef<WorkerRegistry | null>(null);
 
     const workerNames = useMemo<Array<WorkerNames>>(() => ['background',], []);
 
-    const getWorkerURL = useCallback(
-        (name: WorkerNames) => new URL(
-            `src/workers/${name}`,
-            `${location.origin}`,
-        ),
-        [],
-    );
+    // const getWorkerURL = useCallback(
+    //     (name: WorkerNames) => new URL(
+    //         `workers/${name}.ts`,
+    //         import.meta.url,
+    //     ),
+    //     [],
+    // );
 
     const getWorker = useCallback(
         (
@@ -54,7 +54,7 @@ const useWorkerContextState: () => WorkerContextState = () => {
     //     workerNames?.forEach((worker, index) => {
     //         if (index + 1 > (navigator.hardwareConcurrency / 2)) return;
 
-    //         if (!Object.prototype.hasOwnProperty.call(registeredWorkersRef?.current, worker)) {
+    //         if (!registeredWorkersRef?.current?.[worker]) {
     //             (registeredWorkersRef.current as WorkerRegistry)[worker] = new Worker(
     //                 getWorkerURL(worker),
     //                 {
@@ -72,7 +72,7 @@ const useWorkerContextState: () => WorkerContextState = () => {
     //             Object?.values?.(registeredWorkersRef?.current)
     //                 ?.forEach(worker => worker?.terminate());
 
-    //             registeredWorkersRef.current = Object.create({});
+    //             registeredWorkersRef.current = null;
     //         }
     //     }
     // }, [workerNames]);

@@ -15,11 +15,12 @@ import {
     hydratedWorkspaceAtom
 } from 'shared/state/wm';
 
+import { createClient } from 'lib/supabase/browser';
+
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
 import HomeMobile from './mobile';
 import HomeDesktop from './desktop';
-import { createClient } from 'lib/supabase/client';
 
 type OwnHomeProps = object;
 

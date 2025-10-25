@@ -1,5 +1,3 @@
-'use client'
-
 import {
     useEffect,
     useCallback,
@@ -35,7 +33,9 @@ type UseNavigation = {
     isChangingLanguage: boolean;
 };
 
-export const useNavigation: () => UseNavigation = () => {
+type UseNavigationHandler = () => UseNavigation;
+
+export const useNavigation: UseNavigationHandler = () => {
     const {
         database,
     } = useDatabase();

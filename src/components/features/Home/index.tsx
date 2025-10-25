@@ -7,13 +7,20 @@ import {
     type FC,
     type ReactElement,
 } from 'react';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
 
+import type {
+    Shop,
+    Category
+} from 'shared/models';
 import {
+    currentCategoryAtom,
     currentShopAtom,
-    hydratedWorkspaceAtom
-} from 'shared/state/wm';
+    hydratedWorkspaceAtom,
+} from 'shared/state';
+
+import { getOffersByShopId } from 'app/actions';
 
 import { createClient } from 'lib/supabase/browser';
 
@@ -27,9 +34,11 @@ type OwnHomeProps = object;
 export type HomeProps = {
     t: ReturnType<typeof useTranslations>;
     offers: Array<any>;
-    currentShop: any;
-    shops: Array<any>;
-    categories: Array<any>;
+    currentShop: Shop | null;
+    shops: Array<Shop>;
+    categories: Array<Category>;
+    selectedCategory: string | null;
+    onSelectCategory: (id: string) => void;
 };
 
 export default function Home(
@@ -39,6 +48,10 @@ export default function Home(
 
     const t = useTranslations();
 
+    const [
+        selectedCategory,
+        setSelectedCategory,
+    ] = useAtom(currentCategoryAtom);
     const workspace = useAtomValue(hydratedWorkspaceAtom);
     const currentShop = useAtomValue(currentShopAtom);
 
@@ -63,6 +76,19 @@ export default function Home(
         [currentShop?.id],
     );
 
+    const handleSelectCategory: (id: string) => void = (id) => {
+        if (id === selectedCategory) setSelectedCategory(null);
+        else setSelectedCategory(id);
+    };
+
+    useEffect(() => {
+        if (currentShop?.id)
+            getOffersByShopId(currentShop?.id)
+                .then(result => {
+                    console.log('result', result);
+                });
+    }, [currentShop?.id]);
+
     useEffect(() => {
         let isSubscribed = true;
 
@@ -82,12 +108,14 @@ export default function Home(
         currentShop,
         shops: workspace?.shops || [],
         categories: workspace?.categories || [],
+        selectedCategory,
+        onSelectCategory: handleSelectCategory,
     };
 
     return (
         <DeviceDetectorLayout
             MobileComponent={<HomeMobile {...childProps}/>}
-            DesktopComponent={<HomeDesktop {...childProps}/>}
+            DesktopComponent={<HomeMobile {...childProps}/>}
         />
     );
 };

@@ -12,7 +12,7 @@ import {
 } from 'tailwind-variants';
 
 export const iconButton = tv({
-    base: 'size-auto relative flex items-center justify-center border rounded-lg',
+    base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer',
     variants: {
         size: {
             sm: 'p-0.5',

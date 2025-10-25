@@ -11,7 +11,6 @@ import {
 import { useTranslations } from 'next-intl';
 
 import {
-    Box,
     Text,
     Card,
     CardMedia,
@@ -24,7 +23,7 @@ import PriceWithDiscount from 'common/PriceWithDiscount';
 const productCard = tv({
     slots: {
         card: 'p-0 overflow-visible bg-transparent dark:text-light-600',
-        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-gray-200 bg-light-400 dark:border-none',
+        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-gray-200 bg-transparent dark:border-none',
     },
 });
 
@@ -51,8 +50,8 @@ const ProductCard: FC<ProductCardProps> = (
         description,
         price,
         className,
+        image,
         discount = 0,
-        image = '/next.svg',
     } = props;
 
     const t = useTranslations('shared');
@@ -82,9 +81,9 @@ const ProductCard: FC<ProductCardProps> = (
                     badge={badge ? badge : hasDiscount ? t('discount', { discount, }) : undefined}
                     component='img'
                     className={imageWrapper()}
-                    image={image || '/no-image.svg'}
+                    image={image || '/images/blank.svg'}
                 />
-                <CardContent className='p-2 flex flex-col gap-y-1'>
+                <CardContent className='px-3 py-2 flex flex-col gap-y-1'>
                     <Text
                         variant='h2'
                         component='h2'
@@ -96,7 +95,7 @@ const ProductCard: FC<ProductCardProps> = (
                         <Text
                             variant='body1'
                             component='p'
-                            className='text-xs leading-4 md:text-base'
+                            className='hidden text-xs leading-4 md:text-base md:block'
                         >
                             {description}
                         </Text>

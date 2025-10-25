@@ -1,5 +1,5 @@
-import { Query, } from 'contexts/shared/domain/Query';
-import { Result, } from 'contexts/shared/domain/Result';
+import { Query, } from './Query';
+import { Result, } from './Result';
 
 export interface QueryHandler<Q extends Query, R extends Result> {
     subscribedTo(): Query;

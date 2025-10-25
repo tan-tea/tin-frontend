@@ -1,12 +1,11 @@
 'use client'
 
-import {
-    memo,
-    type FC,
-    type Ref,
-    type MouseEvent,
-    type KeyboardEvent,
-    type ComponentProps,
+import type {
+    FC,
+    Ref,
+    MouseEvent,
+    KeyboardEvent,
+    ComponentProps,
 } from 'react';
 import {
     tv,
@@ -126,4 +125,4 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     );
 };
 
-export default memo(Button);
+export default Button;

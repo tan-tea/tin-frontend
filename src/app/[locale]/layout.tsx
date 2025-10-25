@@ -1,5 +1,6 @@
 import './globals.css';
-import 'reflect-metadata';
+
+import 'lib/di';
 
 import type {
     FC,
@@ -43,10 +44,18 @@ const raleway = Raleway({
 
 type RootLayoutProps = {
     children: ReactNode;
-    params: Promise<{ locale: string; }>;
+    params: Promise<{
+        locale: string;
+    }>;
 };
 
 export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    minimumScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: 'cover',
     themeColor: [
         {
             media: '(prefers-color-scheme: light)',
@@ -57,7 +66,6 @@ export const viewport: Viewport = {
             color: '#ffffff',
         },
     ],
-    userScalable: true,
 };
 
 

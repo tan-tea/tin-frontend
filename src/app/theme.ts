@@ -1,8 +1,8 @@
-'use client'
+import { createTheme } from '@mui/material';
 
-import { createTheme, } from '@mui/material/styles';
+export type ThemeOptions = Parameters<typeof createTheme>[0];
 
-const theme = createTheme({
+const DEFAULT_THEME: ThemeOptions = {
     cssVariables: true,
     palette: {
         'primary': {
@@ -67,6 +67,6 @@ const theme = createTheme({
     components: {
         MuiTextField: {}
     }
-});
+};
 
-export default theme;
+export default DEFAULT_THEME;

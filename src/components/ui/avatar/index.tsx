@@ -17,8 +17,8 @@ import { getValueInitials } from 'lib/utils';
 export const avatar = tv({
     slots: {
         root: 'inline-flex justify-center items-center align-middle rounded-full select-none overflow-hidden text-base bg-white dark:border-light-400',
-        fallback: 'size-full flex items-center justify-center text-sm font-medium font-primary',
-        image: 'object-cover size-full p-0.5',
+        fallback: 'size-full flex items-center justify-center text-sm p-0.5 font-medium font-primary',
+        image: 'object-contain size-full p-0.5',
     },
     variants: {
         size: {
@@ -82,7 +82,7 @@ const Avatar: FC<AvatarProps> = (props: AvatarProps) => {
     const {
         alt,
         className,
-        src = '/logo.svg',
+        src = '/images/logo.svg',
         size = 'xl',
         rounded = 'full',
         width = 0,

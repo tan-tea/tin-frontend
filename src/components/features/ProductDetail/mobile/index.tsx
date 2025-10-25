@@ -32,31 +32,33 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
 
     const headerHeight = headerRef?.current?.clientHeight || 0;
 
-    console.log('offer', offer);
-
     return (
         <Box
             component='section'
-            className='relative size-full bg-inherit pb-6'
+            className='relative min-h-dvh size-full bg-inherit pb-6'
         >
             <Box className='size-full p-4'>
                 <Box
                     ref={headerRef}
-                    className='relative flex items-center justify-center'>
+                    className='relative flex items-center justify-between mb-4'>
                     <BackButton
                         showLabel={false}
-                        className='p-0'
+                        // className='p-0'
                     />
                     <Text className='font-semibold leading-5 text-dark-600'>
                         {t('title')}
                     </Text>
+                    <BackButton
+                        className='invisible'
+                        showLabel={false}
+                    />
                 </Box>
                 <Box
-                    style={{
-                        top: `${headerHeight}px`,
-                        rowGap: `${headerHeight}px`,
-                    }}
-                    className='relative size-full flex flex-col'
+                    // style={{
+                    //     top: `${headerHeight}px`,
+                    //     rowGap: `${headerHeight}px`,
+                    // }}
+                    className='relative size-full flex flex-col gap-y-4'
                 >
                     <Box
                         ref={imageRef}
@@ -64,14 +66,14 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                         className='h-80 w-full bg-light-400 rounded-2xl overflow-hidden'
                     >
                         <Image
-                            src={offer?.banner ?? '/no-image.svg'}
+                            src={offer?.banner ?? '/images/blank.svg'}
                             alt={offer?.title}
-                            width={1000}
-                            height={1000}
+                            width={500}
+                            height={500}
                             className='relative size-full object-cover'
                         />
                     </Box>
-                    <Box className='flex-1 flex flex-col gap-y-4'>
+                    <Box className='relative flex-1 flex flex-col gap-y-4'>
                         <Box className='flex justify-between gap-x-4'>
                             <Box className='flex flex-col gap-y-1'>
                                 <Text className='font-primary font-bold capitalize text-2xl leading-6'>
@@ -120,6 +122,9 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                         <Box className='flex flex-col gap-y-1'>
                             <Text className='font-bold'>{t('description')}</Text>
                             <Text className='leading-6'>{offer?.description || t('notProvided')}</Text>
+                        </Box>
+                        <Box className=''>
+                            Hola
                         </Box>
                     </Box>
                 </Box>

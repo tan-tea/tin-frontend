@@ -46,7 +46,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             {
                 icon: <Monitor/>,
                 title: t('theme.dialog.system.title'),
-                image: '/vercel.svg',
+                image: '/images/vercel.svg',
                 label: t('theme.dialog.system.label'),
                 value: 'system',
                 selected: currentTheme === 'system',
@@ -56,7 +56,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             {
                 icon: <Sun/>,
                 title: t('theme.dialog.light.title'),
-                image: '/vercel.svg',
+                image: '/images/vercel.svg',
                 label: t('theme.dialog.light.label'),
                 value: 'light',
                 selected: currentTheme === 'light',
@@ -66,7 +66,7 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
             {
                 icon: <Moon/>,
                 title: t('theme.dialog.dark.title'),
-                image: '/vercel.svg',
+                image: '/images/vercel.svg',
                 label: t('theme.dialog.dark.label'),
                 value: 'dark',
                 selected: currentTheme === 'dark',

@@ -1,20 +1,12 @@
 'use client'
 
 import {
-    useState,
-    useEffect,
-    useCallback,
     type FC,
     type ReactElement,
 } from 'react';
-import { useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
 
 import { useHideUI } from 'shared/hooks';
-import {
-    currentShopAtom,
-    hydratedWorkspaceAtom
-} from 'shared/state/wm';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 

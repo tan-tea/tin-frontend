@@ -1,29 +1,37 @@
 'use client'
 
-import 'reflect-metadata';
-
 import type {
     FC,
     ReactNode,
     ReactElement,
 } from 'react';
+import { minutesToMilliseconds,  } from 'date-fns';
 import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
-import { ThemeProvider, } from '@mui/material/styles';
 import { APIProvider, } from '@vis.gl/react-google-maps';
 
-import theme from 'app/[locale]/theme';
-import ThemeWatcher from 'common/Theme/Watcher';
-
 import { DialogProvider, } from 'shared/contexts/dialog';
-import { WorkerProvider, } from 'shared/contexts/worker';
 import { DatabaseProvider, } from 'shared/contexts/database';
 import { ContainerProvider, } from 'shared/contexts/container';
 import { ApplicationStoreProvider, } from 'shared/stores/application-store';
+import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 
-const queryClient = new QueryClient();
+import ThemeWatcher from 'common/Theme/Watcher';
+import ThemeProviderLayout from 'layout/ThemeProviderLayout';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: minutesToMilliseconds(5),
+            refetchOnWindowFocus: true,
+            gcTime: minutesToMilliseconds(1),
+            retry: 3,
+            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+        },
+    },
+});
 
 type AppProviderLayoutProps = {
     children: ReactNode;
@@ -35,10 +43,10 @@ export default function AppProviderLayout(
     const { children, } = props;
 
     return (
-        <ThemeProvider theme={theme}>
-            <ContainerProvider>
-                <WorkerProvider>
-                    <DatabaseProvider>
+        <ContainerProvider>
+            <DatabaseProvider>
+                <DynamicThemeProvider>
+                    <ThemeProviderLayout>
                         <QueryClientProvider client={queryClient}>
                             <ApplicationStoreProvider>
                                 <DialogProvider>
@@ -49,9 +57,9 @@ export default function AppProviderLayout(
                                 </DialogProvider>
                             </ApplicationStoreProvider>
                         </QueryClientProvider>
-                    </DatabaseProvider>
-                </WorkerProvider>
-            </ContainerProvider>
-        </ThemeProvider>
+                    </ThemeProviderLayout>
+                </DynamicThemeProvider>
+            </DatabaseProvider>
+        </ContainerProvider>
     );
 };

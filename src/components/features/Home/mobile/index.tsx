@@ -1,20 +1,17 @@
 'use client'
 
-import {
-    useState,
-    type FC,
+import type {
+    FC,
 } from 'react';
 
 import {
     Box,
-    Dropdown,
 } from 'ui/index';
 
 import { HomeProps, } from 'feature/Home';
 
 import ProductCard from 'common/ProductCard';
 import CategoryCard from 'common/CategoryCard';
-import SearchEngine from 'common/SearchEngine';
 
 type HomeMobileProps = HomeProps;
 
@@ -27,6 +24,8 @@ const HomeMobile: FC<HomeMobileProps> = (
         shops,
         categories,
         currentShop,
+        selectedCategory,
+        onSelectCategory,
     } = props;
 
     return (
@@ -39,9 +38,10 @@ const HomeMobile: FC<HomeMobileProps> = (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories?.map?.(category => (
                             <CategoryCard
+                                selected={category?.id === selectedCategory}
+                                onSelectCategory={onSelectCategory}
                                 key={category?.id}
-                                banner={category?.banner}
-                                label={category?.label}
+                                {...category}
                             />
                         ))}
                     </Box>
@@ -55,6 +55,7 @@ const HomeMobile: FC<HomeMobileProps> = (
                             title={offer?.title}
                             discount={offer?.discount}
                             price={offer?.price}
+                            description={offer?.description}
                             className='col-span-1 gap-y-2'
                         />
                     ))}

@@ -1,4 +1,4 @@
-import { Command, } from 'contexts/shared/domain/Command';
+import { Command, } from './Command';
 
 export interface CommandBus {
     dispatch<R = void>(command: Command): Promise<R>;

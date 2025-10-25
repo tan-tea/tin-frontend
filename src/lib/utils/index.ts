@@ -1,10 +1,12 @@
 import * as R from 'remeda';
 
+import { ThemeOptions } from 'app/theme';
 import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
 } from 'lib/utils/constants';
 import type { Currency } from 'lib/utils/types';
+import { PaletteOptions } from '@mui/material';
 
 export function getDiscordAssetExtension(asset: string): string {
     const isGif = asset?.startsWith?.('a_');
@@ -81,4 +83,30 @@ export function getValueInitials(value: string): string {
     (arr) => arr.map((word) => word[0]?.toUpperCase() || ''),
     (arr) => arr.join('')
   );
+}
+
+export function formatThemePalette(customization: any): PaletteOptions {
+    const palette: any = {};
+
+    for (const color of customization.customization_colors) {
+        const variants: any = {};
+
+        for (const variant of color.customization_color_variants) {
+            variants[variant.code] = variant.hex;
+
+            if (variant.is_main) {
+                variants.main = variant.hex;
+            }
+        }
+
+        if (!variants.main && Object.keys(variants).length > 0) {
+            variants.main = Object.values(variants)[0];
+        }
+
+        if (color.customization_color_variants?.length > 0) {
+            palette[color.value] = variants;
+        }
+    }
+
+    return palette;
 }

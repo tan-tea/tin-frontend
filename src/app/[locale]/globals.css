@@ -53,6 +53,8 @@
 
     /* Material UI theme colors */
     --color-primary: rgb(var(--mui-palette-primary-mainChannel));
+    --color-primary-50: rgb(var(--mui-palette-primary-50));
+    --color-primary-100: rgb(var(--mui-palette-primary-100));
     --color-primary-light: rgb(var(--mui-palette-primary-lightChannel));
     --color-primary-dark: rgb(var(--mui-palette-primary-darkChannel));
     --color-primary-contrast: rgb(var(--mui-palette-primary-contrastTextChannel));

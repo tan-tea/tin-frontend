@@ -5,10 +5,9 @@ import {
 
 import { get, } from 'lib/http';
 
-import { DiscordUser, } from 'contexts/shared/domain/models';
 import { UrlBuilder, } from 'contexts/shared/infrastructure/builders/UrlBuilder';
 
-type Response = DiscordUser | {
+type Response = any | {
     error: true;
     message: string;
 };

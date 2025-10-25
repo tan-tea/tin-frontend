@@ -6,30 +6,68 @@ import {
     type FC,
     type ComponentProps,
 } from 'react';
+import {
+    tv,
+    type VariantProps,
+} from 'tailwind-variants';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
+
+import {
+    useScroll,
+    useNavigation,
+} from 'shared/hooks';
 
 import {
     Box,
 } from 'ui/index';
 import {
     Map,
-    Search,
     House,
+    Search,
     MessageCircleQuestion,
 } from 'icons/index';
-import { useNavigation, } from 'shared/hooks';
 
 import BottomNavigationItem from 'common/BottomNavigation/Item';
 
-type BottomNavigationProps = object;
+const bottomNavigation = tv({
+    slots: {
+        wrapper: 'z-50 fixed bottom-0 left-0 w-full h-auto p-4 bg-transparent transition-transform duration-300 ease-in-out',
+        container: 'w-full h-auto p-2 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark dark:bg-dark-400 dark:border-none',
+        hightlight: 'absolute inset-0 bg-[var(--mui-palette-primary-50)] rounded-xl -z-10',
+    },
+    variants: {
+        scrolling: {
+            true: {
+                wrapper: 'translate-y-full',
+            },
+            false: {
+                wrapper: 'translate-y-0',
+            },
+        },
+    },
+});
+
+type BottomNavigationVariants = VariantProps<typeof bottomNavigation>;
+
+type BottomNavigationProps = object & Omit<BottomNavigationVariants, 'scrolling'>;
 
 const BottomNavigation: FC<BottomNavigationProps> = (
     props: BottomNavigationProps,
 ) => {
     const {} = props;
 
+    const {
+        wrapper,
+        container,
+        hightlight,
+    } = bottomNavigation();
+
     const t = useTranslations('bottomNavigation');
+
+    const {
+        moving,
+    } = useScroll();
 
     const {
         pathname,
@@ -84,19 +122,21 @@ const BottomNavigation: FC<BottomNavigationProps> = (
     );
 
     return (
-        <Box className='z-50 fixed bottom-0 left-0 w-full h-auto p-4 bg-transparent'>
+        <Box className={wrapper({
+            scrolling: moving,
+        })}>
             <Box
                 role='menubar'
                 component='nav'
                 aria-description='bottom navigation'
-                className='w-full h-auto p-2 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark dark:bg-dark-400 dark:border-none'
+                className={container()}
             >
                 {items?.map?.(item => (
                     <BottomNavigationItem key={item?.label} {...item}>
                         {item?.selected && currentTab === item?.label && (
                             <motion.div
                                 layoutId='highlight'
-                                className='absolute inset-0 bg-primary-light rounded-xl -z-10'
+                                className={hightlight()}
                                 transition={{
                                     type: 'spring',
                                     stiffness: 500,

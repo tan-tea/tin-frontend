@@ -28,6 +28,7 @@
             "messages/*": ["./messages/*"],
             "shared/*": ["./src/shared/*"],
             "ui/*": ["./src/components/ui/*"],
+            "env/*": ["./src/env/*"],
             "common/*": ["./src/components/common/*"],
             "contexts/*": ["./src/contexts/*"],
             "icons/*": ["./src/components/icons/*"],

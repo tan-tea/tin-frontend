@@ -1,5 +1,5 @@
-import { Query, } from 'contexts/shared/domain/Query';
-import { Result, } from 'contexts/shared/domain/Result';
+import { Query, } from './Query';
+import { Result, } from './Result';
 
 export interface QueryBus {
     ask<R extends Result>(query: Query): Promise<R>;

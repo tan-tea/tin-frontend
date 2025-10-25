@@ -1,5 +1,3 @@
-'use client'
-
 import {
     useEffect,
 } from 'react';
@@ -16,7 +14,7 @@ type UseHideUIProps = {
 
 type UseHideUIHandler = (props: UseHideUIProps) => UseHideUI;
 
-export const useHideUI: UseHideUIHandler = (props) => {
+export const useHideUI: UseHideUIHandler = (props: UseHideUIProps) => {
     const {
         hideHeader = true,
         hideBottomNavigation = true,

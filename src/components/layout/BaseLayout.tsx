@@ -9,15 +9,15 @@ import {
 import { useHydrateAtoms } from 'jotai/utils';
 import { useShallow, } from 'zustand/react/shallow';
 
-import { useSyncLanguageWithRouter, } from 'shared/hooks';
+import type {
+    Workspace
+} from 'shared/models';
 import {
     workspaceAtom,
-    currentShopAtom,
     hydratedWorkspaceAtom,
-} from 'shared/state/wm';
+} from 'shared/state';
+import { useSyncLanguageWithRouter, } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
-
-import { WorkspacePrimitives } from 'contexts/wm/workspace/domain/Workspace';
 
 import { Box, } from 'ui/index';
 
@@ -28,7 +28,7 @@ import DeviceDetectorLayout from './DeviceDetectorLayout';
 
 type OwnBaseLayoutProps = {
     children: ReactNode;
-    initialWorkspace: WorkspacePrimitives;
+    initialWorkspace: Workspace;
 }
 
 export type BaseLayoutProps = Omit<OwnBaseLayoutProps, 'initialWorkspace'> & {
@@ -87,7 +87,6 @@ export default function BaseLayout(
     useHydrateAtoms([
         [ workspaceAtom, initialWorkspace, ] as any,
         [ hydratedWorkspaceAtom, initialWorkspace, ] as any,
-        [ currentShopAtom, initialWorkspace?.shops?.find?.((s: any) => s?.is_primary), ] as any,
     ] as const);
 
     const {

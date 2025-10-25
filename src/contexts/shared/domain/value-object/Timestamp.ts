@@ -3,7 +3,7 @@ import { DateValueObject } from './DateValueObject';
 export class Timestamp extends DateValueObject {
 	constructor(value: Date) {
 		super(value);
-		this.ensureDateIsNotInPast(value);
+		// this.ensureDateIsNotInPast(value);
 	}
 
 	private ensureDateIsNotInPast(value: Date): void {

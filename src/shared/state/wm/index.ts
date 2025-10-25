@@ -2,13 +2,14 @@
 
 import { atom, } from 'jotai';
 
-import { createClient } from 'lib/supabase/browser';
 import { DATABASE_INSTANCE } from 'shared/contexts/database/constants';
-import { WorkspacePrimitives } from 'contexts/wm/workspace/domain/Workspace';
 
-const supabase = createClient();
+import type {
+    Shop,
+    Workspace
+} from 'shared/models';
 
-export const workspaceAtom = atom<WorkspacePrimitives | null>(null);
+export const workspaceAtom = atom<Workspace | null>(null);
 
 export const hydratedWorkspaceAtom = atom(
     async (get) => {
@@ -18,7 +19,7 @@ export const hydratedWorkspaceAtom = atom(
         const saved = await DATABASE_INSTANCE.table('workspace').get('current');
         return saved ?? null;
     },
-    async (_, set, next: WorkspacePrimitives) => {
+    async (_, set, next: Workspace) => {
         set(workspaceAtom, next);
         if (next) {
             await DATABASE_INSTANCE
@@ -35,23 +36,13 @@ export const hydratedWorkspaceAtom = atom(
     },
 );
 
-export const revalidateWorkspaceAtom = atom(null, async (_, set) => {
-    const {
-        data,
-        error,
-    } = await supabase
-        .from('workspaces')
-        .select(`
-            *,
-            shops ( * ),
-            categories ( * )
-        `)
-        .eq('id', process.env.NEXT_PUBLIC_WORKSPACE_ID!)
-        .single();
+export const currentShopAtom = atom<Shop | null>(
+    (get) => {
+        const workspace = get(workspaceAtom);
+        if (!workspace) return null;
 
-    if (!error && data) {
-        set(hydratedWorkspaceAtom, data);
+        return workspace?.shops?.find(shop => shop?.isPrimary) || null;
     }
-});
+);
 
-export const currentShopAtom = atom<any | null>(null);
+export const currentCategoryAtom = atom<string | null>(null);

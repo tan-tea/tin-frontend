@@ -9,11 +9,10 @@ import {
     default as RootCardActionsArea,
     CardActionAreaProps as RootCardActionsAreaProps,
 } from '@mui/material/CardActionArea';
-
 import Link, { LinkProps, } from 'next/link';
 
 const cardActionsArea = tv({
-    base: 'border border-transparent',
+    base: 'border border-transparent shadow-none',
 });
 
 type CardActionsAreaVariants = VariantProps<typeof cardActionsArea>;
@@ -25,6 +24,7 @@ const CardActionsArea: FC<CardActionsAreaProps> = (props: CardActionsAreaProps) 
         href,
         children,
         className,
+        prefetch,
         ...rest
     } = props;
 
@@ -36,7 +36,13 @@ const CardActionsArea: FC<CardActionsAreaProps> = (props: CardActionsAreaProps) 
             })}
         >
             {href
-                ? (<Link className='rounded-[inherit]' href={href}>{children}</Link>)
+                ? (<Link
+                        href={href}
+                        prefetch={prefetch}
+                        className='rounded-[inherit]'
+                    >
+                        {children}
+                    </Link>)
                 : (children)
             }
         </RootCardActionsArea>

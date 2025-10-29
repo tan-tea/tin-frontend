@@ -15,7 +15,7 @@ import { useApplicationStore, } from 'shared/stores/application-store';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
-// import SearchMobile from './mobile';
+import SearchMobile from './mobile';
 // import SearchDesktop from './desktop';
 
 type OwnSearchProps = object;
@@ -42,11 +42,9 @@ export default function Search(
 
     useEffect(() => {
         setShowHeader(false);
-        // setShowBottomNavigation(false);
 
         return () => {
             setShowHeader(true);
-            // setShowBottomNavigation(true);
         };
     }, [])
 
@@ -57,10 +55,8 @@ export default function Search(
 
     return (
         <DeviceDetectorLayout
-            // MobileComponent={<SearchMobile {...childProps}/>}
-            // DesktopComponent={<SearchDesktop {...childProps}/>}
-            MobileComponent={<></>}
-            DesktopComponent={<></>}
+            MobileComponent={<SearchMobile {...childProps}/>}
+            DesktopComponent={<SearchMobile {...childProps}/>}
         />
     );
 };

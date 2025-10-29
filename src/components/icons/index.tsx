@@ -1,5 +1,6 @@
 import type { ElementType, FC, } from 'react';
 import { LucideProps } from 'lucide-react';
+import { tv } from 'tailwind-variants';
 
 import Es from './Es';
 import En from './En';
@@ -13,6 +14,10 @@ type BaseIconProps = {
     className?: string;
 };
 
+const baseIcon = tv({
+    base: 'size-6',
+});
+
 const BaseIcon: FC<BaseIconProps> = (
     props: BaseIconProps,
 ) => {
@@ -23,7 +28,9 @@ const BaseIcon: FC<BaseIconProps> = (
     } = props;
 
     const iconProps: LucideProps = {
-        className: `size-6`,
+        className: baseIcon({
+            className,
+        }),
         strokeWidth: 2,
         absoluteStrokeWidth: true,
     };

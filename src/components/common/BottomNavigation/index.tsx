@@ -32,8 +32,8 @@ import BottomNavigationItem from 'common/BottomNavigation/Item';
 
 const bottomNavigation = tv({
     slots: {
-        wrapper: 'z-50 fixed bottom-0 left-0 w-full h-auto p-4 bg-transparent transition-transform duration-300 ease-in-out',
-        container: 'w-full h-auto p-2 flex items-center justify-between rounded-2xl border-2 border-primary-light bg-dark dark:bg-dark-400 dark:border-none',
+        wrapper: 'z-50 fixed bottom-0 left-0 w-full h-auto bg-transparent transition-transform duration-300 ease-in-out',
+        container: 'w-full h-auto p-2 flex items-center justify-between rounded-t-2xl border border-[var(--mui-palette-secondary-main)] bg-dark dark:bg-dark-400 dark:border-none',
         hightlight: 'absolute inset-0 bg-[var(--mui-palette-primary-50)] rounded-xl -z-10',
     },
     variants: {

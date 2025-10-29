@@ -37,6 +37,10 @@ const createApplicationStore = (
                     ...state,
                     geolocation,
                 })),
+                setLoading: (loading) => set((state) => ({
+                    ...state,
+                    loading,
+                })),
                 setShowHeader: (show: boolean) => set((state) => ({
                     ...state,
                     showHeader: show,
@@ -52,7 +56,11 @@ const createApplicationStore = (
                 partialize: (state) => Object.fromEntries(
                     Object
                         .entries(state)
-                        .filter(([key]) => !['showHeader', 'showBottomNavigation',].includes(key)),
+                        .filter(([key]) => ![
+                            'loading',
+                            'showHeader',
+                            'showBottomNavigation',
+                        ].includes(key)),
                 ),
             },
         ),

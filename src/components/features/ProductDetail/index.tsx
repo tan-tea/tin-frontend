@@ -6,6 +6,9 @@ import {
 } from 'react';
 import { useTranslations, } from 'next-intl';
 
+import type {
+    Offer
+} from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
@@ -15,7 +18,7 @@ import ProductDetailDesktop from './desktop';
 
 type OwnProductDetailProps = {
     id: string;
-    offer: any;
+    offer: Offer;
 };
 
 export type ProductDetailProps = Pick<OwnProductDetailProps, 'offer'> & {
@@ -24,7 +27,7 @@ export type ProductDetailProps = Pick<OwnProductDetailProps, 'offer'> & {
 
 export default function ProductDetail(
     props: OwnProductDetailProps,
-): ReactElement<FC<OwnProductDetailProps>> {
+): ReactElement<FC<OwnProductDetailProps>> | null {
     const {
         id,
         offer,

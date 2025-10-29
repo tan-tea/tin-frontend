@@ -1,6 +1,6 @@
-import { Category } from 'contexts/wm/category/domain/Category';
+import { Category, CategoryPrimitives } from 'contexts/wm/category/domain/Category';
 
-export class CategoryReadModel {
+export class CategoryReadModel implements CategoryPrimitives {
     readonly id: string;
     readonly label: string;
     readonly description: string;

@@ -3,14 +3,17 @@ import {
     useQuery,
     QueryObserverResult,
 } from '@tanstack/react-query';
+import { PaletteOptions } from '@mui/material';
 
+import { clientEnv } from 'env/client';
 import {
-    getOffersByShopId,
+    getCustomizationByWorkspaceId,
 } from 'app/actions';
+import { formatThemePalette } from 'lib/utils';
 
 type UseThemeData = Readonly<{
     queryId: string;
-    theme: any;
+    data: PaletteOptions | null;
     isLoading: boolean;
     error: Error | null;
     refetch: QueryObserverResult['refetch'];
@@ -19,9 +22,9 @@ type UseThemeData = Readonly<{
 
 type UseThemeDataProps = object;
 
-type UseThemeDataHandler = (props: UseThemeDataProps) => UseThemeData;
+type UseThemeDataHandler = (props?: UseThemeDataProps) => UseThemeData;
 
-const useThemeData: UseThemeDataHandler = () => {
+export const useThemeData: UseThemeDataHandler = () => {
     const queryId = useMemo<string>(
         () => 'theme-data',
         [],
@@ -35,19 +38,21 @@ const useThemeData: UseThemeDataHandler = () => {
         isRefetching,
     } = useQuery({
         queryKey: [queryId],
-        queryFn: () => {},
+        queryFn: async () => {
+            const customization = await getCustomizationByWorkspaceId(clientEnv.NEXT_PUBLIC_WORKSPACE_ID);
+            const formatted = formatThemePalette(customization);
+            return formatted;
+        },
         staleTime: Infinity,
         retry: 5,
     });
 
     return {
         queryId,
-        theme: themeData,
+        data: themeData || null,
         isLoading,
         error,
         refetch,
         isRefetching,
     };
 };
-
-export default useThemeData;

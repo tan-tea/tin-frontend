@@ -90,15 +90,14 @@ export default function BaseLayout(
     ] as const);
 
     const {
+        loading,
         showHeader,
         showBottomNavigation,
     } = useApplicationStore(
         useShallow(store => store),
     );
 
-    const {
-        loading,
-    } = useSyncLanguageWithRouter();
+    useSyncLanguageWithRouter();
 
     const childProps: BaseLayoutProps = {
         children,

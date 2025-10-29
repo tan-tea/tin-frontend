@@ -34,7 +34,6 @@ export default async function HomePage(
     } = props;
 
     const shopId = (await searchParams).shopId;
-    console.log('shop id', shopId);
 
     return (
         <Home/>

@@ -15,7 +15,7 @@ import {
 import { Input as BaseInput, } from '@base-ui-components/react/input';
 
 export const input = tv({
-    base: 'box-border focus:outline-none text-base text-gray-700 font-secondary',
+    base: 'block box-border focus:outline-none text-base text-[inherit] font-secondary',
     variants: {
         root: '',
         fullWidth: {
@@ -24,7 +24,7 @@ export const input = tv({
         disabled: {
             true: 'text-dark-400 cursor-not-allowed',
         },
-        multuline: {
+        multiline: {
             true: '',
         },
     },

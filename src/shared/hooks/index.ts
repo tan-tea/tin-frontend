@@ -1,6 +1,9 @@
 export { useHideUI } from './useHideUI';
 export { useScroll } from './useScroll';
 export { useWorker } from './useWorker';
-export { useNavigation, } from './useNavigation';
-export { useGeolocation, } from './useGeolocation';
+export { usePrefetch } from './usePrefetch';
+export { useNavigation } from './useNavigation';
+export { useWindowSize } from './useWindowSize';
+export { useGeolocation } from './useGeolocation';
+export { useComputedStyle } from './useComputedStyle';
 export { useSyncLanguageWithRouter } from './useSyncLanguageWithRouter';

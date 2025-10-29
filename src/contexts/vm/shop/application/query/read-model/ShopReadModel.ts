@@ -1,6 +1,6 @@
-import { Shop } from 'contexts/vm/shop/domain/Shop';
+import { Shop, ShopPrimitives } from 'contexts/vm/shop/domain/Shop';
 
-export class ShopReadModel {
+export class ShopReadModel implements ShopPrimitives {
     readonly id: string;
     readonly workspaceId: string;
     readonly name: string;

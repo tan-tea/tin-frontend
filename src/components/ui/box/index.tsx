@@ -13,6 +13,7 @@ import {
     default as RootBox,
     BoxProps as RootBoxProps,
 } from '@mui/material/Box';
+import { MotionProps } from 'motion/react';
 
 const box = tv({
     base: '',
@@ -20,7 +21,7 @@ const box = tv({
 
 type BoxVariants = VariantProps<typeof box>;
 
-type BoxProps = object & RootBoxProps;
+type BoxProps = object & RootBoxProps & BoxVariants & MotionProps;
 
 const Box: FC<BoxProps> = (props: BoxProps) => {
     const {

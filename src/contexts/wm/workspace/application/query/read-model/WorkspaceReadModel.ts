@@ -1,6 +1,6 @@
-import { Workspace } from 'contexts/wm/workspace/domain/Workspace';
+import { Workspace, WorkspacePrimitives } from 'contexts/wm/workspace/domain/Workspace';
 
-export class WorkspaceReadModel {
+export class WorkspaceReadModel implements WorkspacePrimitives {
     readonly id: string;
     readonly logo: string;
     readonly name: string;

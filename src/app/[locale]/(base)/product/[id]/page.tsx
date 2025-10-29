@@ -6,9 +6,9 @@ import type { Metadata, } from 'next';
 import { getTranslations, } from 'next-intl/server';
 
 import {
-    createClient,
-    createStaticClient,
-} from 'lib/supabase/server';
+    getOfferById,
+    getOffersIds
+} from 'app/actions';
 
 import ProductDetail from 'feature/ProductDetail';
 
@@ -47,21 +47,17 @@ export async function generateStaticParams(
         },
     } = props;
 
-    const supabase = createStaticClient();
+    const offersIds = await getOffersIds();
 
-    const {
-        data: offers,
-    } = await supabase.from('offers').select('id');
-
-    return offers?.map?.((offer: any) => ({
-        id: offer.id,
+    return offersIds?.map?.(id => ({
+        id: id,
         locale: locale || 'en',
     })) || [];
 }
 
 export default async function ProductDetailPage(
     props: ProductDetailPageProps
-): Promise<ReactElement<FC<ProductDetailPageProps>>> {
+): Promise<ReactElement<FC<ProductDetailPageProps>> | null> {
     const {
         params,
     } = props;
@@ -70,24 +66,8 @@ export default async function ProductDetailPage(
         id,
     } = await params;
 
-    const supabase = await createClient();
-
-    const {
-        data: offer,
-        error,
-    } = await supabase.from('offers').select(`
-            *,
-            categories ( * ),
-            offer_types (
-                *,
-                offer_attributes (
-                    *,
-                    offer_attribute_values ( * )
-                )
-            )
-        `)
-        .eq('id', id)
-        .single();
+    const offer = await getOfferById(id);
+    if (!offer) return null;
 
     return (
         <ProductDetail

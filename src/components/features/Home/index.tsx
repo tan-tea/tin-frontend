@@ -1,11 +1,8 @@
 'use client'
 
-import {
-    useCallback,
-    useEffect,
-    useState,
-    type FC,
-    type ReactElement,
+import type {
+    FC,
+    ReactElement,
 } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
@@ -16,13 +13,9 @@ import type {
 } from 'shared/models';
 import {
     currentCategoryAtom,
-    currentShopAtom,
     hydratedWorkspaceAtom,
 } from 'shared/state';
-
-import { getOffersByShopId } from 'app/actions';
-
-import { createClient } from 'lib/supabase/browser';
+import { useOfferData } from 'shared/hooks/queries';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
@@ -34,7 +27,6 @@ type OwnHomeProps = object;
 export type HomeProps = {
     t: ReturnType<typeof useTranslations>;
     offers: Array<any>;
-    currentShop: Shop | null;
     shops: Array<Shop>;
     categories: Array<Category>;
     selectedCategory: string | null;
@@ -52,60 +44,22 @@ export default function Home(
         selectedCategory,
         setSelectedCategory,
     ] = useAtom(currentCategoryAtom);
+
     const workspace = useAtomValue(hydratedWorkspaceAtom);
-    const currentShop = useAtomValue(currentShopAtom);
 
-    const [offers, setOffers] = useState<any[]>([]);
-
-    const getAllOffersByShop = useCallback(
-        async () => {
-            const supabase = createClient();
-            const {
-                data,
-                error,
-            } = await supabase
-                .from('offers')
-                .select('*')
-                .eq('shop_id', currentShop?.id)
-                .eq('is_active', true);
-
-            if (error) return [];
-
-            return data;
-        },
-        [currentShop?.id],
-    );
+    const {
+        data: offers,
+        isLoading: offersLoading,
+    } = useOfferData();
 
     const handleSelectCategory: (id: string) => void = (id) => {
         if (id === selectedCategory) setSelectedCategory(null);
         else setSelectedCategory(id);
     };
 
-    useEffect(() => {
-        if (currentShop?.id)
-            getOffersByShopId(currentShop?.id)
-                .then(result => {
-                    console.log('result', result);
-                });
-    }, [currentShop?.id]);
-
-    useEffect(() => {
-        let isSubscribed = true;
-
-        if (isSubscribed) {
-            getAllOffersByShop()
-                .then(setOffers);
-        }
-
-        return () => {
-            isSubscribed = false;
-        };
-    }, [getAllOffersByShop,]);
-
     const childProps: HomeProps = {
         t,
         offers,
-        currentShop,
         shops: workspace?.shops || [],
         categories: workspace?.categories || [],
         selectedCategory,

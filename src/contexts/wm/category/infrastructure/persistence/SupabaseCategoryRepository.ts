@@ -1,13 +1,37 @@
 import { ExternalId } from 'contexts/shared/domain/value-object/ExternalId';
 import { SupabaseRepository } from 'contexts/shared/infrastructure/persistence/supabase/Repository';
 
-import { Category } from 'contexts/wm/category/domain/Category';
-import { CategoryRepository } from 'contexts/wm/category/domain/CategoryRepository';
+import { Category } from '../../domain/Category';
+import { CategoryRepository } from '../../domain/CategoryRepository';
+import { CategoryId } from '../../domain/value-object/CategoryId';
 
 export class SupabaseCategoryRepository
     extends SupabaseRepository<Category>
     implements CategoryRepository
 {
+    async getCategoryById(id: CategoryId): Promise<Category | null> {
+        const repository = await this.from();
+
+        const {
+            data,
+            error,
+        } = await repository
+            .select('*')
+            .eq('id', id.value)
+            .single();
+
+        if (error && !data) return null;
+
+        const category = this.parseObjectToCamelCase(data);
+
+        return Category.fromPrimitives({
+            ...category,
+            banner: category.banner || '',
+            description: category.description || '',
+            createdAt: new Date(category.createdAt),
+        })
+    }
+
     async getCategoriesByWorkspaceId(workspaceId: ExternalId): Promise<Array<Category>> {
         const repository = await this.from();
 
@@ -18,7 +42,7 @@ export class SupabaseCategoryRepository
             .select('*')
             .eq('workspace_id', workspaceId.value);
 
-        if (error) return [];
+        if (error && !data) return [];
 
         return data.map(category => Category.fromPrimitives({
             ...category,

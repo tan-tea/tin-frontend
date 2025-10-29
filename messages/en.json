@@ -72,7 +72,8 @@
         }
     },
     "search": {
-        "tooltip": "Search"
+        "tooltip": "Search",
+        "placeholder": "Search products"
     },
     "header": {
         "greet": "Welcome"

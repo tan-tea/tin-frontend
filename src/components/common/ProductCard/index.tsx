@@ -23,7 +23,7 @@ import PriceWithDiscount from 'common/PriceWithDiscount';
 const productCard = tv({
     slots: {
         card: 'p-0 overflow-visible bg-transparent dark:text-light-600',
-        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-gray-200 bg-transparent dark:border-none',
+        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-[var(--mui-palette-secondary-400)] bg-white dark:border-none',
     },
 });
 

@@ -41,10 +41,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 <Box
                     ref={headerRef}
                     className='relative flex items-center justify-between mb-4'>
-                    <BackButton
-                        showLabel={false}
-                        // className='p-0'
-                    />
+                    <BackButton showLabel={false}/>
                     <Text className='font-semibold leading-5 text-dark-600'>
                         {t('title')}
                     </Text>
@@ -53,20 +50,15 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                         showLabel={false}
                     />
                 </Box>
-                <Box
-                    // style={{
-                    //     top: `${headerHeight}px`,
-                    //     rowGap: `${headerHeight}px`,
-                    // }}
-                    className='relative size-full flex flex-col gap-y-4'
-                >
+                <Box className='relative size-full flex flex-col gap-y-4'>
                     <Box
                         ref={imageRef}
                         component='div'
                         className='h-80 w-full bg-light-400 rounded-2xl overflow-hidden'
                     >
                         <Image
-                            src={offer?.banner ?? '/images/blank.svg'}
+                            priority
+                            src={offer?.banner !== '' ? offer?.banner :  '/images/blank.svg'}
                             alt={offer?.title}
                             width={500}
                             height={500}
@@ -80,9 +72,9 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                                     {offer?.title}
                                 </Text>
                                 <Box className='flex items-center gap-x-2 text-gray-400 capitalize text-base leading-4'>
-                                    <Text>{offer?.offer_types?.name}</Text>
+                                    <Text>{offer?.type?.name}</Text>
                                     <Separator orientation='vertical'/>
-                                    <Text>{offer?.categories?.label}</Text>
+                                    <Text>{offer?.category?.label}</Text>
                                 </Box>
                             </Box>
                             <PriceWithDiscount
@@ -94,7 +86,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                         <Box className='flex flex-col gap-y-2'>
                             <Text className='font-bold'>{t('availableOptions')}</Text>
                             <Box className='relative flex items-center gap-x-6 overflow-x-auto scrollbar-hide -mx-4 pb-2 px-4'>
-                                {offer?.offer_types?.offer_attributes?.map((attribute: any) => (
+                                {offer?.type?.attributes?.map(attribute => (
                                     <Box
                                         key={attribute?.id}
                                         className='flex flex-col gap-y-1.5 shadow-md px-3 py-2 rounded-2xl border border-gray-50 shrink-0'
@@ -103,14 +95,14 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                                             {attribute?.name}
                                         </Text>
                                         <Box className='flex items-center gap-x-2'>
-                                            {attribute?.offer_attribute_values
-                                                ?.filter((value: any) => value?.offer_id === offer?.id)
-                                                ?.map((value: any) => (
+                                            {attribute?.values
+                                                ?.filter(value => value?.offerId === offer?.id)
+                                                ?.map(value => (
                                                     <Text
                                                         key={value?.id}
                                                         className='p-2 py-1.5 text-xs rounded-full bg-light-400 text-dark-600'
                                                     >
-                                                        {value?.label ?? value?.value}
+                                                        {value?.label !== '' ? value?.label : value?.value}
                                                     </Text>
                                                 ))}
                                         </Box>

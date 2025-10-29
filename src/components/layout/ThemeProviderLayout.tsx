@@ -19,7 +19,7 @@ export default function ThemeProviderLayout(
     const { children, } = props;
 
     const {
-        theme
+        theme,
     } = useDynamicTheme();
 
     return (

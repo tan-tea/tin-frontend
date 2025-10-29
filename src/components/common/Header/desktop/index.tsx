@@ -11,7 +11,6 @@ import {
 
 import { HeaderProps } from 'common/Header';
 
-import SearchButton from 'common/SearchButton';
 import ThemeButton from 'common/ThemeButton';
 import UserAvatar from 'common/User/Avatar';
 
@@ -31,9 +30,7 @@ const HeaderDesktop: FC<HeaderProps> = (
                     aria-label='navigation'
                     className='ml-auto h-full flex items-center gap-x-4'
                 >
-                    <SearchButton/>
                     <ThemeButton/>
-                    <UserAvatar/>
                 </Box>
             </Box>
         </AppBar>

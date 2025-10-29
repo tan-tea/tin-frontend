@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { minutesToMilliseconds } from 'date-fns';
+import { useAtomValue } from 'jotai';
 import {
     useQuery,
     QueryObserverResult,
@@ -8,9 +10,14 @@ import {
     getOffersByShopId,
 } from 'app/actions';
 
+import type {
+    Offer
+} from 'shared/models';
+import { currentShopAtom } from 'shared/state';
+
 type UseOfferData = Readonly<{
     queryId: string;
-    theme: any;
+    data: Array<Offer>;
     isLoading: boolean;
     error: Error | null;
     refetch: QueryObserverResult['refetch'];
@@ -18,14 +25,18 @@ type UseOfferData = Readonly<{
 }>;
 
 type UseOfferDataProps = {
-    shopId: string;
+    shopId?: string;
 };
 
-type UseOfferDataHandler = (props: UseOfferDataProps) => UseOfferData;
+type UseOfferDataHandler = (props?: UseOfferDataProps) => UseOfferData;
 
-const useOfferData: UseOfferDataHandler = (props: UseOfferDataProps) => {
+export const useOfferData: UseOfferDataHandler = (props = {
+    shopId: undefined
+}) => {
+    const currentShop = useAtomValue(currentShopAtom);
+
     const {
-        shopId,
+        shopId = currentShop?.id!,
     } = props;
 
     const queryId = useMemo<string>(
@@ -42,18 +53,17 @@ const useOfferData: UseOfferDataHandler = (props: UseOfferDataProps) => {
     } = useQuery({
         queryKey: [queryId, shopId,],
         queryFn: async () => await getOffersByShopId(shopId),
-        staleTime: Infinity,
+        enabled: !!shopId,
+        staleTime: minutesToMilliseconds(30),
         retry: 5,
     });
 
     return {
         queryId,
-        theme: offerData,
+        data: offerData || [],
         isLoading,
         error,
         refetch,
         isRefetching,
     };
 };
-
-export default useOfferData;

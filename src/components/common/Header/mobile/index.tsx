@@ -4,9 +4,11 @@ import {
     useState,
     type FC
 } from 'react';
+import Image from 'next/image';
 
 import {
     Box,
+    Text,
     AppBar,
     Dropdown,
 } from 'ui/index';
@@ -21,6 +23,7 @@ const HeaderMobile: FC<HeaderProps> = (
 ) => {
     const {
         shops,
+        workspace,
         scrolling,
     } = props;
 
@@ -35,7 +38,21 @@ const HeaderMobile: FC<HeaderProps> = (
             className='z-50 py-4 h-auto bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
         >
             <Box className='size-full flex items-center px-4'>
-                {/* <UserAvatar/> */}
+                <Box className='h-full flex items-center gap-x-1'>
+                    <Image
+                        priority
+                        src={workspace?.logo}
+                        alt={workspace?.name}
+                        width={50}
+                        height={50}
+                        className='h-12 w-auto object-cover fill-[var(--mui-palette-primary-400)]'
+                    />
+                    <Text
+                        component='h1'
+                        className='text-base font-medium text-gray-600'>
+                        {workspace?.name}
+                    </Text>
+                </Box>
                 <Box className='ml-auto flex items-center gap-x-3'>
                     <Dropdown
                         option={{

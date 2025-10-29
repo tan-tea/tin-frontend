@@ -1,8 +1,8 @@
 import { ExternalId } from 'contexts/shared/domain/value-object/ExternalId';
 import { SupabaseRepository } from 'contexts/shared/infrastructure/persistence/supabase/Repository';
 
-import { Shop } from 'contexts/vm/shop/domain/Shop';
-import { ShopRepository } from 'contexts/vm/shop/domain/ShopRepository';
+import { Shop } from '../../domain/Shop';
+import { ShopRepository } from '../../domain/ShopRepository';
 
 export class SupabaseShopRepository
 	extends SupabaseRepository<Shop>

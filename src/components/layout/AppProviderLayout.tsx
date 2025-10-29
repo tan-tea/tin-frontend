@@ -1,21 +1,14 @@
-'use client'
+'use client';
 
-import type {
-    FC,
-    ReactNode,
-    ReactElement,
-} from 'react';
-import { minutesToMilliseconds,  } from 'date-fns';
-import {
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query';
-import { APIProvider, } from '@vis.gl/react-google-maps';
+import type { FC, ReactNode, ReactElement } from 'react';
+import { minutesToMilliseconds } from 'date-fns';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { APIProvider } from '@vis.gl/react-google-maps';
 
-import { DialogProvider, } from 'shared/contexts/dialog';
-import { DatabaseProvider, } from 'shared/contexts/database';
-import { ContainerProvider, } from 'shared/contexts/container';
-import { ApplicationStoreProvider, } from 'shared/stores/application-store';
+import { DialogProvider } from 'shared/contexts/dialog';
+import { DatabaseProvider } from 'shared/contexts/database';
+import { ContainerProvider } from 'shared/contexts/container';
+import { ApplicationStoreProvider } from 'shared/stores/application-store';
 import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 
 import ThemeWatcher from 'common/Theme/Watcher';
@@ -38,28 +31,28 @@ type AppProviderLayoutProps = {
 };
 
 export default function AppProviderLayout(
-    props: AppProviderLayoutProps
+    props: AppProviderLayoutProps,
 ): ReactElement<FC<AppProviderLayoutProps>> {
-    const { children, } = props;
+    const { children } = props;
 
     return (
         <ContainerProvider>
             <DatabaseProvider>
-                <DynamicThemeProvider>
-                    <ThemeProviderLayout>
-                        <QueryClientProvider client={queryClient}>
-                            <ApplicationStoreProvider>
+                <ApplicationStoreProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <DynamicThemeProvider>
+                            <ThemeProviderLayout>
                                 <DialogProvider>
                                     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
                                         {children}
                                     </APIProvider>
-                                    <ThemeWatcher/>
+                                    <ThemeWatcher />
                                 </DialogProvider>
-                            </ApplicationStoreProvider>
-                        </QueryClientProvider>
-                    </ThemeProviderLayout>
-                </DynamicThemeProvider>
+                            </ThemeProviderLayout>
+                        </DynamicThemeProvider>
+                    </QueryClientProvider>
+                </ApplicationStoreProvider>
             </DatabaseProvider>
         </ContainerProvider>
     );
-};
+}

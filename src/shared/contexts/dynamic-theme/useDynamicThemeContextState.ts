@@ -1,74 +1,57 @@
 import {
     useMemo,
-    useState,
     useEffect,
-    useCallback,
 } from 'react';
+import { useShallow } from 'zustand/shallow';
 import { createTheme, Theme} from '@mui/material';
 
-import DEFAULT_THEME, {
-    ThemeOptions
-} from 'app/theme';
-import { createClient } from 'lib/supabase/browser';
-import { formatThemePalette } from 'lib/utils';
+import DEFAULT_THEME from 'app/theme';
+
+import { useThemeData } from 'shared/hooks/queries';
+import { useApplicationStore } from 'shared/stores/application-store';
 
 type DynamicThemeContextState = {
     theme: Theme;
+    isLoadingTheme: boolean;
 };
 
 type UseDynamicThemeHandler = () => DynamicThemeContextState;
 
 const useDynamicThemeContextState: UseDynamicThemeHandler = () => {
     const defaultTheme = useMemo(
-        () => DEFAULT_THEME,
+        () => createTheme(DEFAULT_THEME),
         [],
     );
 
-    const [theme, setTheme] = useState<Theme>(createTheme(defaultTheme));
-
-    const loadTheme = useCallback(
-        async () => {
-            const supabase = createClient();
-
-            const {
-                data,
-                error,
-            } = await supabase
-                .from('customizations')
-                .select(`
-                    *,
-                    customization_colors (
-                        *,
-                        customization_color_variants ( * )
-                    )
-                `)
-                .eq('workspace_id', process.env.NEXT_PUBLIC_WORKSPACE_ID)
-                .single();
-
-            const palette = formatThemePalette(data);
-
-            const newTheme = createTheme({
-                ...defaultTheme,
-                cssVariables: true,
-                palette: {
-                    ...defaultTheme?.palette,
-                    ...palette,
-                },
-            });
-
-            return newTheme;
-        },
-        [defaultTheme,],
+    const {
+        setLoading,
+    } = useApplicationStore(
+        useShallow(store => store)
     );
 
+    const {
+        data: themeData,
+        isLoading: themeLoading,
+    } = useThemeData();
+
+    const theme = createTheme({
+        ...defaultTheme,
+        cssVariables: true,
+        palette: {
+            ...defaultTheme?.palette,
+            ...(themeData && {
+                ...themeData,
+            }),
+        },
+    });
+
     useEffect(() => {
-        loadTheme()
-            .then(setTheme)
-            .catch(err => console.error(err));
-    }, [loadTheme,]);
+        setLoading(themeLoading);
+    }, [themeLoading,]);
 
     return {
         theme,
+        isLoadingTheme: themeLoading,
     };
 }
 

@@ -1,8 +1,8 @@
 import { SupabaseRepository } from 'contexts/shared/infrastructure/persistence/supabase/Repository';
 
-import { Workspace } from 'contexts/wm/workspace/domain/Workspace';
-import { WorkspaceId } from 'contexts/wm/workspace/domain/value-object/WorkspaceId';
-import { WorkspaceRepository } from 'contexts/wm/workspace/domain/WorkspaceRepository';
+import { Workspace } from '../../domain/Workspace';
+import { WorkspaceId } from '../../domain/value-object/WorkspaceId';
+import { WorkspaceRepository } from '../../domain/WorkspaceRepository';
 
 export class SupabaseWorkspaceRepository
 	extends SupabaseRepository<Workspace>

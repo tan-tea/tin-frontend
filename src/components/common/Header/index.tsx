@@ -7,7 +7,8 @@ import type {
 import { useAtomValue } from 'jotai';
 
 import type {
-    Shop
+    Shop,
+    Workspace
 } from 'shared/models';
 import { useScroll } from 'shared/hooks';
 import { hydratedWorkspaceAtom } from 'shared/state';
@@ -21,6 +22,7 @@ type OwnHeaderProps = object;
 
 export type HeaderProps = {
     scrolling: boolean;
+    workspace: Workspace;
     shops: Array<Shop>;
 };
 
@@ -37,6 +39,7 @@ export default function Header(
 
     const childProps: HeaderProps = {
         scrolling: moving,
+        workspace,
         shops: workspace?.shops || [],
     };
 

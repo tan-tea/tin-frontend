@@ -13,7 +13,7 @@ type UseWorkerProps<T> = {
 
 type UseWorkerHandler = <T>(props: UseWorkerProps<T>) => UseWorker;
 
-export const useWorker: UseWorkerHandler = <T>(props: UseWorkerProps<T>) => {
+export const useWorker: UseWorkerHandler = (props) => {
     const {
         workerInit,
         onMessage,

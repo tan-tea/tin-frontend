@@ -23,7 +23,6 @@ const HomeMobile: FC<HomeMobileProps> = (
         offers,
         shops,
         categories,
-        currentShop,
         selectedCategory,
         onSelectCategory,
     } = props;

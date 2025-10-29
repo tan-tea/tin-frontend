@@ -1,5 +1,3 @@
-import camelCaseKeys from 'camelcase-keys';
-
 import { ExternalId } from 'contexts/shared/domain/value-object/ExternalId';
 import { SupabaseRepository } from 'contexts/shared/infrastructure/persistence/supabase/Repository';
 
@@ -8,6 +6,19 @@ import { OfferId } from '../../domain/value-object/OfferId';
 import { OfferRepository } from '../../domain/OfferRepository';
 
 export class SupabaseOfferRepository extends SupabaseRepository<Offer> implements OfferRepository {
+    async getOffers(): Promise<Array<Offer>> {
+        const repository = await this.from();
+
+        const {
+            data,
+            error,
+        } = await repository.select('*');
+
+        if (error && !data) return [];
+
+        return data.map(d => this.formatResult(d));
+    }
+
     async getOfferById(id: OfferId): Promise<Offer | null> {
         const repository = await this.from();
 
@@ -19,7 +30,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
             .eq('id', id.value)
             .single();
 
-        if (error) return null;
+        if (error && !data) return null;
 
         return this.formatResult(data);
     }
@@ -34,7 +45,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
             .select('*')
             .eq('shop_id', shopId.value);
 
-        if (error) return [];
+        if (error && !data) return [];
 
         return data.map(d => this.formatResult(d));
     }
@@ -49,7 +60,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
             .select('*')
             .eq('category_id', categoryId.value);
 
-        if (error) return [];
+        if (error && !data) return [];
 
         return data.map(d => this.formatResult(d));
     }
@@ -59,7 +70,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
     }
 
     private formatResult(data: any): Offer {
-        const result = camelCaseKeys(data, { deep: true, });
+        const result = this.parseObjectToCamelCase(data);
         return Offer.fromPrimitives({
             ...result,
             banner: result.banner || '',

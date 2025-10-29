@@ -1,8 +1,6 @@
-import { Offer as OfferAggregate, OfferPrimitives, } from 'contexts/vm/offer/domain/Offer';
+import { Offer, OfferPrimitives, } from 'contexts/vm/offer/domain/Offer';
 
-export interface Offer extends OfferPrimitives {}
-
-export class OfferReadModel implements Offer {
+export class OfferReadModel implements OfferPrimitives {
     readonly id: string;
     readonly title: string;
     readonly description: string;
@@ -19,7 +17,7 @@ export class OfferReadModel implements Offer {
     readonly shopId: string;
     readonly typeId: string;
 
-    constructor(offer: OfferAggregate) {
+    constructor(offer: Offer) {
         const primitives = offer.toPrimitives();
 
         this.id = primitives.id;

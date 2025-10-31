@@ -96,6 +96,9 @@
             "description": "Your data stays safe, and you get instant access — no forms, no hassle."
         }
     },
+    "home": {
+        "notOffers": "¡Aún no hay ofertas disponibles!"
+    },
     "productDetail": {
         "title": "Detalles del producto",
         "availableOptions": "Opciones disponibles",

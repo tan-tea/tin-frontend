@@ -5,7 +5,7 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations, } from 'next-intl/server';
 
-import dynamic from 'next/dynamic';
+import ProductDetail from 'feature/ProductDetail';
 
 import {
     getOfferById,
@@ -54,13 +54,6 @@ export async function generateStaticParams(
         locale: locale || 'en',
     })) || [];
 }
-
-const ProductDetail = dynamic(
-    () => import('feature/ProductDetail'),
-    {
-        ssr: false,
-    },
-);
 
 export default async function ProductDetailPage(
     props: ProductDetailPageProps

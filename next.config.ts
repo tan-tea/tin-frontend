@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
             {
                 hostname: '**',
             },
+            {
+                protocol: 'https',
+                hostname: 'ssfdpagynvyveoschegx.storage.supabase.co',
+                pathname: 'storage/v1/s3/**',
+            },
         ],
     },
     eslint: {

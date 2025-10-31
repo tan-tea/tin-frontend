@@ -7,9 +7,12 @@ import type {
 import { useAtom, useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
 
+import dynamic from 'next/dynamic';
+
 import type {
     Shop,
-    Category
+    Category,
+    Workspace
 } from 'shared/models';
 import {
     currentCategoryAtom,
@@ -19,8 +22,22 @@ import { useOfferData } from 'shared/hooks/queries';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
-import HomeMobile from './mobile';
-import HomeDesktop from './desktop';
+import SkeletonMobile from './mobile/skeleton';
+import SkeletonDesktop from './desktop/skeleton';
+
+const HomeMobile = dynamic(
+    () => import('./mobile'),
+    {
+        loading: () => <SkeletonMobile/>,
+    },
+);
+
+const HomeDesktop = dynamic(
+    () => import('./desktop'),
+    {
+        loading: () => <SkeletonDesktop/>,
+    },
+);
 
 type OwnHomeProps = object;
 
@@ -28,6 +45,7 @@ export type HomeProps = {
     t: ReturnType<typeof useTranslations>;
     offers: Array<any>;
     shops: Array<Shop>;
+    currentWorkspace: Workspace;
     categories: Array<Category>;
     selectedCategory: string | null;
     onSelectCategory: (id: string) => void;
@@ -60,6 +78,7 @@ export default function Home(
     const childProps: HomeProps = {
         t,
         offers,
+        currentWorkspace: workspace,
         shops: workspace?.shops || [],
         categories: workspace?.categories || [],
         selectedCategory,

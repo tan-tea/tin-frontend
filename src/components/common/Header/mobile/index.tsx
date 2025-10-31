@@ -49,24 +49,26 @@ const HeaderMobile: FC<HeaderProps> = (
                     />
                     <Text
                         component='h1'
-                        className='text-base font-medium text-gray-600'>
+                        className='text-base font-medium text-[var(--mui-palette-primary-main)]'>
                         {workspace?.name}
                     </Text>
                 </Box>
                 <Box className='ml-auto flex items-center gap-x-3'>
-                    <Dropdown
-                        option={{
-                            label: defaultShop?.name!,
-                            value: defaultShop?.id!,
-                        }}
-                        options={shops?.map(s => ({
-                            label: s?.name,
-                            value: s?.id,
-                        }))}
-                        open={open}
-                        onOpenChange={(open) => setOpen(open)}
-                        onSelectOption={(option) => console.log('selected', option)}
-                    />
+                    {shops?.length > 0 && (
+                        <Dropdown
+                            option={{
+                                label: defaultShop?.name!,
+                                value: defaultShop?.id!,
+                            }}
+                            options={shops?.map(s => ({
+                                label: s?.name,
+                                value: s?.id,
+                            }))}
+                            open={open}
+                            onOpenChange={(open) => setOpen(open)}
+                            onSelectOption={(option) => console.log('selected', option)}
+                        />
+                    )}
                     <ThemeButton/>
                     <LanguageButton/>
                 </Box>

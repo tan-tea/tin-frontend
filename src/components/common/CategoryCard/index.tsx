@@ -16,18 +16,18 @@ import {
 
 const categoryCard = tv({
     slots: {
-        wrapper: 'shrink-0 flex flex-col px-2 gap-y-1.5 items-center justify-start w-18 h-auto rounded-4xl pt-2 pb-4',
-        avatar: 'shrink-0',
-        text: 'w-full font-secondary font-normal text-xs leading-3 text-center text-dark-600 dark:text-light-600',
+        wrapper: 'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl w-26 min-h-[110px] border border-transparent dark:bg-dark-500 transition-all duration-200 hover:shadow-md cursor-pointer',
+        avatar: 'shrink-0 w-14 h-14',
+        text: 'w-full font-nunito font-normal text-xs leading-tight text-center text-[var(--mui-palette-grey-700)] dark:text-light-600 break-words',
     },
     variants: {
         selected: {
             true: {
-                wrapper: 'bg-primary',
-                text: 'text-white'
+                wrapper: 'bg-[var(--mui-palette-primary-50)] border-[var(--mui-palette-primary-main)]',
+                text: 'text-[var(--mui-palette-primary-main)] font-bold'
             },
             false: {
-                wrapper: 'bg-light-400 dark:bg-dark-500',
+                wrapper: 'bg-[var(--mui-palette-grey-50)]',
             },
         },
     },
@@ -37,7 +37,7 @@ type CategoryCardVariants = VariantProps<typeof categoryCard>;
 
 type CategoryCardProps = CategoryCardVariants & {
     id: string;
-    banner?: string;
+    banner: string;
     label?: string;
     onSelectCategory: (id: string) => void;
 };
@@ -48,8 +48,8 @@ const CategoryCard: FC<CategoryCardProps> = (
     const {
         id,
         selected,
-        banner = '/images/logo.svg',
-        label = 'LG',
+        banner,
+        label,
         onSelectCategory,
     } = props;
 
@@ -74,7 +74,7 @@ const CategoryCard: FC<CategoryCardProps> = (
             <Avatar
                 size='xxxl'
                 src={banner}
-                alt={label}
+                alt={label || ''}
                 rounded='full'
                 className={avatar()}
             />

@@ -6,6 +6,7 @@ import {
     type ReactEventHandler,
 } from 'react';
 import {
+    ClassValue,
     tv,
     type VariantProps
 } from 'tailwind-variants';
@@ -33,6 +34,8 @@ type ProductDetailImageVariants = VariantProps<typeof productDetailImage>;
 type ProductDetailImageProps = ProductDetailImageVariants & {
     alt: string;
     image: string;
+    className?: ClassValue;
+    imageClassName?: ClassValue;
 };
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
@@ -52,12 +55,14 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
     const {
         alt,
         image,
+        className,
+        imageClassName,
     } = props;
 
     const {
         container,
         image: imageSlot,
-    } = productDetailImage({ });
+    } = productDetailImage();
 
     const containerRef = useRef<HTMLElement | null>(null);
     const imageRef = useRef<HTMLImageElement | null>(null);
@@ -80,7 +85,9 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
             aria-description={alt}
             aria-describedby={alt}
             component={motion.article}
-            className={container({})}
+            className={container({
+                className,
+            })}
         >
             <Image
                 priority
@@ -91,7 +98,9 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
                 ref={imageRef}
                 width={parseFloat(containerComputedStyle?.width ?? '420')}
                 height={parseFloat(containerComputedStyle?.height ?? '420')}
-                className={imageSlot()}
+                className={imageSlot({
+                    className: imageClassName,
+                })}
                 onLoad={handleImageLoad}
             />
         </Box>

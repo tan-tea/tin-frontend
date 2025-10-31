@@ -47,6 +47,11 @@ import Separator, {
     type SeparatorProps,
     type SeparatorVariants,
 } from './separator';
+import Skeleton, {
+    skeleton,
+    type SkeletonProps,
+    type SkeletonVariants,
+} from './skeleton';
 
 export {
     Box,
@@ -80,6 +85,8 @@ export {
     dropdown,
     Separator,
     separator,
+    Skeleton,
+    skeleton,
 };
 export type {
     AvatarProps,
@@ -94,4 +101,6 @@ export type {
     DropdownVariants,
     SeparatorProps,
     SeparatorVariants,
-}
+    SkeletonProps,
+    SkeletonVariants,
+};

@@ -25,10 +25,10 @@ export const useScroll: UseScrollHandler = () => {
     const [moving, setMoving,] = useState<boolean>(false);
     const [lastScrollY, setLastScrollY] = useState<number>(0);
 
-    const handleScroll: (event?: Event) => void = useCallback(
-        (event) => {
+    const handleScroll: (event: Event) => void = useCallback(
+        () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 50) setMoving(true);
+            if (currentScrollY > lastScrollY && currentScrollY > 35) setMoving(true);
             else setMoving(false);
 
             setScroll({
@@ -37,13 +37,11 @@ export const useScroll: UseScrollHandler = () => {
             });
             setLastScrollY(currentScrollY);
         },
-        [],
+        [lastScrollY,],
     );
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-
-        handleScroll();
 
         return () => {
             window.removeEventListener('scroll', handleScroll);

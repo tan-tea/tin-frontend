@@ -1,10 +1,12 @@
 'use client'
 
-import {
-    type FC,
-    type ReactElement,
+import type {
+    FC,
+    ReactElement,
 } from 'react';
 import { useTranslations, } from 'next-intl';
+
+import dynamic from 'next/dynamic';
 
 import type {
     Offer
@@ -13,8 +15,22 @@ import { useHideUI } from 'shared/hooks';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
-import ProductDetailMobile from './mobile';
-import ProductDetailDesktop from './desktop';
+import MobileSkeleton from './mobile/skeleton';
+import DesktopSkeleton from './desktop/skeleton';
+
+const ProductDetailMobile = dynamic(
+    () => import('./mobile'),
+    {
+        loading: (props) => <MobileSkeleton {...props}/>,
+    },
+);
+
+const ProductDetailDesktop = dynamic(
+    () => import('./desktop'),
+    {
+        loading: (props) => <DesktopSkeleton {...props}/>,
+    },
+);
 
 type OwnProductDetailProps = {
     id: string;

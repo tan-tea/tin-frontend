@@ -18,26 +18,67 @@ import {
 
 const priceWithDiscount = tv({
     slots: {
-        box: 'w-auto h-6 flex items-center gap-x-1 text-lg text-primary md:text-xl',
-        value: 'text-[length:inherit] font-bold leading-inherit',
-        valueWithDiscount: 'text-[length:inherit] font-bold leading-inherit',
+        box: 'flex text-primary',
+        value: 'font-nunito',
+        valueWithDiscount: '',
+        discount: 'text-[var(--mui-palette-secondary-main)] bg-[var(--mui-palette-secondary-100)] px-2 py-1 rounded-lg',
     },
     variants: {
+        size: {
+            sm: {
+                value: 'text-sm md:text-base',
+                valueWithDiscount: 'text-base md:text-lg',
+                discount: 'text-xs md:text-sm',
+            },
+            md: {
+                value: 'text-lg md:text-lg leading-5',
+                valueWithDiscount: 'text-lg md:text-xl leading-5',
+                discount: 'text-sm md:text-base leading-4',
+            },
+            lg: {
+                value: 'text-xl md:text-2xl leading-5',
+                valueWithDiscount: 'text-2xl md:text-3xl leading-6',
+                discount: 'text-sm md:text-base leading-4',
+            },
+        },
         orientation: {
             horizontal: {
-                box: 'flex-row items-center',
+                box: 'flex-row items-center gap-x-1',
             },
             vertical: {
-                box: 'flex-col gap-y-1',
+                box: 'flex-col items-start justify-center gap-y-1',
             },
         },
         hasDiscount: {
             true: {
-                value: 'text-base leading-4 text-gray-400',
-                valueWithDiscount: 'text-lg leading-5 text-primary',
+                value: 'text-gray-400',
+                valueWithDiscount: 'text-[var(--mui-palette-primary-main)]',
             },
         },
     },
+    defaultVariants: {
+        size: 'md',
+        orientation: 'horizontal',
+        hasDiscount: false,
+    },
+    compoundSlots: [
+        {
+            slots: ['value', 'valueWithDiscount', 'discount'],
+            class: 'font-[800] font-nunito'
+        },
+        {
+            slots: ['value',],
+            size: 'md',
+            hasDiscount: true,
+            class: 'text-sm',
+        },
+        {
+            slots: ['value',],
+            size: 'lg',
+            hasDiscount: true,
+            class: 'text-base',
+        }
+    ],
 });
 
 type ProductCardVariants = VariantProps<typeof priceWithDiscount>;
@@ -53,6 +94,7 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = (
 ) => {
     const {
         price,
+        size,
         orientation = 'horizontal',
         className,
         discount = 0,
@@ -72,14 +114,17 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = (
         box,
         value,
         valueWithDiscount,
+        discount: discountSlot,
     } = priceWithDiscount({
-        className,
+        size,
         hasDiscount,
         orientation,
     });
 
     return (
-        <Box className={box()}>
+        <Box className={box({
+            className,
+        })}>
             {hasDiscount && (
                 <Text
                     variant='h2'
@@ -89,14 +134,17 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = (
                     {formatCurrency('COP', priceWithDiscountApplied)}
                 </Text>
             )}
-            <Text
-                through={hasDiscount}
-                variant='h2'
-                component='h3'
-                className={value()}
-            >
-                {formatCurrency('COP', price)}
-            </Text>
+            <Box className='flex items-center gap-x-1'>
+                {(hasDiscount && orientation === 'vertical') && <Text className={discountSlot()}>{`${discount}%`}</Text>}
+                <Text
+                    through={hasDiscount}
+                    variant='h2'
+                    component='h3'
+                    className={value()}
+                >
+                    {formatCurrency('COP', price)}
+                </Text>
+            </Box>
         </Box>
     );
 }

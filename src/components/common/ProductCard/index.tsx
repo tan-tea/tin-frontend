@@ -101,9 +101,9 @@ const ProductCard: FC<ProductCardProps> = (
                         </Text>
                     )}
                     <PriceWithDiscount
+                        orientation='horizontal'
                         price={price}
                         discount={discount}
-                        className='text-sm'
                     />
                 </CardContent>
             </CardActionsArea>

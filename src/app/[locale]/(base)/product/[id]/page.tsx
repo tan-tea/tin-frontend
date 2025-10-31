@@ -5,12 +5,12 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations, } from 'next-intl/server';
 
+import dynamic from 'next/dynamic';
+
 import {
     getOfferById,
     getOffersIds
 } from 'app/actions';
-
-import ProductDetail from 'feature/ProductDetail';
 
 type ProductDetailStaticParams = {
     params: Awaited<{
@@ -54,6 +54,13 @@ export async function generateStaticParams(
         locale: locale || 'en',
     })) || [];
 }
+
+const ProductDetail = dynamic(
+    () => import('feature/ProductDetail'),
+    {
+        ssr: false,
+    },
+);
 
 export default async function ProductDetailPage(
     props: ProductDetailPageProps

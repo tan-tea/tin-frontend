@@ -1,6 +1,13 @@
-import type { ElementType, FC, } from 'react';
+import type {
+    FC,
+    ElementType,
+} from 'react';
 import { LucideProps } from 'lucide-react';
-import { tv } from 'tailwind-variants';
+import {
+    tv,
+    type ClassValue,
+    type VariantProps
+} from 'tailwind-variants';
 
 import Es from './Es';
 import En from './En';
@@ -9,14 +16,16 @@ import Logo from './Logo';
 import Discord from './Discord';
 import Instagram from './Instagram';
 
-type BaseIconProps = {
-    Icon: ElementType<LucideProps>;
-    className?: string;
-};
-
 const baseIcon = tv({
     base: 'size-6',
 });
+
+type BaseIconVariants = VariantProps<typeof baseIcon>;
+
+type BaseIconProps = BaseIconVariants & {
+    Icon: ElementType<LucideProps>;
+    className?: ClassValue;
+};
 
 const BaseIcon: FC<BaseIconProps> = (
     props: BaseIconProps,

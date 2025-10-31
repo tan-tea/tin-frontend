@@ -15,6 +15,7 @@ import {
     default as RootButton,
     ButtonProps as RootButtonProps,
 } from '@mui/material/Button';
+import { motion, MotionProps } from 'motion/react';
 
 import { Spinner, } from 'ui/index';
 
@@ -47,7 +48,7 @@ const button = tv({
 
 type ButtonVariants = VariantProps<typeof button>;
 
-type ButtonProps = ButtonVariants & ComponentProps<'button'> & {
+type ButtonProps = ButtonVariants & ComponentProps<'button'> & MotionProps & {
     block?: boolean;
     loading?: boolean;
     allowEnter?: boolean;
@@ -61,7 +62,7 @@ type ButtonProps = ButtonVariants & ComponentProps<'button'> & {
     ref?: Ref<HTMLButtonElement>;
 };
 
-const Button: FC<ButtonProps> = (props: ButtonProps) => {
+const Button: FC<ButtonProps> = (props) => {
     const {
         ref,
         children,
@@ -71,6 +72,8 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
         startIcon,
         endIcon,
         mobile,
+        rounded,
+        disableRipple,
         color = 'primary',
         variant = 'outlined',
         tabIndex = 0,
@@ -78,8 +81,6 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
         loading = false,
         allowEnter = false,
         disabled = false,
-        rounded,
-        disableRipple,
         onClick,
         onKeyDown,
         ...rest
@@ -95,6 +96,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     return (
         <RootButton
             {...rest}
+            component={motion.button}
             className={button({
                 mobile,
                 rounded,

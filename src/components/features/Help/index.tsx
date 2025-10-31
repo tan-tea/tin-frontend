@@ -1,17 +1,15 @@
 'use client'
 
 import {
-    useEffect,
     type FC,
     type ReactElement,
 } from 'react';
 import { useTranslations, } from 'next-intl';
-import { useShallow, } from 'zustand/react/shallow';
 
 import {
+    useHideUI,
     useNavigation,
 } from 'shared/hooks';
-import { useApplicationStore, } from 'shared/stores/application-store';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
@@ -30,25 +28,13 @@ export default function Help(
 ): ReactElement<FC<OwnHelpProps>> {
     const {} = props;
 
+    useHideUI({
+        hideHeader: true,
+        hideBottomNavigation: false,
+    });
+
     const t = useTranslations();
     const navigation = useNavigation();
-
-    const {
-        setShowHeader,
-        setShowBottomNavigation,
-    } = useApplicationStore(
-        useShallow(store => store),
-    );
-
-    useEffect(() => {
-        setShowHeader(false);
-        // setShowBottomNavigation(false);
-
-        return () => {
-            setShowHeader(true);
-            // setShowBottomNavigation(true);
-        };
-    }, [])
 
     const childProps: HelpProps = {
         t,

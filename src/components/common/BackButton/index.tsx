@@ -2,34 +2,64 @@
 
 import type {
     FC,
-    MouseEvent,
-    MouseEventHandler,
 } from 'react';
-import { tv, } from 'tailwind-variants';
-import { useTranslations, } from 'next-intl';
-
 import {
-    Button,
-    IconButton,
-} from 'ui/index';
-import { BaseIcon, MoveLeft, } from 'icons/index';
+    tv,
+    type VariantProps,
+} from 'tailwind-variants';
+import { useTranslations, } from 'next-intl';
+import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
 import { useNavigation, } from 'shared/hooks';
 
+import {
+    Box,
+    IconButton,
+    Text,
+} from 'ui/index';
+import { MoveLeft, } from 'icons/index';
+
 const backButton = tv({
-    base: 'top-0 left-0 text-gray-800 dark:text-gray-200',
+    slots: {
+        container: 'flex items-center gap-x-1 text-[var(--mui-palette-grey-800)] cursor-pointer dark:text-[var(--mui-palette-grey-200)]',
+        button: 'top-0 left-0 text-inherit',
+        label: 'text-xs font-semibold text-inherit',
+    },
 });
 
-type BackButtonProps = {
-    showLabel?: boolean;
+type BackButtonVariants = VariantProps<typeof backButton>;
+
+type BackButtonProps = BackButtonVariants & {
     className?: string;
+    showLabel?: boolean;
+    showAnimation?: boolean;
 };
 
-const BackButton: FC<BackButtonProps> = (props: BackButtonProps) => {
+const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
+    initial: {
+        transform: 'translateX(-100px)',
+    },
+    animate: {
+        transform: 'translateX(0px)',
+    },
+    transition: {
+        type: 'spring',
+        duration: 2.5,
+    },
+}
+
+const BackButton: FC<BackButtonProps> = (props) => {
     const {
         className,
-        // showLabel = true,
+        showLabel = false,
+        showAnimation = true,
     } = props;
+
+    const {
+        container,
+        button,
+        label,
+    } = backButton();
 
     const t = useTranslations();
 
@@ -37,29 +67,23 @@ const BackButton: FC<BackButtonProps> = (props: BackButtonProps) => {
         back,
     } = useNavigation();
 
-    const handleGoBack: () => Promise<void> = async () =>
-        await back();
-
     return (
-        // <Button
-        //     variant='text'
-        //     rounded='full'
-        //     className={backButton({
-        //         className,
-        //     })}
-        //     startIcon={<BaseIcon Icon={MoveLeft}/>}
-        //     onClick={handleClick}>
-        //     {showLabel && t('shared.back')}
-        // </Button>
-        <IconButton
-            size='md'
-            borderless={true}
-            onClick={() => handleGoBack()}
-            className={backButton({
-                className,
-            })}
-            Icon={MoveLeft}
-        />
+        <Box
+            {...(showAnimation && DEFAULT_ANIMATION)}
+            component={motion.div}
+            className={container()}
+            onClick={async () => await back()}
+        >
+            <IconButton
+                size='md'
+                borderless
+                className={button({
+                    className,
+                })}
+                Icon={MoveLeft}
+            />
+            {showLabel && <Text className={label()}>{t('shared.back')}</Text>}
+        </Box>
     );
 };
 

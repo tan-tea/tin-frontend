@@ -30,7 +30,9 @@
         "close": "Close",
         "accept": "Accept",
         "saveChanges": "Save Changes",
-        "discount": "{discount}% off"
+        "discount": "{discount}% off",
+        "showMore": "Read more",
+        "showLess": "View less"
     },
     "theme": {
         "tooltip": "Change theme",
@@ -98,7 +100,8 @@
         "title": "Product detail",
         "availableOptions": "Available options",
         "description": "Description",
-        "notProvided": "Oops... No description provided."
+        "notProvided": "Oops... No description provided.",
+        "button": "Buy product"
     },
     "loading": {
         "message": "Loading..."

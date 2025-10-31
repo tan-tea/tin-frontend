@@ -12,6 +12,7 @@ import type {
     Metadata,
 } from 'next';
 import {
+    Nunito,
     Poppins,
     Raleway,
 } from 'next/font/google';
@@ -40,6 +41,13 @@ const raleway = Raleway({
     display: 'swap',
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900',],
     variable: '--font-secondary',
+});
+
+const nunito = Nunito({
+    subsets: ['latin'],
+    display: 'swap',
+    weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000',],
+    variable: '--font-nunito',
 });
 
 type RootLayoutProps = {
@@ -103,7 +111,11 @@ export default async function RootLayout(
             lang={locale}
             translate='no'
             suppressHydrationWarning
-            className={[poppins.className, raleway.className].join(' ')}
+            className={[
+                poppins.className,
+                raleway.className,
+                nunito.className
+            ].join(' ')}
         >
             <body className='isolate bg-white dark:bg-dark-600'>
                 <Provider>

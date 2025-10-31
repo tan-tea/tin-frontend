@@ -1,10 +1,8 @@
 'use client'
 
-import {
+import type {
     FC,
-    memo,
 } from 'react';
-
 import {
     tv,
     type VariantProps,
@@ -13,7 +11,7 @@ import {
     default as RootBox,
     BoxProps as RootBoxProps,
 } from '@mui/material/Box';
-import { MotionProps } from 'motion/react';
+import type { MotionProps } from 'motion/react';
 
 const box = tv({
     base: '',
@@ -33,12 +31,13 @@ const Box: FC<BoxProps> = (props: BoxProps) => {
     return (
         <RootBox
             {...rest}
-            children={children}
             className={box({
                 className,
             })}
-        />
+        >
+            {children}
+        </RootBox>
     );
 };
 
-export default memo(Box);
+export default Box;

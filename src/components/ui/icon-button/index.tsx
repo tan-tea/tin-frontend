@@ -10,6 +10,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
+import { BaseIcon } from 'icons/index';
 
 export const iconButton = tv({
     base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer',
@@ -21,7 +22,7 @@ export const iconButton = tv({
         },
         color: {
             root: '',
-            primary: 'border-primary text-primary fill-primary'
+            primary: 'border-[var(--mui-palette-primary-main)] text-[var(--mui-palette-primary-main)] fill-[var(--mui-palette-primary-main)]'
         },
         rounded: {
             sm: 'rounded-sm',
@@ -36,7 +37,7 @@ export const iconButton = tv({
             lg: 'size-7',
         },
         selected: {
-            true: '',
+            true: 'text-[var(--mui-palette-primary-main)]',
         },
         borderless: {
             true: 'border-none'
@@ -45,7 +46,7 @@ export const iconButton = tv({
     compoundVariants: [
         {
             selected: true,
-            className: 'text-primary',
+            className: 'text-[var(--mui-palette-primary-main)]',
         },
         {
             selected: false,
@@ -60,8 +61,7 @@ export type IconButtonProps = IconButtonVariants & HTMLMotionProps<'button'> & {
     Icon: ElementType<LucideProps>;
 };
 
-const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
-
+const IconButton: FC<IconButtonProps> = (props) => {
     const {
         ref,
         Icon,
@@ -74,12 +74,6 @@ const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
         borderless = false,
         ...rest
     } = props;
-
-    const childProps: LucideProps = {
-        className: `${iconSize} ${selected && 'fill-primary'}`,
-        strokeWidth: 2,
-        absoluteStrokeWidth: false,
-    };
 
     return (
         <motion.button
@@ -96,7 +90,10 @@ const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
                 borderless,
             })}
         >
-            <Icon {...childProps}/>
+            <BaseIcon
+                Icon={Icon}
+                className={selected ? 'fill-[var(--mui-palette-primary-main)]' : ''}
+            />
         </motion.button>
     );
 };

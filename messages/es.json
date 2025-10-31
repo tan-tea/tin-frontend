@@ -30,7 +30,9 @@
         "close": "Cerrar",
         "accept": "Aceptar",
         "saveChanges": "Guardar cambios",
-        "discount": "{discount}% off"
+        "discount": "{discount}% off",
+        "showMore": "Leer mas",
+        "showLess": "Ver menos"
     },
     "theme": {
         "tooltip": "Cambiar tema",
@@ -98,7 +100,8 @@
         "title": "Detalles del producto",
         "availableOptions": "Opciones disponibles",
         "description": "Descripción",
-        "notProvided": "Oops... No se ha proporcionado una descripción."
+        "notProvided": "Oops... No se ha proporcionado una descripción.",
+        "button": "Adquirir producto"
     },
     "loading": {
         "message": "Cargando..."

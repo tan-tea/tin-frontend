@@ -1,17 +1,15 @@
 'use client'
 
 import {
-    useEffect,
     type FC,
     type ReactElement,
 } from 'react';
 import { useTranslations, } from 'next-intl';
-import { useShallow, } from 'zustand/react/shallow';
 
 import {
+    useHideUI,
     useNavigation,
 } from 'shared/hooks';
-import { useApplicationStore, } from 'shared/stores/application-store';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
@@ -30,23 +28,13 @@ export default function Search(
 ): ReactElement<FC<OwnSearchProps>> {
     const {} = props;
 
+    useHideUI({
+        hideHeader: true,
+        hideBottomNavigation: false,
+    });
+
     const t = useTranslations();
     const navigation = useNavigation();
-
-    const {
-        setShowHeader,
-        setShowBottomNavigation,
-    } = useApplicationStore(
-        useShallow(store => store),
-    );
-
-    useEffect(() => {
-        setShowHeader(false);
-
-        return () => {
-            setShowHeader(true);
-        };
-    }, [])
 
     const childProps: SearchProps = {
         t,

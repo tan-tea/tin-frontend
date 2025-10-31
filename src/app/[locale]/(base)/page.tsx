@@ -5,7 +5,7 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations, } from 'next-intl/server';
 
-import Home from 'feature/Home';
+import dynamic from 'next/dynamic';
 
 type HomePageProps = {
     searchParams: Promise<{
@@ -25,6 +25,10 @@ export async function generateMetadata(
         description: t('description'),
     };
 }
+
+const Home = dynamic(
+    () => import('feature/Home'),
+);
 
 export default async function HomePage(
     props: HomePageProps

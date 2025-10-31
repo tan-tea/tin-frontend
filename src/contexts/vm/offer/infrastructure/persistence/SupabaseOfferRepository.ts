@@ -33,6 +33,15 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
         if (error && !data) return null;
 
         return this.formatResult(data);
+        // const offer = this.parseObjectToCamelCase(data);
+        // return Offer.fromPrimitives({
+        //     ...offer,
+        //     banner: offer?.banner ?? '/images/blank.svg',
+        //     startDate: new Date(offer.startDate),
+        //     endDate: new Date(offer.endDate),
+        //     createdAt: new Date(offer.createdAt),
+        //     updatedAt: new Date(offer.updatedAt),
+        // });
     }
 
     async getOffersByShopId(shopId: ExternalId): Promise<Array<Offer>> {
@@ -73,7 +82,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
         const result = this.parseObjectToCamelCase(data);
         return Offer.fromPrimitives({
             ...result,
-            banner: result.banner || '',
+            banner: result.banner || '/images/blank.svg',
             startDate: new Date(result.startDate),
             endDate: new Date(result.endDate),
             createdAt: new Date(result.createdAt),

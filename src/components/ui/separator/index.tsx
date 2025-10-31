@@ -14,10 +14,10 @@ import {
 } from '@base-ui-components/react/separator';
 
 export const separator = tv({
-    base: 'bg-gray-100',
+    base: 'bg-[var(--mui-palette-grey-100)]',
     variants: {
         orientation: {
-            vertical: 'h-full w-px',
+            vertical: 'h-4 w-px',
             horizontal: 'w-full h-px',
         },
     },

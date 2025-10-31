@@ -110,3 +110,9 @@ export function formatThemePalette(customization: Customization): PaletteOptions
 
     return palette;
 }
+
+export function toBase64(value: string): string {
+    return typeof window === 'undefined'
+        ? Buffer.from(value).toString('base64')
+        : window.btoa(value);
+}

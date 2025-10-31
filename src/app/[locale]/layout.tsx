@@ -1,5 +1,7 @@
 import './globals.css';
 
+import 'reflect-metadata';
+
 import 'lib/di';
 
 import type {

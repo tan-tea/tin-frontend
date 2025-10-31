@@ -2,6 +2,8 @@
 
 import 'reflect-metadata';
 
+import 'lib/di';
+
 import { container } from 'tsyringe';
 
 import type {

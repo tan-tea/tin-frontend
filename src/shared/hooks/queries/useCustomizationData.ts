@@ -3,17 +3,21 @@ import {
     useQuery,
     QueryObserverResult,
 } from '@tanstack/react-query';
-import { PaletteOptions } from '@mui/material';
 
 import { clientEnv } from 'env/client';
 import {
     getCustomizationByWorkspaceId,
 } from 'app/actions';
-import { formatThemePalette } from 'lib/utils';
+
+import type {
+    Customization
+} from 'shared/models';
+import { useCache } from 'shared/hooks';
+import { customizationAtom } from 'shared/state';
 
 type UseThemeData = Readonly<{
     queryId: string;
-    data: PaletteOptions | null;
+    data: Customization | null;
     isLoading: boolean;
     error: Error | null;
     refetch: QueryObserverResult['refetch'];
@@ -24,11 +28,16 @@ type UseThemeDataProps = object;
 
 type UseThemeDataHandler = (props?: UseThemeDataProps) => UseThemeData;
 
-export const useThemeData: UseThemeDataHandler = () => {
+export const useCustomizationData: UseThemeDataHandler = () => {
     const queryId = useMemo<string>(
-        () => 'theme-data',
+        () => 'customization-data',
         [],
     );
+
+    const {
+        load,
+        save,
+    } = useCache<Customization | null>('customizations', customizationAtom)
 
     const {
         data: themeData,
@@ -39,9 +48,17 @@ export const useThemeData: UseThemeDataHandler = () => {
     } = useQuery({
         queryKey: [queryId],
         queryFn: async () => {
+            const cached = await load('current');
+            if (cached) return Array.isArray(cached)
+                ? cached?.[0]
+                : cached;
+
             const customization = await getCustomizationByWorkspaceId(clientEnv.NEXT_PUBLIC_WORKSPACE_ID);
-            const formatted = formatThemePalette(customization);
-            return formatted;
+            await save({
+                ...customization,
+                id: 'current',
+            });
+            return customization;
         },
         staleTime: Infinity,
         retry: 5,

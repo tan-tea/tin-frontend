@@ -10,10 +10,9 @@ import {
     usePathname,
 } from 'lib/i18n/navigation';
 
-import {
+import type {
     History,
-} from 'contexts/shared/domain/models';
-
+} from 'shared/models';
 import { useDatabase, } from 'shared/contexts/database';
 
 const MAX_HISTORY_RECORDS = 20;

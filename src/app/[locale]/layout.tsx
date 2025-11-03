@@ -27,6 +27,7 @@ import { notFound, } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
 
+import { clientEnv } from 'env/client';
 import { routing } from 'lib/i18n/routing';
 
 import AppProviderLayout from 'layout/AppProviderLayout';
@@ -84,14 +85,28 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const {} = props;
 
-    const t = await getTranslations('titles');
+    const t = await getTranslations('metadata');
 
     return {
         title: {
-            default: t('default'),
-            template: t('template'),
+            default: t('titleDefault'),
+            template: t('titleTemplate'),
         },
         description: t('description'),
+        metadataBase: new URL(clientEnv.NEXT_PUBLIC_SITE_URL),
+        openGraph: {
+            url: clientEnv.NEXT_PUBLIC_SITE_URL,
+            siteName: t('siteName'),
+        },
+        keywords: [],
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+            },
+        },
     };
 }
 
@@ -119,7 +134,10 @@ export default async function RootLayout(
                 nunito.className
             ].join(' ')}
         >
-            <body className='isolate bg-white dark:bg-dark-600'>
+            <body
+                suppressHydrationWarning
+                className='isolate bg-white dark:bg-dark-600'
+            >
                 <Provider>
                     <NextIntlClientProvider>
                         <AppRouterCacheProvider

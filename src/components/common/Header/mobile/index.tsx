@@ -13,8 +13,9 @@ import {
     Dropdown,
 } from 'ui/index';
 
-import { HeaderProps } from 'common/Header';
-
+import type {
+    HeaderProps
+} from 'common/Header';
 import ThemeButton from 'common/ThemeButton';
 import LanguageButton from 'common/LanguageButton';
 
@@ -24,6 +25,7 @@ const HeaderMobile: FC<HeaderProps> = (
     const {
         shops,
         workspace,
+        customization,
         scrolling,
     } = props;
 
@@ -41,17 +43,19 @@ const HeaderMobile: FC<HeaderProps> = (
                 <Box className='h-full flex items-center gap-x-1'>
                     <Image
                         priority
-                        src={workspace?.logo}
-                        alt={workspace?.name}
+                        src={workspace?.logo! ?? customization?.logo}
+                        alt={workspace?.name!}
                         width={50}
                         height={50}
                         className='h-12 w-auto object-cover fill-[var(--mui-palette-primary-400)]'
                     />
-                    <Text
-                        component='h1'
-                        className='text-base font-medium text-[var(--mui-palette-primary-main)]'>
-                        {workspace?.name}
-                    </Text>
+                    {customization?.showName && (
+                        <Text
+                            component='h1'
+                            className='text-base font-medium text-[var(--mui-palette-primary-main)]'>
+                            {workspace?.name}
+                        </Text>
+                    )}
                 </Box>
                 <Box className='ml-auto flex items-center gap-x-3'>
                     {shops?.length > 0 && (

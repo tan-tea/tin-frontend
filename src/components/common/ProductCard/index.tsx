@@ -22,8 +22,9 @@ import PriceWithDiscount from 'common/PriceWithDiscount';
 
 const productCard = tv({
     slots: {
-        card: 'p-0 overflow-visible bg-transparent dark:text-light-600',
-        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] border border-[var(--mui-palette-secondary-400)] bg-white dark:border-none',
+        card: 'p-0 overflow-visible bg-transparent dark:text-light-600 border border-[var(--mui-palette-grey-50)] shadow-xs dark:border-none',
+        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] bg-white dark:border-none',
+        cardContent: 'px-2.5 pb-4 pt-2 flex flex-col gap-y-1',
     },
 });
 
@@ -61,6 +62,7 @@ const ProductCard: FC<ProductCardProps> = (
     const {
         card,
         imageWrapper,
+        cardContent,
     } = productCard();
 
     const handleClick: MouseEventHandler = () => {};
@@ -83,11 +85,11 @@ const ProductCard: FC<ProductCardProps> = (
                     className={imageWrapper()}
                     image={image || '/images/blank.svg'}
                 />
-                <CardContent className='px-3 py-2 flex flex-col gap-y-1'>
+                <CardContent className={cardContent()}>
                     <Text
                         variant='h2'
                         component='h2'
-                        className='text-base font-secondary leading-4.5 font-bold md:text-lg'
+                        className='text-base font-nunito leading-4.5 font-bold md:text-lg'
                     >
                         {title}
                     </Text>

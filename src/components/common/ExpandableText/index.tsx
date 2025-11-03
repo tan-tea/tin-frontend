@@ -10,9 +10,9 @@ import {
     type VariantProps
 } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions, } from 'motion/react';
-
-import { Box, Text } from 'ui/index';
 import { useTranslations } from 'next-intl';
+
+import Box from 'ui/box';
 
 const expandableText = tv({
     slots: {
@@ -80,12 +80,10 @@ const ExpandableText: FC<ExpandableTextProps> = (props) => {
     );
 
     const displayText = useMemo<string>(
-        () => expandable
-            ? expanded
+        () => expanded
                 ? text
-                : `${text.slice(0, maxLength)}...`
-            : text,
-        [expandable,],
+                : `${text.slice(0, maxLength)}...`,
+        [text, maxLength, expanded,],
     );
 
     return (

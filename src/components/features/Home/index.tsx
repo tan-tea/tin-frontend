@@ -1,8 +1,9 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
+import {
+    useMemo,
+    type FC,
+    type ReactElement,
 } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
@@ -10,15 +11,16 @@ import { useTranslations, } from 'next-intl';
 import dynamic from 'next/dynamic';
 
 import type {
+    Offer,
     Shop,
     Category,
-    Workspace
+    Workspace,
 } from 'shared/models';
 import {
+    workspaceAtom,
     currentCategoryAtom,
-    hydratedWorkspaceAtom,
 } from 'shared/state';
-import { useOfferData } from 'shared/hooks/queries';
+import { useOffersData } from 'shared/hooks/queries';
 
 import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
 
@@ -43,12 +45,12 @@ type OwnHomeProps = object;
 
 export type HomeProps = {
     t: ReturnType<typeof useTranslations>;
-    offers: Array<any>;
+    offers: Array<Offer>;
     shops: Array<Shop>;
-    currentWorkspace: Workspace;
+    currentWorkspace: Workspace | null;
     categories: Array<Category>;
-    selectedCategory: string | null;
-    onSelectCategory: (id: string) => void;
+    selectedCategory: Category | null;
+    onSelectCategory: (category: Category | undefined) => void;
 };
 
 export default function Home(
@@ -63,27 +65,43 @@ export default function Home(
         setSelectedCategory,
     ] = useAtom(currentCategoryAtom);
 
-    const workspace = useAtomValue(hydratedWorkspaceAtom);
+    const workspace = useAtomValue(workspaceAtom);
 
     const {
-        data: offers,
+        data: offersData,
         isLoading: offersLoading,
-    } = useOfferData();
+    } = useOffersData();
 
-    const handleSelectCategory: (id: string) => void = (id) => {
-        if (id === selectedCategory) setSelectedCategory(null);
-        else setSelectedCategory(id);
+    const handleSelectCategory: HomeProps['onSelectCategory'] = (category) => {
+        if (!category) return;
+
+        if (category?.id === selectedCategory?.id) setSelectedCategory(null);
+        else setSelectedCategory(category);
     };
 
-    const childProps: HomeProps = {
-        t,
-        offers,
-        currentWorkspace: workspace,
-        shops: workspace?.shops || [],
-        categories: workspace?.categories || [],
-        selectedCategory,
-        onSelectCategory: handleSelectCategory,
-    };
+    const offers = useMemo<Array<Offer>>(
+        () => {
+            if (!offersData) return [];
+
+            return selectedCategory?.id
+                ? offersData?.filter?.(o => o?.categoryId === selectedCategory?.id)
+                : offersData;
+        },
+        [offersData, selectedCategory]
+    );
+
+    const childProps = useMemo<HomeProps>(
+        () => ({
+            t,
+            offers: offers,
+            currentWorkspace: workspace,
+            shops: workspace?.shops || [],
+            categories: workspace?.categories || [],
+            selectedCategory,
+            onSelectCategory: handleSelectCategory,
+        }),
+        [t, offers, workspace, selectedCategory, handleSelectCategory,],
+    );
 
     return (
         <DeviceDetectorLayout

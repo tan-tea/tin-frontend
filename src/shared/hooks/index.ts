@@ -1,3 +1,4 @@
+export { useCache } from './useCache';
 export { useHideUI } from './useHideUI';
 export { useScroll } from './useScroll';
 export { useWorker } from './useWorker';

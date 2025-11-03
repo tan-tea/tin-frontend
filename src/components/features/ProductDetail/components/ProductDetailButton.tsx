@@ -16,7 +16,7 @@ import { Box, Button } from 'ui/index';
 
 const productDetailButton = tv({
     slots: {
-        container: 'fixed bottom-0 left-0 w-full h-auto p-4 bg-[var(--mui-palette-grey-100)]',
+        container: 'fixed bottom-0 left-0 w-full h-auto p-4 bg-[var(--mui-palette-grey-100)] dark:bg-dark-400',
     },
     variants: {},
     defaultVariants: {},

@@ -112,6 +112,8 @@ export function formatThemePalette(customization: Customization): PaletteOptions
 }
 
 export function toBase64(value: string): string {
+    if (typeof value !== 'string') return '';
+
     return typeof window === 'undefined'
         ? Buffer.from(value).toString('base64')
         : window.btoa(value);

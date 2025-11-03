@@ -1,6 +1,10 @@
 'use client';
 
-import type { FC, ReactNode, ReactElement } from 'react';
+import type {
+    FC,
+    ReactNode,
+    ReactElement
+} from 'react';
 import { minutesToMilliseconds } from 'date-fns';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { APIProvider } from '@vis.gl/react-google-maps';

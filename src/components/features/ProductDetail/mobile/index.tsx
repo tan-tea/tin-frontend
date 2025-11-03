@@ -73,36 +73,32 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 />
                 <ProductDetailTitle offer={offer}/>
                 <ExpandableText text={offer?.description || t('notProvided')}/>
-                <Box className='relative flex-1 flex flex-col gap-y-2'>
-                    <Box className='flex flex-col gap-y-2'>
-                        {/* <Text className='font-bold'>{t('availableOptions')}</Text> */}
-                        {/* <Box className='relative flex items-center gap-x-6 overflow-x-auto scrollbar-hide -mx-4 pb-2 px-4'> */}
-                        <Box className='relative flex flex-col justify-center gap-y-4'>
-                            {offer?.type?.attributes?.map(attribute => (
-                                <Box
-                                    key={attribute?.id}
-                                    className='flex flex-col gap-y-1.5 shadow-md px-3 py-2 rounded-2xl border border-gray-50 shrink-0'
-                                >
-                                    <Text className='text-sm font-semibold text-gray-400 capitalize'>
-                                        {attribute?.name}
-                                    </Text>
-                                    <Box className='flex items-center gap-x-2'>
-                                        {attribute?.values
-                                            ?.filter(value => value?.offerId === offer?.id)
-                                            ?.map(value => (
-                                                <Text
-                                                    key={value?.id}
-                                                    className='p-2 py-1.5 text-xs rounded-full bg-light-400 text-dark-600'
-                                                >
-                                                    {value?.label !== '' ? value?.label : value?.value}
-                                                </Text>
-                                            ))}
-                                    </Box>
+                {offer?.type?.attributes?.length && offer?.type?.attributes?.length > 0 && (
+                    <Box className='relative flex flex-col justify-center gap-y-4'>
+                        {offer?.type?.attributes?.map(attribute => (
+                            <Box
+                                key={attribute?.id}
+                                className='flex flex-col gap-y-1.5 shadow-xs px-4 py-2.5 rounded-xl border border-[var(--mui-palette-grey-50)]'
+                            >
+                                <Text className='text-sm font-semibold text-[var(--mui-palette-secondary-main)]'>
+                                    {attribute?.name}
+                                </Text>
+                                <Box className='flex items-center gap-x-2'>
+                                    {attribute?.values
+                                        ?.filter(value => value?.offerId === offer?.id)
+                                        ?.map(value => (
+                                            <Text
+                                                key={value?.id}
+                                                className='p-2 py-1.5 text-xs rounded-full bg-light-400 text-dark-600'
+                                            >
+                                                {value?.label !== '' ? value?.label : value?.value}
+                                            </Text>
+                                        ))}
                                 </Box>
-                            ))}
-                        </Box>
+                            </Box>
+                        ))}
                     </Box>
-                </Box>
+                )}
             </Box>
             <ProductDetailButton ref={productDetailButtonRef}/>
         </Section>

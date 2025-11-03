@@ -10,6 +10,7 @@ export class CustomizationReadModel implements CustomizationPrimitives {
     readonly logo: string;
     readonly fontPrimary: string;
     readonly fontSecondary: string;
+    readonly showName: boolean;
     readonly workspaceId: string;
     readonly colors?: Array<ColorReadModel>;
 
@@ -23,6 +24,7 @@ export class CustomizationReadModel implements CustomizationPrimitives {
         this.logo = primitives.logo;
         this.fontPrimary = primitives.fontPrimary;
         this.fontSecondary = primitives.fontSecondary;
+        this.showName = primitives.showName;
         this.workspaceId = primitives.workspaceId;
         this.colors = colors?.map?.(c => c.toPrimitives()) || [];
     }

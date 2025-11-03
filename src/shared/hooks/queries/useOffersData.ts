@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { minutesToMilliseconds } from 'date-fns';
 import { useAtomValue } from 'jotai';
+import { minutesToMilliseconds } from 'date-fns';
 import {
     useQuery,
     QueryObserverResult,
@@ -13,7 +13,11 @@ import {
 import type {
     Offer
 } from 'shared/models';
-import { currentShopAtom } from 'shared/state';
+import {
+    offersAtom,
+    currentShopAtom,
+} from 'shared/state';
+import { useCache } from 'shared/hooks';
 
 type UseOfferData = Readonly<{
     queryId: string;
@@ -30,7 +34,7 @@ type UseOfferDataProps = {
 
 type UseOfferDataHandler = (props?: UseOfferDataProps) => UseOfferData;
 
-export const useOfferData: UseOfferDataHandler = (props = {
+export const useOffersData: UseOfferDataHandler = (props = {
     shopId: undefined
 }) => {
     const currentShop = useAtomValue(currentShopAtom);
@@ -40,9 +44,14 @@ export const useOfferData: UseOfferDataHandler = (props = {
     } = props;
 
     const queryId = useMemo<string>(
-        () => 'offer-data',
+        () => 'offers-by-shop-data',
         [],
     );
+
+    const {
+        load,
+        saveMany,
+    } = useCache<Array<Offer>>('offers', offersAtom);
 
     const {
         data: offerData,
@@ -52,9 +61,16 @@ export const useOfferData: UseOfferDataHandler = (props = {
         isRefetching,
     } = useQuery({
         queryKey: [queryId, shopId,],
-        queryFn: async () => await getOffersByShopId(shopId),
+        queryFn: async () => {
+            const cached = await load();
+            if (cached && cached?.length > 0) return cached
+
+            const offers = await getOffersByShopId(shopId);
+            await saveMany(offers);
+            return offers;
+        },
         enabled: !!shopId,
-        staleTime: minutesToMilliseconds(30),
+        staleTime: minutesToMilliseconds(5),
         retry: 5,
     });
 

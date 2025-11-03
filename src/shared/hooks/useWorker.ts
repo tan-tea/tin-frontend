@@ -4,7 +4,7 @@ import {
     type RefObject
 } from 'react';
 
-type UseWorker = RefObject<Worker | undefined>;
+type UseWorker = RefObject<Worker | null>;
 
 type UseWorkerProps<T> = {
     workerInit?: () => Worker;
@@ -19,7 +19,7 @@ export const useWorker: UseWorkerHandler = (props) => {
         onMessage,
     } = props;
 
-    const worker = useRef<Worker | undefined>(undefined);
+    const worker = useRef<Worker | null>(null);
 
     useEffect(() => {
         if (workerInit && !worker.current) {
@@ -36,7 +36,7 @@ export const useWorker: UseWorkerHandler = (props) => {
 
         return () => {
             worker.current?.terminate();
-            worker.current = undefined;
+            worker.current = null;
         };
     }, [onMessage, workerInit]);
 

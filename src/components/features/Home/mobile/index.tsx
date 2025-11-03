@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 
 import { useComputedStyle } from 'shared/hooks';
 
-import { Box } from 'ui/index';
+import Box from 'ui/box';
 
 import type {
     HomeProps,
@@ -66,8 +66,8 @@ const HomeMobile: FC<HomeMobileProps> = (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories?.map?.(category => (
                             <CategoryCard
-                                selected={category?.id === selectedCategory}
-                                onSelectCategory={onSelectCategory}
+                                selected={category?.id === selectedCategory?.id}
+                                onSelectCategory={(id) => onSelectCategory(categories?.find?.(c => c.id === id))}
                                 key={category?.id}
                                 {...category}
                             />

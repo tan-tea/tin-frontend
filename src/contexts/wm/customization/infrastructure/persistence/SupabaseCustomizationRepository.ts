@@ -50,8 +50,6 @@ export class SupabaseCustomizationRepository
 
         const parsed = this.parseObjectToCamelCase(data);
 
-        console.log('all customization', parsed);
-
         const customization = Customization.fromPrimitives({
             ...parsed,
         });

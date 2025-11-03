@@ -4,12 +4,14 @@ import { ExternalId } from 'contexts/shared/domain/value-object/ExternalId';
 import { CustomizationId } from './value-object/CustomizationId';
 import { CustomizationLogo } from './value-object/CustomizationLogo';
 import { CustomizationFont } from './value-object/CustomizationFont';
+import { CustomizationShowName } from './value-object/CustomizationShowName';
 
 export interface CustomizationPrimitives {
     id: string;
     logo: string;
     fontPrimary: string;
     fontSecondary: string;
+    showName: boolean;
     workspaceId: string;
 }
 
@@ -18,6 +20,7 @@ export class Customization extends AggregateRoot {
     readonly logo: CustomizationLogo;
     readonly fontPrimary: CustomizationFont;
     readonly fontSecondary: CustomizationFont;
+    readonly showName: CustomizationShowName;
     readonly workspaceId: ExternalId;
 
     constructor(
@@ -25,6 +28,7 @@ export class Customization extends AggregateRoot {
         logo: CustomizationLogo,
         fontPrimary: CustomizationFont,
         fontSecondary: CustomizationFont,
+        showName: CustomizationShowName,
         workspaceId: ExternalId,
     ) {
         super();
@@ -33,6 +37,7 @@ export class Customization extends AggregateRoot {
         this.logo = logo;
         this.fontPrimary = fontPrimary;
         this.fontSecondary = fontSecondary;
+        this.showName = showName;
         this.workspaceId = workspaceId;
     }
 
@@ -42,6 +47,7 @@ export class Customization extends AggregateRoot {
             new CustomizationLogo(primitives.logo),
             new CustomizationFont(primitives.fontPrimary),
             new CustomizationFont(primitives.fontSecondary),
+            new CustomizationShowName(primitives.showName),
             new ExternalId(primitives.workspaceId),
         );
     }
@@ -52,6 +58,7 @@ export class Customization extends AggregateRoot {
             logo: this.logo.value,
             fontPrimary: this.fontPrimary.value,
             fontSecondary: this.fontSecondary.value,
+            showName: this.showName.value,
             workspaceId: this.workspaceId.value,
         };
     }

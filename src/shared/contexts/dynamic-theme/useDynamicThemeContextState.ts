@@ -7,7 +7,9 @@ import { createTheme, Theme} from '@mui/material';
 
 import DEFAULT_THEME from 'app/theme';
 
-import { useThemeData } from 'shared/hooks/queries';
+import { formatThemePalette } from 'lib/utils';
+
+import { useCustomizationData } from 'shared/hooks/queries';
 import { useApplicationStore } from 'shared/stores/application-store';
 
 type DynamicThemeContextState = {
@@ -30,28 +32,36 @@ const useDynamicThemeContextState: UseDynamicThemeHandler = () => {
     );
 
     const {
-        data: themeData,
-        isLoading: themeLoading,
-    } = useThemeData();
+        data: customizationData,
+        isLoading: customizationLoading,
+    } = useCustomizationData();
 
-    const theme = createTheme({
-        ...defaultTheme,
-        cssVariables: true,
-        palette: {
-            ...defaultTheme?.palette,
-            ...(themeData && {
-                ...themeData,
-            }),
+    const theme = useMemo<Theme>(
+        () => {
+            if (!customizationData)
+                return defaultTheme;
+
+            const formatted = formatThemePalette(customizationData!);
+
+            return createTheme({
+                ...defaultTheme,
+                cssVariables: true,
+                palette: {
+                    ...defaultTheme.palette,
+                    ...(formatted && formatted),
+                },
+            });
         },
-    });
+        [customizationData,],
+    ) ;
 
     useEffect(() => {
-        setLoading(themeLoading);
-    }, [themeLoading,]);
+        setLoading(customizationLoading);
+    }, [customizationLoading,]);
 
     return {
         theme,
-        isLoadingTheme: themeLoading,
+        isLoadingTheme: customizationLoading,
     };
 }
 

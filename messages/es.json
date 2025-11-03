@@ -1,4 +1,10 @@
 {
+    "metadata": {
+        "siteName": "Catalog",
+        "titleDefault": "Catalog - Todo lo que necesitas",
+        "titleTemplate": "%s | Catalog",
+        "description": "Descripción de la pagina"
+    },
     "titles": {
         "default": "Katalog",
         "template": "%s | Katalog",

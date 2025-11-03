@@ -1,7 +1,13 @@
 {
+    "metadata": {
+        "siteName": "Catalog",
+        "titleDefault": "Catalog - All items that you need",
+        "titleTemplate": "%s | Catalog",
+        "description": "my page description"
+    },
     "titles": {
-        "default": "My App",
-        "template": "%s | My App",
+        "default": "",
+        "template": "",
         "description": "",
         "home": {
             "title": "Home",

@@ -1,64 +1,44 @@
 import {
     useMemo,
-    useEffect,
     useCallback,
 } from 'react';
-import {
-    Dexie,
-    EntityTable,
-    PromiseExtended,
-} from 'dexie';
+import type { PromiseExtended } from 'dexie';
 
-import {
-    User,
-    History,
-    Preferences,
-} from 'contexts/shared/domain/models';
+import db, {
+    CacheDatabase,
+    CacheDatabaseTables,
+} from 'lib/db';
 
-import { useContainer, } from 'shared/contexts/container';
-import { DATABASE_INSTANCE, } from 'shared/contexts/database/constants';
-
-type DatabaseEntities = {
-    users: EntityTable<User, 'ID'>;
-    preferences: EntityTable<Preferences, 'ID'>;
-    history: EntityTable<History, 'key'>;
-};
-
-type Database = Dexie & DatabaseEntities;
+type Database = CacheDatabase;
 
 type DatabaseContextState = {
     database: Database;
-    get: <T extends keyof DatabaseEntities>(
+    get: <T extends keyof CacheDatabaseTables>(
         entity: T,
-        key: Parameters<DatabaseEntities[T]['get']>[0],
+        key: Parameters<CacheDatabaseTables[T]['get']>[0],
     ) => PromiseExtended;
-    add: <T extends keyof DatabaseEntities>(
+    add: <T extends keyof CacheDatabaseTables>(
         entity: T,
-        item: Parameters<DatabaseEntities[T]['add']>[0],
-        key?: Parameters<DatabaseEntities[T]['add']>[1],
+        item: Parameters<CacheDatabaseTables[T]['add']>[0],
+        key?: Parameters<CacheDatabaseTables[T]['add']>[1],
     ) => PromiseExtended;
-    put: <T extends keyof DatabaseEntities>(
+    put: <T extends keyof CacheDatabaseTables>(
         entity: T,
-        item: Parameters<DatabaseEntities[T]['put']>[0],
-        key?: Parameters<DatabaseEntities[T]['put']>[1],
+        item: Parameters<CacheDatabaseTables[T]['put']>[0],
+        key?: Parameters<CacheDatabaseTables[T]['put']>[1],
     ) => PromiseExtended;
-    count: <T extends keyof DatabaseEntities>(
+    count: <T extends keyof CacheDatabaseTables>(
         entity: T,
     ) => PromiseExtended;
-    del: <T extends keyof DatabaseEntities>(
+    del: <T extends keyof CacheDatabaseTables>(
         entity: T,
-        key: Parameters<DatabaseEntities[T]['delete']>[0],
+        key: Parameters<CacheDatabaseTables[T]['delete']>[0],
     ) => PromiseExtended;
 };
 
 const useDatabaseContextState: () => DatabaseContextState = () => {
-    const {
-        registerDependency,
-        isRegisteredDependency,
-    } = useContainer();
-
     const database = useMemo<Database>(
-        () => DATABASE_INSTANCE as Database,
+        () => db,
         [],
     );
 
@@ -86,11 +66,6 @@ const useDatabaseContextState: () => DatabaseContextState = () => {
         (entity, key) => database?.[entity]?.delete?.(key!),
         [database,],
     ) as DatabaseContextState['del'];
-
-    useEffect(() => {
-        if (!isRegisteredDependency<Database>('database', true))
-            registerDependency<Database>('database', { useValue: database, });
-    }, [ database, registerDependency, isRegisteredDependency,]);
 
     return {
         database,

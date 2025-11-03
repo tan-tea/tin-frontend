@@ -9,22 +9,24 @@ import {
 import { useHydrateAtoms } from 'jotai/utils';
 import { useShallow, } from 'zustand/react/shallow';
 
+import dynamic from 'next/dynamic';
+
 import type {
     Workspace
 } from 'shared/models';
-import {
-    workspaceAtom,
-    hydratedWorkspaceAtom,
-} from 'shared/state';
+import { workspaceAtom, } from 'shared/state';
 import { useSyncLanguageWithRouter, } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
 import { Box, } from 'ui/index';
 
-import Header from 'common/Header';
 import BottomNavigation from 'common/BottomNavigation';
 
 import DeviceDetectorLayout from './DeviceDetectorLayout';
+
+const Header = dynamic(
+    () => import('common/Header'),
+);
 
 type OwnBaseLayoutProps = {
     children: ReactNode;
@@ -86,7 +88,7 @@ export default function BaseLayout(
 
     useHydrateAtoms([
         [ workspaceAtom, initialWorkspace, ] as any,
-        [ hydratedWorkspaceAtom, initialWorkspace, ] as any,
+        // [ hydratedWorkspaceAtom, initialWorkspace, ] as any,
     ] as const);
 
     const {

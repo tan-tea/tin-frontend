@@ -4,6 +4,8 @@ export class AttributeReadModel implements AttributePrimitives {
     readonly id: string;
     readonly name: string;
     readonly dataType: string;
+    readonly isMultiple: boolean;
+    readonly isGlobal: boolean;
     readonly typeId: string;
 
     constructor(attribute: Attribute) {
@@ -12,6 +14,8 @@ export class AttributeReadModel implements AttributePrimitives {
         this.id = primitives.id;
         this.name = primitives.name;
         this.dataType = primitives.dataType;
+        this.isMultiple = primitives.isMultiple;
+        this.isGlobal = primitives.isGlobal;
         this.typeId = primitives.typeId;
     }
 }

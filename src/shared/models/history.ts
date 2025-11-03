@@ -1,4 +1,4 @@
-import { Managed, } from './Managed';
+import { Managed, } from './managed';
 
 export interface History extends Omit<Managed, 'createdBy' | 'modifiedBy'> {
     key: string;

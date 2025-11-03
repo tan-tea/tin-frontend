@@ -18,13 +18,13 @@ import { BaseIcon, } from 'icons/index';
 const bottomNavigationItem = tv({
     slots: {
         button: 'relative h-auto w-auto flex items-center gap-x-[6px] py-2 px-4 rounded-xl',
-        icon: 'dark:text-light-400',
+        icon: '',
     },
     variants: {
         selected: {
             true: {
-                icon: 'text-primary',
-                button: 'text-primary font-bold',
+                icon: 'text-[var(--mui-palette-primary-main)]',
+                button: 'text-[var(--mui-palette-primary-main)] font-bold',
             },
             false: {
                 button: 'dark:text-light-600'
@@ -66,7 +66,10 @@ const BottomNavigationItem: FC<BottomNavigationItemProps> = (
                 })}
                 onClick={onClick}
             >
-                {<BaseIcon Icon={Icon} className={icon()}/>}
+                <BaseIcon
+                    Icon={Icon}
+                    className={icon()}
+                />
                 {selected && label && (
                     <Box className='font-primary text-sm'>{label}</Box>
                 )}

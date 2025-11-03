@@ -1,2 +1,2 @@
-export { useThemeData } from './useThemeData';
-export { useOfferData } from './useOfferData';
+export { useOffersData } from './useOffersData';
+export { useCustomizationData } from './useCustomizationData';

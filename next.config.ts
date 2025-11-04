@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     experimental: {
         useCache: true,
         nextScriptWorkers: true,
+        reactCompiler: {
+            compilationMode: 'annotation',
+        },
     },
     images: {
         remotePatterns: [

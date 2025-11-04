@@ -1,6 +1,8 @@
 'use client'
 
-import { FC, } from 'react';
+import type {
+    FC,
+} from 'react';
 
 import {
     tv,
@@ -11,21 +13,14 @@ import {
     CardHeaderProps as RootCardHeaderProps,
 } from '@mui/material/CardHeader';
 
-import {
-    Text,
-} from 'ui/index';
+import Text from 'ui/text';
 
 const cardHeader = tv({
     slots: {
-        base: '',
+        base: 'dark:text-[var(--mui-palette-grey-50)]',
         title: 'font-secondary text-base font-bold capitalize',
     },
 });
-
-const {
-    base,
-    title,
-} = cardHeader();
 
 type CardHeaderVariants = VariantProps<typeof cardHeader>;
 
@@ -37,6 +32,11 @@ const CardHeader: FC<CardHeaderProps> = (props: CardHeaderProps) => {
         className,
         ...rest
     } = props;
+
+    const {
+        base,
+        title,
+    } = cardHeader();
 
     return (
         <RootCardHeader

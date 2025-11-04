@@ -85,7 +85,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                                 </Text>
                                 <Box className='flex items-center gap-x-2'>
                                     {attribute?.values
-                                        ?.filter(value => value?.offerId === offer?.id)
+                                        ?.filter(value => attribute?.isGlobal || value?.offerId === offer?.id)
                                         ?.map(value => (
                                             <Text
                                                 key={value?.id}

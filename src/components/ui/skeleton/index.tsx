@@ -12,7 +12,7 @@ import {
 import Box from 'ui/box';
 
 export const skeleton = tv({
-    base: 'w-full bg-[var(--mui-palette-grey-200)] dark:bg-[var(--mui-palette-grey-600)] animate-pulse',
+    base: 'w-full bg-[var(--mui-palette-grey-100)] dark:bg-[var(--mui-palette-grey-600)] animate-pulse',
     variants: {
         rounded: {
             none: 'rounded-none',

@@ -19,6 +19,7 @@ import type {
 import {
     workspaceAtom,
     currentCategoryAtom,
+    currentShopAtom,
 } from 'shared/state';
 import { useOffersData } from 'shared/hooks/queries';
 
@@ -66,11 +67,14 @@ export default function Home(
     ] = useAtom(currentCategoryAtom);
 
     const workspace = useAtomValue(workspaceAtom);
+    const currentShop = useAtomValue(currentShopAtom);
 
     const {
         data: offersData,
         isLoading: offersLoading,
-    } = useOffersData();
+    } = useOffersData({
+        shopId: currentShop?.id!,
+    });
 
     const handleSelectCategory: HomeProps['onSelectCategory'] = (category) => {
         if (!category) return;

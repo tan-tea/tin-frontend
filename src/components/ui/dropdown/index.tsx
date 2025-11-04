@@ -63,7 +63,7 @@ export type DropdownOption = {
 export type DropdownProps = DropdownVariants & MotionProps & {
     option: DropdownOption;
     options: DropdownOption[];
-    onSelectOption?: (option: any) => void;
+    onSelectOption?: (option: DropdownOption) => void;
     open?: boolean;
     onOpenChange: Menu.Root.Props['onOpenChange'];
     disabled?: boolean;

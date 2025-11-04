@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useAtomValue } from 'jotai';
 import { minutesToMilliseconds } from 'date-fns';
 import {
     useQuery,
@@ -13,11 +12,8 @@ import {
 import type {
     Offer
 } from 'shared/models';
-import {
-    offersAtom,
-    currentShopAtom,
-} from 'shared/state';
 import { useCache } from 'shared/hooks';
+import { offersAtom } from 'shared/state';
 
 type UseOfferData = Readonly<{
     queryId: string;
@@ -29,18 +25,14 @@ type UseOfferData = Readonly<{
 }>;
 
 type UseOfferDataProps = {
-    shopId?: string;
+    shopId: string;
 };
 
-type UseOfferDataHandler = (props?: UseOfferDataProps) => UseOfferData;
+type UseOfferDataHandler = (props: UseOfferDataProps) => UseOfferData;
 
-export const useOffersData: UseOfferDataHandler = (props = {
-    shopId: undefined
-}) => {
-    const currentShop = useAtomValue(currentShopAtom);
-
+export const useOffersData: UseOfferDataHandler = (props) => {
     const {
-        shopId = currentShop?.id!,
+        shopId,
     } = props;
 
     const queryId = useMemo<string>(
@@ -62,8 +54,8 @@ export const useOffersData: UseOfferDataHandler = (props = {
     } = useQuery({
         queryKey: [queryId, shopId,],
         queryFn: async () => {
-            const cached = await load();
-            if (cached && cached?.length > 0) return cached
+            // const cached = await load();
+            // if (cached && cached?.length > 0) return cached
 
             const offers = await getOffersByShopId(shopId);
             await saveMany(offers);

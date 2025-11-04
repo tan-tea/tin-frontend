@@ -1,9 +1,9 @@
 export {
+    currentShopAtom,
     offersAtom
 } from './vm';
 export {
     workspaceAtom,
     customizationAtom,
-    currentShopAtom,
     currentCategoryAtom,
 } from './wm';

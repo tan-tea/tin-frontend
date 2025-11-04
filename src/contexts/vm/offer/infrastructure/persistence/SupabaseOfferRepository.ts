@@ -28,6 +28,7 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
         } = await repository
             .select('*')
             .eq('id', id.value)
+            .eq('is_active', true)
             .single();
 
         if (error && !data) return null;
@@ -52,7 +53,8 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
             error,
         } = await repository
             .select('*')
-            .eq('shop_id', shopId.value);
+            .eq('shop_id', shopId.value)
+            .eq('is_active', true);
 
         if (error && !data) return [];
 

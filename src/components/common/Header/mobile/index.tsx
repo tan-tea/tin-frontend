@@ -1,10 +1,17 @@
 'use client'
 
 import {
+    useMemo,
     useState,
     type FC
 } from 'react';
+
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+import type {
+    Shop
+} from 'shared/models';
 
 import {
     Box,
@@ -16,22 +23,29 @@ import {
 import type {
     HeaderProps
 } from 'common/Header';
-import ThemeButton from 'common/ThemeButton';
-import LanguageButton from 'common/LanguageButton';
+
+const ThemeButton = dynamic(
+    () => import('common/ThemeButton'),
+);
+
+const LanguageButton = dynamic(
+    () => import('common/LanguageButton'),
+);
 
 const HeaderMobile: FC<HeaderProps> = (
     props: HeaderProps,
 ) => {
+    'use memo'
     const {
         shops,
         workspace,
         customization,
         scrolling,
+        currentShop,
+        onSelectShop,
     } = props;
 
     const [open, setOpen] = useState<boolean>(false);
-
-    const defaultShop = shops?.find?.(s => s?.isPrimary);
 
     return (
         <AppBar
@@ -61,8 +75,8 @@ const HeaderMobile: FC<HeaderProps> = (
                     {shops?.length > 0 && (
                         <Dropdown
                             option={{
-                                label: defaultShop?.name!,
-                                value: defaultShop?.id!,
+                                label: currentShop?.name!,
+                                value: currentShop?.id!,
                             }}
                             options={shops?.map(s => ({
                                 label: s?.name,
@@ -70,7 +84,7 @@ const HeaderMobile: FC<HeaderProps> = (
                             }))}
                             open={open}
                             onOpenChange={(open) => setOpen(open)}
-                            onSelectOption={(option) => console.log('selected', option)}
+                            onSelectOption={(option) => onSelectShop(option?.value)}
                         />
                     )}
                     <ThemeButton/>

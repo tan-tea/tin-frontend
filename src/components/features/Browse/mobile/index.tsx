@@ -1,7 +1,8 @@
 'use client'
 
-import type {
-    FC,
+import {
+    useId,
+    type FC,
 } from 'react';
 import {
     Map,
@@ -26,13 +27,15 @@ const BrowseMobile: FC<BrowseMobileProps> = (
         onCameraChanged,
     } = props;
 
+    const mapId = useId();
+
     return (
         <Box
             component='section'
             className='h-dvh-screen-mobile w-full overflow-hidden'
         >
             <Map
-                id='maap'
+                id={mapId}
                 reuseMaps
                 colorScheme='DARK'
                 zoom={camera?.zoom}

@@ -24,7 +24,7 @@ import {
 const dialog = tv({
     slots: {
         base: '',
-        papper: 'shadow-sm rounded-lg',
+        papper: 'shadow-sm rounded-lg bg-white dark:bg-dark-600',
         container: '',
     }
 });

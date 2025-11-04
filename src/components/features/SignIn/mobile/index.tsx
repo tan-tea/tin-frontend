@@ -10,7 +10,7 @@ import {
     Card,
 } from 'ui/index';
 
-import BackButton from 'common/BackButton';
+import BackButton from 'common/buttons/BackButton';
 
 import { SignInProps, } from 'feature/SignIn';
 

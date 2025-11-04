@@ -12,7 +12,7 @@ import {
 } from 'ui/index';
 import { Blob, } from 'icons/index';
 
-import BackButton from 'common/BackButton';
+import BackButton from 'common/buttons/BackButton';
 
 import DiscordButton from 'feature/SignIn/components/DiscordButton';
 

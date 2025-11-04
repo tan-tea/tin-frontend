@@ -16,7 +16,7 @@ import { ProductDetailProps, } from 'feature/ProductDetail';
 
 import Section from 'common/Section';
 import Titlebar from 'common/Titlebar';
-import BackButton from 'common/BackButton';
+import BackButton from 'common/buttons/BackButton';
 import ExpandableText from 'common/ExpandableText';
 import PriceWithDiscount from 'common/PriceWithDiscount';
 

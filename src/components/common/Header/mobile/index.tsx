@@ -25,11 +25,11 @@ import type {
 } from 'common/Header';
 
 const ThemeButton = dynamic(
-    () => import('common/ThemeButton'),
+    () => import('common/buttons/ThemeButton'),
 );
 
 const LanguageButton = dynamic(
-    () => import('common/LanguageButton'),
+    () => import('common/buttons/LanguageButton'),
 );
 
 const HeaderMobile: FC<HeaderProps> = (

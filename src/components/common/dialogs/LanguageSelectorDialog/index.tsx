@@ -8,9 +8,9 @@ import { useDialog, } from 'shared/contexts/dialog';
 import { DialogProps, } from 'shared/contexts/dialog/types';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import SelectorDialog from 'common/SelectorDialog';
-import LanguageSelectorDialogContent from 'common/Language/SelectorDialog/Content';
-import SelectorDialogActions from 'common/SelectorDialog/Actions';
+import SelectorDialog from 'common/dialogs/SelectorDialog';
+import SelectorDialogActions from 'common/dialogs/SelectorDialog/Actions';
+import LanguageSelectorDialogContent from 'common/dialogs/LanguageSelectorDialog/Content';
 
 type LanguageSelectorDialogProps = Omit<DialogProps, 'Component'>;
 

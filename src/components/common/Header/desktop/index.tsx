@@ -11,8 +11,7 @@ import {
 
 import { HeaderProps } from 'common/Header';
 
-import ThemeButton from 'common/ThemeButton';
-import UserAvatar from 'common/User/Avatar';
+import ThemeButton from 'common/buttons/ThemeButton';
 
 const HeaderDesktop: FC<HeaderProps> = (
     props: HeaderProps,

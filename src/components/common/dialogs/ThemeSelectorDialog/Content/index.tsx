@@ -20,7 +20,7 @@ import { ApplicationTheme, } from 'shared/stores/application-store/types';
 
 import ThemeOptionCard, {
     ThemeOption,
-} from 'common/Theme/OptionCard';
+} from 'common/ThemeOptionCard';
 
 type ThemeSelectorDialogContentProps = {
     t: ReturnType<typeof useTranslations>;

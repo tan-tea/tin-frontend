@@ -8,9 +8,9 @@ import { useDialog, } from 'shared/contexts/dialog';
 import { DialogProps, } from 'shared/contexts/dialog/types';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import SelectorDialog from 'common/SelectorDialog';
-import SelectorDialogActions from 'common/SelectorDialog/Actions';
-import ThemeSelectorDialogContent from 'common/Theme/SelectorDialog/Content';
+import SelectorDialog from 'common/dialogs/SelectorDialog';
+import SelectorDialogActions from 'common/dialogs/SelectorDialog/Actions';
+import ThemeSelectorDialogContent from 'common/dialogs/ThemeSelectorDialog/Content';
 
 type ThemeSelectorDialogProps = Pick<DialogProps, 'open'>;
 

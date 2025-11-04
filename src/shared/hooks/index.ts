@@ -6,5 +6,6 @@ export { usePrefetch } from './usePrefetch';
 export { useNavigation } from './useNavigation';
 export { useWindowSize } from './useWindowSize';
 export { useGeolocation } from './useGeolocation';
+export { useLocalStorage } from './useLocalStorage';
 export { useComputedStyle } from './useComputedStyle';
 export { useSyncLanguageWithRouter } from './useSyncLanguageWithRouter';

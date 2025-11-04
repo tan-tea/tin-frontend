@@ -19,7 +19,7 @@ import { ApplicationLanguage, } from 'shared/stores/application-store/types';
 
 import LanguageOptionCard, {
     LanguageOption,
-} from 'common/Language/OptionCard';
+} from 'common/LanguageOptionCard';
 
 type LanguageSelectorDialogContentProps = {
     t: ReturnType<typeof useTranslations>;

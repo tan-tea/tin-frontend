@@ -10,7 +10,7 @@ import {
     Field,
 } from 'ui/index';
 
-import BackButton from 'common/BackButton';
+import BackButton from 'common/buttons/BackButton';
 
 import { NewWorkspaceProps, } from 'feature/NewWorkspace';
 

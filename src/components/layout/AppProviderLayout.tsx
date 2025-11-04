@@ -50,7 +50,7 @@ export default function AppProviderLayout(
                                     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
                                         {children}
                                     </APIProvider>
-                                    <ThemeWatcher />
+                                    <ThemeWatcher/>
                                 </DialogProvider>
                             </ThemeProviderLayout>
                         </DynamicThemeProvider>

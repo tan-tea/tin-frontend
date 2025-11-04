@@ -2,8 +2,8 @@ import type {
     DialogProps,
 } from 'shared/contexts/dialog/types';
 
-import ThemeSelectorDialog from 'common/Theme/SelectorDialog';
-import LanguageSelectorDialog from 'common/Language/SelectorDialog';
+import ThemeSelectorDialog from 'common/dialogs/ThemeSelectorDialog';
+import LanguageSelectorDialog from 'common/dialogs/LanguageSelectorDialog';
 
 const DEFAULT_DIALOGS_STATE: Array<DialogProps> = [
     {

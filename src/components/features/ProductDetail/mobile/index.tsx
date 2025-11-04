@@ -17,6 +17,7 @@ import { ProductDetailProps, } from 'feature/ProductDetail';
 import Section from 'common/Section';
 import Titlebar from 'common/Titlebar';
 import BackButton from 'common/buttons/BackButton';
+import ShareButton from 'common/buttons/ShareButton';
 import ExpandableText from 'common/ExpandableText';
 import PriceWithDiscount from 'common/PriceWithDiscount';
 
@@ -53,6 +54,14 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 position='relative'
                 title={offer?.title}
                 renderStart={({ title, }) => <BackButton showLabel={title ? false : true}/>}
+                renderEnd={() => (
+                    <Box className='ml-auto flex items-center gap-x-2'>
+                        <ShareButton shareableItem={{
+                            heading: offer?.title,
+                            description: offer?.description,
+                        }}/>
+                    </Box>
+                )}
             />
             <ProductDetailImage
                 alt={offer?.title || offer?.description}

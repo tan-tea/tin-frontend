@@ -7,15 +7,15 @@ import type {
 import { useTranslations, } from 'next-intl';
 import { useShallow } from 'zustand/shallow';
 
+import { useDialog } from 'shared/contexts/dialog';
+import { useApplicationStore } from 'shared/stores/application-store';
+
 import {
     Box,
     Tooltip,
     IconButton,
 } from 'ui/index';
 import { Languages } from 'icons/index';
-
-import { useDialog } from 'shared/contexts/dialog';
-import { useApplicationStore } from 'shared/stores/application-store';
 
 type LanguageButtonProps = object;
 

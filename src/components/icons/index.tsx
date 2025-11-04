@@ -75,4 +75,5 @@ export {
     Bell,
     Languages,
     MessageCircleQuestion,
+    Share,
 } from 'lucide-react';

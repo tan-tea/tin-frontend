@@ -25,7 +25,7 @@ const ProductDetailImage = dynamic(
 const empty = tv({
     slots: {
         container: 'relative flex flex-col px-8 py-4 gap-y-4 text-center',
-        imageContainer: 'min-w-full rounded-full bg-transparent',
+        imageContainer: 'min-w-full h-40 rounded-full bg-transparent',
         image: 'object-fill',
         title: 'font-secondary text-xl font-bold',
     },

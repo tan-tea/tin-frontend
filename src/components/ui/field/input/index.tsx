@@ -15,7 +15,7 @@ import {
 import { Input as BaseInput, } from '@base-ui-components/react/input';
 
 export const input = tv({
-    base: 'block box-border focus:outline-none text-base text-[inherit] font-secondary',
+    base: 'w-full block box-border focus:outline-none text-base text-[inherit] font-secondary',
     variants: {
         root: '',
         fullWidth: {

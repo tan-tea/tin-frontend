@@ -22,7 +22,7 @@ import {
 
 const titlebar = tv({
     slots: {
-        wrapper: 'w-full flex items-center gap-x-2 justify-start p-4 z-10',
+        wrapper: 'top-0 w-full flex items-center gap-x-2 justify-start p-4 z-10 bg-white dark:bg-dark-600 transition-transform duration-300 ease-in-out',
         text: 'max-w-[180px] font-semibold leading-5 text-[inherit] truncate',
     },
     variants: {
@@ -63,10 +63,12 @@ type TitlebarProps = TitlebarVariants & {
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        transform: 'translateY(-250px)',
+        // transform: 'translateY(-250px)',
+        opacity: 0,
     },
     animate: {
-        transform: 'translateY(0px)',
+        // transform: 'translateY(0px)',
+        opacity: 1,
     },
     transition: {
         type: 'spring',

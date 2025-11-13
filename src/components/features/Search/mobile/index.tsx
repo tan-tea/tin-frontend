@@ -10,6 +10,8 @@ import {
 
 import { SearchProps, } from 'feature/Search';
 
+import Search from 'common/Search';
+import Section from 'common/Section';
 import SearchEngine from 'common/SearchEngine';
 
 type SearchMobileProps = SearchProps;
@@ -17,20 +19,25 @@ type SearchMobileProps = SearchProps;
 const SearchMobile: FC<SearchMobileProps> = (
     props: SearchMobileProps
 ) => {
+    'use memo'
     const {
         t,
         navigation,
     } = props;
 
     return (
-        <Box
-            component='section'
-            className='h-dvh bg-inherit overflow-hidden'
+        <Section
+            label=''
+            description=''
+            className='h-dvh overflow-hidden'
         >
             <Box className='size-full p-4'>
-                <SearchEngine onFocus={() => console.log('focused')}/>
+                <Search/>
+                {/* <SearchEngine
+                    onFocus={() => console.log('focused')}
+                /> */}
             </Box>
-        </Box>
+        </Section>
     );
 };
 

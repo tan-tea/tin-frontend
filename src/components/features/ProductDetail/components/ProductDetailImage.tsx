@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    ComponentProps,
     useRef,
     type FC,
     type ReactEventHandler,
@@ -31,7 +32,7 @@ const productDetailImage = tv({
 
 type ProductDetailImageVariants = VariantProps<typeof productDetailImage>;
 
-type ProductDetailImageProps = ProductDetailImageVariants & {
+type ProductDetailImageProps = ProductDetailImageVariants & Pick<ComponentProps<'div'>, 'style'> & {
     alt: string;
     image: string;
     className?: ClassValue;
@@ -57,6 +58,7 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
         image,
         className,
         imageClassName,
+        style,
     } = props;
 
     const {
@@ -85,6 +87,7 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
             aria-description={alt}
             aria-describedby={alt}
             component={motion.article}
+            style={style}
             className={container({
                 className,
             })}

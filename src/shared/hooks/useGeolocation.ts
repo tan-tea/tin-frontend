@@ -13,6 +13,7 @@ const POSITION_OPTIONS: PositionOptions = {
 } as const;
 
 type UseGeolocation = {
+    isWatching: boolean;
     geolocationPosition: GeolocationPosition | null;
     geolocationError: GeolocationPositionError | null;
     requestGeolocationPermission: () => GeolocationPosition;
@@ -21,6 +22,7 @@ type UseGeolocation = {
 type UseGeolocationHandler = () => UseGeolocation;
 
 export const useGeolocation: UseGeolocationHandler = () => {
+    'use memo'
     const geolocationWatchIdRef = useRef<number | null>(null);
 
     const {
@@ -30,17 +32,22 @@ export const useGeolocation: UseGeolocationHandler = () => {
         useShallow(store => store),
     );
 
+    const [isWatching, setIsWatching,] = useState<boolean>(() => Boolean(geolocation));
     const [geolocationError, setGeolocationError,] = useState<GeolocationPositionError | null>(null);
 
     const onSuccess = useCallback(
-        (position: GeolocationPosition) =>
-            setGeolocation(position),
+        (position: GeolocationPosition) => {
+            setGeolocation(position);
+            setGeolocationError(null);
+        },
         [],
     );
 
     const onError = useCallback(
-        (error: GeolocationPositionError) =>
-            setGeolocationError(error),
+        (error: GeolocationPositionError) => {
+            setGeolocation(null);
+            setGeolocationError(error);
+        },
         [],
     );
 
@@ -51,13 +58,15 @@ export const useGeolocation: UseGeolocationHandler = () => {
             if (geolocationWatchIdRef.current)
                 geolocationWatchIdRef.current = null;
 
+            setIsWatching(true);
+
             const watchId = navigator
                 .geolocation
                 .watchPosition(onSuccess, onError, POSITION_OPTIONS);
 
             geolocationWatchIdRef.current = watchId;
         },
-        [onSuccess, onError,],
+        [onSuccess, onError],
     );
 
     const requestGeolocationPermission = useCallback(
@@ -69,13 +78,16 @@ export const useGeolocation: UseGeolocationHandler = () => {
                 ?.geolocation
                 ?.getCurrentPosition?.(onSuccess, onError, POSITION_OPTIONS);
 
+            if (!isWatching && geolocation) setIsWatching(true);
+
             return geolocation;
         },
         [onSuccess, onError,],
     ) as UseGeolocation['requestGeolocationPermission'];
 
     useEffect(() => {
-        watchGeolocationPosition();
+        if (isWatching)
+            watchGeolocationPosition();
 
         return () => {
             if (geolocationWatchIdRef.current) {
@@ -83,9 +95,10 @@ export const useGeolocation: UseGeolocationHandler = () => {
                 geolocationWatchIdRef.current = null;
             }
         };
-    }, [watchGeolocationPosition,]);
+    }, [watchGeolocationPosition, isWatching]);
 
     return {
+        isWatching,
         geolocationError,
         geolocationPosition: geolocation,
         requestGeolocationPermission,

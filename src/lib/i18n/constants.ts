@@ -1,8 +1,8 @@
-const FALLBACK_LANGUAGE = 'en';
+const FALLBACK_LANGUAGE = 'es';
 
 const LANGUAGES = [
     FALLBACK_LANGUAGE,
-    'es',
+    'en',
 ];
 
 const DEFAULT_NS = 'translation';

@@ -1,14 +1,15 @@
 'use client'
 
-import type {
-    FC,
-    RefObject,
+import {
+    useId,
+    type FC,
+    type RefObject,
 } from 'react';
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { motion } from 'motion/react';
+import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
 import {
     Box,
@@ -40,17 +41,20 @@ export type SearchBoxEngineProps = SearchEngineBoxVariants & {
     placeholder: string;
     boxRef: RefObject<HTMLLabelElement | null>;
     inputRef: RefObject<HTMLInputElement | null>;
-    onFocus: () => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
     setFocus: (value: boolean) => void;
 };
 
 const SearchEngineBox: FC<SearchBoxEngineProps> = (
     props: SearchBoxEngineProps,
 ) => {
+    'use memo'
     const {
         focus,
         setFocus,
         onFocus,
+        onBlur,
         boxRef,
         inputRef,
         placeholder,
@@ -62,20 +66,38 @@ const SearchEngineBox: FC<SearchBoxEngineProps> = (
         icon,
     } = searchEngineBox({ focus, });
 
+    const searchId = useId();
+
+    const animation: MotionNodeAnimationOptions = {
+        initial: {
+            scale: 0,
+        },
+        animate: {
+            scale: focus ? 1.02 : 1,
+        },
+        transition: {
+            type: 'spring',
+            duration: 0.3,
+        },
+    };
+
     return (
         <Box
+            {...animation}
+            id={searchId}
             ref={boxRef}
-            initial={{ scale: 0 }}
-            animate={{ scale: focus ? 1.02 : 1 }}
+            role='searchbox'
             whileTap={{ scale: 1.05 }}
-            transition={{ type: 'spring' }}
             component={motion.label}
             className={box()}
             onFocus={() => {
                 setFocus(true);
                 if (onFocus) onFocus?.();
             }}
-            onBlur={() => setFocus(false)}
+            onBlur={() => {
+                setFocus(false)
+                if (onBlur) onBlur?.();
+            }}
         >
             <BaseIcon
                 Icon={Search}
@@ -85,6 +107,7 @@ const SearchEngineBox: FC<SearchBoxEngineProps> = (
                 type='search'
                 ref={inputRef}
                 className={input()}
+                aria-describedby={searchId}
                 placeholder={placeholder}
             />
         </Box>

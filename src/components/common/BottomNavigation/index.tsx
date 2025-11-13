@@ -16,11 +16,10 @@ import { useTranslations } from 'next-intl';
 import {
     useScroll,
     useNavigation,
+    usePrefetch,
 } from 'shared/hooks';
 
-import {
-    Box,
-} from 'ui/index';
+import Box from 'ui/box';
 import {
     Map,
     House,
@@ -74,6 +73,10 @@ const BottomNavigation: FC<BottomNavigationProps> = (
         navigate,
         isActivePath,
     } = useNavigation();
+
+    const {
+        prefetchRoute,
+    } = usePrefetch();
 
     const items: Array<ComponentProps<typeof BottomNavigationItem>> = useMemo(
         () => [

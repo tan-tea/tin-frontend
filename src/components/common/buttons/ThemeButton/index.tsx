@@ -46,6 +46,7 @@ const ThemeButton: FC<ThemeButtonProps> = (
             <Box className='justify-self-center'>
                 <IconButton
                     borderless
+                    size='md'
                     selected={selected}
                     Icon={theme === 'dark' ? SunMoon : Moon}
                     onClick={handleClick}

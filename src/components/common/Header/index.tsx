@@ -65,8 +65,6 @@ export default function Header(
     const [currentShop, setCurrentShop] = useAtom(currentShopAtom);
 
     const onSelectShop: HeaderProps['onSelectShop'] = (shopId) => {
-        console.log('select shop', shopId);
-
         const selectedShop = workspace?.shops?.find?.(s => s?.id === shopId);
         if (!selectedShop) return;
 

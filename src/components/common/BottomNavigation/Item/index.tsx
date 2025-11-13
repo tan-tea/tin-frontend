@@ -3,6 +3,7 @@
 import type {
     FC,
     ReactNode,
+    TouchEvent,
     ComponentType,
     MouseEventHandler,
 } from 'react';
@@ -12,8 +13,11 @@ import {
 } from 'tailwind-variants';
 import { LucideProps, } from 'lucide-react';
 
-import { Box, } from 'ui/index';
-import { BaseIcon, } from 'icons/index';
+import Box from 'ui/box';
+
+import {
+    BaseIcon,
+} from 'icons/index';
 
 const bottomNavigationItem = tv({
     slots: {
@@ -39,16 +43,19 @@ type BottomNavigationItemProps = BottomNavigationItemVariants & {
     Icon: ComponentType<LucideProps>;
     label: string;
     onClick: MouseEventHandler;
+    onTouch?: (event: TouchEvent, type: 'start' | 'end') => void;
     children?: ReactNode;
 };
 
 const BottomNavigationItem: FC<BottomNavigationItemProps> = (
     props: BottomNavigationItemProps,
 ) => {
+    'use memo'
     const {
         Icon,
         label,
         onClick,
+        onTouch,
         selected,
         children,
     } = props;
@@ -65,6 +72,8 @@ const BottomNavigationItem: FC<BottomNavigationItemProps> = (
                     className: 'relative z-20',
                 })}
                 onClick={onClick}
+                onTouchStart={(event) => onTouch && onTouch(event, 'start')}
+                onTouchEnd={(event) => onTouch && onTouch(event, 'end')}
             >
                 <BaseIcon
                     Icon={Icon}

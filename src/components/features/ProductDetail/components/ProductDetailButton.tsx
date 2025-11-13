@@ -4,6 +4,7 @@ import {
     useRef,
     type FC,
     type Ref,
+    type MouseEventHandler,
 } from 'react';
 import {
     tv,
@@ -26,15 +27,15 @@ type ProductDetailButtonVariants = VariantProps<typeof productDetailButton>;
 
 type ProductDetailButtonProps = ProductDetailButtonVariants & {
     ref?: Ref<HTMLDivElement>;
+    onClick: MouseEventHandler;
 };
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        // transform: 'translateY(200px)',
+        opacity: 0,
     },
     animate: {
-
-        // transform: 'translateY(0px)',
+        opacity: 1,
     },
     transition: {
         type: 'spring',
@@ -45,6 +46,7 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
 const ProductDetailButton: FC<ProductDetailButtonProps> = (props) => {
     const {
         ref,
+        onClick,
     } = props;
 
     const {
@@ -80,6 +82,7 @@ const ProductDetailButton: FC<ProductDetailButtonProps> = (props) => {
                 rounded='full'
                 variant='contained'
                 startIcon={<></>}
+                onClick={onClick}
             >
                 {t('button')}
             </Button>

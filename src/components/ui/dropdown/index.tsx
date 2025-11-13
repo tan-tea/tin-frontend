@@ -21,10 +21,10 @@ import {
 
 export const dropdown = tv({
     slots: {
-        trigger: 'box-border flex items-center justify-center gap-x-1 text-sm font-medium select-none text-gray-600 py-1.5 px-3 dark:text-light-600',
+        trigger: 'box-border flex items-center justify-center gap-x-1 text-xs font-medium select-none text-gray-600 py-1.5 px-3 dark:text-light-600',
         positioner: 'outline-none z-50',
         popup: 'box-border p-0.5 rounded-md bg-[canvas] shadow-md',
-        item: 'pl-4 pr-8 py-2 flex text-sm text-black leading-5',
+        item: 'pl-4 pr-8 py-2 flex text-xs text-black leading-5',
     },
     variants: {
         variant: {

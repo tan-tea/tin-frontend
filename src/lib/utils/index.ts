@@ -1,12 +1,21 @@
 import * as R from 'remeda';
 
 import {
+    clsx,
+    type ClassValue,
+} from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
 } from 'lib/utils/constants';
 import type { Currency } from 'lib/utils/types';
 import { PaletteColorOptions, PaletteOptions } from '@mui/material';
 import { Customization } from 'shared/models';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function getDiscordAssetExtension(asset: string): string {
     const isGif = asset?.startsWith?.('a_');

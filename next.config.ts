@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
         },
     },
     images: {
+        qualities: [25, 50, 75, 100],
         remotePatterns: [
             {
                 hostname: '**',

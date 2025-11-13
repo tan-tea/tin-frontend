@@ -10,7 +10,7 @@ export abstract class SupabaseRepository<T extends AggregateRoot> {
 
 	protected abstract entityName(): string;
 
-	protected client(): Promise<SupabaseClient> {
+	protected get client(): Promise<SupabaseClient> {
 		return this._client;
 	}
 

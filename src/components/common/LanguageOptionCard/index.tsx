@@ -9,7 +9,6 @@ import type {
 import { ApplicationLanguage, } from 'shared/stores/application-store/types';
 
 import {
-    Text,
     Card,
     CardActionsArea,
     CardHeader,
@@ -37,16 +36,14 @@ const LanguageOptionCard: FC<LanguageOptionCardProps> = (
     } = props;
 
     const handleClick: MouseEventHandler = () => {
-        if (!onSelectOption) return;
-
-        onSelectOption(value);
+        if (onSelectOption) onSelectOption(value);
     }
 
     return (
-        <Card className='flex-1 p-0 w-full shadow-none border border-gray-100 bg-light-400'>
+        <Card className='flex-1 p-0 w-full shadow-none border border-gray-100 bg-[var(--mui-palette-grey-50)] dark:bg-dark-400 dark:border-none'>
             <CardActionsArea
                 onClick={handleClick}
-                className={selected ? 'bg-primary-light' : ''}
+                className={selected ? 'bg-[var(--mui-palette-primary-main)]' : ''}
             >
                 <CardHeader
                     avatar={icon}

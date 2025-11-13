@@ -15,7 +15,7 @@ import type {
     Workspace
 } from 'shared/models';
 import { workspaceAtom, } from 'shared/state';
-import { useSyncLanguageWithRouter, } from 'shared/hooks';
+import { useHideUI, useSyncLanguageWithRouter, } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
 import { Box, } from 'ui/index';
@@ -86,9 +86,13 @@ export default function BaseLayout(
         initialWorkspace,
     } = props;
 
+    useHideUI({
+        hideHeader: false,
+        hideBottomNavigation: true,
+    });
+
     useHydrateAtoms([
         [ workspaceAtom, initialWorkspace, ] as any,
-        // [ hydratedWorkspaceAtom, initialWorkspace, ] as any,
     ] as const);
 
     const {

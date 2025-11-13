@@ -32,7 +32,7 @@ export class SupabaseCategoryRepository
         })
     }
 
-    async getCategoriesByWorkspaceId(workspaceId: ExternalId): Promise<Array<Category>> {
+    async getCategoriesByWorkspaceId(workspaceId: ExternalId, locale: string): Promise<Array<Category>> {
         const repository = await this.from();
 
         const {
@@ -41,16 +41,24 @@ export class SupabaseCategoryRepository
         } = await repository
             .select('*')
             .eq('workspace_id', workspaceId.value);
+        // const {
+        //     data,
+        //     error,
+        // } = await (await this.client)
+        //     .rpc('get_categories_by_language', { locale, })
+        //     // .eq('workspace_id', workspaceId.value);
 
         if (error && !data) return [];
 
-        return data.map(category => Category.fromPrimitives({
+        const categories = this.parseObjectToCamelCase(data);
+
+        return categories.map((category: any) => Category.fromPrimitives({
             ...category,
             banner: category.banner || '',
             description: category.description || '',
             position: category.position || 0,
-            workspaceId: category.workspace_id,
-            createdAt: new Date(category.created_at),
+            workspaceId: category.workspaceId,
+            createdAt: new Date(category.createdAt),
         }));
     }
 

@@ -72,12 +72,10 @@ export const useNavigation: UseNavigationHandler = () => {
         (path: string) => pathname === path;
 
     const changeLanguage: UseNavigation['changeLanguage'] = (locale: string) => {
-        startTransition(() => {
-            router.replace(
-                { pathname, },
-                { locale, }
-            );
-        });
+        startTransition(() => router.replace(
+            { pathname, },
+            { locale, }
+        ));
     };
 
     const saveHistory = useCallback(

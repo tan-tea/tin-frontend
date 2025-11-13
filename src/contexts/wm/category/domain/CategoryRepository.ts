@@ -5,5 +5,5 @@ import { CategoryId } from './value-object/CategoryId';
 
 export interface CategoryRepository {
     getCategoryById(id: CategoryId): Promise<Category | null>;
-    getCategoriesByWorkspaceId(workspaceId: ExternalId): Promise<Array<Category>>;
+    getCategoriesByWorkspaceId(workspaceId: ExternalId, locale: string): Promise<Array<Category>>;
 }

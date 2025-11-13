@@ -92,7 +92,8 @@ const IconButton: FC<IconButtonProps> = (props) => {
         >
             <BaseIcon
                 Icon={Icon}
-                className={selected ? 'fill-[var(--mui-palette-primary-main)]' : ''}
+                color='primary'
+                selected={selected}
             />
         </motion.button>
     );

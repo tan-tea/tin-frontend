@@ -24,7 +24,7 @@ const productCard = tv({
     slots: {
         card: 'p-0 overflow-visible bg-transparent dark:text-light-600 border border-[var(--mui-palette-grey-50)] shadow-xs dark:border-none',
         imageWrapper: 'w-full h-40 object-cover rounded-[inherit] bg-white dark:border-none',
-        cardContent: 'px-2.5 pb-4 pt-2 flex flex-col gap-y-1',
+        cardContent: 'flex-1 px-2.5 pb-4 pt-2 flex flex-col justify-between gap-y-1',
     },
 });
 
@@ -76,6 +76,7 @@ const ProductCard: FC<ProductCardProps> = (
             })}
         >
             <CardActionsArea
+                className='h-full'
                 href={`/product/${id}`}
                 onClick={handleClick}
             >
@@ -89,7 +90,7 @@ const ProductCard: FC<ProductCardProps> = (
                     <Text
                         variant='h2'
                         component='h2'
-                        className='text-base font-nunito leading-4.5 font-bold md:text-lg'
+                        className='text-base font-nunito leading-4.5 font-bold md:text-lg truncate'
                     >
                         {title}
                     </Text>

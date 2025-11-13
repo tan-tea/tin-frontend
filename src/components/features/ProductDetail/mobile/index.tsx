@@ -1,18 +1,22 @@
 'use client'
 
 import {
+    MouseEventHandler,
     useRef,
     type FC,
 } from 'react';
 
-import { useComputedStyle, useScroll } from 'shared/hooks';
+import { clientEnv } from 'env/client';
+import { useComputedStyle } from 'shared/hooks';
 
 import {
     Box,
     Text,
 } from 'ui/index';
 
-import { ProductDetailProps, } from 'feature/ProductDetail';
+import type {
+    ProductDetailProps,
+} from 'feature/ProductDetail';
 
 import Section from 'common/Section';
 import Titlebar from 'common/Titlebar';
@@ -30,19 +34,21 @@ type ProductDetailMobileProps = ProductDetailProps;
 const ProductDetailMobile: FC<ProductDetailMobileProps> = (
     props: ProductDetailMobileProps
 ) => {
+    'use memo'
     const {
         t,
         offer,
     } = props;
 
-    const {
-        scroll,
-    } = useScroll();
-
-    const containerRef = useRef<HTMLDivElement | null>(null);
     const productDetailButtonRef = useRef<HTMLDivElement | null>(null);
-
     const productDetailButtonComputedStyle = useComputedStyle(productDetailButtonRef.current!);
+
+    const handleClick: MouseEventHandler = () => {
+        const translated = t('message', { name: offer?.title });
+        const message = encodeURIComponent(translated);
+        const target = new URL(`https://wa.me/${clientEnv.NEXT_PUBLIC_WORKSPACE_NUMBER}?text=${message}`);
+        window.open(target, '_blank');
+    }
 
     return (
         <Section
@@ -68,10 +74,9 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 image={offer?.banner}
             />
             <Box
-                ref={containerRef}
                 className='relative size-full flex flex-col gap-y-4 p-4'
                 style={{
-                    marginBottom: `${parseFloat(productDetailButtonComputedStyle?.height ?? `0`)}px`,
+                    marginBottom: `${parseFloat(productDetailButtonComputedStyle?.height ?? '0')}px`,
                 }}
             >
                 <PriceWithDiscount
@@ -84,10 +89,10 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 <ExpandableText text={offer?.description || t('notProvided')}/>
                 {offer?.type?.attributes?.length && offer?.type?.attributes?.length > 0 && (
                     <Box className='relative flex flex-col justify-center gap-y-4'>
-                        {offer?.type?.attributes?.map(attribute => (
+                        {offer?.type?.attributes?.map?.(attribute => (
                             <Box
                                 key={attribute?.id}
-                                className='flex flex-col gap-y-1.5 shadow-xs px-4 py-2.5 rounded-xl border border-[var(--mui-palette-grey-50)]'
+                                className='flex flex-col gap-y-1.5 shadow-xs px-4 py-2.5 rounded-xl border border-[var(--mui-palette-grey-50)] dark:border-dark-400'
                             >
                                 <Text className='text-sm font-semibold text-[var(--mui-palette-secondary-main)]'>
                                     {attribute?.name}
@@ -98,7 +103,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                                         ?.map(value => (
                                             <Text
                                                 key={value?.id}
-                                                className='p-2 py-1.5 text-xs rounded-full bg-light-400 text-dark-600'
+                                                className='p-2 py-1.5 text-xs rounded-full bg-[var(--mui-palette-grey-50)] text-dark-600 dark:bg-dark-400 dark:text-white'
                                             >
                                                 {value?.label !== '' ? value?.label : value?.value}
                                             </Text>
@@ -109,7 +114,10 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                     </Box>
                 )}
             </Box>
-            <ProductDetailButton ref={productDetailButtonRef}/>
+            <ProductDetailButton
+                ref={productDetailButtonRef}
+                onClick={handleClick}
+            />
         </Section>
     );
 };

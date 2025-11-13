@@ -1,8 +1,7 @@
 'use client'
 
-import {
+import type {
     FC,
-    useMemo,
 } from 'react';
 import { useTranslations, } from 'next-intl';
 
@@ -31,6 +30,7 @@ type ThemeSelectorDialogContentProps = {
 const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
     props: ThemeSelectorDialogContentProps,
 ) => {
+    'use memo'
     const {
         t,
         currentTheme,
@@ -41,41 +41,38 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
         value: ApplicationTheme
     ) => onSelectTheme && onSelectTheme(value);
 
-    const themeOptions: Array<ThemeOption> = useMemo(
-        () => [
-            {
-                icon: <Monitor/>,
-                title: t('theme.dialog.system.title'),
-                image: '/images/vercel.svg',
-                label: t('theme.dialog.system.label'),
-                value: 'system',
-                selected: currentTheme === 'system',
-                description: t('theme.dialog.system.description'),
-                onSelectOption: handleSelectOption,
-            },
-            {
-                icon: <Sun/>,
-                title: t('theme.dialog.light.title'),
-                image: '/images/vercel.svg',
-                label: t('theme.dialog.light.label'),
-                value: 'light',
-                selected: currentTheme === 'light',
-                description: t('theme.dialog.light.description'),
-                onSelectOption: handleSelectOption,
-            },
-            {
-                icon: <Moon/>,
-                title: t('theme.dialog.dark.title'),
-                image: '/images/vercel.svg',
-                label: t('theme.dialog.dark.label'),
-                value: 'dark',
-                selected: currentTheme === 'dark',
-                description: t('theme.dialog.dark.description'),
-                onSelectOption: handleSelectOption,
-            },
-        ] as Array<ThemeOption>,
-        [t, currentTheme,],
-    );
+    const themeOptions: Array<ThemeOption> = [
+        {
+            icon: <Monitor/>,
+            title: t('theme.dialog.system.title'),
+            image: '/images/vercel.svg',
+            label: t('theme.dialog.system.label'),
+            value: 'system',
+            selected: currentTheme === 'system',
+            description: t('theme.dialog.system.description'),
+            onSelectOption: handleSelectOption,
+        },
+        {
+            icon: <Sun/>,
+            title: t('theme.dialog.light.title'),
+            image: '/images/vercel.svg',
+            label: t('theme.dialog.light.label'),
+            value: 'light',
+            selected: currentTheme === 'light',
+            description: t('theme.dialog.light.description'),
+            onSelectOption: handleSelectOption,
+        },
+        {
+            icon: <Moon/>,
+            title: t('theme.dialog.dark.title'),
+            image: '/images/vercel.svg',
+            label: t('theme.dialog.dark.label'),
+            value: 'dark',
+            selected: currentTheme === 'dark',
+            description: t('theme.dialog.dark.description'),
+            onSelectOption: handleSelectOption,
+        },
+    ];
 
     return (
         <Box className='size-full flex flex-col gap-y-6'>

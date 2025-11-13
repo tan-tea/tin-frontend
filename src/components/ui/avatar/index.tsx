@@ -1,10 +1,10 @@
 'use client'
 
-import type { FC } from 'react';
-import {
-    motion,
-    type HTMLMotionProps,
-} from 'motion/react';
+import type {
+    FC,
+    ComponentProps,
+} from 'react';
+import { motion, } from 'motion/react';
 import {
     tv,
     type ClassValue,
@@ -12,13 +12,15 @@ import {
 } from 'tailwind-variants';
 import { Avatar as BaseAvatar, } from '@base-ui-components/react/avatar';
 
+import Image from 'next/image';
+
 import { getValueInitials } from 'lib/utils';
 
 export const avatar = tv({
     slots: {
-        root: 'inline-flex justify-center items-center align-middle rounded-full select-none overflow-hidden text-base bg-white dark:border-light-400',
+        root: 'inline-flex justify-center items-center border border-[var(--mui-palette-grey-600)]/25 align-middle rounded-full select-none overflow-hidden text-base bg-white dark:border-light-400',
         fallback: 'size-full flex items-center justify-center text-sm p-0.5 font-medium font-primary',
-        image: 'object-contain size-full p-0.5',
+        image: 'object-contain size-full',
     },
     variants: {
         size: {
@@ -70,51 +72,122 @@ export const avatar = tv({
 
 export type AvatarVariants = VariantProps<typeof avatar>;
 
-export type AvatarProps = AvatarVariants & HTMLMotionProps<'span'> & BaseAvatar.Root.Props & {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
-    className?: ClassValue;
+type AvatarRootProps = ComponentProps<typeof BaseAvatar.Root> & AvatarVariants;
+
+export const AvatarRoot: FC<AvatarRootProps> = ({
+    size,
+    rounded,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const {
+        root,
+    } = avatar({
+        size,
+        rounded,
+    });
+
+    return <BaseAvatar.Root
+        {...props}
+        data-slot='avatar-root'
+        render={<motion.span/>}
+        className={root({
+            className: className as ClassValue,
+        })}
+    />
 };
 
-const Avatar: FC<AvatarProps> = (props: AvatarProps) => {
+type AvatarImageProps = ComponentProps<typeof BaseAvatar.Image> & ComponentProps<typeof Image> & AvatarVariants;
+
+export const AvatarImage: FC<AvatarImageProps> = ({
+    src,
+    alt,
+    height,
+    width,
+    size,
+    rounded,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const {
+        image,
+    } = avatar({
+        size,
+        rounded,
+        className: className as ClassValue,
+    });
+
+    return <BaseAvatar.Image
+        {...props}
+        data-slot='avatar-image'
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        render={(props) => <Image
+            fill
+            quality={75}
+            src={src}
+            alt={alt}
+            {...props}
+        />}
+        className={image()}
+    />
+};
+
+type AvatarFallbackProps = ComponentProps<typeof BaseAvatar.Fallback> & AvatarVariants;
+
+export const AvatarFallback: FC<AvatarFallbackProps> = ({
+    size,
+    rounded,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const {
+        fallback
+    } = avatar({
+        size,
+        rounded,
+        className: className as ClassValue,
+    });
+
+    return <BaseAvatar.Fallback
+        {...props}
+        data-slot='avatar-fallback'
+        className={fallback()}
+    />
+}
+
+export type AvatarProps = AvatarRootProps & AvatarImageProps & AvatarFallbackProps;
+
+const Avatar: FC<AvatarProps> = (props) => {
     const {
         alt,
-        className,
         src = '/images/logo.svg',
         size = 'xl',
         rounded = 'full',
         width = 0,
         height = 0,
+        className,
         ...rest
     } = props;
 
-    const {
-        root,
-        fallback,
-        image,
-    } = avatar({ size, rounded, });
-
     return (
-        <BaseAvatar.Root
-            {...rest}
-            className={root({
-                className,
-            })}
-            render={<motion.span/>}
-        >
-            <BaseAvatar.Image
+        <AvatarRoot className={className} {...rest}>
+            <AvatarImage
+                {...rest}
                 src={src}
                 alt={alt}
-                className={image()}
             />
             {alt && (
-                <BaseAvatar.Fallback className={fallback()}>
+                <AvatarFallback {...rest}>
                     {getValueInitials(alt)}
-                </BaseAvatar.Fallback>
+                </AvatarFallback>
             )}
-        </BaseAvatar.Root>
+        </AvatarRoot>
     );
 };
 

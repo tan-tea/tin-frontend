@@ -6,27 +6,23 @@ import {
     Fragment,
     type FC,
 } from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
+
+import dynamic from 'next/dynamic';
 
 import { useComputedStyle } from 'shared/hooks';
 
-import { Box } from 'ui/index';
+import Box from 'ui/box';
 
-import SearchEngineBox from './Box';
+const SearchEngineBox = dynamic(
+    () => import('./Box'),
+);
 
-export const searchEngine = tv({
-    slots: {
-        portal: 'relative size-full top-1 p-4',
-    },
-});
+const SearchEnginePortal = dynamic(
+    () => import('./Portal'),
+);
 
-export type SearchEngineVariants = VariantProps<typeof searchEngine>;
-
-export type SearchEngineProps = SearchEngineVariants & {
+type SearchEngineProps = {
     onFocus?: () => void;
 };
 
@@ -47,10 +43,6 @@ const SearchEngine: FC<SearchEngineProps> = (
     const elementComputedStyle = useComputedStyle(boxRef?.current!);
     const parentComputedStyle = useComputedStyle(boxRef.current?.parentElement!);
 
-    const {
-        portal,
-    } = searchEngine();
-
     const boxHeight = parseFloat(elementComputedStyle?.height ?? '0');
     const parentWidth = parseFloat(parentComputedStyle?.width ?? '0');
     const parentHeight = parseFloat(parentComputedStyle?.height ?? '0');
@@ -68,14 +60,14 @@ const SearchEngine: FC<SearchEngineProps> = (
             />
             {focus && (
                 <Box
-                    className={portal()}
+                    className='relative size-full'
                     style={{
                         left: `-${paddingLeft}px`,
                         width: `${parentWidth}px`,
                         height: `${parentHeight - boxHeight}px`,
                     }}
                 >
-                    Holaaaa
+                    <SearchEnginePortal/>
                 </Box>
             )}
         </Fragment>

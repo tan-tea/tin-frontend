@@ -57,7 +57,7 @@ const LanguageSelectorDialogContent: FC<LanguageSelectorDialogContentProps> = (
                 onSelectOption: handleSelectOption,
             },
         ] as Array<LanguageOption>,
-        [t, currentLanguage,],
+        [t, currentLanguage, handleSelectOption,],
     );
 
     const description = t('language.dialog.description');

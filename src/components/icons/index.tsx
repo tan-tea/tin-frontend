@@ -18,6 +18,32 @@ import Instagram from './Instagram';
 
 const baseIcon = tv({
     base: 'size-6',
+    variants: {
+        color: {
+            primary: '',
+            secondary: '',
+        },
+        selected: {
+            true: '',
+            false: '',
+        },
+    },
+    compoundVariants: [
+        {
+            selected: true,
+            color: 'primary',
+            className: 'text-[var(--mui-palette-primary-main)]',
+        },
+        {
+            selected: true,
+            color: 'secondary',
+            className: 'text-[var(--mui-palette-secondary-main)]',
+        }
+    ],
+    defaultVariants: {
+        color: 'primary',
+        selected: false,
+    },
 });
 
 type BaseIconVariants = VariantProps<typeof baseIcon>;
@@ -33,11 +59,15 @@ const BaseIcon: FC<BaseIconProps> = (
     const {
         Icon,
         className,
+        color,
+        selected,
         ...rest
     } = props;
 
     const iconProps: LucideProps = {
         className: baseIcon({
+            color,
+            selected,
             className,
         }),
         strokeWidth: 2,
@@ -76,4 +106,5 @@ export {
     Languages,
     MessageCircleQuestion,
     Share,
+    MapPin,
 } from 'lucide-react';

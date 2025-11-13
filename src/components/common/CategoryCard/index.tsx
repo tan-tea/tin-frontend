@@ -42,14 +42,13 @@ type CategoryCardProps = CategoryCardVariants & {
     onSelectCategory: (id: string) => void;
 };
 
-const CategoryCard: FC<CategoryCardProps> = (
-    props: CategoryCardProps,
-) => {
+const CategoryCard: FC<CategoryCardProps> = (props) => {
+    'use memo'
     const {
         id,
-        selected,
         banner,
         label,
+        selected,
         onSelectCategory,
     } = props;
 
@@ -61,15 +60,10 @@ const CategoryCard: FC<CategoryCardProps> = (
         selected,
     });
 
-    const handleCategoryClick: (id: string) => void = (id) => {
-        if (onSelectCategory)
-            onSelectCategory(id);
-    };
-
     return (
         <Box
             className={wrapper()}
-            onClick={() => handleCategoryClick(id)}
+            onClick={() => onSelectCategory(id)}
         >
             <Avatar
                 size='xxxl'

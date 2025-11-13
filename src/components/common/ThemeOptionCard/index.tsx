@@ -45,9 +45,7 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
     } = props;
 
     const handleClick: MouseEventHandler = () => {
-        if (!onSelectOption) return;
-
-        onSelectOption(value);
+        if (onSelectOption) onSelectOption(value);
     };
 
     return (

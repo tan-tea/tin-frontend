@@ -62,6 +62,14 @@
             }
         }
     },
+    "location": {
+        "tooltip": "Choose location",
+        "dialog": {
+            "title": "Seleccionar ubicacion",
+            "description": "Para acceder a productos mas cerca de ti, es importante conocer tu ubicacion",
+            "button": "Compartir ubicacion"
+        }
+    },
     "language": {
         "tooltip": "Cambiar idioma",
         "dialog": {
@@ -110,7 +118,8 @@
         "availableOptions": "Opciones disponibles",
         "description": "Descripción",
         "notProvided": "Oops... No se ha proporcionado una descripción.",
-        "button": "Adquirir producto"
+        "button": "Adquirir producto",
+        "message": "Hi! I want more information about product {name}"
     },
     "loading": {
         "message": "Cargando..."

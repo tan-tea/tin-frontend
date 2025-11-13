@@ -62,6 +62,14 @@
             }
         }
     },
+    "location": {
+        "tooltip": "Choose location",
+        "dialog": {
+            "title": "Select location",
+            "description": "For custom products near to your location, please select it",
+            "button": "Share location"
+        }
+    },
     "language": {
         "tooltip": "Change language",
         "dialog": {
@@ -110,7 +118,8 @@
         "availableOptions": "Available options",
         "description": "Description",
         "notProvided": "Oops... No description provided.",
-        "button": "Buy product"
+        "button": "Buy product",
+        "message": "Hi! I want more information about product {name}"
     },
     "loading": {
         "message": "Loading..."

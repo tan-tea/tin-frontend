@@ -64,11 +64,11 @@ export async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<
     return shops.map(shop => ({ ...shop, }));
 }
 
-export async function getCategoriesByWorkspaceId(workspaceId: string): Promise<Array<Category>> {
+export async function getCategoriesByWorkspaceId(workspaceId: string, locale: string): Promise<Array<Category>> {
     'use server'
     const queryBus = container.resolve<QueryBus>('QueryBus');
 
-    const query = new GetCategoriesByWorkspaceIdQuery(workspaceId);
+    const query = new GetCategoriesByWorkspaceIdQuery(workspaceId, locale);
     const { categories } = await queryBus.ask<CategoriesReadModel>(query);
     return categories.map(category => ({ ...category }));
 }
@@ -168,7 +168,7 @@ export async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
 
 export async function getWorkspaceWithShopsAndCategories(
     workspaceId: string,
-    locale?: string
+    locale: string
 ) {
     'use server'
     const [
@@ -178,7 +178,7 @@ export async function getWorkspaceWithShopsAndCategories(
     ] = await Promise.all([
         getWorkspaceById(workspaceId),
         getShopsByWorkspaceId(workspaceId),
-        getCategoriesByWorkspaceId(workspaceId),
+        getCategoriesByWorkspaceId(workspaceId, locale),
     ]);
 
     return {

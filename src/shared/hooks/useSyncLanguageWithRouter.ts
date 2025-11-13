@@ -1,6 +1,5 @@
 import {
     useEffect,
-    useCallback,
 } from 'react';
 import { useShallow } from 'zustand/shallow';
 
@@ -15,9 +14,11 @@ type UseSyncLanguageWithRouter = {
 type UseSyncLanguageWithRouterHandler = () => UseSyncLanguageWithRouter;
 
 export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () => {
+    'use memo'
     const store = useApplicationStoreContext();
 
     const {
+        language,
         setLoading,
     } = useApplicationStore(
         useShallow(store => store)
@@ -28,21 +29,21 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
         isChangingLanguage,
     } = useNavigation();
 
-    const handleChangeLanguage = useCallback(
-        (state: ApplicationStore, prevState: ApplicationStore) => {
-            if (state?.language === prevState?.language) return;
-
-            changeLanguage(state?.language);
-        },
-        [changeLanguage,],
-    );
-
     useEffect(() => {
         if (!store) return;
 
+        const handleChangeLanguage = (
+            state: ApplicationStore,
+            prevState: ApplicationStore
+        ) => {
+            if (state?.language === prevState?.language) return;
+
+            changeLanguage(state?.language);
+        };
+
         const unsubscribe = store.subscribe(handleChangeLanguage);
         return unsubscribe;
-    }, [store, handleChangeLanguage,]);
+    }, [store, changeLanguage,]);
 
     useEffect(() => {
         setLoading(isChangingLanguage);

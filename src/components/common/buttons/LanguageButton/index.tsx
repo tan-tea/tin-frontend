@@ -5,10 +5,8 @@ import type {
     MouseEventHandler,
 } from 'react';
 import { useTranslations, } from 'next-intl';
-import { useShallow } from 'zustand/shallow';
 
 import { useDialog } from 'shared/contexts/dialog';
-import { useApplicationStore } from 'shared/stores/application-store';
 
 import {
     Box,
@@ -22,6 +20,7 @@ type LanguageButtonProps = object;
 const LanguageButton: FC<LanguageButtonProps> = (
     props: LanguageButtonProps,
 ) => {
+    'use memo'
     const {} = props;
 
     const t = useTranslations();
@@ -30,12 +29,6 @@ const LanguageButton: FC<LanguageButtonProps> = (
         openDialog,
         isDialogOpen,
     } = useDialog();
-
-    const {
-        language,
-    } = useApplicationStore(
-        useShallow(store => store),
-    );
 
     const handleClick: MouseEventHandler = () => openDialog('language');
 
@@ -46,6 +39,7 @@ const LanguageButton: FC<LanguageButtonProps> = (
             <Box className='justify-self-center'>
                 <IconButton
                     borderless
+                    size='md'
                     selected={selected}
                     Icon={Languages}
                     onClick={handleClick}

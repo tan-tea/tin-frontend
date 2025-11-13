@@ -28,7 +28,7 @@ export default async function Layout(
 
     const workspace = await getWorkspaceWithShopsAndCategories(
         clientEnv.NEXT_PUBLIC_WORKSPACE_ID,
-        locale
+        locale,
     );
 
     return (

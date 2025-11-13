@@ -18,8 +18,9 @@ implements QueryHandler<GetCategoriesByWorkspaceIdQuery, CategoriesReadModel> {
 
     async handle(query: GetCategoriesByWorkspaceIdQuery): Promise<CategoriesReadModel> {
         const workspaceId = new ExternalId(query.workspaceId);
+        // const locale = new StringValueObject(query.locale); // TODO: fetch by RPC with language
 
-        const categoriesByWorkspaceId = await this.categoryRepository.getCategoriesByWorkspaceId(workspaceId);
+        const categoriesByWorkspaceId = await this.categoryRepository.getCategoriesByWorkspaceId(workspaceId, query.locale);
         if (!categoriesByWorkspaceId) {
             throw new Error();
         }

@@ -8,5 +8,5 @@ import {
 export const routing = defineRouting({
     locales: LANGUAGES,
     defaultLocale: FALLBACK_LANGUAGE,
-    localePrefix: 'as-needed',
+    // localePrefix: 'as-needed',
 });

@@ -12,7 +12,7 @@ import {
 import Link, { LinkProps, } from 'next/link';
 
 const cardActionsArea = tv({
-    base: 'border border-transparent shadow-none',
+    base: 'h-full border border-transparent shadow-none',
 });
 
 type CardActionsAreaVariants = VariantProps<typeof cardActionsArea>;
@@ -39,7 +39,7 @@ const CardActionsArea: FC<CardActionsAreaProps> = (props: CardActionsAreaProps) 
                 ? (<Link
                         href={href}
                         prefetch={prefetch}
-                        className='rounded-[inherit]'
+                        className='block h-full rounded-[inherit]'
                     >
                         {children}
                     </Link>)

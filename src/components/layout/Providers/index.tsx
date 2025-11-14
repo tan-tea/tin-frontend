@@ -15,8 +15,8 @@ import { ContainerProvider } from 'shared/contexts/container';
 import { ApplicationStoreProvider } from 'shared/stores/application-store';
 import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 
+import ThemeLayout from 'layout/Theme';
 import ThemeWatcher from 'common/Theme/Watcher';
-import ThemeProviderLayout from 'layout/ThemeProviderLayout';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -30,13 +30,13 @@ const queryClient = new QueryClient({
     },
 });
 
-type AppProviderLayoutProps = {
+type ProvidersProps = {
     children: ReactNode;
 };
 
-export default function AppProviderLayout(
-    props: AppProviderLayoutProps,
-): ReactElement<FC<AppProviderLayoutProps>> {
+export default function Providers(
+    props: ProvidersProps,
+): ReactElement<FC<ProvidersProps>> {
     const { children } = props;
 
     return (
@@ -45,14 +45,14 @@ export default function AppProviderLayout(
                 <ApplicationStoreProvider>
                     <QueryClientProvider client={queryClient}>
                         <DynamicThemeProvider>
-                            <ThemeProviderLayout>
+                            <ThemeLayout>
                                 <DialogProvider>
                                     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
                                         {children}
                                     </APIProvider>
                                     <ThemeWatcher/>
                                 </DialogProvider>
-                            </ThemeProviderLayout>
+                            </ThemeLayout>
                         </DynamicThemeProvider>
                     </QueryClientProvider>
                 </ApplicationStoreProvider>

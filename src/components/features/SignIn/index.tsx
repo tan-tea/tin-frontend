@@ -6,7 +6,7 @@ import type {
 } from 'react';
 import { useTranslations, } from 'next-intl';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import SignInMobile from './mobile';
 import SignInDesktop from './desktop';

@@ -19,6 +19,13 @@ import type {
     HeaderProps
 } from 'common/Header';
 import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerTitle,
+    DrawerTrigger
+} from 'ui/drawer';
+import { getValueInitials } from 'lib/utils';
 
 const ThemeButton = dynamic(
     () => import('common/buttons/ThemeButton'),
@@ -89,17 +96,29 @@ const HeaderMobile: FC<HeaderProps> = (
                     <LocationButton/>
                     <ThemeButton/>
                     <LanguageButton/>
-                    <AvatarRoot size='md' className='cursor-pointer'>
-                        <AvatarImage
-                            fill={false}
-                            width={32}
-                            height={32}
-                            alt='User'
-                            src={'/images/logo.svg'}
-                            className='object-fill'
-                        />
-                        <AvatarFallback/>
-                    </AvatarRoot>
+                    <Drawer modal={false}>
+                        <DrawerTrigger>
+                            <AvatarRoot size='md' className='cursor-pointer'>
+                                <AvatarImage
+                                    fill={false}
+                                    width={32}
+                                    height={32}
+                                    alt='User'
+                                    src={'/images/logo.svgs'}
+                                    className='object-fill'
+                                />
+                                <AvatarFallback>
+                                    {getValueInitials('profile')}
+                                </AvatarFallback>
+                            </AvatarRoot>
+                        </DrawerTrigger>
+                        <DrawerContent className='h-full'>
+                            <div className='size-full flex flex-col p-4'>
+                                <DrawerTitle className='font-nunito font-bold leading-5 hidden'>Menu</DrawerTitle>
+
+                            </div>
+                        </DrawerContent>
+                    </Drawer>
                 </Box>
             </Box>
         </AppBar>

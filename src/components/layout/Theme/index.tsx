@@ -13,7 +13,7 @@ type ThemeProviderLayoutProps = {
     children: ReactNode;
 };
 
-export default function ThemeProviderLayout(
+export default function ThemeLayout(
     props: ThemeProviderLayoutProps
 ): ReactElement<FC<ThemeProviderLayoutProps>> {
     const { children, } = props;

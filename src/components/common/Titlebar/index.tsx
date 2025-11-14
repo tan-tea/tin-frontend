@@ -1,11 +1,11 @@
 'use client'
 
 import {
-    ReactNode,
-    Ref,
     useMemo,
     useRef,
     type FC,
+    type Ref,
+    type ReactNode,
     type RefCallback,
 } from 'react';
 import {
@@ -116,9 +116,6 @@ const Titlebar: FC<TitlebarProps> = (props) => {
             ref={refCallback}
             role='heading'
             aria-label={title}
-            aria-labelledby={title}
-            aria-description=''
-            aria-describedby=''
             component={motion.div}
             className={wrapper({
                 className,

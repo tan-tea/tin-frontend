@@ -20,7 +20,7 @@ import {
     currentShopAtom,
 } from 'shared/state';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import HeaderMobileSkeleton from './mobile/skeleton';
 

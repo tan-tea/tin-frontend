@@ -7,7 +7,7 @@ import type {
 import { clientEnv } from 'env/client';
 import { getWorkspaceWithShopsAndCategories } from 'app/actions';
 
-import BaseLayout from 'layout/BaseLayout';
+import BaseLayout from 'layout/Base';
 
 type LayoutProps = {
     params: Promise<{

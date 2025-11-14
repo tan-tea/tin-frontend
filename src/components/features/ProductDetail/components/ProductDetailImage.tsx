@@ -1,9 +1,9 @@
 'use client'
 
 import {
-    ComponentProps,
     useRef,
     type FC,
+    type ComponentProps,
     type ReactEventHandler,
 } from 'react';
 import {

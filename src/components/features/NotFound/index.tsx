@@ -5,7 +5,7 @@ import type {
     ReactElement,
 } from 'react';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import NotFoundMobile from './mobile';
 import NotFoundDesktop from './desktop';

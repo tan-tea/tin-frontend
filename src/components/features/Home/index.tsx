@@ -23,7 +23,7 @@ import {
 } from 'shared/state';
 import { useOffersData } from 'shared/hooks/queries';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import SkeletonMobile from './mobile/skeleton';
 import SkeletonDesktop from './desktop/skeleton';

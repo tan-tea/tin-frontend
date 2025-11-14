@@ -17,7 +17,7 @@ import {
 } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import BrowseMobile from './mobile';
 import BrowseDesktop from './desktop';

@@ -13,7 +13,7 @@ import type {
 } from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import MobileSkeleton from './mobile/skeleton';
 import DesktopSkeleton from './desktop/skeleton';

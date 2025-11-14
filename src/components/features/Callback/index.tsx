@@ -14,7 +14,7 @@ import { useContainer, } from 'shared/contexts/container';
 import { CommandBus, } from 'contexts/shared/domain/CommandBus';
 import { ExchangeCodeCommand, } from 'contexts/auth/domain/ExchangeCodeCommand';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import CallbackMobile from './mobile';
 import CallbackDesktop from './desktop';

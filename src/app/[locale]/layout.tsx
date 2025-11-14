@@ -30,7 +30,7 @@ import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
 import { clientEnv } from 'env/client';
 import { routing } from 'lib/i18n/routing';
 
-import AppProviderLayout from 'layout/AppProviderLayout';
+import Providers from 'layout/Providers';
 
 const poppins = Poppins({
     subsets: ['latin',],
@@ -146,9 +146,9 @@ export default async function RootLayout(
                                 enableCssLayer: true,
                             }}
                         >
-                            <AppProviderLayout>
+                            <Providers>
                                 {children}
-                            </AppProviderLayout>
+                            </Providers>
                         </AppRouterCacheProvider>
                     </NextIntlClientProvider>
                 </Provider>

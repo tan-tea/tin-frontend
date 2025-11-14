@@ -11,7 +11,7 @@ import {
     useNavigation,
 } from 'shared/hooks';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import NewWorkspaceMobile from './mobile';
 import NewWorkspaceDesktop from './desktop';

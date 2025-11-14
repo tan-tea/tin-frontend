@@ -8,7 +8,7 @@ import { useTranslations, } from 'next-intl';
 
 import { useNavigation, } from 'shared/hooks';
 
-import DeviceDetectorLayout from 'layout/DeviceDetectorLayout';
+import DeviceDetectorLayout from 'common/DeviceDetector';
 
 import LoadingMobile from './mobile';
 // import LoadingDesktop from './desktop';

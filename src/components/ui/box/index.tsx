@@ -1,7 +1,8 @@
 'use client'
 
-import type {
-    FC,
+import {
+    memo,
+    type FC,
 } from 'react';
 import {
     tv,
@@ -40,4 +41,4 @@ const Box: FC<BoxProps> = (props: BoxProps) => {
     );
 };
 
-export default Box;
+export default memo(Box);

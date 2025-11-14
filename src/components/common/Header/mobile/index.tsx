@@ -1,8 +1,7 @@
 'use client'
 
-import {
-    useState,
-    type FC
+import type {
+    FC
 } from 'react';
 
 import Image from 'next/image';
@@ -18,7 +17,7 @@ import {
 import type {
     HeaderProps
 } from 'common/Header';
-import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
+import { AvatarFallback, AvatarRoot } from 'ui/avatar';
 import {
     Drawer,
     DrawerContent,
@@ -26,6 +25,7 @@ import {
     DrawerTrigger
 } from 'ui/drawer';
 import { getValueInitials } from 'lib/utils';
+import Titlebar from 'common/Titlebar';
 
 const ThemeButton = dynamic(
     () => import('common/buttons/ThemeButton'),
@@ -96,17 +96,9 @@ const HeaderMobile: FC<HeaderProps> = (
                     <LocationButton/>
                     <ThemeButton/>
                     <LanguageButton/>
-                    <Drawer modal={false}>
+                    <Drawer>
                         <DrawerTrigger>
                             <AvatarRoot size='md' className='cursor-pointer'>
-                                <AvatarImage
-                                    fill={false}
-                                    width={32}
-                                    height={32}
-                                    alt='User'
-                                    src={'/images/logo.svgs'}
-                                    className='object-fill'
-                                />
                                 <AvatarFallback>
                                     {getValueInitials('profile')}
                                 </AvatarFallback>
@@ -114,8 +106,14 @@ const HeaderMobile: FC<HeaderProps> = (
                         </DrawerTrigger>
                         <DrawerContent className='h-full'>
                             <div className='size-full flex flex-col p-4'>
-                                <DrawerTitle className='font-nunito font-bold leading-5 hidden'>Menu</DrawerTitle>
-
+                                <Titlebar
+                                    className='p-0 pb-4'
+                                    renderStart={() => <DrawerTitle className='font-nunito font-bold leading-5'>Menu</DrawerTitle>}
+                                    renderEnd={() => (
+                                        <Box className='ml-auto flex items-center gap-x-3'>
+                                        </Box>
+                                    )}
+                                />
                             </div>
                         </DrawerContent>
                     </Drawer>

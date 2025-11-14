@@ -62,6 +62,7 @@ const Dialog: FC<DialogProps> = (props: DialogProps) => {
 
     return (
         <RootDialog
+            tabIndex={-1}
             keepMounted
             fullWidth
             maxWidth='lg'

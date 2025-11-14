@@ -31,27 +31,9 @@ const SelectorDialogActions: FC<SelectorDialogActionsProps> = (
         onCancel,
     } = props;
 
-    const timeoutRef = useRef<number | string | null>(null);
-
-    const handleClick: MouseEventHandler = async () => {
-        if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-
-        const timeoutId = window.setTimeout(() => {
-            if (onCancel)
-                onCancel();
-        }, 300);
-
-        timeoutRef.current = timeoutId;
+    const handleClick: MouseEventHandler = () => {
+        if (onCancel) onCancel?.();
     };
-
-    useEffect(() => {
-        const cleanup = () => timeoutRef.current
-            && window.clearTimeout(timeoutRef.current);
-
-        return () => {
-            cleanup();
-        };
-    }, []);
 
     return (
         <Box className='w-full flex flex-col gap-y-4 md:w-auto md:flex-row md:gap-x-4'>

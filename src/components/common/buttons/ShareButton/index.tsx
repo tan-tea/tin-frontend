@@ -36,12 +36,10 @@ type ShareButtonProps = ShareButtonVariants & {
     shareableItem: Item;
 };
 
-const ShareButton: FC<ShareButtonProps> = (props) => {
+const ShareButton: FC<ShareButtonProps> = ({
+    shareableItem,
+}) => {
     'use memo'
-    const {
-        shareableItem,
-    } = props;
-
     const {
         container,
     } = shareButton();

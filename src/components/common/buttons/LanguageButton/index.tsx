@@ -17,12 +17,8 @@ import { Languages } from 'icons/index';
 
 type LanguageButtonProps = object;
 
-const LanguageButton: FC<LanguageButtonProps> = (
-    props: LanguageButtonProps,
-) => {
+const LanguageButton: FC<LanguageButtonProps> = () => {
     'use memo'
-    const {} = props;
-
     const t = useTranslations();
 
     const {

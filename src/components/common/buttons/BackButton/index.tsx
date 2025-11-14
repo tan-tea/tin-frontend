@@ -49,6 +49,7 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
 }
 
 const BackButton: FC<BackButtonProps> = (props) => {
+    'use memo'
     const {
         className,
         showLabel = false,

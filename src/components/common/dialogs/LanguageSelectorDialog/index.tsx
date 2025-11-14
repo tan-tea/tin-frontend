@@ -16,9 +16,8 @@ import LanguageSelectorDialogContent from 'common/dialogs/LanguageSelectorDialog
 
 type LanguageSelectorDialogProps = Omit<DialogProps, 'Component'>;
 
-const LanguageSelectorDialog: FC<LanguageSelectorDialogProps> = (
-    props: LanguageSelectorDialogProps,
-) => {
+const LanguageSelectorDialog: FC<LanguageSelectorDialogProps> = (props) => {
+    'use memo'
     const {
         open,
     } = props;

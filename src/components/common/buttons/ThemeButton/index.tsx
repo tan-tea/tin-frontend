@@ -19,11 +19,8 @@ import { useApplicationStore } from 'shared/stores/application-store';
 
 type ThemeButtonProps = object;
 
-const ThemeButton: FC<ThemeButtonProps> = (
-    props: ThemeButtonProps
-) => {
-    const {} = props;
-
+const ThemeButton: FC<ThemeButtonProps> = () => {
+    'use memo'
     const t = useTranslations();
 
     const {

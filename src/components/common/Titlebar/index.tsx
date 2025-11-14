@@ -58,6 +58,7 @@ type TitlebarProps = TitlebarVariants & {
     animation?: MotionNodeAnimationOptions;
     showAnimation?: boolean;
     renderStart?: (props: TitlebarProps) => ReactNode;
+    renderCenter?: (props: TitlebarProps) => ReactNode;
     renderEnd?: (props: TitlebarProps) => ReactNode;
 };
 
@@ -77,6 +78,7 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
 };
 
 const Titlebar: FC<TitlebarProps> = (props) => {
+    'use memo'
     const {
         ref,
         title,
@@ -85,6 +87,7 @@ const Titlebar: FC<TitlebarProps> = (props) => {
         animation,
         showAnimation = true,
         renderStart,
+        renderCenter,
         renderEnd,
     } = props;
 
@@ -122,9 +125,14 @@ const Titlebar: FC<TitlebarProps> = (props) => {
             })}
         >
             {renderStart ? renderStart?.(props) : <motion.div/>}
-            {title ? <Text className={text({
-                className,
-            })}>{title}</Text> : <motion.div/>}
+            {title && !renderCenter
+                ? <Text className={text()}>{title}</Text>
+                : renderCenter && !title
+                    ? renderCenter?.(props)
+                    : !title && !renderCenter
+                        ? <motion.div/>
+                        : null
+            }
             {renderEnd ? renderEnd?.(props) : <motion.div/>}
         </Box>
     );

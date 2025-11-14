@@ -26,7 +26,7 @@ type OwnBrowseProps = object;
 
 export type BrowseProps = {
     camera: MapCameraProps;
-    geolocation: GeolocationPosition;
+    geolocation: GeolocationPosition | null;
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
     onCameraChanged: (camera: MapCameraChangedEvent) => void;

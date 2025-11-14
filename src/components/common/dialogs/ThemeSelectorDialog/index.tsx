@@ -14,9 +14,8 @@ import ThemeSelectorDialogContent from 'common/dialogs/ThemeSelectorDialog/Conte
 
 type ThemeSelectorDialogProps = Pick<DialogProps, 'open'>;
 
-const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (
-    props: ThemeSelectorDialogProps,
-) => {
+const ThemeSelectorDialog: FC<ThemeSelectorDialogProps> = (props) => {
+    'use memo'
     const {
         open,
     } = props;

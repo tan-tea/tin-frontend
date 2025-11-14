@@ -20,13 +20,10 @@ import LocationSelectorDialogContent from './Content';
 
 type LocationSelectorDialogProps = Pick<DialogProps, 'open'>;
 
-const LocationSelectorDialog: FC<LocationSelectorDialogProps> = (
-    props: LocationSelectorDialogProps,
-) => {
-    const {
-        open,
-    } = props;
-
+const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
+    open,
+}) => {
+    'use memo'
     const t = useTranslations();
 
     const { closeDialog, } = useDialog();

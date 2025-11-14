@@ -63,8 +63,8 @@ const BrowseMobile: FC<BrowseMobileProps> = (
                 className='size-full'
             >
                 <Marker position={{
-                    lat: geolocation?.coords?.latitude,
-                    lng: geolocation?.coords?.longitude,
+                    lat: geolocation?.coords?.latitude || 0,
+                    lng: geolocation?.coords?.longitude || 0,
                 }}/>
             </Map>
         </Box>

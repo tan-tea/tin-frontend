@@ -18,16 +18,14 @@ type SelectorDialogProps = Pick<DialogProps, 'open'> & {
     onClose: () => void;
 };
 
-const SelectorDialog: FC<SelectorDialogProps> = (
-    props: SelectorDialogProps,
-) => {
-    const {
-        open,
-        title,
-        onClose,
-        content,
-        actions,
-    } = props;
+const SelectorDialog: FC<SelectorDialogProps> = ({
+    open,
+    title,
+    onClose,
+    content,
+    actions,
+}) => {
+    'use memo'
 
     return (
         <Dialog

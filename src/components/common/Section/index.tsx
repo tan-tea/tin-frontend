@@ -15,7 +15,7 @@ import {
 } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions, } from 'motion/react';
 
-import { Box } from 'ui/index';
+import Box from 'ui/box';
 
 const section = tv({
     // base: 'relative min-h-dvh',
@@ -62,6 +62,7 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
 };
 
 const Section: FC<SectionProps> = (props) => {
+    'use memo'
     const {
         ref,
         label,

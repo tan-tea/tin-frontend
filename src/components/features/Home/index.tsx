@@ -110,7 +110,7 @@ export default function Home(
     return (
         <DeviceDetectorLayout
             MobileComponent={<HomeMobile {...childProps}/>}
-            DesktopComponent={<HomeMobile {...childProps}/>}
+            DesktopComponent={<HomeDesktop {...childProps}/>}
         />
     );
 };

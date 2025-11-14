@@ -3,6 +3,7 @@
 import type {
     FC,
     ElementType,
+    ReactNode,
 } from 'react';
 import type { LucideProps, } from 'lucide-react';
 import { motion, type HTMLMotionProps } from 'motion/react';
@@ -59,6 +60,7 @@ export type IconButtonVariants = VariantProps<typeof iconButton>;
 
 export type IconButtonProps = IconButtonVariants & HTMLMotionProps<'button'> & {
     Icon: ElementType<LucideProps>;
+    children?: ReactNode;
 };
 
 const IconButton: FC<IconButtonProps> = (props) => {
@@ -72,6 +74,7 @@ const IconButton: FC<IconButtonProps> = (props) => {
         iconSize = 'md',
         selected = false,
         borderless = false,
+        children = null,
         ...rest
     } = props;
 
@@ -95,6 +98,7 @@ const IconButton: FC<IconButtonProps> = (props) => {
                 color='primary'
                 selected={selected}
             />
+            {children && children}
         </motion.button>
     );
 };

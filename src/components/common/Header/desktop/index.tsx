@@ -12,6 +12,8 @@ import {
 import { HeaderProps } from 'common/Header';
 
 import ThemeButton from 'common/buttons/ThemeButton';
+import LanguageButton from 'common/buttons/LanguageButton';
+import LocationButton from 'common/buttons/LocationButton';
 
 const HeaderDesktop: FC<HeaderProps> = (
     props: HeaderProps,
@@ -29,7 +31,9 @@ const HeaderDesktop: FC<HeaderProps> = (
                     aria-label='navigation'
                     className='ml-auto h-full flex items-center gap-x-4'
                 >
+                    <LocationButton/>
                     <ThemeButton/>
+                    <LanguageButton/>
                 </Box>
             </Box>
         </AppBar>

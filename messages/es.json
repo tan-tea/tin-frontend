@@ -1,4 +1,5 @@
 {
+    "sharingLocation": "Compartiendo ubicaci\u00f3n...",
     "metadata": {
         "siteName": "Catalog",
         "titleDefault": "Catalog - Todo lo que necesitas",
@@ -12,6 +13,10 @@
         "home": {
             "title": "Inicio",
             "description": "Main homepage"
+        },
+        "signin": {
+            "title": "Iniciar sesi\u00f3n",
+            "description": "P\u00e1gina de inicio de sesi\u00f3n"
         },
         "loading": {
             "title": "Cargando",
@@ -31,19 +36,19 @@
         }
     },
     "shared": {
-        "back": "Atras",
+        "back": "Atr\u00e1s",
         "cancel": "Cancelar",
         "close": "Cerrar",
         "accept": "Aceptar",
         "saveChanges": "Guardar cambios",
         "discount": "{discount}% off",
-        "showMore": "Leer mas",
+        "showMore": "Leer m\u00e1s",
         "showLess": "Ver menos"
     },
     "theme": {
         "tooltip": "Cambiar tema",
         "dialog": {
-            "title": "Configuracion de apariencia",
+            "title": "Configuraci\u00f3n de apariencia",
             "description": "Choose your preferred interface appearance. You have the option to pick a theme manually or enable automatic theme switching that aligns with your system settings.",
             "system": {
                 "title": "Sistema",
@@ -63,9 +68,9 @@
         }
     },
     "location": {
-        "tooltip": "Choose location",
+        "tooltip": "Ubicaci\u00f3n",
         "dialog": {
-            "title": "Seleccionar ubicacion",
+            "title": "Compartir ubicaci\u00f3n",
             "description": "Para acceder a productos mas cerca de ti, es importante conocer tu ubicacion",
             "button": "Compartir ubicacion"
         }
@@ -73,7 +78,7 @@
     "language": {
         "tooltip": "Cambiar idioma",
         "dialog": {
-            "title": "Configuracion del idioma",
+            "title": "Configuraci\u00f3n del idioma",
             "description": "",
             "es": {
                 "title": "Español",

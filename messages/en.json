@@ -1,4 +1,5 @@
 {
+    "sharingLocation": "Sharing location...",
     "metadata": {
         "siteName": "Catalog",
         "titleDefault": "Catalog - All items that you need",
@@ -12,6 +13,10 @@
         "home": {
             "title": "Home",
             "description": "Main homepage"
+        },
+        "signin": {
+            "title": "Sign In",
+            "description": "Sign in page"
         },
         "loading": {
             "title": "Loading",

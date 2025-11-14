@@ -12,20 +12,22 @@ import {
     Text,
     AppBar,
     Dropdown,
+    Button,
 } from 'ui/index';
 
 import type {
     HeaderProps
 } from 'common/Header';
-import { AvatarFallback, AvatarRoot } from 'ui/avatar';
+import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
 import {
     Drawer,
     DrawerContent,
     DrawerTitle,
     DrawerTrigger
 } from 'ui/drawer';
-import { getValueInitials } from 'lib/utils';
+import { cn, getValueInitials } from 'lib/utils';
 import Titlebar from 'common/Titlebar';
+import { useNavigation, usePrefetch } from 'shared/hooks';
 
 const ThemeButton = dynamic(
     () => import('common/buttons/ThemeButton'),
@@ -51,6 +53,12 @@ const HeaderMobile: FC<HeaderProps> = (
         currentShop,
         onSelectShop,
     } = props;
+
+    const {
+        prefetchOnHover,
+    } = usePrefetch();
+
+    const { navigate } = useNavigation();
 
     return (
         <AppBar
@@ -105,16 +113,41 @@ const HeaderMobile: FC<HeaderProps> = (
                             </AvatarRoot>
                         </DrawerTrigger>
                         <DrawerContent className='h-full'>
-                            <div className='size-full flex flex-col p-4'>
+                            <Box className='size-full flex flex-col p-4'>
                                 <Titlebar
                                     className='p-0 pb-4'
                                     renderStart={() => <DrawerTitle className='font-nunito font-bold leading-5'>Menu</DrawerTitle>}
-                                    renderEnd={() => (
-                                        <Box className='ml-auto flex items-center gap-x-3'>
-                                        </Box>
-                                    )}
                                 />
-                            </div>
+                                <Box className={cn(
+                                    'flex flex-row items-center py-3 gap-x-3'
+                                )}>
+                                    <AvatarRoot size='xxxl' className='shrink-0'>
+                                        <AvatarImage
+                                            fill={false}
+                                            alt='logo'
+                                            src='images/logo.svg'
+                                            height={40}
+                                            width={40}
+                                        />
+                                    </AvatarRoot>
+                                    <Box className='flex flex-col'>
+                                        <Text>Hola!</Text>
+                                        <Text className='text-sm leading-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, praesentium.</Text>
+                                    </Box>
+                                </Box>
+                                <Button
+                                    block
+                                    mobile
+                                    role='link'
+                                    rounded='full'
+                                    color='secondary'
+                                    variant='contained'
+                                    onClick={() => navigate('/sign-in')}
+                                    onTouchStart={() => prefetchOnHover('/sign-in')}
+                                >
+                                    Iniciar sesion
+                                </Button>
+                            </Box>
                         </DrawerContent>
                     </Drawer>
                 </Box>

@@ -39,6 +39,8 @@ export const useGeolocation: UseGeolocationHandler = () => {
         (position: GeolocationPosition) => {
             setGeolocation(position);
             setGeolocationError(null);
+
+            if (!isWatching && position) setIsWatching(true);
         },
         [],
     );
@@ -58,8 +60,6 @@ export const useGeolocation: UseGeolocationHandler = () => {
             if (geolocationWatchIdRef.current)
                 geolocationWatchIdRef.current = null;
 
-            setIsWatching(true);
-
             const watchId = navigator
                 .geolocation
                 .watchPosition(onSuccess, onError, POSITION_OPTIONS);
@@ -78,7 +78,6 @@ export const useGeolocation: UseGeolocationHandler = () => {
                 ?.geolocation
                 ?.getCurrentPosition?.(onSuccess, onError, POSITION_OPTIONS);
 
-            if (!isWatching && geolocation) setIsWatching(true);
 
             return geolocation;
         },

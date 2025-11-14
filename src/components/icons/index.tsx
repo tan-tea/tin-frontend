@@ -107,4 +107,6 @@ export {
     MessageCircleQuestion,
     Share,
     MapPin,
+    ArrowLeft,
+    ArrowRight,
 } from 'lucide-react';

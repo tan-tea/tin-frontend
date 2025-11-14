@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 import { useComputedStyle } from 'shared/hooks';
 
 import Box from 'ui/box';
+import { Carousel, CarouselContent, CarouselItem } from 'ui/carousel';
 
 import type {
     HomeProps,
@@ -62,6 +63,13 @@ const HomeMobile: FC<HomeMobileProps> = (
             className='h-full'
         >
             <Box className='size-full flex flex-col gap-y-4 p-4 pt-0'>
+                {/* <Carousel
+                    className='w-full'
+                    opts={{ loop: true }}
+                >
+                    <CarouselContent>
+                    </CarouselContent>
+                </Carousel> */}
                 {categories && categories?.length > 0 && (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories?.map?.(category => (

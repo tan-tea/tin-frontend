@@ -24,6 +24,7 @@ const button = tv({
     variants: {
         color: {
             primary: 'bg-primary text-white border-white',
+            secondary: 'bg-secondary text-white',
         },
         rounded: {
             sm: 'rounded-sm',

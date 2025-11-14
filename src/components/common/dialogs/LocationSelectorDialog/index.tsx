@@ -29,6 +29,7 @@ const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
     const { closeDialog, } = useDialog();
     const {
         isWatching,
+        geolocationError,
         requestGeolocationPermission,
     } = useGeolocation();
 
@@ -62,7 +63,12 @@ const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
                             color='primary'
                             onClick={() => requestGeolocationPermission()}
                         >
-                            {!isWatching ? t('location.dialog.button') : 'Sharing location'}
+                            {!isWatching && !geolocationError
+                                ? t('location.dialog.button')
+                                : !isWatching && geolocationError
+                                    ? geolocationError.message
+                                    : t('sharingLocation')
+                            }
                         </Button>
                     </>
                 )}

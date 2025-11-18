@@ -14,16 +14,11 @@ const Header = dynamic(
     () => import('common/Header'),
 );
 
-const BottomNavigation = dynamic(
-    () => import('common/BottomNavigation'),
-);
-
 type BaseLayoutMobileProps = BaseLayoutProps;
 
 const BaseLayoutMobile: FC<BaseLayoutMobileProps> = ({
     children,
     showHeader,
-    showBottomNavigation
 }) => {
     'use memo'
 
@@ -33,7 +28,6 @@ const BaseLayoutMobile: FC<BaseLayoutMobileProps> = ({
             <Box className={`relative bg-inherit dark:bg-dark-600 dark:text-light-600 ${showHeader ? 'top-header-mobile' : ''}`}>
                 {children}
             </Box>
-            {showBottomNavigation && <BottomNavigation/>}
         </>
     );
 }

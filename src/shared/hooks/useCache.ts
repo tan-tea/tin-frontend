@@ -49,11 +49,15 @@ export const useCache = <T>(
             const age = await getAge(key);
             if (age && age > 10) return null;
 
-            return (
+            const result =  (
                 key
                 ? (await table.get(key))
                 : (await table.toArray())
             ) ?? atomValue;
+
+            setAtom(result);
+
+            return result;
         },
         [table,],
     );
@@ -103,6 +107,7 @@ export const useCache = <T>(
                 ? await table.get(key)
                 : (await table.toArray())?.[0]
             ) as Timestamped<T> | undefined
+
             if (!item || !item?.createdAt) return null;
 
             return millisecondsToMinutes(Date.now() - item?.createdAt);

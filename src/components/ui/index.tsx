@@ -15,7 +15,6 @@ import Button from './button';
 import Popper from './popper';
 import Spinner from './spinner';
 import Tooltip from './tooltip';
-import TextField from './text-field';
 import Field from './field';
 import Avatar, {
     avatar,
@@ -24,8 +23,6 @@ import Avatar, {
 } from './avatar';
 import Input, {
     input,
-    type InputProps,
-    type InputVariants,
 } from './field/input';
 import Label, {
     label,
@@ -71,7 +68,6 @@ export {
     Popper,
     Spinner,
     Tooltip,
-    TextField,
     Avatar,
     avatar,
     Input,
@@ -91,8 +87,6 @@ export {
 export type {
     AvatarProps,
     AvatarVariants,
-    InputProps,
-    InputVariants,
     LabelProps,
     LabelVariants,
     IconButtonProps,

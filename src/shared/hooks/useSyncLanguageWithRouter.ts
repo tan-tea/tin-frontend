@@ -43,7 +43,7 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
 
         const unsubscribe = store.subscribe(handleChangeLanguage);
         return unsubscribe;
-    }, [store, changeLanguage,]);
+    }, [store, changeLanguage, language,]);
 
     useEffect(() => {
         setLoading(isChangingLanguage);

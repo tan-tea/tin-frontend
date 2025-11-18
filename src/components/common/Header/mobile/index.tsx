@@ -4,46 +4,40 @@ import type {
     FC
 } from 'react';
 
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+
+import { cn, getValueInitials } from 'lib/utils';
+
+import { useNavigation, usePrefetch } from 'shared/hooks';
 
 import {
     Box,
     Text,
     AppBar,
-    Dropdown,
     Button,
 } from 'ui/index';
-
-import type {
-    HeaderProps
-} from 'common/Header';
-import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
 import {
     Drawer,
     DrawerContent,
     DrawerTitle,
     DrawerTrigger
 } from 'ui/drawer';
-import { cn, getValueInitials } from 'lib/utils';
+import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
+
+import type {
+    HeaderProps
+} from 'common/Header';
+
+import Logo from 'components/Logo';
 import Titlebar from 'common/Titlebar';
-import { useNavigation, usePrefetch } from 'shared/hooks';
-
-const ThemeButton = dynamic(
-    () => import('common/buttons/ThemeButton'),
-);
-
-const LanguageButton = dynamic(
-    () => import('common/buttons/LanguageButton'),
-);
+import ThemeSwitcher from 'components/ThemeSwitcher';
+import LanguageSwitcher from 'components/LanguageSwitcher';
 
 const LocationButton = dynamic(
     () => import('common/buttons/LocationButton'),
 );
 
-const HeaderMobile: FC<HeaderProps> = (
-    props: HeaderProps,
-) => {
+const HeaderMobile: FC<HeaderProps> = (props) => {
     'use memo'
     const {
         shops,
@@ -66,44 +60,12 @@ const HeaderMobile: FC<HeaderProps> = (
             scrolling={scrolling}
             className='z-50 py-4 h-auto bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
         >
-            <Box className='size-full flex items-center px-4'>
+            <Box className='size-full grid grid-cols-3 items-center px-4'>
+                <LocationButton/>
                 <Box className='h-full flex items-center gap-x-1'>
-                    <Image
-                        priority
-                        quality={100}
-                        src={workspace?.logo! ?? customization?.logo}
-                        alt={workspace?.name!}
-                        width={200}
-                        height={50}
-                        className='h-8 w-auto object-contain fill-[var(--mui-palette-primary-400)]'
-                    />
-                    {customization?.showName && (
-                        <Text
-                            component='h1'
-                            className='text-base font-medium text-[var(--mui-palette-primary-main)]'>
-                            {workspace?.name}
-                        </Text>
-                    )}
+                    <Logo/>
                 </Box>
                 <Box className='ml-auto flex items-center gap-x-3'>
-                    {/* {shops?.length > 1 && (
-                        <Dropdown
-                            option={{
-                                label: currentShop?.name!,
-                                value: currentShop?.id!,
-                            }}
-                            options={shops?.map(s => ({
-                                label: s?.name,
-                                value: s?.id,
-                            }))}
-                            open={open}
-                            onOpenChange={(open) => setOpen(open)}
-                            onSelectOption={(option) => onSelectShop(option?.value)}
-                        />
-                    )} */}
-                    <LocationButton/>
-                    <ThemeButton/>
-                    <LanguageButton/>
                     <Drawer>
                         <DrawerTrigger>
                             <AvatarRoot size='md' className='cursor-pointer'>
@@ -117,6 +79,12 @@ const HeaderMobile: FC<HeaderProps> = (
                                 <Titlebar
                                     className='p-0 pb-4'
                                     renderStart={() => <DrawerTitle className='font-nunito font-bold leading-5'>Menu</DrawerTitle>}
+                                    renderEnd={() => (
+                                        <Box className='ml-auto flex items-center gap-x-4'>
+                                            <ThemeSwitcher/>
+                                            <LanguageSwitcher/>
+                                        </Box>
+                                    )}
                                 />
                                 <Box className={cn(
                                     'flex flex-row items-center py-3 gap-x-3'

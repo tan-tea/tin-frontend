@@ -40,8 +40,8 @@ const SearchEngine: FC<SearchEngineProps> = (
 
     const [focus, setFocus,] = useState<boolean>(false);
 
-    const elementComputedStyle = useComputedStyle(boxRef?.current!);
-    const parentComputedStyle = useComputedStyle(boxRef.current?.parentElement!);
+    const elementComputedStyle = useComputedStyle(boxRef);
+    const parentComputedStyle = useComputedStyle(boxRef);
 
     const boxHeight = parseFloat(elementComputedStyle?.height ?? '0');
     const parentWidth = parseFloat(parentComputedStyle?.width ?? '0');

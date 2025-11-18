@@ -12,7 +12,6 @@ import { SearchProps, } from 'feature/Search';
 
 import Search from 'common/Search';
 import Section from 'common/Section';
-import SearchEngine from 'common/SearchEngine';
 
 type SearchMobileProps = SearchProps;
 
@@ -33,9 +32,6 @@ const SearchMobile: FC<SearchMobileProps> = (
         >
             <Box className='size-full p-4'>
                 <Search/>
-                {/* <SearchEngine
-                    onFocus={() => console.log('focused')}
-                /> */}
             </Box>
         </Section>
     );

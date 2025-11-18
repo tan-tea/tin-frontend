@@ -29,6 +29,7 @@
             "shared/*": ["./src/shared/*"],
             "ui/*": ["./src/components/ui/*"],
             "env/*": ["./src/env/*"],
+            "components/*": ["./src/components/*"],
             "common/*": ["./src/components/common/*"],
             "contexts/*": ["./src/contexts/*"],
             "icons/*": ["./src/components/icons/*"],

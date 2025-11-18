@@ -2,6 +2,7 @@ import {
     useMemo,
     useEffect,
 } from 'react';
+import { useSetAtom } from 'jotai';
 import { useShallow } from 'zustand/shallow';
 import { createTheme, Theme} from '@mui/material';
 
@@ -11,6 +12,7 @@ import { formatThemePalette } from 'lib/utils';
 
 import { useCustomizationData } from 'shared/hooks/queries';
 import { useApplicationStore } from 'shared/stores/application-store';
+import { customizationAtom } from 'shared/state';
 
 type DynamicThemeContextState = {
     theme: Theme;
@@ -25,6 +27,8 @@ const useDynamicThemeContextState: UseDynamicThemeHandler = () => {
         [],
     );
 
+    const setCustomizationAtom = useSetAtom(customizationAtom);
+
     const {
         setLoading,
     } = useApplicationStore(
@@ -35,6 +39,10 @@ const useDynamicThemeContextState: UseDynamicThemeHandler = () => {
         data: customizationData,
         isLoading: customizationLoading,
     } = useCustomizationData();
+
+    useEffect(() => {
+        setCustomizationAtom(customizationData);
+    }, [customizationData,]);
 
     const theme = useMemo<Theme>(
         () => {

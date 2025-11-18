@@ -7,7 +7,6 @@ import {
 
 import {
     Box,
-    Field,
 } from 'ui/index';
 
 import BackButton from 'common/buttons/BackButton';
@@ -36,13 +35,6 @@ const NewWorkspaceMobile: FC<NewWorkspaceMobileProps> = (
                     <BackButton className='relative ml-4 mt-4'/>
                 </Box>
                 <Box className='grow p-4 flex flex-col'>
-                    <Field
-                        fullWidth
-                        label='Email Address'
-                        placeholder='Type here'
-                        value={example}
-                        onChange={(e) => setExample(e.target.value)}
-                    />
                 </Box>
             </Box>
         </Box>

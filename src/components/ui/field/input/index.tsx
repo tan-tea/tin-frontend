@@ -4,22 +4,24 @@ import {
     useRef,
     type FC,
     type Ref,
-    type ChangeEvent,
+    type RefCallback,
     type ChangeEventHandler,
+    ComponentProps,
 } from 'react';
 import { motion } from 'motion/react';
 import {
+    ClassValue,
     tv,
     type VariantProps,
 } from 'tailwind-variants';
 import { Input as BaseInput, } from '@base-ui-components/react/input';
 
 export const input = tv({
-    base: 'w-full block box-border focus:outline-none text-base text-[inherit] font-secondary',
+    base: 'w-full block box-border bg-none focus:outline-none text-base text-[inherit] font-secondary',
     variants: {
-        root: '',
         fullWidth: {
             true: 'w-full',
+            false: 'w-auto',
         },
         disabled: {
             true: 'text-dark-400 cursor-not-allowed',
@@ -29,34 +31,41 @@ export const input = tv({
         },
     },
     defaultVariants: {
-        fullWidth: false,
+        fullWidth: true,
         disabled: false,
     },
 });
 
-export type InputVariants = VariantProps<typeof input>;
+type InputVariants = VariantProps<typeof input>;
 
-export type InputProps = InputVariants & BaseInput.Props & {
+type InputProps = InputVariants & ComponentProps<typeof BaseInput> & {
     ref?: Ref<HTMLInputElement>;
     regExp?: RegExp;
+    className?: ClassValue;
 };
 
-const Input: FC<InputProps> = (props: InputProps) => {
+const Input: FC<InputProps> = ({
+    ref,
+    value,
+    className,
+    disabled = false,
+    required = false,
+    fullWidth = false,
+    regExp = /^[^$<>{}]*$/,
+    onChange,
+    ...props
+}) => {
+    'use memo'
     const innerRef = useRef<HTMLInputElement | null>(null);
 
-    const {
-        ref = innerRef,
-        value,
-        className,
-        disabled = false,
-        required = false,
-        fullWidth = false,
-        regExp = /^[^$<>{}]*$/,
-        onChange,
-        ...rest
-    } = props;
+    const refCallback: RefCallback<HTMLInputElement> = (node) => {
+        innerRef.current = node;
 
-    const handleChange: ChangeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        if (typeof ref === 'function') ref(node);
+        else if (ref) (ref as React.RefObject<HTMLInputElement | null>).current = node;
+    }
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         const newValue = event?.target?.value || '';
 
         if (disabled) return;
@@ -67,12 +76,12 @@ const Input: FC<InputProps> = (props: InputProps) => {
 
     return (
         <BaseInput
-            {...rest}
-            ref={ref}
+            {...props}
+            ref={refCallback}
             className={input({
                 fullWidth,
                 disabled,
-                className: typeof className === 'string' ? className : '',
+                className,
             })}
             render={<motion.input/>}
             value={value}

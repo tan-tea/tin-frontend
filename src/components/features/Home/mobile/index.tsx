@@ -51,7 +51,7 @@ const HomeMobile: FC<HomeMobileProps> = (
 
     const parentRef = useRef<HTMLElement | null>(null);
 
-    const parentComputedStyle = useComputedStyle(parentRef.current!);
+    const parentComputedStyle = useComputedStyle(parentRef);
 
     const parentHeight = parseFloat(parentComputedStyle?.height ?? '0');
 
@@ -70,19 +70,21 @@ const HomeMobile: FC<HomeMobileProps> = (
                     <CarouselContent>
                     </CarouselContent>
                 </Carousel> */}
-                {categories && categories?.length > 0 && (
+                {categories?.length! > 0 && (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
-                        {categories?.map?.(category => (
-                            <CategoryCard
-                                selected={category?.id === selectedCategory?.id}
-                                onSelectCategory={(id) => onSelectCategory(categories?.find?.(c => c.id === id))}
-                                key={category?.id}
-                                {...category}
-                            />
+                        {categories
+                            ?.sort?.((a, b) => a?.position - b?.position)
+                            .map?.(category => (
+                                <CategoryCard
+                                    selected={category?.id === selectedCategory?.id}
+                                    onSelectCategory={(id) => onSelectCategory(categories?.find?.(c => c.id === id))}
+                                    key={category?.id}
+                                    {...category}
+                                />
                         ))}
                     </Box>
                 )}
-                {offers && offers?.length > 0 && (
+                {offers?.length! > 0 && (
                     <Box className='size-full flex-1 grid grid-cols-2 gap-2'>
                         {offers?.map?.(offer => (
                             <ProductCard

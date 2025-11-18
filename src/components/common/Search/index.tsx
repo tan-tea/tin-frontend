@@ -21,9 +21,7 @@ const Search: FC<SearchProps> = (props) => {
     'use memo'
     const {} = props;
 
-    const handleSearch = (value: string) => {
-        console.log('value', value);
-    };
+    const handleSearch = (value: string) => {};
 
     return (
         <AutocompleteRoot

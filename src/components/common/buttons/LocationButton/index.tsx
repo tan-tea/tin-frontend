@@ -44,7 +44,7 @@ const LocationButton: FC<LocationButtonProps> = () => {
 
     return (
         <Tooltip title={t('tooltip')}>
-            <Box className='justify-self-center'>
+            <Box className='justify-self-start'>
                 <IconButton
                     borderless
                     size='md'

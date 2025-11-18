@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    useId,
     useMemo,
     useState,
     type FC,
@@ -49,12 +50,13 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     },
 };
 
-const ExpandableText: FC<ExpandableTextProps> = (props) => {
-    const {
-        text,
-        maxLength = 100,
-        showAnimation = true,
-    } = props;
+const ExpandableText: FC<ExpandableTextProps> = ({
+    text,
+    maxLength = 100,
+    showAnimation = true,
+}) => {
+    'use memo'
+    const uniqueId = useId();
 
     const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -89,16 +91,16 @@ const ExpandableText: FC<ExpandableTextProps> = (props) => {
     return (
         <Box
             {...(showAnimation && animate)}
+            id={uniqueId}
             layout
             role='article'
             aria-label={text}
-            aria-labelledby={text}
-            aria-describedby={text}
             aria-description={text}
             component={motion.div}
             className={container()}
         >
             <Box
+                aria-describedby={uniqueId}
                 component={motion.p}
                 className={textSlot()}
             >

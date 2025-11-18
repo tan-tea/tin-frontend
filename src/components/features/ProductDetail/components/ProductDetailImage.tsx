@@ -69,8 +69,8 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
     const containerRef = useRef<HTMLElement | null>(null);
     const imageRef = useRef<HTMLImageElement | null>(null);
 
-    const imageComputedStyle = useComputedStyle(imageRef?.current!);
-    const containerComputedStyle = useComputedStyle(containerRef.current!);
+    const imageComputedStyle = useComputedStyle(imageRef);
+    const containerComputedStyle = useComputedStyle(containerRef);
 
     const handleImageLoad: ReactEventHandler<HTMLImageElement> = (event) => {
         if (!imageRef.current)

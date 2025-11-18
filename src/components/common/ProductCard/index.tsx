@@ -2,13 +2,14 @@
 
 import type {
     FC,
-    MouseEventHandler,
 } from 'react';
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
+
+import { usePrefetch } from 'shared/hooks';
 
 import {
     Text,
@@ -41,31 +42,32 @@ type ProductCardProps = Omit<ProductCardVariants, 'hasDiscount'> & {
     className?: string;
 };
 
-const ProductCard: FC<ProductCardProps> = (
-    props: ProductCardProps,
-) => {
-    const {
-        id,
-        badge,
-        title,
-        description,
-        price,
-        className,
-        image,
-        discount = 0,
-    } = props;
-
-    const t = useTranslations('shared');
-
-    const hasDiscount = discount > 0;
-
+const ProductCard: FC<ProductCardProps> = ({
+    id,
+    badge,
+    title,
+    description,
+    price,
+    className,
+    image,
+    discount = 0,
+}) => {
+    'use memo'
     const {
         card,
         imageWrapper,
         cardContent,
     } = productCard();
 
-    const handleClick: MouseEventHandler = () => {};
+    const {
+        prefetchRoute,
+    } = usePrefetch();
+
+    const t = useTranslations('shared');
+
+    const hasDiscount = discount > 0;
+
+    const target = `/product/${id}`;
 
     return (
         <Card
@@ -77,8 +79,9 @@ const ProductCard: FC<ProductCardProps> = (
         >
             <CardActionsArea
                 className='h-full'
-                href={`/product/${id}`}
-                onClick={handleClick}
+                href={target}
+                onMouseEnter={() => prefetchRoute(target)}
+                onTouchStart={() => prefetchRoute(target)}
             >
                 <CardMedia
                     badge={badge ? badge : hasDiscount ? t('discount', { discount, }) : undefined}

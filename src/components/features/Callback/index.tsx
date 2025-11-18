@@ -71,7 +71,6 @@ export default function Callback(
             });
 
             const accessToken = await commandBus.dispatch<string>(exchangeCodeCommand);
-            console.log('Access Token:', accessToken);
         },
         [],
     );

@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    ComponentProps,
     type FC,
     FocusEvent,
     FocusEventHandler,
@@ -9,6 +10,7 @@ import {
 } from 'react';
 import { motion } from 'motion/react';
 import {
+    ClassValue,
     tv,
     type VariantProps,
 } from 'tailwind-variants';
@@ -16,13 +18,16 @@ import { Field as BaseField, } from '@base-ui-components/react/field';
 
 import {
     Input,
-    InputProps,
-    InputVariants,
     Label,
 } from 'ui/index';
+import { cn } from 'lib/utils';
 
-export const field = tv({
+const field = tv({
     base: 'box-border flex flex-col px-4 py-2 gap-y-1 border border-gray-400 rounded-md focus:outline-none',
+    slots: {
+        root: cn(''),
+        control: cn(''),
+    },
     variants: {
         color: {
             root: '',
@@ -52,17 +57,66 @@ export const field = tv({
     ],
 });
 
-export type FieldVariants = Omit<VariantProps<typeof field>, 'focused'>;
+type FieldVariants = VariantProps<typeof field>;
 
-export type FieldProps = Omit<InputProps, 'className'> & InputVariants & FieldVariants & Omit<BaseField.Root.Props, 'onChange'> & {
-    // ref?: Ref<HTMLInputElement>;
+type FieldRootProps = ComponentProps<typeof BaseField.Root> & FieldVariants;
+
+const FieldRoot: FC<FieldRootProps> = ({
+    color,
+    fullWidth,
+    focused,
+    disabled,
+    ...props
+}) => {
+    'use memo'
+    const { root } = field({
+        color,
+        fullWidth,
+        focused,
+        disabled,
+    });
+
+    return (
+        <BaseField.Root
+            {...props}
+            data-slot='field'
+            className={root({
+                className: props.className as ClassValue,
+            })}
+        />
+    );
+}
+
+FieldRoot.displayName = 'Field';
+
+type FieldControlProps = ComponentProps<typeof BaseField.Control>
+& ComponentProps<typeof Input>
+& FieldVariants;
+
+const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
+    'use memo'
+    const { control } = field({ ...props });
+
+    return (
+        <BaseField.Control
+            {...props}
+            data-slot='field-control'
+            render={<Input/>}
+            className={control()}
+        />
+    );
+}
+
+FieldControl.displayName = 'FieldControl';
+
+type FieldProps = Omit<ComponentProps<typeof Input>, 'className'> & FieldVariants & Omit<BaseField.Root.Props, 'onChange'> & {
     label?: string;
     labelClassName?: string;
     placeholder?: string;
     inputClassName?: string;
 };
 
-const Field: FC<FieldProps> = (props: FieldProps) => {
+const Field: FC<FieldProps> = (props) => {
     const {
         id,
         color,
@@ -104,13 +158,13 @@ const Field: FC<FieldProps> = (props: FieldProps) => {
         <BaseField.Root
             {...rest}
             tabIndex={0}
-            className={field({
-                color,
-                fullWidth,
-                disabled,
-                focused: isFocused,
-                className: typeof className === 'string' ? className : '',
-            })}
+            // className={field({
+            //     color,
+            //     fullWidth,
+            //     disabled,
+            //     focused: isFocused,
+            //     className: typeof className === 'string' ? className : '',
+            // })}
             render={<motion.div
                 initial='enter'
                 variants={variants}
@@ -141,4 +195,8 @@ const Field: FC<FieldProps> = (props: FieldProps) => {
     );
 };
 
+export {
+    FieldRoot,
+    FieldControl,
+}
 export default Field;

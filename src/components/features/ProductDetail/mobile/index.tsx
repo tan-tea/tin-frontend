@@ -31,9 +31,7 @@ import ProductDetailTitle from 'feature/ProductDetail/components/ProductDetailTi
 
 type ProductDetailMobileProps = ProductDetailProps;
 
-const ProductDetailMobile: FC<ProductDetailMobileProps> = (
-    props: ProductDetailMobileProps
-) => {
+const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
     'use memo'
     const {
         t,
@@ -41,7 +39,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
     } = props;
 
     const productDetailButtonRef = useRef<HTMLDivElement | null>(null);
-    const productDetailButtonComputedStyle = useComputedStyle(productDetailButtonRef.current!);
+    const productDetailButtonComputedStyle = useComputedStyle(productDetailButtonRef);
 
     const handleClick: MouseEventHandler = () => {
         const translated = t('message', { name: offer?.title });
@@ -87,7 +85,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (
                 />
                 <ProductDetailTitle offer={offer}/>
                 <ExpandableText text={offer?.description || t('notProvided')}/>
-                {offer?.type?.attributes?.length && offer?.type?.attributes?.length > 0 && (
+                {offer?.type?.attributes?.length! > 0 && (
                     <Box className='relative flex flex-col justify-center gap-y-4'>
                         {offer?.type?.attributes?.map?.(attribute => (
                             <Box

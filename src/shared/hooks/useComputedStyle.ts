@@ -1,43 +1,25 @@
 import {
-    useRef,
-    useMemo,
+    useState,
     useEffect,
+    RefObject,
 } from 'react';
 
 import { useWindowSize } from './useWindowSize';
 
-type UseComputedStyle = CSSStyleDeclaration | null;
+export const useComputedStyle = <T extends HTMLElement>(
+    ref: RefObject<T | null>
+) => {
+    const [style, setStyle] = useState<CSSStyleDeclaration | null>(null);
 
-type UseComputedStyleProps = Element | undefined;
-
-type UseComputedStyleHandler = (target: UseComputedStyleProps) => UseComputedStyle;
-
-export const useComputedStyle: UseComputedStyleHandler = (target) => {
-    const targetRef = useRef(target);
-
-    const {
-        sizeChanged,
-    } = useWindowSize();
-
-    const computedStyle = useMemo<CSSStyleDeclaration | null>(
-        () => {
-            if (typeof window === 'undefined') return null;
-
-            const element = targetRef.current;
-            if (!element) return null;
-
-            return window.getComputedStyle(element);
-        },
-        [targetRef.current,],
-    );
+    const { sizeChanged,} = useWindowSize();
 
     useEffect(() => {
-        if (!targetRef.current) targetRef.current = target;
+        if (typeof window === 'undefined') return;
+        if (!ref?.current) return;
 
-        return () => {
-            if (targetRef.current) targetRef.current = undefined;
-        }
-    }, [target, sizeChanged,]);
+        const computed = window.getComputedStyle(ref.current);
+        setStyle(computed);
+    }, [ref, sizeChanged,]);
 
-    return computedStyle;
+    return style;
 }

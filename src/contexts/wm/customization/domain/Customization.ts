@@ -5,6 +5,13 @@ import { CustomizationId } from './value-object/CustomizationId';
 import { CustomizationLogo } from './value-object/CustomizationLogo';
 import { CustomizationFont } from './value-object/CustomizationFont';
 import { CustomizationShowName } from './value-object/CustomizationShowName';
+import { CustomizationSocialMedia } from './value-object/CustomizationSocialMedia';
+
+export interface SocialMedia {
+    platform: string;
+    label: string;
+    url: string;
+}
 
 export interface CustomizationPrimitives {
     id: string;
@@ -13,6 +20,7 @@ export interface CustomizationPrimitives {
     fontSecondary: string;
     showName: boolean;
     workspaceId: string;
+    socialMedia: Array<SocialMedia>;
 }
 
 export class Customization extends AggregateRoot {
@@ -22,6 +30,7 @@ export class Customization extends AggregateRoot {
     readonly fontSecondary: CustomizationFont;
     readonly showName: CustomizationShowName;
     readonly workspaceId: ExternalId;
+    readonly socialMedia: CustomizationSocialMedia;
 
     constructor(
         id: CustomizationId,
@@ -30,6 +39,7 @@ export class Customization extends AggregateRoot {
         fontSecondary: CustomizationFont,
         showName: CustomizationShowName,
         workspaceId: ExternalId,
+        socialMedia: CustomizationSocialMedia,
     ) {
         super();
 
@@ -39,6 +49,7 @@ export class Customization extends AggregateRoot {
         this.fontSecondary = fontSecondary;
         this.showName = showName;
         this.workspaceId = workspaceId;
+        this.socialMedia = socialMedia;
     }
 
     static fromPrimitives(primitives: CustomizationPrimitives): Customization {
@@ -49,6 +60,7 @@ export class Customization extends AggregateRoot {
             new CustomizationFont(primitives.fontSecondary),
             new CustomizationShowName(primitives.showName),
             new ExternalId(primitives.workspaceId),
+            new CustomizationSocialMedia(primitives.socialMedia),
         );
     }
 
@@ -60,6 +72,7 @@ export class Customization extends AggregateRoot {
             fontSecondary: this.fontSecondary.value,
             showName: this.showName.value,
             workspaceId: this.workspaceId.value,
+            socialMedia: this.socialMedia.toPrimitives(),
         };
     }
 

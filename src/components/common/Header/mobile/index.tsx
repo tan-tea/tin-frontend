@@ -5,8 +5,6 @@ import type {
 } from 'react';
 import { useState } from 'react';
 
-import dynamic from 'next/dynamic';
-
 import { cn, } from 'lib/utils';
 
 import {
@@ -49,13 +47,13 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
         onSelectShop,
     } = props;
 
-    const [open, setOpen] = useState<boolean>(false);
-
     const {
         prefetchOnHover,
     } = usePrefetch();
 
     const { navigate } = useNavigation();
+
+    const [open, setOpen] = useState<boolean>(false);
 
     return (
         <AppBar

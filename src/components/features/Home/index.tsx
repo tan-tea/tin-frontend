@@ -54,11 +54,8 @@ export type HomeProps = {
     onSelectCategory: (category: Category | undefined) => void;
 };
 
-export default function Home(
-    props: OwnHomeProps,
-): ReactElement<FC<OwnHomeProps>> {
-    const {} = props;
-
+export default function Home(): ReactElement<FC<OwnHomeProps>> {
+    'use memo'
     const t = useTranslations();
 
     const [
@@ -94,18 +91,15 @@ export default function Home(
         [offersData, selectedCategory]
     );
 
-    const childProps = useMemo<HomeProps>(
-        () => ({
-            t,
-            offers: offers,
-            currentWorkspace: workspace,
-            shops: workspace?.shops || [],
-            categories: workspace?.categories || [],
-            selectedCategory,
-            onSelectCategory: handleSelectCategory,
-        }),
-        [t, offers, workspace, selectedCategory, handleSelectCategory,],
-    );
+    const childProps: HomeProps = {
+        t,
+        offers: offers,
+        currentWorkspace: workspace,
+        shops: workspace?.shops || [],
+        categories: workspace?.categories || [],
+        selectedCategory,
+        onSelectCategory: handleSelectCategory,
+    };
 
     return (
         <DeviceDetectorLayout

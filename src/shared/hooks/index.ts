@@ -4,6 +4,7 @@ export { useHideUI } from './useHideUI';
 export { useScroll } from './useScroll';
 export { useWorker } from './useWorker';
 export { usePrefetch } from './usePrefetch';
+export { useCountdown } from './useCountdown';
 export { useNavigation } from './useNavigation';
 export { useWindowSize } from './useWindowSize';
 export { useGeolocation } from './useGeolocation';

@@ -1,3 +1,5 @@
+import { formatISO, } from 'date-fns';
+
 import { ExternalId } from 'contexts/shared/domain/value-object/ExternalId';
 import { SupabaseRepository } from 'contexts/shared/infrastructure/persistence/supabase/Repository';
 
@@ -34,19 +36,12 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
         if (error && !data) return null;
 
         return this.formatResult(data);
-        // const offer = this.parseObjectToCamelCase(data);
-        // return Offer.fromPrimitives({
-        //     ...offer,
-        //     banner: offer?.banner ?? '/images/blank.svg',
-        //     startDate: new Date(offer.startDate),
-        //     endDate: new Date(offer.endDate),
-        //     createdAt: new Date(offer.createdAt),
-        //     updatedAt: new Date(offer.updatedAt),
-        // });
     }
 
     async getOffersByShopId(shopId: ExternalId): Promise<Array<Offer>> {
         const repository = await this.from();
+
+        const now = formatISO(new Date());
 
         const {
             data,
@@ -54,7 +49,10 @@ export class SupabaseOfferRepository extends SupabaseRepository<Offer> implement
         } = await repository
             .select('*')
             .eq('shop_id', shopId.value)
-            .eq('is_active', true);
+            .lte('start_date', now)
+            .gte('end_date', now)
+            .eq('is_active', true)
+            .order('created_at', { ascending: false });
 
         if (error && !data) return [];
 

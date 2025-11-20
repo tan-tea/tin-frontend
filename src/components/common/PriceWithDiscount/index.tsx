@@ -89,9 +89,8 @@ type PriceWithDiscountProps = Omit<ProductCardVariants, 'hasDiscount'> & {
     className?: string;
 };
 
-const PriceWithDiscount: FC<PriceWithDiscountProps> = (
-    props: PriceWithDiscountProps,
-) => {
+const PriceWithDiscount: FC<PriceWithDiscountProps> = (props) => {
+    'use memo'
     const {
         price,
         size,

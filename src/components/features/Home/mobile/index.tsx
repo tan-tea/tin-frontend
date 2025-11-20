@@ -1,16 +1,21 @@
 'use client'
 
 import {
+    useMemo,
     useRef,
     type FC,
 } from 'react';
 
 import dynamic from 'next/dynamic';
-
-import { useComputedStyle } from 'shared/hooks';
+import Autoplay from 'embla-carousel-autoplay';
 
 import Box from 'ui/box';
-import { Carousel, CarouselContent, CarouselItem } from 'ui/carousel';
+import Text from 'ui/text';
+import {
+    Carousel,
+    CarouselItem,
+    CarouselContent,
+} from 'ui/carousel';
 
 import type {
     HomeProps,
@@ -37,39 +42,30 @@ const CategoryCard = dynamic(
 
 type HomeMobileProps = HomeProps;
 
-const HomeMobile: FC<HomeMobileProps> = (
-    props: HomeMobileProps
-) => {
-    const {
-        t,
-        offers,
-        categories,
-        selectedCategory,
-        currentWorkspace: workspace,
-        onSelectCategory,
-    } = props;
+const HomeMobile: FC<HomeMobileProps> = ({
+    t,
+    offers,
+    categories,
+    selectedCategory,
+    currentWorkspace: workspace,
+    onSelectCategory,
+}) => {
+    'use memo'
+    const sectionRef = useRef<HTMLElement | null>(null);
 
-    const parentRef = useRef<HTMLElement | null>(null);
-
-    const parentComputedStyle = useComputedStyle(parentRef);
-
-    const parentHeight = parseFloat(parentComputedStyle?.height ?? '0');
+    const discounts = useMemo<typeof offers>(
+        () => offers.filter(o => o.discount && o.discount > 0),
+        [offers,],
+    );
 
     return (
         <Section
-            ref={parentRef}
+            ref={sectionRef}
             label={t('titles.home.title')}
             description={t('titles.home.description')}
             className='h-full scrollbar-hide'
         >
             <Box className='size-full flex flex-col gap-y-4 p-4 pt-0'>
-                {/* <Carousel
-                    className='w-full'
-                    opts={{ loop: true }}
-                >
-                    <CarouselContent>
-                    </CarouselContent>
-                </Carousel> */}
                 {categories?.length! > 0 && (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories
@@ -84,17 +80,41 @@ const HomeMobile: FC<HomeMobileProps> = (
                         ))}
                     </Box>
                 )}
+                {(discounts?.length > 0 && !selectedCategory) && (
+                    <Box className='flex flex-col gap-y-2'>
+                        <Text component='h3' className='font-bold text-lg leading-4.5 font-nunito'>
+                            Explorar descuentos
+                        </Text>
+                        <Carousel
+                            className='w-full'
+                            opts={{ loop: true }}
+                            plugins={[
+                                Autoplay({
+                                    playOnInit: true,
+                                    delay: 10000,
+                                }),
+                            ]}
+                        >
+                            <CarouselContent>
+                                {discounts?.map?.(discount => (
+                                    <CarouselItem key={discount?.title}>
+                                        <ProductCard
+                                            // showDescription
+                                            showDiscountTimeLeft
+                                            offer={discount}
+                                        />
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
+                    </Box>
+                )}
                 {offers?.length! > 0 && (
                     <Box className='size-full flex-1 grid grid-cols-2 gap-x-2 gap-y-4'>
                         {offers?.map?.(offer => (
                             <ProductCard
-                                id={offer?.id}
                                 key={offer?.id}
-                                image={offer?.banner}
-                                title={offer?.title}
-                                discount={offer?.discount}
-                                price={offer?.price}
-                                description={offer?.description}
+                                offer={offer}
                                 className='col-span-1 gap-y-2'
                             />
                         ))}

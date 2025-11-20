@@ -19,13 +19,15 @@ import Input from 'ui/field/input';
 const field = tv({
     slots: {
         root: cn(
-            'ring py-1.5 px-4 rounded-lg',
-            'data-[focused]:ring-[var(--mui-palette-primary-main)]'
+            'border border-dark-600 ring ring-dark-600 py-1.5 px-4 rounded-lg',
+            'data-[focused]:ring-[var(--mui-palette-primary-main)] data-[focused]:border-[var(--mui-palette-primary-main)]',
+            'dark:border-light-600 dark:ring-light-600'
         ),
-        control: cn(''),
+        control: cn('dark:text-light-600'),
         label: cn(
             'text-sm leading-4 font-medium',
             'data-[focused]:text-[var(--mui-palette-primary-main)]',
+            'dark:text-light-600'
         ),
         error: cn(''),
     },

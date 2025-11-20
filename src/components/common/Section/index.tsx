@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    useId,
     useMemo,
     useRef,
     type FC,
@@ -18,7 +19,6 @@ import { motion, MotionNodeAnimationOptions, } from 'motion/react';
 import Box from 'ui/box';
 
 const section = tv({
-    // base: 'relative min-h-dvh',
     base: 'relative min-h-[calc(100dvh-var(--spacing-header-mobile))]',
     variants: {
         clipContent: {
@@ -37,7 +37,7 @@ type SectionProps = SectionVariants & {
     label: string;
     description: string;
     children: ReactNode;
-    ref?: Ref<Element | null>;
+    ref?: Ref<HTMLElement | null>;
     loading?: boolean;
     showAnimation?: boolean;
     animation?: MotionNodeAnimationOptions;
@@ -46,12 +46,10 @@ type SectionProps = SectionVariants & {
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        // transform: 'translateY(-100px)',
         scale: 0,
         opacity: 0,
     },
     animate: {
-        // transform: 'translateY(0px)',
         scale: 1,
         opacity: 1,
     },
@@ -61,25 +59,23 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     },
 };
 
-const Section: FC<SectionProps> = (props) => {
+const Section: FC<SectionProps> = ({
+    ref,
+    label,
+    description,
+    loading,
+    className,
+    animation,
+    children,
+    clipContent = false,
+    showAnimation = true,
+}) => {
     'use memo'
-    const {
-        ref,
-        label,
-        description,
-        loading,
-        className,
-        animation,
-        children,
-        clipContent = false,
-        showAnimation = true,
-    } = props;
+    const uniqueId = useId();
 
-    if (loading) return null;
+    const innerRef = useRef<HTMLElement | null>(null);
 
-    const innerRef = useRef<Element | null>(null);
-
-    const refCallback: RefCallback<Element> = (node) => {
+    const refCallback: RefCallback<HTMLElement> = (node) => {
         innerRef.current = node;
 
         if (typeof ref === 'function') ref(node)
@@ -94,15 +90,18 @@ const Section: FC<SectionProps> = (props) => {
         [animation, showAnimation,],
     );
 
+    if (loading) return null;
+
     return (
         <Box
+            id={uniqueId}
             {...(showAnimation && animate)}
             ref={refCallback}
             role='application'
             aria-label={label}
-            aria-labelledby={label}
+            aria-labelledby={uniqueId}
             aria-description={description}
-            aria-describedby={description}
+            aria-describedby={uniqueId}
             component={motion.section}
             className={section({
                 clipContent,

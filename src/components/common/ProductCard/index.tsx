@@ -11,9 +11,13 @@ import { useTranslations } from 'next-intl';
 
 import { cn } from 'lib/utils';
 
-import { usePrefetch } from 'shared/hooks';
+import type {
+    Offer
+} from 'shared/models';
+import { useCountdown, usePrefetch } from 'shared/hooks';
 
 import {
+    Box,
     Text,
     Card,
     CardMedia,
@@ -26,7 +30,7 @@ import PriceWithDiscount from 'common/PriceWithDiscount';
 const productCard = tv({
     slots: {
         card: cn(
-            'p-0 overflow-visible shadow-xs bg-transparent border border-[var(--mui-palette-grey-50)]',
+            'p-0 h-full flex overflow-visible shadow-xs bg-transparent border border-[var(--mui-palette-grey-50)]',
             'dark:text-light-400 dark:border-dark-300 dark:bg-dark-400'
         ),
         imageWrapper: cn('w-full h-40 object-cover rounded-[inherit] bg-transparent border-none'),
@@ -37,38 +41,47 @@ const productCard = tv({
 type ProductCardVariants = VariantProps<typeof productCard>;
 
 type ProductCardProps = Omit<ProductCardVariants, 'hasDiscount'> & {
-    id: string;
+    offer: Offer;
     image?: string;
     badge?: string;
-    title: string;
-    description?: string;
-    price: number;
-    discount?: number;
     className?: string;
+    showDescription?: boolean;
+    showDiscountTimeLeft?: boolean;
 };
 
 const ProductCard: FC<ProductCardProps> = ({
-    id,
+    offer,
     badge,
-    title,
-    description,
-    price,
     className,
-    image,
-    discount = 0,
+    showDescription = false,
+    showDiscountTimeLeft = false,
 }) => {
     'use memo'
+    const {
+        id,
+        title,
+        description,
+        price,
+        banner: image,
+        discount,
+        endDate,
+    } = offer;
+
     const {
         card,
         imageWrapper,
         cardContent,
     } = productCard();
 
+    const timeLeft = useCountdown({
+        date: endDate,
+    });
+
     const {
         prefetchRoute,
     } = usePrefetch();
 
-    const t = useTranslations('shared');
+    const t = useTranslations();
 
     const hasDiscount = discount > 0;
 
@@ -89,24 +102,39 @@ const ProductCard: FC<ProductCardProps> = ({
                 onTouchStart={() => prefetchRoute(target)}
             >
                 <CardMedia
-                    badge={badge ? badge : hasDiscount ? t('discount', { discount, }) : undefined}
+                    badge={badge
+                        ? badge
+                        : hasDiscount
+                            ? t('shared.discount', { discount, })
+                            : undefined
+                    }
                     component='img'
                     className={imageWrapper()}
                     image={image || '/images/blank.svg'}
                 />
                 <CardContent className={cardContent()}>
-                    <Text
-                        variant='h2'
-                        component='h2'
-                        className='text-base font-nunito leading-4.5 font-bold md:text-lg truncate'
-                    >
-                        {title}
-                    </Text>
-                    {description && (
+                    <Box className={cn(
+                        'flex flex-col gap-y-0',
+                        showDiscountTimeLeft && 'mb-2'
+                    )}>
+                        <Text
+                            variant='h2'
+                            component='h2'
+                            className='text-base font-nunito leading-4.5 font-bold md:text-lg truncate'
+                        >
+                            {title}
+                        </Text>
+                        {timeLeft && showDiscountTimeLeft && (
+                            <Text className='text-xs leading-4 text-dark-300/75 dark:text-light-600'>
+                                {t('discountTimeLeft', { left: timeLeft })}
+                            </Text>
+                        )}
+                    </Box>
+                    {description && showDescription && (
                         <Text
                             variant='body1'
                             component='p'
-                            className='hidden text-xs leading-4 md:text-base md:block'
+                            className='text-sm leading-4 md:text-base'
                         >
                             {description}
                         </Text>
@@ -115,6 +143,7 @@ const ProductCard: FC<ProductCardProps> = ({
                         orientation='horizontal'
                         price={price}
                         discount={discount}
+                        className='mt-auto'
                     />
                 </CardContent>
             </CardActionsArea>

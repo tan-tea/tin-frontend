@@ -1,5 +1,6 @@
 {
     "sharingLocation": "Compartiendo ubicaci\u00f3n...",
+    "discountTimeLeft": "El descuento termina en: {left}",
     "metadata": {
         "siteName": "Catalog",
         "titleDefault": "Catalog - Todo lo que necesitas",

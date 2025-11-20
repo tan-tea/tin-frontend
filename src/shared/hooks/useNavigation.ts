@@ -44,7 +44,7 @@ export const useNavigation: UseNavigationHandler = () => {
     const [isPending, startTransition,] = useTransition();
 
     const router = useRouter();
-    const params = useParams();
+    const params = useParams<Record<string,any>>();
     const pathname = usePathname();
     const searchParams = useSearchParams();
 

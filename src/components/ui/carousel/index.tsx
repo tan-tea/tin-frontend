@@ -147,7 +147,11 @@ function CarouselContent({ className, ...props }: ComponentProps<'div'>) {
     const { carouselRef, orientation } = useCarousel();
 
     return (
-        <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
+        <div
+            ref={carouselRef}
+            className='overflow-hidden'
+            data-slot='carousel-content'
+        >
             <div
                 className={cn(
                     'flex',
@@ -167,7 +171,7 @@ function CarouselItem({ className, ...props }: ComponentProps<'div'>) {
         <div
             role="group"
             aria-roledescription="slide"
-            data-slot="carousel-item"
+            data-slot='carousel-item'
             className={cn(
                 'min-w-0 shrink-0 grow-0 basis-full',
                 orientation === 'horizontal' ? 'pl-4' : 'pt-4',

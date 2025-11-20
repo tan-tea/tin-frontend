@@ -6,6 +6,8 @@ import type {
 
 import dynamic from 'next/dynamic';
 
+import { cn } from 'lib/utils';
+
 import Box from 'ui/box';
 
 import type { BaseLayoutProps } from 'layout/Base';
@@ -25,7 +27,10 @@ const BaseLayoutMobile: FC<BaseLayoutMobileProps> = ({
     return (
         <>
             {showHeader && <Header/>}
-            <Box className={`relative bg-inherit dark:bg-dark-600 dark:text-light-600 ${showHeader ? 'top-header-mobile' : ''}`}>
+            <Box className={cn(
+                'relative bg-inherit scrollbar-hide dark:bg-dark-600 dark:text-light-600',
+                showHeader && 'top-header-mobile',
+            )}>
                 {children}
             </Box>
         </>

@@ -5,6 +5,7 @@ import type {
     ReactNode,
     ReactElement
 } from 'react';
+import { useState } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { APIProvider } from '@vis.gl/react-google-maps';
@@ -18,18 +19,6 @@ import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 import ThemeLayout from 'layout/Theme';
 import ThemeWatcher from 'common/Theme/Watcher';
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            staleTime: minutesToMilliseconds(5),
-            refetchOnWindowFocus: true,
-            gcTime: minutesToMilliseconds(1),
-            retry: 3,
-            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-        },
-    },
-});
-
 type ProvidersProps = {
     children: ReactNode;
 };
@@ -38,6 +27,20 @@ export default function Providers(
     props: ProvidersProps,
 ): ReactElement<FC<ProvidersProps>> {
     const { children } = props;
+
+    const [queryClient] = useState(
+        () => new QueryClient({
+            defaultOptions: {
+                queries: {
+                    staleTime: minutesToMilliseconds(5),
+                    refetchOnWindowFocus: true,
+                    gcTime: minutesToMilliseconds(1),
+                    retry: 3,
+                    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+                },
+            },
+        })
+    );
 
     return (
         <ContainerProvider>

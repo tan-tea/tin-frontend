@@ -9,6 +9,8 @@ import {
 } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
 
+import { cn } from 'lib/utils';
+
 import { usePrefetch } from 'shared/hooks';
 
 import {
@@ -23,9 +25,12 @@ import PriceWithDiscount from 'common/PriceWithDiscount';
 
 const productCard = tv({
     slots: {
-        card: 'p-0 overflow-visible bg-transparent dark:text-light-600 border border-[var(--mui-palette-grey-50)] shadow-xs dark:border-none',
-        imageWrapper: 'w-full h-40 object-cover rounded-[inherit] bg-white dark:border-none',
-        cardContent: 'flex-1 px-2.5 pb-4 pt-2 flex flex-col justify-between gap-y-1',
+        card: cn(
+            'p-0 overflow-visible shadow-xs bg-transparent border border-[var(--mui-palette-grey-50)]',
+            'dark:text-light-400 dark:border-dark-300 dark:bg-dark-400'
+        ),
+        imageWrapper: cn('w-full h-40 object-cover rounded-[inherit] bg-transparent border-none'),
+        cardContent: cn('flex-1 px-2.5 pb-4 pt-2 flex flex-col justify-between gap-y-1'),
     },
 });
 

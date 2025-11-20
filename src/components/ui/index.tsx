@@ -15,15 +15,7 @@ import Button from './button';
 import Popper from './popper';
 import Spinner from './spinner';
 import Tooltip from './tooltip';
-import Field from './field';
-import Avatar, {
-    avatar,
-    type AvatarProps,
-    type AvatarVariants,
-} from './avatar';
-import Input, {
-    input,
-} from './field/input';
+import Input from './field/input';
 import Label, {
     label,
     type LabelProps,
@@ -68,11 +60,7 @@ export {
     Popper,
     Spinner,
     Tooltip,
-    Avatar,
-    avatar,
     Input,
-    input,
-    Field,
     Label,
     label,
     IconButton,
@@ -85,8 +73,6 @@ export {
     skeleton,
 };
 export type {
-    AvatarProps,
-    AvatarVariants,
     LabelProps,
     LabelVariants,
     IconButtonProps,

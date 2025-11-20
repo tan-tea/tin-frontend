@@ -3,12 +3,16 @@
 import type {
     FC
 } from 'react';
+import { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { cn, getValueInitials } from 'lib/utils';
+import { cn, } from 'lib/utils';
 
-import { useNavigation, usePrefetch } from 'shared/hooks';
+import {
+    usePrefetch,
+    useNavigation,
+} from 'shared/hooks';
 
 import {
     Box,
@@ -22,20 +26,17 @@ import {
     DrawerTitle,
     DrawerTrigger
 } from 'ui/drawer';
-import { AvatarFallback, AvatarImage, AvatarRoot } from 'ui/avatar';
 
 import type {
     HeaderProps
 } from 'common/Header';
 
-import Logo from 'components/Logo';
+import Search from 'common/Search';
 import Titlebar from 'common/Titlebar';
+import Logo from 'components/Logo';
+import Avatar from 'components/Avatar';
 import ThemeSwitcher from 'components/ThemeSwitcher';
 import LanguageSwitcher from 'components/LanguageSwitcher';
-
-const LocationButton = dynamic(
-    () => import('common/buttons/LocationButton'),
-);
 
 const HeaderMobile: FC<HeaderProps> = (props) => {
     'use memo'
@@ -47,6 +48,8 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
         currentShop,
         onSelectShop,
     } = props;
+
+    const [open, setOpen] = useState<boolean>(false);
 
     const {
         prefetchOnHover,
@@ -61,18 +64,19 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
             className='z-50 py-4 h-auto bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
         >
             <Box className='size-full grid grid-cols-3 items-center px-4'>
-                <LocationButton/>
+                <Search/>
                 <Box className='h-full flex items-center gap-x-1'>
                     <Logo/>
                 </Box>
                 <Box className='ml-auto flex items-center gap-x-3'>
-                    <Drawer>
+                    <Drawer onOpenChange={(o) => setOpen(o)}>
                         <DrawerTrigger>
-                            <AvatarRoot size='md' className='cursor-pointer'>
-                                <AvatarFallback>
-                                    {getValueInitials('profile')}
-                                </AvatarFallback>
-                            </AvatarRoot>
+                            <Avatar
+                                size='md'
+                                selected={open}
+                                fallback='profile'
+                                src='/images/logo.png'
+                            />
                         </DrawerTrigger>
                         <DrawerContent className='h-full'>
                             <Box className='size-full flex flex-col p-4'>
@@ -89,15 +93,11 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
                                 <Box className={cn(
                                     'flex flex-row items-center py-3 gap-x-3'
                                 )}>
-                                    <AvatarRoot size='xxxl' className='shrink-0'>
-                                        <AvatarImage
-                                            fill={false}
-                                            alt='logo'
-                                            src='images/logo.svg'
-                                            height={40}
-                                            width={40}
-                                        />
-                                    </AvatarRoot>
+                                    <Avatar
+                                        size='xxxl'
+                                        src='images/logo.svg'
+                                        fallback='Profile'
+                                    />
                                     <Box className='flex flex-col'>
                                         <Text>Hola!</Text>
                                         <Text className='text-sm leading-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, praesentium.</Text>
@@ -108,7 +108,7 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
                                     mobile
                                     role='link'
                                     rounded='full'
-                                    color='secondary'
+                                    color='primary'
                                     variant='contained'
                                     onClick={() => navigate('/sign-in')}
                                     onTouchStart={() => prefetchOnHover('/sign-in')}

@@ -60,7 +60,7 @@ const HomeMobile: FC<HomeMobileProps> = (
             ref={parentRef}
             label={t('titles.home.title')}
             description={t('titles.home.description')}
-            className='h-full'
+            className='h-full scrollbar-hide'
         >
             <Box className='size-full flex flex-col gap-y-4 p-4 pt-0'>
                 {/* <Carousel
@@ -74,7 +74,7 @@ const HomeMobile: FC<HomeMobileProps> = (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories
                             ?.sort?.((a, b) => a?.position - b?.position)
-                            .map?.(category => (
+                            ?.map?.(category => (
                                 <CategoryCard
                                     selected={category?.id === selectedCategory?.id}
                                     onSelectCategory={(id) => onSelectCategory(categories?.find?.(c => c.id === id))}
@@ -85,7 +85,7 @@ const HomeMobile: FC<HomeMobileProps> = (
                     </Box>
                 )}
                 {offers?.length! > 0 && (
-                    <Box className='size-full flex-1 grid grid-cols-2 gap-2'>
+                    <Box className='size-full flex-1 grid grid-cols-2 gap-x-2 gap-y-4'>
                         {offers?.map?.(offer => (
                             <ProductCard
                                 id={offer?.id}

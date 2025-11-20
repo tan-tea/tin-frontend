@@ -123,13 +123,17 @@
     --color-gray-A700: var(--mui-palette-grey-A700);
 
     --color-dark: var(--background);
-    --color-dark-300: #4c566a;
-    --color-dark-400: #434c5e;
-    --color-dark-500: #3b4252;
-    --color-dark-600: #2e3440;
 
+    --color-dark-300: #2A2A2A;
+    --color-dark-400: #1F1F1F;
+    --color-dark-500: #181818;
+    --color-dark-600: #121212;
+
+    /* Main text: titles, important paragraphs */
     --color-light-400: #eceff4;
+    /* Secondary text: descriptions, labels, timestamps */
     --color-light-500: #e5e9f0;
+    /* Unavailable text */
     --color-light-600: #d8dee9;
 
     --color-discord: #7289da;

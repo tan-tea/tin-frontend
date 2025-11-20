@@ -22,6 +22,8 @@ type NavigationOptions = Parameters<ReturnType<typeof useRouter>['push']>[1];
 type UseNavigation = {
     router: ReturnType<typeof useRouter>;
     pathname: ReturnType<typeof usePathname>;
+    params: ReturnType<typeof useParams>;
+    searchParams: ReturnType<typeof useSearchParams>;
     navigate: (
         href: string,
         options?: NavigationOptions,
@@ -147,6 +149,8 @@ export const useNavigation: UseNavigationHandler = () => {
         navigate,
         router,
         pathname,
+        params,
+        searchParams,
         isActivePath,
         changeLanguage,
         isChangingLanguage: isPending,

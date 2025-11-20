@@ -15,6 +15,8 @@ import {
 } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
+import { cn } from 'lib/utils';
+
 import {
     Box,
     Text
@@ -22,13 +24,20 @@ import {
 
 const titlebar = tv({
     slots: {
-        wrapper: 'top-0 w-full flex items-center gap-x-2 justify-start p-4 z-10 bg-white dark:bg-dark-600 transition-transform duration-300 ease-in-out',
+        wrapper: cn(
+            'top-0 w-full flex items-center gap-x-2 justify-start p-4 z-10 bg-white',
+            'transition-transform duration-300 ease-in-out',
+            'dark:bg-dark-600'
+        ),
         text: 'max-w-[180px] font-semibold leading-5 text-[inherit] truncate',
     },
     variants: {
         border: {
             true: {
-                wrapper: 'border-b border-b-[var(--mui-palette-grey-100)]',
+                wrapper: cn(
+                    'border-b border-b-[var(--mui-palette-grey-100)]',
+                    'dark:border-b-dark-300',
+                ),
             },
             false: {
                 wrapper: 'border-none',
@@ -64,11 +73,9 @@ type TitlebarProps = TitlebarVariants & {
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        // transform: 'translateY(-250px)',
         opacity: 0,
     },
     animate: {
-        // transform: 'translateY(0px)',
         opacity: 1,
     },
     transition: {
@@ -84,6 +91,7 @@ const Titlebar: FC<TitlebarProps> = (props) => {
         title,
         position,
         className,
+        border,
         animation,
         showAnimation = true,
         renderStart,
@@ -92,9 +100,12 @@ const Titlebar: FC<TitlebarProps> = (props) => {
     } = props;
 
     const {
-        wrapper,
         text,
-    } = titlebar({ position });
+        wrapper,
+    } = titlebar({
+        border,
+        position,
+    });
 
     const innerRef = useRef<HTMLDivElement | null>(null);
 

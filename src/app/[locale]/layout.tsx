@@ -28,6 +28,7 @@ import { getTranslations } from 'next-intl/server';
 import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
 
 import { clientEnv } from 'env/client';
+import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
 
 import Providers from 'layout/Providers';
@@ -128,11 +129,12 @@ export default async function RootLayout(
             lang={locale}
             translate='no'
             suppressHydrationWarning
-            className={[
+            className={cn(
                 poppins.className,
                 raleway.className,
-                nunito.className
-            ].join(' ')}
+                nunito.className,
+                'scrollbar-hide',
+            )}
         >
             <body
                 suppressHydrationWarning

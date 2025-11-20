@@ -7,6 +7,11 @@ import type {
 import { useHideUI } from 'shared/hooks';
 
 import { Box } from 'ui/index';
+import {
+    Field,
+    FieldLabel,
+    FieldControl,
+} from 'ui/field';
 
 import type { SignInProps, } from 'feature/SignIn';
 
@@ -29,15 +34,18 @@ const SignInMobile: FC<SignInMobileProps> = ({
         <Section
             label={t('signin.title')}
             description={t('signin.description')}
-            className='h-full'
+            className='h-full min-h-dvh'
         >
             <Titlebar
+                border={false}
                 position='relative'
-                title={t('signin.title')}
                 renderStart={() => <BackButton/>}
             />
-            <Box className='block size-full'>
-
+            <Box className='block size-full p-4'>
+                <Field>
+                    <FieldLabel>Email Address</FieldLabel>
+                    <FieldControl placeholder='Example: john.doe@mail.com'/>
+                </Field>
             </Box>
         </Section>
     );

@@ -2,7 +2,6 @@
 
 import type {
     FC,
-    JSX,
 } from 'react';
 import { useShallow } from 'zustand/shallow';
 

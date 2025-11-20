@@ -16,8 +16,8 @@ import {
 } from 'tailwind-variants';
 import { Input as BaseInput, } from '@base-ui-components/react/input';
 
-export const input = tv({
-    base: 'w-full block box-border bg-none focus:outline-none text-base text-[inherit] font-secondary',
+const input = tv({
+    base: 'block box-border bg-none focus:outline-none text-base text-[inherit] font-secondary',
     variants: {
         fullWidth: {
             true: 'w-full',

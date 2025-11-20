@@ -1,79 +1,57 @@
 'use client'
 
-import {
+import type {
+    FC,
     ComponentProps,
-    type FC,
-    FocusEvent,
-    FocusEventHandler,
-    Fragment,
-    useState,
 } from 'react';
 import { motion } from 'motion/react';
 import {
-    ClassValue,
     tv,
+    type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
 import { Field as BaseField, } from '@base-ui-components/react/field';
 
-import {
-    Input,
-    Label,
-} from 'ui/index';
 import { cn } from 'lib/utils';
 
+import Input from 'ui/field/input';
+
 const field = tv({
-    base: 'box-border flex flex-col px-4 py-2 gap-y-1 border border-gray-400 rounded-md focus:outline-none',
     slots: {
-        root: cn(''),
+        root: cn(
+            'ring py-1.5 px-4 rounded-lg',
+            'data-[focused]:ring-[var(--mui-palette-primary-main)]'
+        ),
         control: cn(''),
+        label: cn(
+            'text-sm leading-4 font-medium',
+            'data-[focused]:text-[var(--mui-palette-primary-main)]',
+        ),
+        error: cn(''),
     },
     variants: {
         color: {
-            root: '',
-            primary: 'border-primary',
-        },
-        fullWidth: {
-            true: 'w-full',
-        },
-        focused: {
-            true: '',
-        },
-        disabled: {
-            true: 'text-dark-400 cursor-not-allowed',
+            primary: {
+                root: cn('border-primary'),
+            },
         },
     },
-    defaultVariants: {
-        color: 'root',
-        fullWidth: true,
-        disabled: false,
-    },
-    compoundVariants: [
-        {
-            focused: true,
-            color: 'root',
-            class: 'border-primary',
-        },
-    ],
+    defaultVariants: {},
+    compoundVariants: [],
 });
 
 type FieldVariants = VariantProps<typeof field>;
 
-type FieldRootProps = ComponentProps<typeof BaseField.Root> & FieldVariants;
+type FieldProps = ComponentProps<typeof BaseField.Root> & FieldVariants;
 
-const FieldRoot: FC<FieldRootProps> = ({
+export const Field: FC<FieldProps> = ({
     color,
-    fullWidth,
-    focused,
     disabled,
     ...props
 }) => {
     'use memo'
     const { root } = field({
         color,
-        fullWidth,
-        focused,
-        disabled,
     });
 
     return (
@@ -87,21 +65,20 @@ const FieldRoot: FC<FieldRootProps> = ({
     );
 }
 
-FieldRoot.displayName = 'Field';
-
 type FieldControlProps = ComponentProps<typeof BaseField.Control>
 & ComponentProps<typeof Input>
 & FieldVariants;
 
-const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
+export const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
     'use memo'
     const { control } = field({ ...props });
 
     return (
         <BaseField.Control
+            fullWidth
+            render={<Input/>}
             {...props}
             data-slot='field-control'
-            render={<Input/>}
             className={control()}
         />
     );
@@ -109,94 +86,39 @@ const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
 
 FieldControl.displayName = 'FieldControl';
 
-type FieldProps = Omit<ComponentProps<typeof Input>, 'className'> & FieldVariants & Omit<BaseField.Root.Props, 'onChange'> & {
-    label?: string;
-    labelClassName?: string;
-    placeholder?: string;
-    inputClassName?: string;
-};
+type FieldLabelProps = ComponentProps<typeof BaseField.Label>
+& FieldVariants;
 
-const Field: FC<FieldProps> = (props) => {
-    const {
-        id,
-        color,
-        label,
-        value,
-        className,
-        placeholder,
-        labelClassName,
-        inputClassName,
-        disabled = false,
-        fullWidth = false,
-        onChange,
-        onFocus,
-        onBlur,
-        ...rest
-    } = props;
-
-    const [isFocused, setIsFocused] = useState<boolean>(false);
-
-    const handleFocus: FocusEventHandler = (event: FocusEvent) => {
-        setIsFocused(true);
-
-        if (onFocus) onFocus?.(event as any);
-    }
-
-    const handleBlur: FocusEventHandler = (event: FocusEvent) => {
-        setIsFocused(false);
-
-        if (onBlur) onBlur?.(event as any);
-    }
-
-    const variants = {
-        idle: { opacity: 1, scale: 1, },
-        enter: { opacity: 1, y: 0, },
-        focused: { scale: 1.01, },
-    };
+export const FieldLabel: FC<FieldLabelProps> = ({ ...props }) => {
+    'use memo'
+    const { label } = field();
 
     return (
-        <BaseField.Root
-            {...rest}
-            tabIndex={0}
-            // className={field({
-            //     color,
-            //     fullWidth,
-            //     disabled,
-            //     focused: isFocused,
-            //     className: typeof className === 'string' ? className : '',
-            // })}
-            render={<motion.div
-                initial='enter'
-                variants={variants}
-                animate={isFocused ? 'focused' : 'idle'}
-            />}
-            disabled={disabled}
-            children={<Fragment>
-                {label && <Label
-                    htmlFor={id}
-                    value={label}
-                    focused={isFocused}
-                    className={labelClassName}
-                />}
-                <BaseField.Control
-                    {...rest}
-                    id={id}
-                    value={value ?? ''}
-                    disabled={disabled}
-                    className={inputClassName}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    render={<Input/>}
-                />
-            </Fragment>}
+        <BaseField.Label
+            {...props}
+            data-slot='field-label'
+            render={<motion.label/>}
+            className={label({
+                className: props.className as ClassValue,
+            })}
+        />
+    )
+}
+
+type FieldErrorProps = ComponentProps<typeof BaseField.Error>
+& FieldVariants;
+
+export const FieldError: FC<FieldErrorProps> = ({ ...props }) => {
+    'use memo'
+    const { error } = field();
+
+    return (
+        <BaseField.Error
+            {...error}
+            data-slot='field-error'
+            className={error({
+                className: props.className as ClassValue,
+            })}
         />
     );
-};
-
-export {
-    FieldRoot,
-    FieldControl,
 }
-export default Field;

@@ -1,42 +1,112 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
+import {
+    useRef,
+    useState,
+    useEffect,
+    type FC,
 } from 'react';
 
-import dynamic from 'next/dynamic';
+import { cn } from 'lib/utils';
 
-import { AutocompleteEmpty, AutocompleteList, AutocompletePopup, AutocompletePortal, AutocompletePositioner, AutocompleteRoot, } from 'ui/autocomplete';
+import { useNavigation } from 'shared/hooks';
 
-const SearchBox = dynamic(
-    () => import('./Box'),
-);
+import {
+    Autocomplete,
+    AutocompleteBackdrop,
+    AutocompleteEmpty,
+    AutocompleteGroup,
+    AutocompleteGroupLabel,
+    AutocompleteList,
+    AutocompletePopup,
+    AutocompletePortal,
+    AutocompletePositioner,
+    AutocompleteTrigger,
+} from 'ui/autocomplete';
 
-type SearchProps = ComponentProps<typeof AutocompleteRoot> & {
+import SearchBox from './Box';
+import SearchButton from './Button';
 
-};
+type SearchProps = object;
 
-const Search: FC<SearchProps> = (props) => {
-    'use memo'
-    const {} = props;
+const Search: FC<SearchProps> = () => {
+   'use memo'
+    const {
+        router,
+        searchParams,
+    } = useNavigation();
 
-    const handleSearch = (value: string) => {};
+    const searchTimeoutRef = useRef<number | null>(0);
+
+    const [open, setOpen] = useState<boolean>(false);
+    const [writing, setWriting,] = useState<boolean>(false);
+    const [currentSearch, setCurrentSearch] = useState<string>(
+        () => new URLSearchParams(window.location.search)
+            ?.get('q') || ''
+    );
+
+    const handleSearch = (value: string) => setCurrentSearch(value);
+
+    useEffect(() => {
+        setWriting(true);
+        searchTimeoutRef.current = window.setTimeout(() => {
+            const params = new URLSearchParams(searchParams.toString());
+
+            if (currentSearch) params.set('q', currentSearch);
+            else params.delete('q');
+
+            const search = params.toString();
+            router.replace(`?${search}`);
+            setWriting(false);
+        }, 500);
+
+        return () => {
+            if (searchTimeoutRef.current) {
+                window.clearTimeout(searchTimeoutRef.current);
+                searchTimeoutRef.current = null;
+            }
+        }
+    }, [currentSearch]);
 
     return (
-        <AutocompleteRoot
+        <Autocomplete
+            open={open}
+            value={currentSearch}
             onValueChange={handleSearch}
+            onOpenChange={(o) => setOpen(o)}
         >
-            <SearchBox label='Hola'/>
+            <AutocompleteTrigger
+                nativeButton={false}
+                render={<span/>}
+                className='block w-fit'
+            >
+                <SearchButton selected={open}/>
+            </AutocompleteTrigger>
             <AutocompletePortal>
-                <AutocompletePositioner align='start' sideOffset={4}>
-                    <AutocompletePopup>
-                        <AutocompleteEmpty>No items</AutocompleteEmpty>
-                        <AutocompleteList></AutocompleteList>
+                <AutocompleteBackdrop/>
+                <AutocompletePositioner
+                    align='center'
+                    className={cn(
+                        'fixed inset-0 mx-auto w-11/12 z-50',
+                        'pt-20'
+                    )}
+                    sideOffset={0}
+                    positionMethod='fixed'
+                >
+                    <AutocompletePopup className='w-full'>
+                        <SearchBox label='Hola'/>
+                        {currentSearch && <AutocompleteEmpty>{writing ? 'Typing...' : 'No items'}</AutocompleteEmpty>}
+                        <AutocompleteList>
+                            {!currentSearch && !writing && (
+                                <AutocompleteGroup>
+                                    <AutocompleteGroupLabel>Busquedas recientes</AutocompleteGroupLabel>
+                                </AutocompleteGroup>
+                            )}
+                        </AutocompleteList>
                     </AutocompletePopup>
                 </AutocompletePositioner>
             </AutocompletePortal>
-        </AutocompleteRoot>
+        </Autocomplete>
     );
 };
 

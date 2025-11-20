@@ -112,4 +112,5 @@ export {
     MonitorIcon,
     MoonStarIcon,
     SunIcon,
+    X,
 } from 'lucide-react';

@@ -65,7 +65,7 @@ const HomeMobile: FC<HomeMobileProps> = ({
             description={t('titles.home.description')}
             className='h-full scrollbar-hide'
         >
-            <Box className='size-full flex flex-col gap-y-4 p-4 pt-0'>
+            <Box className='size-full flex flex-col gap-y-4 p-4 pt-0 max-w-7xl mx-auto'>
                 {categories?.length! > 0 && (
                     <Box className='w-full h-auto flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
                         {categories

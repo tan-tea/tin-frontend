@@ -39,7 +39,7 @@ const avatar = tv({
 type AvatarVariants = VariantProps<typeof avatar>;
 
 type AvatarProps = AvatarVariants & ComponentProps<typeof AvatarRoot> & {
-    src: string;
+    src?: string;
     fallback: string;
 };
 
@@ -65,7 +65,7 @@ const Avatar: FC<AvatarProps> = ({
         >
             <AvatarImage
                 fill={false}
-                src={src}
+                src={src!}
                 alt={fallback}
                 width={48}
                 height={48}

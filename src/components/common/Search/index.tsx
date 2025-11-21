@@ -85,12 +85,10 @@ const Search: FC<SearchProps> = () => {
             <AutocompletePortal>
                 <AutocompleteBackdrop/>
                 <AutocompletePositioner
-                    align='center'
                     className={cn(
-                        'fixed inset-0 mx-auto w-11/12 z-50',
-                        'pt-20'
+                        'fixed inset-0 mx-auto -translate-x-[5px] w-[90%] z-50',
+                        'pt-20 transform-none'
                     )}
-                    sideOffset={0}
                     positionMethod='fixed'
                 >
                     <AutocompletePopup className='w-full'>

@@ -11,7 +11,7 @@ type ProductDetailMobileSkeletonProps = DynamicOptionsLoadingProps;
 
 const ProductDetailMobileSkeleton: FC<ProductDetailMobileSkeletonProps> = () => <Skeleton
     rounded='none'
-    className='h-dvh'
+    className='w-full h-dvh'
 />;
 
 export default ProductDetailMobileSkeleton;

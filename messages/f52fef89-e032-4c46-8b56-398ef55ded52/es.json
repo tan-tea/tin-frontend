@@ -5,22 +5,19 @@
     "privacyPolicy": "Pol\u00edtica de privacidad",
     "termsOfService": "T\u00e9rminos del servicio",
     "metadata": {
-        "siteName": "Catalog",
-        "titleDefault": "Catalog - Todo lo que necesitas",
-        "titleTemplate": "%s | Catalog",
-        "description": "Descripción de la pagina"
+        "siteName": "Alashes - Pesta\u00f1as, cejas y est\u00e9tica",
+        "titleDefault": "Alashes - Pesta\u00f1as, cejas y est\u00e9tica",
+        "titleTemplate": "%s | Alashes",
+        "description": "Alashes ofrece extensiones de pesta\u00f1as, lifting y dise\u00f1o de cejas con resultados naturales y duraderos. Realza tu mirada con calidad profesional."
     },
     "titles": {
-        "default": "Katalog",
-        "template": "%s | Katalog",
-        "description": "",
         "home": {
             "title": "Inicio",
-            "description": "Main homepage"
+            "description": "Descubre en Alashes extensiones de pesta\u00f1as, lifting, dise\u00f1o de cejas y productos de cuidado pensados para realzar tu belleza con resultados naturales."
         },
         "signin": {
             "title": "Iniciar sesi\u00f3n",
-            "description": "P\u00e1gina de inicio de sesi\u00f3n"
+            "description": "Inicia sesi\u00f3n para acceder a promociones y todo el contenido de nuestro cat\u00e1logo"
         },
         "loading": {
             "title": "Cargando",
@@ -29,14 +26,6 @@
         "notFound": {
             "title": "404",
             "description": "Not found page"
-        },
-        "search": {
-            "title": "",
-            "description": ""
-        },
-        "help": {
-            "title": "",
-            "description": ""
         }
     },
     "shared": {
@@ -90,14 +79,14 @@
                 "description": ""
             },
             "en": {
-                "title": "Ingles",
+                "title": "Ingl\u00e9s",
                 "label": "",
                 "description": ""
             }
         }
     },
     "search": {
-        "tooltip": "Search",
+        "tooltip": "Buscar",
         "placeholder": "Buscar productos, categorias"
     },
     "header": {
@@ -110,7 +99,7 @@
         "help": "Ayuda"
     },
     "signin": {
-        "title": "Fast and secure login.",
+        "title": "Ingresar",
         "description": "Sign in with your favorite platform — simple, secure, and password-free. We support Discord, Google, and more so you can log in with just a click. Your data stays safe, and you get instant access — no forms, no hassle.",
         "discord": "Continue with Discord",
         "instagram": "Continue with Instagram",
@@ -128,15 +117,15 @@
         "description": "Descripción",
         "notProvided": "Oops... No se ha proporcionado una descripción.",
         "button": "Adquirir producto",
-        "message": "Hi! I want more information about product {name}"
+        "message": "Hola! Quiero recibir m\u00e1s informaci\u00f3n del producto: {name}"
     },
     "loading": {
         "message": "Cargando..."
     },
     "notFound": {
-        "title": "Oops... We couldn't find this page",
-        "description": "Looks like this page got lost along the way. Check the URL or head back home.",
-        "home": "Go home"
+        "title": "Ups... No pudimos encontrar lo que buscabas.",
+        "description": "Parece que esta página se perdi\u00f3 en el camino. Revisa la URL o vuelve al inicio.",
+        "home": "Volver al inicio"
     },
     "callback": {
         "title": "",

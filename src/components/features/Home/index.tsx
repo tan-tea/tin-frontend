@@ -104,7 +104,7 @@ export default function Home(): ReactElement<FC<OwnHomeProps>> {
     return (
         <DeviceDetectorLayout
             MobileComponent={<HomeMobile {...childProps}/>}
-            DesktopComponent={<HomeDesktop {...childProps}/>}
+            DesktopComponent={<HomeMobile {...childProps}/>}
         />
     );
 };

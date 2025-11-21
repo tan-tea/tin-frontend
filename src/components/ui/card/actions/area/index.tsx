@@ -1,6 +1,11 @@
 'use client'
 
-import type { FC, } from 'react';
+import type {
+    FC,
+} from 'react';
+import type {
+    LinkProps,
+} from 'next/link';
 import {
     tv,
     type VariantProps,
@@ -9,7 +14,8 @@ import {
     default as RootCardActionsArea,
     CardActionAreaProps as RootCardActionsAreaProps,
 } from '@mui/material/CardActionArea';
-import Link, { LinkProps, } from 'next/link';
+
+import { Link } from 'lib/i18n/navigation';
 
 const cardActionsArea = tv({
     base: 'h-full border border-transparent shadow-none',
@@ -17,7 +23,9 @@ const cardActionsArea = tv({
 
 type CardActionsAreaVariants = VariantProps<typeof cardActionsArea>;
 
-type CardActionsAreaProps = CardActionsAreaVariants & RootCardActionsAreaProps & Partial<LinkProps>;
+type CardActionsAreaProps = CardActionsAreaVariants
+& RootCardActionsAreaProps
+& Partial<LinkProps>;
 
 const CardActionsArea: FC<CardActionsAreaProps> = (props: CardActionsAreaProps) => {
     const {
@@ -38,7 +46,7 @@ const CardActionsArea: FC<CardActionsAreaProps> = (props: CardActionsAreaProps) 
             {href
                 ? (<Link
                         href={href}
-                        prefetch={prefetch}
+                        prefetch={true}
                         className='block h-full rounded-[inherit]'
                     >
                         {children}

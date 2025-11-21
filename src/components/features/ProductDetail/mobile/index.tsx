@@ -1,9 +1,9 @@
 'use client'
 
 import {
-    MouseEventHandler,
     useRef,
     type FC,
+    type MouseEventHandler,
 } from 'react';
 
 import { clientEnv } from 'env/client';
@@ -100,7 +100,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
                                         ?.filter(value => attribute?.isGlobal || value?.offerId === offer?.id)
                                         ?.map(value => (
                                             <Text
-                                                key={value?.id}
+                                                key={value?.label}
                                                 className='p-2 py-1.5 text-xs rounded-full bg-[var(--mui-palette-grey-50)] text-dark-600 dark:bg-dark-400 dark:text-white'
                                             >
                                                 {value?.label !== '' ? value?.label : value?.value}

@@ -105,7 +105,7 @@ const ProductCard: FC<ProductCardProps> = ({
                     badge={badge
                         ? badge
                         : hasDiscount
-                            ? t('shared.discount', { discount, })
+                            ? t('shared.discount', { discount: Math.round(discount), })
                             : undefined
                     }
                     component='img'

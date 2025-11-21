@@ -16,7 +16,7 @@ const defaultInitState: ApplicationState = {
     //         accuracy: 0,
     //         altitude: null,
     //         altitudeAccuracy: null,
-    //         heading: null,
+    //         text: null,
     //         speed: null,
     //         toJSON: function () {}
     //     },

@@ -82,10 +82,10 @@ const ExpandableText: FC<ExpandableTextProps> = ({
     );
 
     const displayText = useMemo<string>(
-        () => expanded
+        () => (!expandable && !expanded) || (expanded && expandable)
                 ? text
                 : `${text.slice(0, maxLength)}...`,
-        [text, maxLength, expanded,],
+        [text, maxLength, expanded, expandable,],
     );
 
     return (

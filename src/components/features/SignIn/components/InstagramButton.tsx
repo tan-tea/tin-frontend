@@ -1,61 +1,30 @@
 'use client'
 
 import {
-    FC,
     memo,
-    MouseEvent,
-    useCallback,
-    MouseEventHandler,
+    type FC,
+    type MouseEventHandler,
 } from 'react';
 import { useTranslations, } from 'next-intl';
 
+import { authClient } from 'lib/auth/browser';
+
 import { Button, } from 'ui/index';
 import { Instagram, } from 'icons/index';
-import { createRandomState, } from 'lib/utils';
-
-import { useContainer, } from 'shared/contexts/container';
-
-import { CommandBus, } from 'contexts/shared/domain/CommandBus';
-import { AuthCommand, } from 'contexts/auth/domain/AuthCommand';
 
 type InstagramButtonProps = object;
 
-const InstagramButton: FC<InstagramButtonProps> = (props: InstagramButtonProps) => {
-    const {} = props;
-
+const InstagramButton: FC<InstagramButtonProps> = () => {
+    'use memo'
     const t = useTranslations();
 
-    const {
-        resolveDependency,
-    } = useContainer();
-
-    const commandBus = resolveDependency<CommandBus>('CommandBus');
-
-    const handleInstagramAuthentication: MouseEventHandler = useCallback(
-        async (event: MouseEvent) => {
-            event?.preventDefault?.();
-            event?.stopPropagation?.();
-
-            const state = createRandomState();
-
-            sessionStorage.setItem('current_auth', JSON.stringify({
-                provider: 'instagram',
-                state,
-            }));
-
-            const authCommand = new AuthCommand({
-                state,
-                url: process.env.NEXT_PUBLIC_INSTAGRAM_AUTHORIZE_URL!,
-                clientId: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID!,
-                redirectURI: process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI!,
-                responseType: 'code',
-                scope: process.env.NEXT_PUBLIC_INSTAGRAM_SCOPE!,
-            });
-
-            await commandBus.dispatch<Promise<void>>(authCommand);
-        },
-        [],
-    );
+    const handleInstagramAuthentication: MouseEventHandler = async () => {
+        const response = await authClient.signIn.oauth2({
+            providerId: 'instagram',
+            callbackURL: '/',
+        });
+        console.log('response', response);
+    };
 
     return (
         <Button

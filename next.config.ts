@@ -1,16 +1,38 @@
 import type { NextConfig } from 'next';
+import { fileURLToPath } from 'node:url';
+import { createJiti } from 'jiti';
 
 import createNextIntlPlugin from 'next-intl/plugin';
+
+const jiti = createJiti(fileURLToPath(import.meta.url));
+
+jiti.import('./src/env/server.ts');
+jiti.import('./src/env/client.ts');
 
 const nextConfig: NextConfig = {
     /* config options here */
     experimental: {
         useCache: true,
         nextScriptWorkers: true,
+        optimizePackageImports: [
+            'lucide-react',
+            'date-fns',
+        ],
+        serverActions: {
+            bodySizeLimit: '50mb',
+        },
         reactCompiler: {
             compilationMode: 'annotation',
         },
+        staleTimes: {
+            dynamic: 10,
+            static: 30,
+        },
     },
+    transpilePackages: ['@t3-oss/env-nextjs', '@t3-oss/env-core'],
+    output: 'standalone',
+    devIndicators: false,
+    allowedDevOrigins: ['http://172.23.94.42'],
     images: {
         qualities: [25, 50, 75, 100],
         remotePatterns: [
@@ -27,9 +49,6 @@ const nextConfig: NextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
-    env: {},
-    devIndicators: false,
-    allowedDevOrigins: ['http://172.23.94.42'],
     async headers() {
         return [
             {

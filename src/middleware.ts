@@ -3,21 +3,16 @@ import {
     NextResponse,
     MiddlewareConfig,
 } from 'next/server';
-import { headers } from 'next/headers';
+import { getSessionCookie } from 'better-auth/cookies';
 
 import createMiddleware from 'next-intl/middleware';
 
-import { auth } from 'lib/auth';
 import { routing, } from 'lib/i18n/routing';
 
 const i18nMiddleware = createMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    console.log('session', session);
+    const session = getSessionCookie(request);
 
     const response = i18nMiddleware(request);
     return response;
@@ -26,6 +21,7 @@ export async function middleware(request: NextRequest) {
 export const config: MiddlewareConfig = {
     matcher: [
         '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
+        '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
         '/([\\w-]+)?/users/(.+)',
     ],
 };

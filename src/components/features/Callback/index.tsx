@@ -12,7 +12,6 @@ import { useNavigation, } from 'shared/hooks';
 import { useContainer, } from 'shared/contexts/container';
 
 import { CommandBus, } from 'contexts/shared/domain/CommandBus';
-import { ExchangeCodeCommand, } from 'contexts/auth/domain/ExchangeCodeCommand';
 
 import DeviceDetectorLayout from 'common/DeviceDetector';
 
@@ -61,16 +60,16 @@ export default function Callback(
                 throw new Error('No code from provider');
             }
 
-            const exchangeCodeCommand = new ExchangeCodeCommand({
-                url: process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN_URL!,
-                clientId: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID!,
-                clientSecret: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET!,
-                grantType: 'authorization_code',
-                redirectURI: process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI!,
-                code: code || '',
-            });
+            // const exchangeCodeCommand = new ExchangeCodeCommand({
+            //     url: process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN_URL!,
+            //     clientId: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID!,
+            //     clientSecret: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET!,
+            //     grantType: 'authorization_code',
+            //     redirectURI: process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI!,
+            //     code: code || '',
+            // });
 
-            const accessToken = await commandBus.dispatch<string>(exchangeCodeCommand);
+            // const accessToken = await commandBus.dispatch<string>(exchangeCodeCommand);
         },
         [],
     );

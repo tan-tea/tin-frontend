@@ -1,120 +1,118 @@
 {
-    "sharingLocation": "Sharing location...",
-    "discountTimeLeft": "Discount left time: {left}",
-    "allRightsReserved": "All rights reserved",
-    "privacyPolicy": "Privacy policy",
-    "termsOfService": "Terms of service",
+    "sharingLocation": "Compartiendo ubicaci\u00f3n...",
+    "discountTimeLeft": "El descuento termina en: {left}",
+    "allRightsReserved": "Todos los derechos reservados",
+    "privacyPolicy": "Pol\u00edtica de privacidad",
+    "termsOfService": "T\u00e9rminos del servicio",
     "discountPercentage": "{value}%",
-    "signIn": "Sign In",
-    "welcomeBack": "Welcome back!",
-    "menu": "Menu",
+    "signIn": "Ingresar",
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "menu": "Men\u00fa",
     "metadata": {
-        "siteName": "Catalog",
-        "titleDefault": "Catalog - All items that you need",
-        "titleTemplate": "%s | Catalog",
-        "description": "my page description"
+        "applicationName": "Alashes",
+        "siteName": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "openGraphDescription": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
+        "titleDefault": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "titleTemplate": "%s | Alashes",
+        "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
+        "keywords": "Pestañas,Extensiones de pestañas,Cejas,Cejas en Henna,Epilación,Depilación,Depilación con cera."
+    },
+    "manifest": {
+        "name": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "shortName": "Alashes",
+        "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
+        "categories": "Pestañas,Extensiones de pestañas,Cejas,Cejas en henna,Armenia - Quindio,Colombia"
     },
     "titles": {
-        "default": "",
-        "template": "",
-        "description": "",
         "home": {
-            "title": "Home",
-            "description": "Main homepage"
+            "title": "Extensiones de pestañas y cejas",
+            "description": "Descubre en Alashes extensiones de pesta\u00f1as, dise\u00f1o de cejas y productos de cuidado pensados para realzar tu belleza con resultados naturales."
         },
         "signin": {
-            "title": "Sign In",
-            "description": "Sign in page"
+            "title": "Iniciar sesi\u00f3n",
+            "description": "Inicia sesi\u00f3n para acceder a promociones y todo el contenido de nuestro cat\u00e1logo"
         },
         "loading": {
-            "title": "Loading",
+            "title": "Cargando",
             "description": "Loading page"
         },
         "notFound": {
             "title": "404",
-            "description": "Not found page"
-        },
-        "search": {
-            "title": "",
-            "description": ""
-        },
-        "help": {
-            "title": "",
-            "description": ""
+            "description": "P\u00e1gina no encontrada"
         }
     },
     "shared": {
-        "back": "Go Back",
-        "cancel": "Cancel",
-        "close": "Close",
-        "accept": "Accept",
-        "saveChanges": "Save Changes",
+        "back": "Atr\u00e1s",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "accept": "Aceptar",
+        "saveChanges": "Guardar cambios",
         "discount": "{discount}% off",
-        "showMore": "Read more",
-        "showLess": "View less"
+        "showMore": "Leer m\u00e1s",
+        "showLess": "Ver menos"
     },
     "theme": {
-        "tooltip": "Change theme",
+        "tooltip": "Cambiar tema",
         "dialog": {
-            "title": "Appearance Settings",
+            "title": "Configuraci\u00f3n de apariencia",
             "description": "Choose your preferred interface appearance. You have the option to pick a theme manually or enable automatic theme switching that aligns with your system settings.",
             "system": {
-                "title": "System theme",
+                "title": "Sistema",
                 "label": "Default",
                 "description": "This theme will use the theme your system is using."
             },
             "dark": {
-                "title": "Dark theme",
+                "title": "Oscuro",
                 "label": "Dark mode",
                 "description": "Eye-friendly design for low-light environments."
             },
             "light": {
-                "title": "Light theme",
+                "title": "Claro",
                 "label": "Ligh mode",
                 "description": "Active when your system is configured to use light mode."
             }
         }
     },
     "location": {
-        "tooltip": "Choose location",
+        "tooltip": "Ubicaci\u00f3n",
         "dialog": {
-            "title": "Select location",
-            "description": "For custom products near to your location, please select it",
-            "button": "Share location"
+            "title": "Compartir ubicaci\u00f3n",
+            "description": "Para acceder a productos mas cerca de ti, es importante conocer tu ubicacion",
+            "button": "Compartir ubicacion"
         }
     },
     "language": {
-        "tooltip": "Change language",
+        "tooltip": "Cambiar idioma",
         "dialog": {
-            "title": "Language Settings",
+            "title": "Configuraci\u00f3n del idioma",
             "description": "",
             "es": {
-                "title": "Spanish",
+                "title": "Español",
                 "label": "",
                 "description": ""
             },
             "en": {
-                "title": "English",
+                "title": "Ingl\u00e9s",
                 "label": "",
                 "description": ""
             }
         }
     },
     "search": {
-        "tooltip": "Search",
-        "placeholder": "Search products"
+        "tooltip": "Buscar",
+        "placeholder": "Buscar productos, categorias"
     },
     "header": {
         "greet": "Welcome"
     },
     "bottomNavigation": {
-        "home": "Home",
-        "search": "Search",
-        "browse": "Map",
-        "help": "Help"
+        "home": "Inicio",
+        "search": "Buscar",
+        "browse": "Mapa",
+        "help": "Ayuda"
     },
     "signin": {
-        "title": "Fast and secure login.",
+        "title": "Ingresar",
         "description": "Sign in with your favorite platform — simple, secure, and password-free. We support Discord, Google, and more so you can log in with just a click. Your data stays safe, and you get instant access — no forms, no hassle.",
         "discord": "Continue with Discord",
         "instagram": "Continue with Instagram",
@@ -124,23 +122,23 @@
         }
     },
     "home": {
-        "notOffers": "No offers available yet!"
+        "notOffers": "¡Aún no hay ofertas disponibles!"
     },
     "productDetail": {
-        "title": "Product detail",
-        "availableOptions": "Available options",
-        "description": "Description",
-        "notProvided": "Oops... No description provided.",
-        "button": "Buy product",
-        "message": "Hi! I want more information about product {name}"
+        "title": "Detalles del producto",
+        "availableOptions": "Opciones disponibles",
+        "description": "Descripción",
+        "notProvided": "Oops... No se ha proporcionado una descripción.",
+        "button": "Adquirir producto",
+        "message": "Hola! Quiero recibir m\u00e1s informaci\u00f3n del producto: {name}"
     },
     "loading": {
-        "message": "Loading..."
+        "message": "Cargando..."
     },
     "notFound": {
-        "title": "Oops... We couldn't find this page",
-        "description": "Looks like this page got lost along the way. Check the URL or head back home.",
-        "home": "Go home"
+        "title": "Ups... No pudimos encontrar lo que buscabas.",
+        "description": "Parece que esta página se perdi\u00f3 en el camino. Revisa la URL o vuelve al inicio.",
+        "home": "Volver al inicio"
     },
     "callback": {
         "title": "",

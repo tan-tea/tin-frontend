@@ -28,6 +28,7 @@ import { getTranslations } from 'next-intl/server';
 import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
 
 import { clientEnv } from 'env/client';
+
 import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
 
@@ -84,22 +85,49 @@ export const viewport: Viewport = {
 export async function generateMetadata(
     props: RootLayoutProps
 ): Promise<Metadata> {
-    const {} = props;
+    const {
+        params
+    } = props;
 
-    const t = await getTranslations('metadata');
+    const { locale } = await params;
+
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
+    });
 
     return {
         title: {
             default: t('titleDefault'),
             template: t('titleTemplate'),
         },
-        description: t('description'),
         metadataBase: new URL(clientEnv.NEXT_PUBLIC_SITE_URL),
-        openGraph: {
-            url: clientEnv.NEXT_PUBLIC_SITE_URL,
-            siteName: t('siteName'),
+        alternates: {
+            canonical: '/',
+            languages: {
+                'en': clientEnv.NEXT_PUBLIC_SITE_URL + '/en',
+                'es': clientEnv.NEXT_PUBLIC_SITE_URL + '/es',
+            },
         },
-        keywords: [],
+        applicationName: t('applicationName'),
+        description: t('description'),
+        creator: 'Brian Castro',
+        authors: [
+            {
+                name: 'briancastro-bc',
+                url: 'https://github.com/briancastro-bc'
+            }
+        ],
+        openGraph: {
+            title: ('titleDefault'),
+            url: clientEnv.NEXT_PUBLIC_SITE_URL,
+            images: '../opengraph-image.png',
+            siteName: t('siteName'),
+            description: t('openGraphDescription'),
+            locale,
+            type: 'website',
+        },
+        keywords: t('keywords').split(','),
         robots: {
             index: true,
             follow: true,

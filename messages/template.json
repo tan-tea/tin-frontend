@@ -9,10 +9,19 @@
     "welcomeBack": "",
     "menu": "",
     "metadata": {
+        "applicationName": "",
         "siteName": "",
+        "openGraphDescription": "",
         "titleDefault": "",
         "titleTemplate": "",
-        "description": ""
+        "description": "",
+        "keywords": ""
+    },
+    "manifest": {
+        "name": "",
+        "shortName": "",
+        "description": "",
+        "categories": ""
     },
     "titles": {
         "default": "",

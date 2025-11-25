@@ -9,6 +9,8 @@ const jiti = createJiti(fileURLToPath(import.meta.url));
 jiti.import('./src/env/server.ts');
 jiti.import('./src/env/client.ts');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
     /* config options here */
     experimental: {
@@ -45,6 +47,9 @@ const nextConfig: NextConfig = {
                 pathname: 'storage/v1/s3/**',
             },
         ],
+    },
+    compiler: {
+        removeConsole: isProd,
     },
     eslint: {
         ignoreDuringBuilds: true,

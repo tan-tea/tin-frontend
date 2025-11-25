@@ -86,12 +86,12 @@ const Search: FC<SearchProps> = () => {
                 <AutocompleteBackdrop/>
                 <AutocompletePositioner
                     className={cn(
-                        'fixed inset-0 mx-auto -translate-x-[5px] w-[90%] z-50',
-                        'pt-20 transform-none'
+                        'w-full fixed mx-auto -translate-x-[5px] z-50',
+                        'mt-20 transform-none'
                     )}
                     positionMethod='fixed'
                 >
-                    <AutocompletePopup className='w-full'>
+                    <AutocompletePopup className='w-[90%] top-0 mx-auto'>
                         <SearchBox label='Hola'/>
                         {currentSearch && <AutocompleteEmpty>{writing ? 'Typing...' : 'No items'}</AutocompleteEmpty>}
                         <AutocompleteList>

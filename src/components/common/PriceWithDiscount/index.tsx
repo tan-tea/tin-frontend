@@ -8,6 +8,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
+import { useTranslations } from 'next-intl';
 
 import { formatCurrency } from 'lib/utils';
 
@@ -103,6 +104,8 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = (props) => {
         discount = 0,
     } = props;
 
+    const t = useTranslations();
+
     const hasDiscount = useMemo<boolean>(
         () => discount > 0,
         [discount,]
@@ -138,7 +141,11 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = (props) => {
                 </Text>
             )}
             <Box className='flex items-center gap-x-1'>
-                {(hasDiscount && orientation === 'vertical') && <Text className={discountSlot()}>{`${discount}%`}</Text>}
+                {(hasDiscount && orientation === 'vertical') && (
+                    <Text className={discountSlot()}>{t('discountPercentage', {
+                        value: Math.round(discount),
+                    })}</Text>
+                )}
                 <Text
                     through={hasDiscount}
                     variant='h2'

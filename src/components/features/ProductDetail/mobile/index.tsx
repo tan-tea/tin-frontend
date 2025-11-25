@@ -98,9 +98,9 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
                                 <Box className='flex items-center gap-x-2'>
                                     {attribute?.values
                                         ?.filter(value => attribute?.isGlobal || value?.offerId === offer?.id)
-                                        ?.map(value => (
+                                        ?.map((value, index) => (
                                             <Text
-                                                key={value?.label}
+                                                key={index}
                                                 className='p-2 py-1.5 text-xs rounded-full bg-[var(--mui-palette-grey-50)] text-dark-600 dark:bg-dark-400 dark:text-white'
                                             >
                                                 {value?.label !== '' ? value?.label : value?.value}

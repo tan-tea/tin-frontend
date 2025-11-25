@@ -4,6 +4,10 @@
     "allRightsReserved": "All rights reserved",
     "privacyPolicy": "Privacy policy",
     "termsOfService": "Terms of service",
+    "discountPercentage": "{value}%",
+    "signIn": "Sign In",
+    "welcomeBack": "Welcome back!",
+    "menu": "Menu",
     "metadata": {
         "siteName": "Catalog",
         "titleDefault": "Catalog - All items that you need",

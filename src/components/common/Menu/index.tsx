@@ -10,14 +10,8 @@ import { cn, } from 'lib/utils';
 import { Link } from 'lib/i18n/navigation';
 
 import {
-    usePrefetch,
-    useNavigation,
-} from 'shared/hooks';
-
-import {
     Box,
     Text,
-    Button,
 } from 'ui/index';
 import {
     Drawer,
@@ -31,64 +25,13 @@ import Avatar from 'components/Avatar';
 import ThemeSwitcher from 'components/ThemeSwitcher';
 import LanguageSwitcher from 'components/LanguageSwitcher';
 
-type MenuFooterLink = {
-    href: string;
-    label: string;
-}
-
-type MenuFooterProps = {
-    t: ReturnType<typeof useTranslations>;
-}
-
-const MenuFooter: FC<MenuFooterProps> = ({
-    t,
-}) => {
-    'use memo'
-
-    const links: Array<MenuFooterLink> = [
-        {
-            href: '/privacy',
-            label: t('privacyPolicy'),
-        },
-        {
-            href: '/terms',
-            label: t('termsOfService'),
-        },
-    ];
-
-    const currentYear = new Date().getFullYear();
-
-    return (
-        <Box className='flex flex-col gap-y-1 p-4 text-sm dark:text-light-600'>
-            <Text className='text-xs text-center'>
-                &copy; {currentYear} - {t('allRightsReserved')}
-            </Text>
-            <Box className='flex flex-wrap items-center justify-center gap-x-2'>
-                {links?.length > 0 && links?.map?.(link => (
-                    <Link
-                        key={link.label}
-                        className='text-[var(--mui-palette-primary-main)] underline'
-                        href={link.href}
-                    >
-                        {link.label}
-                    </Link>
-                ))}
-            </Box>
-        </Box>
-    );
-}
+import MenuFooter from './Footer';
 
 type MenuProps = object;
 
 const Menu: FC<MenuProps> = ({}) => {
     'use memo';
     const t = useTranslations();
-
-    const {
-        prefetchOnHover,
-    } = usePrefetch();
-
-    const { navigate } = useNavigation();
 
     const [open, setOpen] = useState<boolean>(false);
 
@@ -107,7 +50,7 @@ const Menu: FC<MenuProps> = ({}) => {
                         className='p-0 pb-4'
                         renderStart={() => (
                             <DrawerTitle className='font-nunito font-bold leading-5'>
-                                Menu
+                                {t('menu')}
                             </DrawerTitle>
                         )}
                         renderEnd={() => (
@@ -120,25 +63,12 @@ const Menu: FC<MenuProps> = ({}) => {
                     <Box className={cn('flex flex-row items-center py-3 gap-x-3')}>
                         <Avatar size='xxxl' src='images/logo.svg' fallback='Profile'/>
                         <Box className='flex flex-col'>
-                            <Text>Hola!</Text>
-                            <Text className="text-sm leading-4">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-                                praesentium.
-                            </Text>
+                            <Text>{t('welcomeBack')}</Text>
+                            <Link href={'/sign-in'} className="text-sm leading-4 text-[var(--mui-palette-primary-main)]">
+                                {t('signIn')}
+                            </Link>
                         </Box>
                     </Box>
-                    <Button
-                        block
-                        mobile
-                        role="link"
-                        rounded="full"
-                        color="primary"
-                        variant="contained"
-                        onClick={() => navigate('/sign-in')}
-                        onTouchStart={() => prefetchOnHover('/sign-in')}
-                    >
-                        Iniciar sesion
-                    </Button>
                 </Box>
                 <Box className='mt-auto'>
                     <MenuFooter t={t}/>

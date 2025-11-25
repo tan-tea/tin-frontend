@@ -8,9 +8,6 @@ import { CommandHandlers, } from 'contexts/shared/infrastructure/CommandBus/Comm
 import { InMemoryCommandBus } from 'contexts/shared/infrastructure/CommandBus/InMemoryCommandBus';
 import { QueryHandlers } from 'contexts/shared/infrastructure/QueryBus/QueryHandlers';
 import { InMemoryQueryBus } from 'contexts/shared/infrastructure/QueryBus/InMemoryQueryBus';
-import { HttpAuthRepository, } from 'contexts/auth/infrastructure/HttpAuthRepository';
-import { AuthCommandHandler, } from 'contexts/auth/application/command/AuthCommandHandler';
-import { ExchangeCodeCommandHandler, } from 'contexts/auth/application/command/ExchangeCodeCommandHandler';
 import { SupabaseWorkspaceRepository } from 'contexts/wm/workspace/infrastructure/persistence/SupabaseWorkspaceRepository';
 import { GetWorkspaceByIdQueryHandler } from 'contexts/wm/workspace/application/query/GetWorkspaceByIdQueryHandler';
 import { SupabaseShopRepository } from 'contexts/vm/shop/infrastructure/persistence/SupabaseShopRepository';
@@ -177,40 +174,6 @@ export default [
         },
         type: 'FactoryProvider',
         options: { lifecycle: Lifecycle.Singleton, },
-    },
-    {
-        token: 'AuthRepository',
-        provider: {
-            useFactory: () => new HttpAuthRepository(),
-        },
-        type: 'FactoryProvider',
-        options: {
-            lifecycle: Lifecycle.Transient,
-        },
-    },
-    {
-        token: 'CommandHandler',
-        provider: {
-            useFactory: (c) => new AuthCommandHandler(
-                c.resolve('AuthRepository'),
-            ),
-        },
-        type: 'FactoryProvider',
-        options: {
-            lifecycle: Lifecycle.Transient,
-        },
-    },
-    {
-        token: 'CommandHandler',
-        provider: {
-            useFactory: (c) => new ExchangeCodeCommandHandler(
-                c.resolve('AuthRepository'),
-            ),
-        },
-        type: 'FactoryProvider',
-        options: {
-            lifecycle: Lifecycle.Transient,
-        },
     },
     {
         token: 'CommandHandlers',

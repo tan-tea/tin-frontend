@@ -14,8 +14,6 @@ import { Blob, } from 'icons/index';
 
 import BackButton from 'common/buttons/BackButton';
 
-import DiscordButton from 'feature/SignIn/components/DiscordButton';
-
 type SignInDesktopProps = object;
 
 const SignInDesktop: FC<SignInDesktopProps> = (
@@ -51,9 +49,7 @@ const SignInDesktop: FC<SignInDesktopProps> = (
                             {t('signin.description')}
                         </Text>
                     </Box>
-                    <Card className='col-span-1 w-full flex flex-col gap-y-6 dark:bg-dark-500'>
-                        <DiscordButton/>
-                    </Card>
+                    <Card className='col-span-1 w-full flex flex-col gap-y-6 dark:bg-dark-500'></Card>
                 </Box>
             </Box>
         </Box>

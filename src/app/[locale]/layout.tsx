@@ -119,7 +119,7 @@ export async function generateMetadata(
             }
         ],
         openGraph: {
-            title: ('titleDefault'),
+            title: t('titleDefault'),
             url: clientEnv.NEXT_PUBLIC_SITE_URL,
             images: '../opengraph-image.png',
             siteName: t('siteName'),

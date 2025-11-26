@@ -37,7 +37,7 @@ export default getRequestConfig(
 
         return {
             locale,
-            messages: (await import(`messages/${clientEnv.NEXT_PUBLIC_WORKSPACE_ID}/${locale}.json`)).default,
+            messages: (await import(`messages/${clientEnv.NEXT_PUBLIC_WORKSPACE_NAME}/${locale}.json`)).default,
         };
     }
 );

@@ -8,6 +8,7 @@ import {
 } from 'react';
 import {
     tv,
+    type ClassValue,
     type VariantProps
 } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions, } from 'motion/react';
@@ -40,6 +41,8 @@ type ExpandableTextProps = ExpandableTextVariants & {
     text: string;
     maxLength?: number;
     showAnimation?: boolean;
+    isExpandable?: boolean;
+    className?: ClassValue;
 };
 
 const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
@@ -52,8 +55,10 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
 
 const ExpandableText: FC<ExpandableTextProps> = ({
     text,
+    className,
     maxLength = 100,
     showAnimation = true,
+    isExpandable = true,
 }) => {
     'use memo'
     const uniqueId = useId();
@@ -77,7 +82,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
     );
 
     const expandable = useMemo<boolean>(
-        () => text.length > maxLength,
+        () => isExpandable && text.length > maxLength,
         [text, maxLength,],
     );
 
@@ -102,7 +107,9 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             <Box
                 aria-describedby={uniqueId}
                 component={motion.p}
-                className={textSlot()}
+                className={textSlot({
+                    className,
+                })}
             >
                 {displayText}{' '}
                 {expandable && (

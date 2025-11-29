@@ -5,25 +5,25 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import Search from 'feature/Search';
+import Privacy from 'feature/Privacy';
 
-type SearchProps = object;
+type Props = object;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations('titles');
 
     return {
-        title: t('search.title'),
-        description: t('search.description'),
+        title: t('help.title'),
+        description: t('help.description'),
     };
 }
 
-export default function SearchPage(
-    props: SearchProps
-): ReactElement<FC<SearchProps>> {
+export default function PrivacyPage(
+    props: Props
+): ReactElement<FC<Props>> {
     const {} = props;
 
     return (
-        <Search/>
+        <Privacy/>
     );
 };

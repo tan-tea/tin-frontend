@@ -13,19 +13,20 @@ import {
 
 import DeviceDetectorLayout from 'common/DeviceDetector';
 
-import SearchMobile from './mobile';
+// import SearchMobile from './mobile';
 // import SearchDesktop from './desktop';
 
-type OwnSearchProps = object;
+type Props = object;
 
-export type SearchProps = {
+export type PrivacyProps = {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Search(
-    props: OwnSearchProps,
-): ReactElement<FC<OwnSearchProps>> {
+export default function Privacy(
+    props: Props,
+): ReactElement<FC<Props>> {
+    'use memo'
     const {} = props;
 
     useHideUI({
@@ -36,15 +37,17 @@ export default function Search(
     const t = useTranslations();
     const navigation = useNavigation();
 
-    const childProps: SearchProps = {
+    const childProps: PrivacyProps = {
         t,
         navigation,
     };
 
     return (
         <DeviceDetectorLayout
-            MobileComponent={<SearchMobile {...childProps}/>}
-            DesktopComponent={<SearchMobile {...childProps}/>}
+            // MobileComponent={<SearchMobile {...childProps}/>}
+            // DesktopComponent={<SearchDesktop {...childProps}/>}
+            MobileComponent={<></>}
+            DesktopComponent={<></>}
         />
     );
 };

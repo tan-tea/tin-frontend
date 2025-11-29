@@ -8,14 +8,13 @@ import {
     Box,
 } from 'ui/index';
 
-import { SearchProps, } from 'feature/Search';
+import { TermsProps, } from 'components/features/Terms';
 
-import Search from 'common/Search';
 import Section from 'common/Section';
 
-type SearchMobileProps = SearchProps;
+type SearchMobileProps = TermsProps;
 
-const SearchMobile: FC<SearchMobileProps> = (
+const TermsMobile: FC<SearchMobileProps> = (
     props: SearchMobileProps
 ) => {
     'use memo'
@@ -31,10 +30,9 @@ const SearchMobile: FC<SearchMobileProps> = (
             className='h-dvh overflow-hidden'
         >
             <Box className='size-full p-4'>
-                <Search/>
             </Box>
         </Section>
     );
 };
 
-export default SearchMobile;
+export default TermsMobile;

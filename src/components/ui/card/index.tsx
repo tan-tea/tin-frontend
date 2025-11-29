@@ -1,31 +1,58 @@
 'use client'
 
-import {
+import type {
     FC,
-    memo,
+    ComponentProps,
 } from 'react';
-
+import { memo } from 'react';
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
+import { motion } from 'motion/react';
+import {
+    Card as BaseCard,
+    Collapse as BaseCollapse,
+    CardMedia as BaseCardMedia,
+    CardHeader as BaseCardHeader,
+    CardActions as BaseCardAcions,
+    CardContent as BaseCardContent,
+    CardActionArea as BaseCardActionArea,
+} from '@mui/material';
 import {
     default as RootCard,
     CardProps as RootCardProps,
 } from '@mui/material/Card';
 
+import Image from 'next/image';
+
+import { cn } from 'lib/utils';
+import { Link } from 'lib/i18n/navigation';
+
 const card = tv({
-    base: 'p-4 rounded-lg',
+    slots: {
+        root: cn(
+            'size-full shadow-none',
+            'md:max-h-screen',
+        ),
+        media: cn('w-full relative rounded-[inherit]'),
+        mediaImage: cn('size-full rounded-[inherit]'),
+        header: cn('font-bold text-lg text-center text-dark-600'),
+        actions: cn(),
+        content: cn('flex-1 shrink-0 h-full'),
+        actionsArea: cn('size-full rounded-[inherit]'),
+        collapse: cn(),
+    },
     variants: {
         rounded: {
-            none: 'rounded-none',
-            sm: 'rounded-sm',
-            md: 'rounded-md',
-            lg: 'rounded-lg',
-            xl: 'rounded-xl',
-            xxl: 'rounded-2xl',
-            xxxl: 'rounded-3xl',
-            full: 'rounded-full',
+            none: { root: 'rounded-none' },
+            sm: { root: 'rounded-sm' },
+            md: { root: 'rounded-md' },
+            lg: { root: 'rounded-lg' },
+            xl: { root: 'rounded-xl' },
+            xxl: { root: 'rounded-2xl' },
+            xxxl: { root: 'rounded-3xl' },
+            full: { root: 'rounded-full' },
         },
         shadow: {
             none: 'shadow-none',
@@ -34,14 +61,206 @@ const card = tv({
     },
     defaultVariants: {
         shadow: 'sm',
+        view: 'list',
+        rounded: 'md',
     },
 });
 
 type CardVariants = VariantProps<typeof card>;
 
+type CardRootProps = ComponentProps<typeof BaseCard>
+& CardVariants;
+
+export const CardRoot: FC<CardRootProps> = ({
+    rounded,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { root } = card();
+
+    return (
+        <BaseCard
+            {...props}
+            data-slot='card-root'
+            className={root({
+                rounded,
+                className,
+            })}
+        />
+    );
+}
+
+type CardMediaProps = ComponentProps<typeof BaseCardMedia>
+& CardVariants
+& {
+    alt?: string;
+}
+
+export const CardMedia: FC<CardMediaProps> = ({
+    alt,
+    children,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { media } = card();
+
+    return (
+        <BaseCardMedia
+            component='figure'
+            role='banner'
+            {...props}
+            data-slot='card-media'
+            className={media({
+                className,
+            })}
+        >
+            {children}
+            {alt && (
+                <motion.figcaption className='sr-only'>
+                    {alt}
+                </motion.figcaption>
+            )}
+        </BaseCardMedia>
+    );
+}
+
+type CardMediaImageProps = ComponentProps<typeof Image>
+& CardVariants;
+
+export const CardMediaImage: FC<CardMediaImageProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { mediaImage } = card();
+
+    return (
+        <Image
+            {...props}
+            data-slot='card-media-image'
+            className={mediaImage({
+                className,
+            })}
+        />
+    );
+}
+
+type CardHeaderProps = ComponentProps<typeof BaseCardHeader>
+& CardVariants;
+
+export const CardHeader: FC<CardHeaderProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { header } = card();
+
+    return (
+        <BaseCardHeader
+            {...props}
+            data-slot='card-header'
+            slotProps={{
+                title: {
+                    className: header({
+                        className,
+                    }),
+                }
+            }}
+        />
+    );
+}
+
+type CardContentProps = ComponentProps<typeof BaseCardContent>
+& CardVariants;
+
+export const CardContent: FC<CardContentProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { content } = card();
+
+    return (
+        <BaseCardContent
+            {...props}
+            data-slot='card-content'
+            className={content({
+                className,
+            })}
+        />
+    );
+}
+
+type CardActionsProps = ComponentProps<typeof BaseCardAcions>
+& CardVariants;
+
+export const CardActions: FC<CardActionsProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { actions } = card();
+
+    return (
+        <BaseCardAcions
+            {...props}
+            data-slot='card-actions'
+            className={actions({
+                className,
+            })}
+        />
+    );
+}
+
+type CardActionsAreaProps = ComponentProps<typeof BaseCardActionArea>
+& ComponentProps<typeof Link>
+& CardVariants;
+
+export const CardActionsArea: FC<CardActionsAreaProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { actionsArea } = card();
+
+    return (
+        <BaseCardActionArea
+            {...props}
+            LinkComponent={Link}
+            data-slot='card-actions-area'
+            className={actionsArea({
+                className,
+            })}
+        />
+    );
+}
+
+type CardCollapseProps = ComponentProps<typeof BaseCollapse>
+& CardVariants;
+
+export const CardCollapse: FC<CardCollapseProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { collapse } = card();
+
+    return (
+        <BaseCollapse
+            {...props}
+            data-slot='card-collapse'
+            className={collapse({
+                className,
+            })}
+        />
+    );
+}
+
 type CardProps = CardVariants & RootCardProps;
 
-const Card: FC<CardProps> = (props: CardProps) => {
+const Card: FC<CardProps> = (props) => {
     const {
         rounded,
         shadow,
@@ -51,12 +270,14 @@ const Card: FC<CardProps> = (props: CardProps) => {
         ...rest
     } = props;
 
+    const { root } = card();
+
     return (
         <RootCard
             {...rest}
             variant={variant}
             children={children}
-            className={card({
+            className={root({
                 rounded,
                 shadow,
                 className,

@@ -19,7 +19,7 @@ import { motion, MotionNodeAnimationOptions, } from 'motion/react';
 import Box from 'ui/box';
 
 const section = tv({
-    base: 'relative min-h-[calc(100dvh-var(--spacing-header-mobile))]',
+    base: 'relative min-h-[calc(100dvh-var(--spacing-header-mobile))] outline-none',
     variants: {
         clipContent: {
             true: 'overflow-hidden',

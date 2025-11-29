@@ -5,25 +5,25 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import Help from 'feature/Help';
+import Terms from 'components/features/Terms';
 
-type HelpProps = object;
+type TermsProps = object;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations('titles');
 
     return {
-        title: t('help.title'),
-        description: t('help.description'),
+        title: t('search.title'),
+        description: t('search.description'),
     };
 }
 
-export default function HelpPage(
-    props: HelpProps
-): ReactElement<FC<HelpProps>> {
+export default function TermsPage(
+    props: TermsProps
+): ReactElement<FC<TermsProps>> {
     const {} = props;
 
     return (
-        <Help/>
+        <Terms/>
     );
 };

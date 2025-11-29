@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    useEffect,
     useRef,
     type FC,
     type MouseEventHandler,
@@ -47,6 +48,10 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
         const target = new URL(`https://wa.me/${clientEnv.NEXT_PUBLIC_WORKSPACE_NUMBER}?text=${message}`);
         window.open(target, '_blank');
     }
+
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }, []);
 
     return (
         <Section

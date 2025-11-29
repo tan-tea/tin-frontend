@@ -1,9 +1,9 @@
 'use client'
 
 import type {
-    ComponentProps,
     FC,
-    Ref
+    Ref,
+    ComponentProps,
 } from 'react';
 import {
     tv,
@@ -62,12 +62,14 @@ const Empty: FC<EmptyProps> = (props) => {
             ref={ref}
             className={container()}
         >
-            <ProductDetailImage
-                image={image}
-                alt={title}
-                className={imageContainer()}
-                imageClassName={imageSlot()}
-            />
+            {image && (
+                <ProductDetailImage
+                    image={image}
+                    alt={title}
+                    className={imageContainer()}
+                    imageClassName={imageSlot()}
+                />
+            )}
             <Box>
                 <Text variant='h2' className={titleSlot()}>
                     {title}

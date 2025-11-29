@@ -22,13 +22,13 @@ const priceWithDiscount = tv({
         box: 'flex text-primary',
         value: 'font-nunito',
         valueWithDiscount: '',
-        discount: 'text-[var(--mui-palette-secondary-main)] bg-[var(--mui-palette-secondary-100)] px-2 py-1 rounded-lg',
+        discount: 'text-[var(--mui-palette-primary-main)] bg-[var(--mui-palette-primary-50)] pl-2 pr-1.5 py-1 rounded-lg',
     },
     variants: {
         size: {
             sm: {
-                value: 'text-sm md:text-base',
-                valueWithDiscount: 'text-base md:text-lg',
+                value: 'text-sm leading-3 md:text-base',
+                valueWithDiscount: 'text-sm leading-4 md:text-lg',
                 discount: 'text-xs md:text-sm',
             },
             md: {
@@ -94,16 +94,14 @@ function roundToCOP(price: number) {
     return Math.floor(price / 50) * 50;
 }
 
-const PriceWithDiscount: FC<PriceWithDiscountProps> = (props) => {
+const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
+    price,
+    size,
+    orientation = 'horizontal',
+    className,
+    discount = 0,
+}) => {
     'use memo'
-    const {
-        price,
-        size,
-        orientation = 'horizontal',
-        className,
-        discount = 0,
-    } = props;
-
     const t = useTranslations();
 
     const hasDiscount = useMemo<boolean>(

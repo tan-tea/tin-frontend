@@ -13,19 +13,19 @@ import {
 
 import DeviceDetectorLayout from 'common/DeviceDetector';
 
-// import SearchMobile from './mobile';
+import TermsMobile from './mobile';
 // import SearchDesktop from './desktop';
 
-type OwnHelpProps = object;
+type Props = object;
 
-export type HelpProps = {
+export type TermsProps = {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Help(
-    props: OwnHelpProps,
-): ReactElement<FC<OwnHelpProps>> {
+export default function Terms(
+    props: Props,
+): ReactElement<FC<Props>> {
     const {} = props;
 
     useHideUI({
@@ -36,17 +36,15 @@ export default function Help(
     const t = useTranslations();
     const navigation = useNavigation();
 
-    const childProps: HelpProps = {
+    const childProps: TermsProps = {
         t,
         navigation,
     };
 
     return (
         <DeviceDetectorLayout
-            // MobileComponent={<SearchMobile {...childProps}/>}
-            // DesktopComponent={<SearchDesktop {...childProps}/>}
-            MobileComponent={<></>}
-            DesktopComponent={<></>}
+            MobileComponent={<TermsMobile {...childProps}/>}
+            DesktopComponent={<TermsMobile {...childProps}/>}
         />
     );
 };

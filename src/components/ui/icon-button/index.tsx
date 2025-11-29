@@ -4,7 +4,9 @@ import type {
     FC,
     ElementType,
     ReactNode,
+    RefCallback,
 } from 'react';
+import { useRef } from 'react';
 import type { LucideProps, } from 'lucide-react';
 import { motion, type HTMLMotionProps } from 'motion/react';
 import {
@@ -59,31 +61,39 @@ export const iconButton = tv({
 export type IconButtonVariants = VariantProps<typeof iconButton>;
 
 export type IconButtonProps = IconButtonVariants & HTMLMotionProps<'button'> & {
-    Icon: ElementType<LucideProps>;
+    Icon?: ElementType<LucideProps>;
     children?: ReactNode;
 };
 
-const IconButton: FC<IconButtonProps> = (props) => {
-    const {
-        ref,
-        Icon,
-        className,
-        size = 'lg',
-        color = 'root',
-        rounded = 'xl',
-        iconSize = 'md',
-        selected = false,
-        borderless = false,
-        children = null,
-        ...rest
-    } = props;
+const IconButton: FC<IconButtonProps> = ({
+    ref,
+    Icon,
+    className,
+    size = 'lg',
+    color = 'root',
+    rounded = 'xl',
+    iconSize = 'md',
+    selected = false,
+    borderless = false,
+    children = null,
+    ...rest
+}) => {
+    'use memo'
+    const innerRef = useRef<HTMLButtonElement | null>(null);
+
+    const refCallback: RefCallback<HTMLButtonElement> = (node) => {
+        innerRef.current = node;
+
+        if (typeof ref === 'function') ref(node)
+        else if (ref) ref.current = node;
+    }
 
     return (
         <motion.button
             whileTap={{ scale: 0.95, }}
             whileHover={{ scale: 1.05 }}
             {...rest}
-            ref={ref}
+            ref={refCallback}
             className={iconButton({
                 size,
                 color,

@@ -33,7 +33,7 @@ const HeaderMobile: FC<HeaderProps> = (props) => {
         <AppBar
             position='fixed'
             scrolling={scrolling}
-            className='z-50 py-4 h-auto bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
+            className='z-50 py-4 h-header-mobile bg-dark rounded-b-2xl shadow-none dark:bg-dark-600'
         >
             <Box className='size-full grid grid-cols-3 items-center px-4'>
                 <Search/>

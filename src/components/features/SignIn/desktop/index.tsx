@@ -1,6 +1,6 @@
 'use client'
 
-import {
+import type {
     FC,
 } from 'react';
 import { useTranslations, } from 'next-intl';
@@ -8,7 +8,6 @@ import { useTranslations, } from 'next-intl';
 import {
     Box,
     Text,
-    Card,
 } from 'ui/index';
 import { Blob, } from 'icons/index';
 
@@ -49,7 +48,6 @@ const SignInDesktop: FC<SignInDesktopProps> = (
                             {t('signin.description')}
                         </Text>
                     </Box>
-                    <Card className='col-span-1 w-full flex flex-col gap-y-6 dark:bg-dark-500'></Card>
                 </Box>
             </Box>
         </Box>

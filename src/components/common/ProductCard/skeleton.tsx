@@ -8,7 +8,7 @@ import Skeleton from 'ui/skeleton'
 
 const ProductCardSkeleton: FC = () => <Skeleton
     rounded='xl'
-    className='w-[170px] h-[200px]'
+    className='w-full h-[200px]'
 />
 
 export default ProductCardSkeleton;

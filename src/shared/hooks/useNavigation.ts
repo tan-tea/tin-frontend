@@ -67,7 +67,7 @@ export const useNavigation: UseNavigationHandler = () => {
             lastRecord = records?.at(position);
         }
 
-        return navigate('/');
+        return navigate('/', { scroll: false, });
     };
 
     const isActivePath: UseNavigation['isActivePath'] =

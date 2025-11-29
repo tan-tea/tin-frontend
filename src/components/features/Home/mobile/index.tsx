@@ -21,6 +21,7 @@ import type {
     HomeProps,
 } from 'feature/Home';
 
+import OfferList from 'components/OfferList';
 import Empty from 'common/Empty';
 import Section from 'common/Section';
 import ProductCardSkeleton from 'common/ProductCard/skeleton';
@@ -83,7 +84,7 @@ const HomeMobile: FC<HomeMobileProps> = ({
                 {(discounts?.length > 0 && !selectedCategory) && (
                     <Box className='flex flex-col gap-y-2'>
                         <Text component='h3' className='font-bold text-lg leading-4.5 font-nunito'>
-                            Explorar descuentos
+                            {t('exploreDiscounts')}
                         </Text>
                         <Carousel
                             className='w-full'
@@ -99,7 +100,7 @@ const HomeMobile: FC<HomeMobileProps> = ({
                                 {discounts?.map?.(discount => (
                                     <CarouselItem key={discount?.title}>
                                         <ProductCard
-                                            // showDescription
+                                            variant='grid'
                                             showDiscountTimeLeft
                                             offer={discount}
                                         />
@@ -109,17 +110,7 @@ const HomeMobile: FC<HomeMobileProps> = ({
                         </Carousel>
                     </Box>
                 )}
-                {offers?.length! > 0 && (
-                    <Box className='size-full flex-1 grid grid-cols-2 gap-x-2 gap-y-4'>
-                        {offers?.map?.(offer => (
-                            <ProductCard
-                                key={offer?.id}
-                                offer={offer}
-                                className='col-span-1 gap-y-2'
-                            />
-                        ))}
-                    </Box>
-                )}
+                <OfferList offers={offers}/>
             </Box>
             {!offers || offers?.length <= 0 && (
                 <Empty

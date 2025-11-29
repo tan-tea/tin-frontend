@@ -3,16 +3,17 @@
 import {
     memo,
     type FC,
+    type ComponentProps,
 } from 'react';
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import {
-    default as RootBox,
-    BoxProps as RootBoxProps,
-} from '@mui/material/Box';
 import type { MotionProps } from 'motion/react';
+
+import BaseBox, {
+    type BoxProps as BaseBoxProps
+} from '@mui/material/Box';
 
 const box = tv({
     base: '',
@@ -20,24 +21,24 @@ const box = tv({
 
 type BoxVariants = VariantProps<typeof box>;
 
-type BoxProps = object & RootBoxProps & BoxVariants & MotionProps;
+type BoxProps = ComponentProps<typeof BaseBox>
+& BaseBoxProps
+& BoxVariants
+& MotionProps;
 
-const Box: FC<BoxProps> = (props: BoxProps) => {
-    const {
-        children,
-        className,
-        ...rest
-    } = props;
-
+const Box: FC<BoxProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
     return (
-        <RootBox
-            {...rest}
+        <BaseBox
+            {...props}
+            data-slot='box'
             className={box({
                 className,
             })}
-        >
-            {children}
-        </RootBox>
+        />
     );
 };
 

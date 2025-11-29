@@ -113,4 +113,7 @@ export {
     MoonStarIcon,
     SunIcon,
     X,
+    List,
+    Grid,
+    Fullscreen,
 } from 'lucide-react';

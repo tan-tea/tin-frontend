@@ -1,10 +1,11 @@
 import {
     useEffect,
 } from 'react';
+import { useParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
 import { useNavigation } from 'shared/hooks';
-import { ApplicationStore } from 'shared/stores/application-store/types';
+import { ApplicationLanguage, ApplicationStore } from 'shared/stores/application-store/types';
 import { useApplicationStore, useApplicationStoreContext } from 'shared/stores/application-store';
 
 type UseSyncLanguageWithRouter = {
@@ -17,8 +18,11 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
     'use memo'
     const store = useApplicationStoreContext();
 
+    const { locale } = useParams<{ locale: ApplicationLanguage }>();
+
     const {
         language,
+        setLanguage,
         setLoading,
     } = useApplicationStore(
         useShallow(store => store)
@@ -48,6 +52,12 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
     useEffect(() => {
         setLoading(isChangingLanguage);
     }, [isChangingLanguage,]);
+
+    useEffect(() => {
+        if (locale !== language) {
+            setLanguage(locale);
+        }
+    }, []);
 
     return {
         loading: isChangingLanguage,

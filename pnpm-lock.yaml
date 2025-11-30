@@ -20,6 +20,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
+      '@icons-pack/react-simple-icons':
+        specifier: ^13.8.0
+        version: 13.8.0(react@19.2.0)
       '@lexical/react':
         specifier: ^0.38.2
         version: 0.38.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
@@ -131,6 +134,9 @@ importers:
       remeda:
         specifier: ^2.32.0
         version: 2.32.0
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -476,6 +482,11 @@ packages:
   '@humanwhocodes/retry@0.4.2':
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
+
+  '@icons-pack/react-simple-icons@13.8.0':
+    resolution: {integrity: sha512-iZrhL1fSklfCCVn68IYHaAoKfcby3RakUTn2tRPyHBkhr2tkYqeQbjJWf+NizIYBzKBn2IarDJXmTdXd6CuEfw==}
+    peerDependencies:
+      react: ^16.13 || ^17 || ^18 || ^19
 
   '@img/colour@1.0.0':
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -2809,6 +2820,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+
   set-cookie-parser@2.7.2:
     resolution: {integrity: sha512-oeM1lpU/UvhTxw+g3cIfxXHyJRc/uidd3yK1P242gzHds0udQBYzs3y8j4gCCW+ZJ7ad0yctld8RYO+bdurlvw==}
 
@@ -3497,6 +3511,10 @@ snapshots:
   '@humanwhocodes/retry@0.3.1': {}
 
   '@humanwhocodes/retry@0.4.2': {}
+
+  '@icons-pack/react-simple-icons@13.8.0(react@19.2.0)':
+    dependencies:
+      react: 19.2.0
 
   '@img/colour@1.0.0':
     optional: true
@@ -5955,6 +5973,8 @@ snapshots:
 
   semver@7.7.3:
     optional: true
+
+  server-only@0.0.1: {}
 
   set-cookie-parser@2.7.2: {}
 

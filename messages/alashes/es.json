@@ -10,17 +10,20 @@
     "menu": "Men\u00fa",
     "exploreDiscounts": "Explorar descuentos",
     "offers": "Servicios",
+    "goHome": "Ir al inicio",
+    "socialMedia": "Redes sociales",
+    "navigation": "Navegaci\u00f3n",
     "metadata": {
         "applicationName": "Alashes",
-        "siteName": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
         "openGraphDescription": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
-        "titleDefault": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "titleDefault": "Alashes — Extensiones de pestañas en Armenia, Quindio",
         "titleTemplate": "%s | Alashes",
         "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
         "keywords": "Pestañas,Extensiones de pestañas,Cejas,Cejas en Henna,Epilación,Depilación,Depilación con cera."
     },
     "manifest": {
-        "name": "Alashes — Extensiones de pestañas en Armenia Quindio",
+        "name": "Alashes — Extensiones de pestañas en Armenia, Quindio",
         "shortName": "Alashes",
         "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
         "categories": "Pestañas,Extensiones de pestañas,Cejas,Cejas en henna,Armenia - Quindio,Colombia"
@@ -102,7 +105,8 @@
     },
     "search": {
         "tooltip": "Buscar",
-        "placeholder": "Buscar productos, categorias"
+        "placeholder": "Buscar productos, categorias",
+        "recents": "Recientes"
     },
     "header": {
         "greet": "Welcome"

@@ -10,6 +10,9 @@
     "menu": "",
     "exploreDiscounts": "",
     "offers": "",
+    "goHome": "",
+    "socialMedia": "",
+    "navigation": "",
     "metadata": {
         "applicationName": "",
         "siteName": "",
@@ -113,7 +116,8 @@
     },
     "search": {
         "tooltip": "",
-        "placeholder": ""
+        "placeholder": "",
+        "recents": ""
     },
     "header": {
         "greet": ""

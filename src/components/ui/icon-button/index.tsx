@@ -103,11 +103,13 @@ const IconButton: FC<IconButtonProps> = ({
                 borderless,
             })}
         >
-            <BaseIcon
-                Icon={Icon}
-                color='primary'
-                selected={selected}
-            />
+            {Icon && (
+                <BaseIcon
+                    Icon={Icon}
+                    color='primary'
+                    selected={selected}
+                />
+            )}
             {children && children}
         </motion.button>
     );

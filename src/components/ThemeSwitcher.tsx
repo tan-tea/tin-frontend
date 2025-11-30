@@ -29,15 +29,15 @@ const ThemeSwitcher: FC = () => {
 
     const options: Array<SwitcherOption<ApplicationTheme>> = [
         {
-            icon: <MonitorIcon />,
+            icon: <MonitorIcon/>,
             value: 'system',
         },
         {
-            icon: <SunIcon />,
+            icon: <SunIcon/>,
             value: 'light',
         },
         {
-            icon: <MoonStarIcon />,
+            icon: <MoonStarIcon/>,
             value: 'dark',
         },
     ];

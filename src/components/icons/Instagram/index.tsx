@@ -1,6 +1,6 @@
 'use client'
 
-import {
+import type {
     FC,
     ComponentProps,
 } from 'react';
@@ -9,9 +9,8 @@ type InstagramProps = ComponentProps<'svg'>;
 
 const Instagram: FC<InstagramProps> = (props: InstagramProps) => {
     const {
-        width = 32,
-        height = 32,
-        fill = 'none',
+        width = 24,
+        height = 24,
         className,
         ...rest
     } = props;
@@ -22,7 +21,6 @@ const Instagram: FC<InstagramProps> = (props: InstagramProps) => {
             width={width}
             height={height}
             viewBox="0 0 32 32"
-            fill={fill}
             className={className}
             preserveAspectRatio='xMidYMid'
             xmlns="http://www.w3.org/2000/svg"

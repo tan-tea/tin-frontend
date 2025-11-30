@@ -20,11 +20,16 @@ const menu = tv({
         backdrop: cn(''),
         positioner: cn('outline-none z-[100]'),
         popup: cn(
-            'box-border mt-2 p-0.5 rounded-md bg-[canvas] shadow-md',
+            'box-border mt-2 p-2 rounded-md bg-[canvas] shadow-md',
             'data-[open]:bg-white border border-[var(--mui-palette-grey-50)] dark:data-[open]:bg-dark-500',
         ),
         arrow: cn(''),
-        item: cn('px-4 py-2 flex text-sm leading-5 dark:text-white'),
+        item: cn(
+            'pl-2 pr-4 py-2 flex items-center gap-x-2.5 text-sm leading-5',
+            'data-[highlighted]:bg-red-500 data-[disabled]:text-dark-600/50 dark:text-white',
+        ),
+        group: cn(''),
+        groupLabel: cn('text-sm font-nunito font-bold leading-4'),
     },
     variants: {
         selected: {
@@ -40,7 +45,8 @@ const menu = tv({
 
 type MenuVariants = VariantProps<typeof menu>;
 
-type MenuProps = ComponentProps<typeof BaseMenu.Root> & MenuVariants;
+type MenuProps = ComponentProps<typeof BaseMenu.Root>
+& MenuVariants;
 
 export const Menu: FC<MenuProps> = ({ ...props }) => {
     'use memo'
@@ -72,7 +78,8 @@ export const MenuTrigger: FC<MenuTriggerProps> = ({ ...props }) => {
     );
 }
 
-type MenuPortalProps = ComponentProps<typeof BaseMenu.Portal> & MenuVariants;
+type MenuPortalProps = ComponentProps<typeof BaseMenu.Portal>
+& MenuVariants;
 
 export const MenuPortal: FC<MenuPortalProps> = ({ ...props }) => {
     'use memo'
@@ -84,7 +91,8 @@ export const MenuPortal: FC<MenuPortalProps> = ({ ...props }) => {
     );
 }
 
-type MenuBackdropProps = ComponentProps<typeof BaseMenu.Backdrop> & MenuVariants;
+type MenuBackdropProps = ComponentProps<typeof BaseMenu.Backdrop>
+& MenuVariants;
 
 export const MenuBackdrop: FC<MenuBackdropProps> = ({ ...props }) => {
     'use memo'
@@ -101,7 +109,8 @@ export const MenuBackdrop: FC<MenuBackdropProps> = ({ ...props }) => {
     );
 }
 
-type MenuPositionerProps = ComponentProps<typeof BaseMenu.Positioner> & MenuVariants;
+type MenuPositionerProps = ComponentProps<typeof BaseMenu.Positioner>
+& MenuVariants;
 
 export const MenuPositioner: FC<MenuPositionerProps> = ({ ...props }) => {
     'use memo'
@@ -119,7 +128,8 @@ export const MenuPositioner: FC<MenuPositionerProps> = ({ ...props }) => {
     );
 }
 
-type MenuPopupProps = ComponentProps<typeof BaseMenu.Popup> & MenuVariants;
+type MenuPopupProps = ComponentProps<typeof BaseMenu.Popup>
+& MenuVariants;
 
 export const MenuPopup: FC<MenuPopupProps> = ({ ...props }) => {
     'use memo'
@@ -136,22 +146,8 @@ export const MenuPopup: FC<MenuPopupProps> = ({ ...props }) => {
     );
 }
 
-// type MenuContent = ComponentProps<typeof BaseMenu.Content> & MenuVariants;
-
-// export const MenuContent: FC<MenuContent> = ({ ...props }) => {
-//     'use memo'
-//     const { } = menu();
-
-//     return (
-//         <MenuPortal>
-//             <MenuPositioner>
-
-//             </MenuPositioner>
-//         </MenuPortal>
-//     )
-// }
-
-type MenuArrowProps = ComponentProps<typeof BaseMenu.Arrow> & MenuVariants;
+type MenuArrowProps = ComponentProps<typeof BaseMenu.Arrow>
+& MenuVariants;
 
 export const MenuArrow: FC<MenuArrowProps> = ({ ...props }) => {
     'use memo'
@@ -168,7 +164,8 @@ export const MenuArrow: FC<MenuArrowProps> = ({ ...props }) => {
     );
 }
 
-type MenuItemProps = ComponentProps<typeof BaseMenu.Item> & MenuVariants;
+type MenuItemProps = ComponentProps<typeof BaseMenu.Item>
+& MenuVariants;
 
 export const MenuItem: FC<MenuItemProps> = ({ ...props }) => {
     'use memo'
@@ -180,6 +177,50 @@ export const MenuItem: FC<MenuItemProps> = ({ ...props }) => {
             data-slot='menu-item'
             className={item({
                 className: props.className as ClassValue,
+            })}
+        />
+    );
+}
+
+type MenuGroupProps = ComponentProps<typeof BaseMenu.Group>
+& MenuVariants;
+
+export const MenuGroup: FC<MenuGroupProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { group } = menu();
+
+    return (
+        <BaseMenu.Group
+            {...props}
+            data-slot='menu-group'
+            className={group({
+                className: className as ClassValue,
+            })}
+        />
+    );
+}
+
+type MenuGroupLabelProps = ComponentProps<typeof BaseMenu.GroupLabel>
+& ComponentProps<typeof motion.span>
+& MenuVariants;
+
+export const MenuGroupLabel: FC<MenuGroupLabelProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { groupLabel } = menu();
+
+    return (
+        <BaseMenu.GroupLabel
+            render={<motion.span/>}
+            {...props}
+            data-slot='menu-group-label'
+            className={groupLabel({
+                className: className as ClassValue,
             })}
         />
     );

@@ -14,7 +14,6 @@ import En from './En';
 import Blob from './Blob';
 import Logo from './Logo';
 import Discord from './Discord';
-import Instagram from './Instagram';
 
 const baseIcon = tv({
     base: 'size-6',
@@ -85,7 +84,6 @@ export {
     Blob,
     Logo,
     Discord,
-    Instagram,
     BaseIcon,
 };
 export {
@@ -117,3 +115,9 @@ export {
     Grid,
     Fullscreen,
 } from 'lucide-react';
+export {
+    SiTiktok,
+    SiFacebook,
+    SiWhatsapp,
+    SiInstagram,
+} from '@icons-pack/react-simple-icons';

@@ -6,6 +6,7 @@ import {
     useEffect,
     type FC,
 } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { cn } from 'lib/utils';
 
@@ -31,6 +32,8 @@ type SearchProps = object;
 
 const Search: FC<SearchProps> = () => {
    'use memo'
+    const t = useTranslations();
+
     const {
         router,
         searchParams,
@@ -92,12 +95,12 @@ const Search: FC<SearchProps> = () => {
                     positionMethod='fixed'
                 >
                     <AutocompletePopup className='w-[90%] top-0 mx-auto'>
-                        <SearchBox label='Hola'/>
+                        <SearchBox label={t('search.placeholder')}/>
                         {currentSearch && <AutocompleteEmpty>{writing ? 'Typing...' : 'No items'}</AutocompleteEmpty>}
                         <AutocompleteList>
                             {!currentSearch && !writing && (
                                 <AutocompleteGroup>
-                                    <AutocompleteGroupLabel>Busquedas recientes</AutocompleteGroupLabel>
+                                    <AutocompleteGroupLabel>{t('search.recents')}</AutocompleteGroupLabel>
                                 </AutocompleteGroup>
                             )}
                         </AutocompleteList>

@@ -10,6 +10,9 @@
     "menu": "Men\u00fa",
     "exploreDiscounts": "On Sale",
     "offers": "Products",
+    "goHome": "Go home",
+    "socialMedia": "Social media",
+    "navigation": "Navigation",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia Quindio",
@@ -102,7 +105,8 @@
     },
     "search": {
         "tooltip": "Buscar",
-        "placeholder": "Buscar productos, categorias"
+        "placeholder": "Buscar productos, categorias",
+        "recents": "Recents"
     },
     "header": {
         "greet": "Welcome"

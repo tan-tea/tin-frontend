@@ -19,8 +19,6 @@ export default async function CategoryDetailPage(
 
     const { id } = await params;
 
-    console.log('category id', id);
-
     return (
         <CategoryDetail id={id}/>
     );

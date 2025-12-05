@@ -45,18 +45,17 @@ const baseIcon = tv({
     },
 });
 
-type BaseIconVariants = VariantProps<typeof baseIcon>;
+type IconVariants = VariantProps<typeof baseIcon>;
 
-type BaseIconProps = BaseIconVariants & {
-    Icon: ElementType<LucideProps>;
+type IconProps = IconVariants & {
+    value: ElementType<LucideProps>;
     className?: ClassValue;
 };
 
-const BaseIcon: FC<BaseIconProps> = (
-    props: BaseIconProps,
-) => {
+const Icon: FC<IconProps> = (props) => {
+    'use memo'
     const {
-        Icon,
+        value: BaseIcon,
         className,
         color,
         selected,
@@ -74,7 +73,7 @@ const BaseIcon: FC<BaseIconProps> = (
     };
 
     return (
-        <Icon {...iconProps} {...rest}/>
+        <BaseIcon {...iconProps} {...rest}/>
     );
 };
 
@@ -84,7 +83,7 @@ export {
     Blob,
     Logo,
     Discord,
-    BaseIcon,
+    Icon,
 };
 export {
     Sun,
@@ -114,6 +113,10 @@ export {
     List,
     Grid,
     Fullscreen,
+    User,
+    ChevronRight,
+    ChevronLeft,
+    MoveRight,
 } from 'lucide-react';
 export {
     SiTiktok,

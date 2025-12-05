@@ -18,9 +18,8 @@ import { BrowseProps, } from 'feature/Browse';
 
 type BrowseMobileProps = BrowseProps;
 
-const BrowseMobile: FC<BrowseMobileProps> = (
-    props: BrowseMobileProps
-) => {
+const BrowseMobile: FC<BrowseMobileProps> = (props) => {
+    'use memo'
     const {
         camera,
         geolocation,

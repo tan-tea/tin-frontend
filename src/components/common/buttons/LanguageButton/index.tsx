@@ -37,7 +37,7 @@ const LanguageButton: FC<LanguageButtonProps> = () => {
                     borderless
                     size='md'
                     selected={selected}
-                    Icon={Languages}
+                    icon={Languages}
                     onClick={handleClick}
                 />
             </Box>

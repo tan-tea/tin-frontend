@@ -94,7 +94,7 @@ export const AvatarRoot: FC<AvatarRootProps> = ({
     return <BaseAvatar.Root
         {...props}
         data-slot='avatar-root'
-        render={<motion.span/>}
+        render={<motion.div/>}
         className={root({
             className: className as ClassValue,
         })}

@@ -8,7 +8,11 @@ import {
 } from 'react';
 
 import { clientEnv } from 'env/client';
-import { useComputedStyle } from 'shared/hooks';
+
+import {
+    useScroll,
+    useComputedStyle,
+} from 'shared/hooks';
 
 import {
     Box,
@@ -39,6 +43,10 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
         offer,
     } = props;
 
+    const {
+        scroll,
+    } = useScroll();
+
     const productDetailButtonRef = useRef<HTMLDivElement | null>(null);
     const productDetailButtonComputedStyle = useComputedStyle(productDetailButtonRef);
 
@@ -49,15 +57,20 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
         window.open(target, '_blank');
     }
 
-    // useEffect(() => {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // }, []);
+    useEffect(() => {
+        const previousScroll = { ...scroll };
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        return () => {
+            window.scroll(previousScroll.x, previousScroll.y);
+        };
+    }, []);
 
     return (
         <Section
             label={t('title')}
             description={t('title')}
-            className='h-auto'
+            className='min-h-dvh'
         >
             <Titlebar
                 position='relative'
@@ -108,7 +121,7 @@ const ProductDetailMobile: FC<ProductDetailMobileProps> = (props) => {
                                                 key={index}
                                                 className='p-2 py-1.5 text-xs rounded-full bg-[var(--mui-palette-grey-50)] text-dark-600 dark:bg-dark-400 dark:text-white'
                                             >
-                                                {value?.label !== '' ? value?.label : value?.value}
+                                                {value?.label ?? value?.value}
                                             </Text>
                                         ))}
                                 </Box>

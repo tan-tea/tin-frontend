@@ -33,7 +33,6 @@ const ProductDetailDesktop = dynamic(
 );
 
 type OwnProductDetailProps = {
-    id: string;
     offer: Offer;
 };
 
@@ -45,7 +44,6 @@ export default function ProductDetail(
     props: OwnProductDetailProps,
 ): ReactElement<FC<OwnProductDetailProps>> | null {
     const {
-        id,
         offer,
     } = props;
 

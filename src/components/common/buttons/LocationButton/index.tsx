@@ -49,7 +49,7 @@ const LocationButton: FC<LocationButtonProps> = () => {
                     borderless
                     size='md'
                     selected={selected}
-                    Icon={MapPin}
+                    icon={MapPin}
                     onClick={handleClick}
                 />
             </Box>

@@ -4,6 +4,7 @@ import { Shop } from './shop';
 import { Category } from './category';
 
 export interface Workspace extends WorkspaceReadModel {
+    slug: string;
     shops: Array<Shop>;
     categories: Array<Category>;
 }

@@ -5,7 +5,7 @@ import type {
 } from 'react';
 
 import { clientEnv } from 'env/client';
-import { getWorkspaceWithShopsAndCategories } from 'app/actions';
+import { getWorkspaceDetailsById, } from 'app/actions';
 
 import BaseLayout from 'layout/Base';
 
@@ -26,10 +26,7 @@ export default async function Layout(
 
     const { locale } = await params;
 
-    const workspace = await getWorkspaceWithShopsAndCategories(
-        clientEnv.NEXT_PUBLIC_WORKSPACE_ID,
-        locale,
-    );
+    const workspace = await getWorkspaceDetailsById(clientEnv.NEXT_PUBLIC_WORKSPACE_ID);
 
     return (
         <BaseLayout initialWorkspace={workspace}>

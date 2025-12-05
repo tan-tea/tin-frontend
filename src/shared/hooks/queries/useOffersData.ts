@@ -1,13 +1,10 @@
-import { useMemo } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
 import {
     useQuery,
     QueryObserverResult,
 } from '@tanstack/react-query';
 
-import {
-    getOffersByShopId,
-} from 'app/actions';
+import { getOffersByShop } from 'app/actions';
 
 import type {
     Offer
@@ -30,16 +27,12 @@ type UseOfferDataProps = {
 
 type UseOfferDataHandler = (props: UseOfferDataProps) => UseOfferData;
 
-export const useOffersData: UseOfferDataHandler = (props) => {
-    const {
-        shopId,
-    } = props;
+const QUERY_ID = 'offers-by-shop-data';
 
-    const queryId = useMemo<string>(
-        () => 'offers-by-shop-data',
-        [],
-    );
-
+export const useOffersData: UseOfferDataHandler = ({
+    shopId,
+}) => {
+    'use memo'
     const {
         load,
         saveMany,
@@ -52,22 +45,24 @@ export const useOffersData: UseOfferDataHandler = (props) => {
         refetch,
         isRefetching,
     } = useQuery({
-        queryKey: [queryId, shopId,],
+        queryKey: [QUERY_ID, shopId,],
         queryFn: async () => {
-            // const cached = await load();
-            // if (cached && cached?.length > 0) return cached
+            const cached = await load(undefined, 5);
+            if (cached && cached?.length > 0) return cached
 
-            const offers = await getOffersByShopId(shopId);
+            const offers = await getOffersByShop(shopId);
+
             await saveMany(offers);
+
             return offers;
         },
         enabled: !!shopId,
         staleTime: minutesToMilliseconds(5),
-        retry: 5,
+        retry: 3,
     });
 
     return {
-        queryId,
+        queryId: QUERY_ID,
         data: offerData || [],
         isLoading,
         error,

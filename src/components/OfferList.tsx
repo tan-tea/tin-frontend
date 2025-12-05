@@ -72,10 +72,12 @@ type ListVariants = VariantProps<typeof list>;
 
 type OfferListProps = ListVariants & {
     offers?: Array<Offer>;
+    loading?: boolean;
 };
 
 const OfferList: FC<OfferListProps> = ({
     offers = [],
+    loading = false,
 }) => {
     'use memo'
     const {
@@ -115,15 +117,15 @@ const OfferList: FC<OfferListProps> = ({
                     onValueChange={handleViewChange}
                     className='ml-auto'
                 >
-                    <Toggle selected={view === 'list'} value='list' Icon={List}/>
-                    <Toggle selected={view === 'grid'} value='grid' Icon={Grid}/>
-                    <Toggle selected={view === 'complete'} value='complete' Icon={Fullscreen}/>
+                    <Toggle selected={view === 'list'} value='list' icon={List}/>
+                    <Toggle selected={view === 'grid'} value='grid' icon={Grid}/>
+                    <Toggle selected={view === 'complete'} value='complete' icon={Fullscreen}/>
                 </ToggleGroup>
             </Box>
             <Box className={rootList({
                 view,
             })}>
-                {(offers && offers?.length > 0)
+                {!loading && (offers && offers?.length > 0)
                     ? offers?.map?.(offer => (
                         <ProductCard
                             showDescription

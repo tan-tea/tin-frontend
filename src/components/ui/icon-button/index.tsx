@@ -13,7 +13,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { BaseIcon } from 'icons/index';
+import { Icon } from 'icons/index';
 
 export const iconButton = tv({
     base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer',
@@ -61,13 +61,13 @@ export const iconButton = tv({
 export type IconButtonVariants = VariantProps<typeof iconButton>;
 
 export type IconButtonProps = IconButtonVariants & HTMLMotionProps<'button'> & {
-    Icon?: ElementType<LucideProps>;
+    icon?: ElementType<LucideProps>;
     children?: ReactNode;
 };
 
 const IconButton: FC<IconButtonProps> = ({
     ref,
-    Icon,
+    icon,
     className,
     size = 'lg',
     color = 'root',
@@ -103,9 +103,9 @@ const IconButton: FC<IconButtonProps> = ({
                 borderless,
             })}
         >
-            {Icon && (
-                <BaseIcon
-                    Icon={Icon}
+            {icon && (
+                <Icon
+                    value={icon}
                     color='primary'
                     selected={selected}
                 />

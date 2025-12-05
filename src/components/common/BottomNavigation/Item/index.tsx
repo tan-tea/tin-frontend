@@ -15,10 +15,6 @@ import { LucideProps, } from 'lucide-react';
 
 import Box from 'ui/box';
 
-import {
-    BaseIcon,
-} from 'icons/index';
-
 const bottomNavigationItem = tv({
     slots: {
         button: 'relative h-auto w-auto flex items-center gap-x-[6px] py-2 px-4 rounded-xl',
@@ -75,10 +71,6 @@ const BottomNavigationItem: FC<BottomNavigationItemProps> = (
                 onTouchStart={(event) => onTouch && onTouch(event, 'start')}
                 onTouchEnd={(event) => onTouch && onTouch(event, 'end')}
             >
-                <BaseIcon
-                    Icon={Icon}
-                    className={icon()}
-                />
                 {selected && label && (
                     <Box className='font-primary text-sm'>{label}</Box>
                 )}

@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    useId,
     useMemo,
     type FC
 } from 'react';
@@ -31,14 +32,20 @@ type ProductDetailTitleProps = ProductDetailTitleVariants & {
     offer: Offer;
 };
 
-const ProductDetailTitle: FC<ProductDetailTitleProps> = (props) => {
+const ProductDetailTitle: FC<ProductDetailTitleProps> = ({
+    offer,
+}) => {
     const {
-        offer,
-    } = props;
+        type,
+        title,
+        category,
+    } = offer;
+
+    const uniqueId = useId();
 
     const {
         container,
-        title,
+        title: titleSlot,
         subtitle,
         wrapper,
     } = productDetailTitle({});
@@ -46,23 +53,28 @@ const ProductDetailTitle: FC<ProductDetailTitleProps> = (props) => {
     const displaySubTitles = useMemo<Array<string>>(
         () => {
             return [
-                offer?.type?.name!,
+                type?.name!,
                 'separator',
-                offer?.category?.label!
+                category?.label!
             ];
         },
-        [offer?.type?.name, offer?.category?.label],
+        [type?.name, category?.label],
     );
 
     return (
         <Box className={container()}>
-            <Text className={title()}>
-                {offer?.title}
+            <Text className={titleSlot()}>
+                {title}
             </Text>
             <Box className={wrapper()}>
-                {displaySubTitles.map((s) => (s === 'separator'
-                    ? <Separator key={s} orientation='vertical'/>
-                    : <Text key={s} className={subtitle()}>{s}</Text>
+                {displaySubTitles.map((s, index) => (
+                    s === 'separator'
+                    ? <Separator key={`${uniqueId}-${s}-${index}`} orientation='vertical'/>
+                    : (
+                        <Text key={`${uniqueId}-${s}-${index}`} className={subtitle()}>
+                            {s}
+                        </Text>
+                    )
                 ))}
             </Box>
         </Box>

@@ -46,6 +46,7 @@ type HomeMobileProps = HomeProps;
 const HomeMobile: FC<HomeMobileProps> = ({
     t,
     offers,
+    offersLoading,
     categories,
     selectedCategory,
     currentWorkspace: workspace,
@@ -110,15 +111,13 @@ const HomeMobile: FC<HomeMobileProps> = ({
                         </Carousel>
                     </Box>
                 )}
-                <OfferList offers={offers}/>
+                <OfferList offers={offers} loading={offersLoading}/>
             </Box>
             {!offers || offers?.length <= 0 && (
                 <Empty
                     title={t('home.notOffers')}
                     image={`https://ssfdpagynvyveoschegx.supabase.co/storage/v1/object/public/assets/${workspace?.id}/not-found.svg`}
                     style={{
-                        // top: `${parentHeight / 2}px`,
-                        // transform: 'translateY(-100%)',
                         transform: 'translateY(0%)',
                     }}
                 />

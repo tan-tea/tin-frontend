@@ -34,7 +34,7 @@ const productCard = tv({
     slots: {
         root: cn(
             'flex overflow-visible shadow-xs ring ring-[var(--mui-palette-grey-50)]',
-            'dark:text-light-400 dark:border-dark-300 dark:bg-dark-400'
+            'dark:text-light-400 dark:ring-[transparent] dark:border-dark-300 dark:bg-dark-400',
         ),
         actionsArea: cn('size-full'),
         media: cn('w-full h-40 border-none'),
@@ -144,7 +144,7 @@ const ProductCardGridVariant: FC<ProductCardGridVariantProps> = ({
 }) => {
     'use memo'
     const {
-        id,
+        slug,
         title,
         description,
         price,
@@ -170,7 +170,7 @@ const ProductCardGridVariant: FC<ProductCardGridVariantProps> = ({
             <CardActionsArea
                 scroll
                 prefetch
-                href={'/product/' + id}
+                href={'/product/' + slug}
                 className={actionsArea()}
             >
                 <CardMedia alt={title} className={media()}>
@@ -208,7 +208,7 @@ const ProductCardListVariant: FC<ProductCardListVariantProps> = ({
 }) => {
     'use memo'
     const {
-        id,
+        slug,
         banner,
         title,
         description,
@@ -232,7 +232,7 @@ const ProductCardListVariant: FC<ProductCardListVariantProps> = ({
     return (
         <CardRoot className={root()}>
             <CardActionsArea
-                href={'/product/' + id}
+                href={'/product/' + slug}
                 className={actionsArea()}
             >
                 <CardMedia className={media()}>
@@ -266,7 +266,7 @@ const ProductCardCompleteVariant: FC<ProductCardCompleteVariantProps> = ({
 }) => {
     'use memo'
     const {
-        id,
+        slug,
         banner,
         title,
         endDate,
@@ -294,7 +294,7 @@ const ProductCardCompleteVariant: FC<ProductCardCompleteVariantProps> = ({
     return (
         <CardRoot className={root()}>
             <CardActionsArea
-                href={'/product/' + id}
+                href={'/product/' + slug}
                 className={actionsArea()}
             >
                 <CardHeader title={title} className={titleText()}/>
@@ -331,7 +331,7 @@ const ProductCard: FC<ProductCardProps> = ({
 }) => {
     'use memo'
 
-    const Layout = layoutMap?.[variant];
+    const Layout = layoutMap?.[variant] || layoutMap?.['complete'];
 
     return (
         <Layout {...props}/>

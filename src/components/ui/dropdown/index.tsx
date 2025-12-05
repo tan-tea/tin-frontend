@@ -14,7 +14,7 @@ import {
 import { Menu } from '@base-ui-components/react/menu';
 
 import {
-    BaseIcon,
+    Icon,
     ChevronDown,
     ChevronUp,
 } from 'icons/index';
@@ -111,7 +111,7 @@ const Dropdown: FC<DropdownProps> = (
                 className={trigger()}
                 render={<motion.button/>}
             >
-                {option.label} {<BaseIcon Icon={open ? ChevronUp : ChevronDown}/>}
+                {option.label} {<Icon value={open ? ChevronUp : ChevronDown}/>}
             </Menu.Trigger>
             <Menu.Portal keepMounted={keepMounted}>
                 {backdrop && <Menu.Backdrop/>}

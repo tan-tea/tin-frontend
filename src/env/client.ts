@@ -7,11 +7,16 @@ export const clientEnv = createEnv({
         NEXT_PUBLIC_WORKSPACE_ID: z.string().min(1),
         NEXT_PUBLIC_WORKSPACE_NAME: z.string().min(1),
         NEXT_PUBLIC_WORKSPACE_NUMBER: z.string().min(1),
+        NEXT_PUBLIC_WORKSPACE_VARIANT: z.enum([
+            'start',
+            'center',
+        ]).default('center').optional(),
     },
     runtimeEnv: {
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_WORKSPACE_ID: process.env.NEXT_PUBLIC_WORKSPACE_ID,
         NEXT_PUBLIC_WORKSPACE_NAME: process.env.NEXT_PUBLIC_WORKSPACE_NAME,
         NEXT_PUBLIC_WORKSPACE_NUMBER: process.env.NEXT_PUBLIC_WORKSPACE_NUMBER,
+        NEXT_PUBLIC_WORKSPACE_VARIANT: process.env.NEXT_PUBLIC_WORKSPACE_VARIANT,
     },
 });

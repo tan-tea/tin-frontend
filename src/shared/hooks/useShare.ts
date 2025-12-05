@@ -28,9 +28,7 @@ export const useShare: UseShareHandler = () => {
                 url: window.location.href,
                 ...data,
             });
-        } catch {
-            console.warn('Something went wrong in share');
-        }
+        } catch {}
     }
 
     return {

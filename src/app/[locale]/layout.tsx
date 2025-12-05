@@ -33,6 +33,7 @@ import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
 
 import Providers from 'layout/Providers';
+import { LANGUAGES } from 'lib/i18n/constants';
 
 const poppins = Poppins({
     subsets: ['latin',],
@@ -104,18 +105,17 @@ export async function generateMetadata(
         metadataBase: new URL(clientEnv.NEXT_PUBLIC_SITE_URL),
         alternates: {
             canonical: '/',
-            languages: {
-                'en': clientEnv.NEXT_PUBLIC_SITE_URL + '/en',
-                'es': clientEnv.NEXT_PUBLIC_SITE_URL + '/es',
-            },
+            languages: LANGUAGES.map(language => ({
+                [language]: clientEnv.NEXT_PUBLIC_SITE_URL + `/${language}`,
+            })) as any,
         },
         applicationName: t('applicationName'),
         description: t('description'),
         creator: 'Brian Castro',
         authors: [
             {
-                name: 'briancastro-bc',
-                url: 'https://github.com/briancastro-bc'
+                name: 'yimall.co',
+                url: 'https://www.yimall.co'
             }
         ],
         openGraph: {
@@ -148,6 +148,7 @@ export default async function RootLayout(
     } = props;
 
     const { locale, } = await params;
+
     if (!hasLocale(routing.locales, locale)) {
         notFound();
     }

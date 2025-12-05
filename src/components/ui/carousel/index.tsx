@@ -203,7 +203,7 @@ function CarouselPrevious({
             )}
             disabled={!canScrollPrev}
             onClick={scrollPrev}
-            Icon={ArrowLeft}
+            icon={ArrowLeft}
         >
             <span className="sr-only">Previous slide</span>
         </IconButton>
@@ -231,7 +231,7 @@ function CarouselNext({
             )}
             disabled={!canScrollNext}
             onClick={scrollNext}
-            Icon={ArrowRight}
+            icon={ArrowRight}
         >
             <span className='sr-only'>Next slide</span>
         </IconButton>

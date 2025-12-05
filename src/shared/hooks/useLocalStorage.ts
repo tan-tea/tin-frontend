@@ -26,7 +26,6 @@ export function useLocalStorage<T>(
     'use memo'
     const [storedValue, setStoredValue] = useState<T>(() => getStoredValue(key, defaultValue));
 
-    // Listen for storage changes from other components/tabs
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
@@ -36,20 +35,17 @@ export function useLocalStorage<T>(
                     const newValue = JSON.parse(e.newValue);
                     setStoredValue(newValue);
                 } catch {
-                    // If parsing fails, use the raw value
                     setStoredValue(e.newValue as unknown as T);
                 }
             }
         };
 
-        // Listen for custom events (for same-tab updates)
         const handleCustomStorageChange = (e: CustomEvent) => {
             if (e.detail.key === key) {
                 setStoredValue(e.detail.value);
             }
         };
 
-        // Add event listeners
         window.addEventListener('storage', handleStorageChange);
         window.addEventListener('localStorage-change', handleCustomStorageChange as EventListener);
 
@@ -66,9 +62,9 @@ export function useLocalStorage<T>(
         (value: T | ((val: T) => T)) => {
             try {
                 const nextValue = value instanceof Function ? value(storedValue) : value;
-                // Update React state
+
                 setStoredValue(nextValue);
-                // Update localStorage
+
                 if (typeof window !== 'undefined') {
                     if (nextValue === undefined) {
                         localStorage.removeItem(key);
@@ -76,10 +72,10 @@ export function useLocalStorage<T>(
                         localStorage.setItem(key, JSON.stringify(nextValue));
                     }
 
-                    // Dispatch custom event for same-tab synchronization
                     const customEvent = new CustomEvent('localStorage-change', {
                         detail: { key, value: nextValue },
                     });
+
                     window.dispatchEvent(customEvent);
                 }
             } catch (error) {

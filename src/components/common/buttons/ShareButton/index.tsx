@@ -66,7 +66,7 @@ const ShareButton: FC<ShareButtonProps> = ({
             <Box className={container()}>
                 <IconButton
                     borderless
-                    Icon={Share}
+                    icon={Share}
                     onClick={handleClick}
                 />
             </Box>

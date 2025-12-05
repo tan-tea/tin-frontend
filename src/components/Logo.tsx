@@ -16,6 +16,8 @@ import {
 import { useNavigation } from 'shared/hooks';
 
 import Skeleton from 'ui/skeleton';
+
+import { ExternalLink } from 'ui/link';
 import {
     Menu,
     MenuItem,
@@ -116,13 +118,13 @@ const Logo: FC<LogoProps> = () => {
                                     <MenuItem
                                         key={item?.url}
                                         closeOnClick={false}
-                                        render={<a
+                                        render={<ExternalLink
                                             href={item?.url}
                                             rel='noopener noreferrer'
                                             target='_blank'
                                         />}
                                     >
-                                        <Icon className='text-dark-300'/> {item?.label || item?.platform}
+                                        <Icon className='text-dark-300 dark:text-light-600'/> {item?.label || item?.platform}
                                     </MenuItem>
                                 );
                             })}

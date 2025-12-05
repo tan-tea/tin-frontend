@@ -15,7 +15,7 @@ import {
     Box,
     Input,
 } from 'ui/index';
-import { BaseIcon, Search, } from 'icons/index';
+import { Icon, Search, } from 'icons/index';
 
 export const searchEngineBox = tv({
     slots: {
@@ -99,8 +99,8 @@ const SearchEngineBox: FC<SearchBoxEngineProps> = (
                 if (onBlur) onBlur?.();
             }}
         >
-            <BaseIcon
-                Icon={Search}
+            <Icon
+                value={Search}
                 className={icon()}
             />
             <Input

@@ -1,13 +1,11 @@
-import { useMemo } from 'react';
+import { minutesToMilliseconds } from 'date-fns';
 import {
     useQuery,
     QueryObserverResult,
 } from '@tanstack/react-query';
 
 import { clientEnv } from 'env/client';
-import {
-    getCustomizationByWorkspaceId,
-} from 'app/actions';
+import { getAllCustomizationByWorkspace } from 'app/actions';
 
 import type {
     Customization
@@ -24,16 +22,12 @@ type UseThemeData = Readonly<{
     isRefetching: boolean;
 }>;
 
-type UseThemeDataProps = object;
+type UseThemeDataHandler = () => UseThemeData;
 
-type UseThemeDataHandler = (props?: UseThemeDataProps) => UseThemeData;
+const QUERY_ID = 'customization-data';
 
 export const useCustomizationData: UseThemeDataHandler = () => {
-    const queryId = useMemo<string>(
-        () => 'customization-data',
-        [],
-    );
-
+    'use memo'
     const {
         load,
         save,
@@ -46,26 +40,26 @@ export const useCustomizationData: UseThemeDataHandler = () => {
         refetch,
         isRefetching,
     } = useQuery({
-        queryKey: [queryId],
+        queryKey: [QUERY_ID],
         queryFn: async () => {
             const cached = await load('current');
-            if (cached) return Array.isArray(cached)
-                ? cached?.[0]
-                : cached;
+            if (cached) return cached;
 
-            const customization = await getCustomizationByWorkspaceId(clientEnv.NEXT_PUBLIC_WORKSPACE_ID);
+            const customization = await getAllCustomizationByWorkspace(clientEnv.NEXT_PUBLIC_WORKSPACE_ID);
+
             await save({
                 ...customization,
                 id: 'current',
             });
+
             return customization;
         },
-        staleTime: Infinity,
-        retry: 5,
+        staleTime: minutesToMilliseconds(60),
+        retry: 1,
     });
 
     return {
-        queryId,
+        queryId: QUERY_ID,
         data: themeData || null,
         isLoading,
         error,

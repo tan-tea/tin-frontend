@@ -15,14 +15,11 @@ type MenuFooterLink = {
     label: string;
 }
 
-type MenuFooterProps = {
-    t: ReturnType<typeof useTranslations>;
-}
+type MenuFooterProps = object
 
-const MenuFooter: FC<MenuFooterProps> = ({
-    t,
-}) => {
+const MenuFooter: FC<MenuFooterProps> = () => {
     'use memo'
+    const t = useTranslations();
 
     const links: Array<MenuFooterLink> = [
         {

@@ -81,7 +81,7 @@ const BackButton: FC<BackButtonProps> = (props) => {
                 className={button({
                     className,
                 })}
-                Icon={MoveLeft}
+                icon={MoveLeft}
             />
             {showLabel && <Text className={label()}>{t('shared.back')}</Text>}
         </Box>

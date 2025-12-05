@@ -29,7 +29,7 @@ const SearchButton: FC<SearchButtonProps> = ({
                     borderless
                     size='md'
                     selected={selected}
-                    Icon={Search}
+                    icon={Search}
                 />
             </Box>
         </Tooltip>

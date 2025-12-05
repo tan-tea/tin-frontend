@@ -4,13 +4,18 @@ import {
     clsx,
     type ClassValue,
 } from 'clsx';
+import {
+    PaletteOptions,
+    PaletteColorOptions,
+} from '@mui/material';
 import { twMerge } from 'tailwind-merge';
+import { minutesToMilliseconds } from 'date-fns';
+
 import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
 } from 'lib/utils/constants';
 import type { Currency } from 'lib/utils/types';
-import { PaletteColorOptions, PaletteOptions } from '@mui/material';
 import { Customization } from 'shared/models';
 
 export function cn(...inputs: ClassValue[]) {
@@ -126,4 +131,44 @@ export function toBase64(value: string): string {
     return typeof window === 'undefined'
         ? Buffer.from(value).toString('base64')
         : window.btoa(value);
+}
+
+type CacheFactory = (minutes: number) => number;
+
+export const cacheDurationFactory: CacheFactory = (
+    minutes = 5
+) => minutesToMilliseconds(minutes);
+
+type GetCachedFn = <
+    TStore extends Map<string, any>,
+    TResult,
+>(store: TStore, key: string) => TResult | null;
+
+export const getCached: GetCachedFn = (store, key) => {
+    const cached = store.get(key);
+    if (cached && cached.expiresAt > Date.now()) return cached.data;
+
+    if (cached) store.delete(key);
+
+    return null;
+};
+
+type SetCachedFn = <
+    TData,
+    TStore extends Map<string, unknown>,
+>(store: TStore, key: string, data: TData, duration?: number) => void;
+
+/**
+ *
+ * @param store - Representa el objeto o Map que almacena el cache.
+ * @param key - La llave que se almacenara en el store.
+ * @param data - Los datos que se almacenaran en el cache.
+ * @param duration - La duracion en minutos del cache.
+ *
+ */
+export const setCached: SetCachedFn = (store, key, data, duration = 5) => {
+    store.set(key, {
+        data,
+        expiresAt: Date.now() + cacheDurationFactory(duration),
+    });
 }

@@ -3,14 +3,17 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations, } from 'next-intl/server';
 
-import ProductDetail from 'feature/ProductDetail';
+import { FALLBACK_LANGUAGE } from 'lib/i18n/constants';
 
 import {
-    getOfferById,
-    getOffersIds
+    getOfferDetailsBySlug,
+    getOffersSlugByWorkspaceId,
 } from 'app/actions';
+
+import ProductDetail from 'feature/ProductDetail';
 
 type ProductDetailStaticParams = {
     params: Awaited<{
@@ -47,11 +50,13 @@ export async function generateStaticParams(
         },
     } = props;
 
-    const offersIds = await getOffersIds();
+    // const offersIds = await getOffersIds();
+    const offers = await getOffersSlugByWorkspaceId();
+    // console.log('offers', offers);
 
-    return offersIds?.map?.(id => ({
-        id: id,
-        locale: locale || 'en',
+    return offers?.map?.(({ slug }) => ({
+        id: slug,
+        locale: locale || FALLBACK_LANGUAGE,
     })) || [];
 }
 
@@ -64,15 +69,14 @@ export default async function ProductDetailPage(
 
     const {
         id,
+        locale,
     } = await params;
 
-    const offer = await getOfferById(id);
-    if (!offer) return null;
+    const offer = await getOfferDetailsBySlug(id);
+    if (!offer)
+        return notFound();
 
     return (
-        <ProductDetail
-            id={id}
-            offer={offer}
-        />
+        <ProductDetail offer={offer}/>
     );
 };

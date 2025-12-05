@@ -35,6 +35,7 @@ export type BrowseProps = {
 export default function Browse(
     props: OwnBrowseProps,
 ): ReactElement<FC<OwnBrowseProps>> {
+    'use memo'
     const {} = props;
 
     const t = useTranslations();

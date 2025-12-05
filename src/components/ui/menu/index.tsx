@@ -21,12 +21,14 @@ const menu = tv({
         positioner: cn('outline-none z-[100]'),
         popup: cn(
             'box-border mt-2 p-2 rounded-md bg-[canvas] shadow-md',
-            'data-[open]:bg-white border border-[var(--mui-palette-grey-50)] dark:data-[open]:bg-dark-500',
+            'data-[open]:bg-white border border-[var(--mui-palette-grey-50)]',
+            'dark:data-[open]:bg-dark-500 dark:text-light-600 dark:border-none',
         ),
         arrow: cn(''),
         item: cn(
             'pl-2 pr-4 py-2 flex items-center gap-x-2.5 text-sm leading-5',
-            'data-[highlighted]:bg-red-500 data-[disabled]:text-dark-600/50 dark:text-white',
+            'data-[highlighted]:bg-red-500 data-[disabled]:text-[var(--mui-palette-primary-main)]',
+            'dark:data-[disabled]:text-[var(--mui-palette-primary-main)] dark:text-white',
         ),
         group: cn(''),
         groupLabel: cn('text-sm font-nunito font-bold leading-4'),
@@ -34,7 +36,7 @@ const menu = tv({
     variants: {
         selected: {
             true: {
-                item: 'bg-[var(--mui-palette-primary-50)] dark:bg-[var(--mui-palette-primary-900)]',
+                item: cn('bg-[var(--mui-palette-primary-50)] dark:bg-[var(--mui-palette-primary-900)]'),
             },
             false: {
                 item: '',

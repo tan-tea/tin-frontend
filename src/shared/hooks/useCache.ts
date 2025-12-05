@@ -21,7 +21,7 @@ type Timestamped<T> = T & {
 };
 
 type UseCache<T> = {
-    load: (key?: string) => Promise<T | null>;
+    load: (key?: string, maxAge?: number) => Promise<T | null>;
     save: (
         item: T,
         key?: string
@@ -34,6 +34,7 @@ export const useCache = <T>(
     entity: keyof CacheDatabaseTables,
     atom: PrimitiveAtom<T>,
 ): UseCache<T> => {
+    'use memo'
     const setAtom = useSetAtom(atom);
     const atomValue = useAtomValue(atom);
 
@@ -45,15 +46,16 @@ export const useCache = <T>(
     );
 
     const load: UseCache<T>['load'] = useCallback(
-        async (key) => {
+        async (key, maxAge = 10) => {
             const age = await getAge(key);
-            if (age && age > 10) return null;
 
-            const result =  (
-                key
-                ? (await table.get(key))
-                : (await table.toArray())
-            ) ?? atomValue;
+            if (age === null || age >= maxAge) return null;
+
+            const stored =  key
+                ? await table.get(key)
+                : await table.toArray();
+
+            const result = stored ?? atomValue;
 
             setAtom(result);
 

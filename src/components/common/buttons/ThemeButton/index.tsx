@@ -45,7 +45,7 @@ const ThemeButton: FC<ThemeButtonProps> = () => {
                     borderless
                     size='md'
                     selected={selected}
-                    Icon={theme === 'dark' ? SunMoon : Moon}
+                    icon={theme === 'dark' ? SunMoon : Moon}
                     onClick={handleClick}
                 />
             </Box>

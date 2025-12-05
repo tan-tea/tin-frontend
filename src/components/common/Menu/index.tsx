@@ -1,9 +1,11 @@
 'use client';
 
-import {
-    useState,
-    type FC
-} from 'react';
+import type { FC } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+
+import { useState } from 'react';
+import { tv,} from 'tailwind-variants';
+import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import { cn, } from 'lib/utils';
@@ -25,9 +27,18 @@ import Avatar from 'components/Avatar';
 import ThemeSwitcher from 'components/ThemeSwitcher';
 import LanguageSwitcher from 'components/LanguageSwitcher';
 
+import MenuList from './List';
 import MenuFooter from './Footer';
 
-type MenuProps = object;
+const menu = tv({
+    slots: {
+        root: '',
+    },
+});
+
+type MenuVariants = VariantProps<typeof menu>;
+
+type MenuProps = MenuVariants;
 
 const Menu: FC<MenuProps> = ({}) => {
     'use memo';
@@ -45,7 +56,7 @@ const Menu: FC<MenuProps> = ({}) => {
                 />
             </DrawerTrigger>
             <DrawerContent className='flex flex-col h-[90%]'>
-                <Box className='p-4 flex-1 flex-col overflow-y-auto scrollbar-hide'>
+                <Box className='p-4 flex-1 overflow-y-auto scrollbar-hide'>
                     <Titlebar
                         className='p-0 pb-4'
                         renderStart={() => (
@@ -55,13 +66,13 @@ const Menu: FC<MenuProps> = ({}) => {
                         )}
                         renderEnd={() => (
                             <Box className='ml-auto flex items-center gap-x-4'>
-                                <ThemeSwitcher />
-                                <LanguageSwitcher />
+                                <ThemeSwitcher/>
+                                <LanguageSwitcher/>
                             </Box>
                         )}
                     />
-                    <Box className={cn('flex flex-row items-center py-3 gap-x-3')}>
-                        <Avatar size='xxxl' src='images/logo.svg' fallback='Profile'/>
+                    <Box className={cn('flex flex-row items-center py-3 gap-x-3 mb-2')}>
+                        <Avatar size='xxxl' fallback='Profile'/>
                         <Box className='flex flex-col'>
                             <Text>{t('welcomeBack')}</Text>
                             <Link href={'/sign-in'} className="text-sm leading-4 text-[var(--mui-palette-primary-main)]">
@@ -69,9 +80,10 @@ const Menu: FC<MenuProps> = ({}) => {
                             </Link>
                         </Box>
                     </Box>
+                    <MenuList/>
                 </Box>
                 <Box className='mt-auto'>
-                    <MenuFooter t={t}/>
+                    <MenuFooter/>
                 </Box>
             </DrawerContent>
         </Drawer>

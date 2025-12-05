@@ -25,13 +25,14 @@ const drawer = tv({
             'bg-[var(--mui-palette-grey-200)] mx-auto mt-2 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block',
             'dark:bg-dark-300'
         ),
-        header: cn(),
-        footer: cn(),
+        trigger: cn('outline-none'),
+        header: cn('flex flex-col gap-1.5 p-4'),
+        footer: cn('mt-auto flex flex-col gap-2 p-4'),
         title: cn(
             'text-lg text-foreground font-semibold',
             'md:text-xl'
         ),
-        description: cn(),
+        description: cn('text-muted-foreground text-sm'),
     },
 });
 
@@ -44,11 +45,20 @@ const Drawer: FC<ComponentProps<typeof BaseDrawer.Root>> = ({ ...props }) => {
     );
 };
 
-const DrawerTrigger: FC<ComponentProps<typeof BaseDrawer.Trigger>> = ({ ...props }) => {
+const DrawerTrigger: FC<ComponentProps<typeof BaseDrawer.Trigger>> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { trigger } = drawer();
+
     return (
         <BaseDrawer.Trigger
             {...props}
             data-slot='drawer-trigger'
+            className={trigger({
+                className,
+            })}
         />
     );
 }
@@ -131,7 +141,9 @@ const DrawerHeader: FC<ComponentProps<typeof motion.div>> = ({
         <motion.div
             {...props}
             data-slot='drawer-header'
-            className={cn('flex flex-col gap-1.5 p-4', className)}
+            className={header({
+                className,
+            })}
         />
     );
 }
@@ -147,7 +159,9 @@ const DrawerFooter: FC<ComponentProps<typeof motion.div>> = ({
         <motion.div
             {...props}
             data-slot='drawer-footer'
-            className={cn('mt-auto flex flex-col gap-2 p-4', className)}
+            className={footer({
+                className,
+            })}
         />
     );
 }
@@ -181,7 +195,9 @@ const DrawerDescription: FC<ComponentProps<typeof BaseDrawer.Description>> = ({
         <BaseDrawer.Description
             {...props}
             data-slot='drawer-description'
-            className={cn('text-muted-foreground text-sm', className)}
+            className={description({
+                className,
+            })}
         />
     );
 }

@@ -15,7 +15,7 @@ import { cn } from 'lib/utils';
 import { AutocompleteClear, AutocompleteInput } from 'ui/autocomplete';
 import {
     Search,
-    BaseIcon,
+    Icon,
 } from 'icons/index';
 
 const searchBox = tv({
@@ -62,8 +62,8 @@ const SearchBox: FC<SearchBoxProps> = ({
             ref={refCallback}
             className={box()}
         >
-            <BaseIcon
-                Icon={Search}
+            <Icon
+                value={Search}
                 className={icon()}
             />
             <AutocompleteInput

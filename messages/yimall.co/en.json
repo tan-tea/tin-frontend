@@ -139,9 +139,5 @@
         "title": "Ups... No pudimos encontrar lo que buscabas.",
         "description": "Parece que esta página se perdi\u00f3 en el camino. Revisa la URL o vuelve al inicio.",
         "home": "Volver al inicio"
-    },
-    "callback": {
-        "title": "",
-        "description": ""
     }
 }

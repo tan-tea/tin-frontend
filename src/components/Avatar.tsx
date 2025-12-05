@@ -9,25 +9,26 @@ import {
     type VariantProps
 } from 'tailwind-variants';
 
-import { cn, getValueInitials, } from 'lib/utils';
+import { cn, } from 'lib/utils';
 
 import {
     AvatarRoot,
     AvatarImage,
     AvatarFallback,
 } from 'ui/avatar';
+import { Icon, User } from 'icons/index';
 
 const avatar = tv({
     slots: {
-        root: 'ring shrink-0',
+        root: cn('ring shrink-0'),
     },
     variants: {
         selected: {
             true: {
-                root: 'ring-[var(--mui-palette-primary-main)]',
+                root: cn('ring-[var(--mui-palette-primary-main)]'),
             },
             false: {
-                root: 'ring-[var(--mui-palette-primary-50)]',
+                root: cn('ring-[var(--mui-palette-primary-50)]'),
             },
         },
     },
@@ -71,7 +72,11 @@ const Avatar: FC<AvatarProps> = ({
                 height={48}
             />
             <AvatarFallback>
-                {getValueInitials(fallback)}
+                {/* {getValueInitials(fallback)} */}
+                <Icon
+                    value={User}
+                    className='text-dark-600 size-10'
+                />
             </AvatarFallback>
         </AvatarRoot>
     );

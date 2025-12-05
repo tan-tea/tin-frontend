@@ -47,6 +47,7 @@ type OwnHomeProps = object;
 export type HomeProps = {
     t: ReturnType<typeof useTranslations>;
     offers: Array<Offer>;
+    offersLoading?: boolean;
     shops: Array<Shop>;
     currentWorkspace: Workspace | null;
     categories: Array<Category>;
@@ -93,7 +94,8 @@ export default function Home(): ReactElement<FC<OwnHomeProps>> {
 
     const childProps: HomeProps = {
         t,
-        offers: offers,
+        offers,
+        offersLoading,
         currentWorkspace: workspace,
         shops: workspace?.shops || [],
         categories: workspace?.categories || [],

@@ -10,9 +10,11 @@ import {
     getOfferBySlug,
     getOffersByShopId,
     getOffersSlugByWorkspace,
+    getShopsByWorkspaceId,
 } from 'lib/core/vm';
 
 import type {
+    Shop,
     Offer,
     Workspace,
     Customization,
@@ -26,6 +28,11 @@ export async function getWorkspaceDetailsById(id: string): Promise<Workspace> {
 export async function getAllCustomizationByWorkspace(workspaceId: string): Promise<Customization> {
     'use server'
     return await getCustomizationByWorkspaceId(workspaceId);
+}
+
+export async function getShopsByWorkspace(workspaceId: string): Promise<Array<Shop>> {
+    'use server'
+    return await getShopsByWorkspaceId(workspaceId);
 }
 
 export async function getOffersSlugByWorkspaceId() {

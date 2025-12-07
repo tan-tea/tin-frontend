@@ -20,42 +20,42 @@
         "titleDefault": "",
         "titleTemplate": "",
         "description": "",
-        "keywords": ""
+        "keywords": "",
+        "titles": {
+            "default": "",
+            "template": "",
+            "description": "",
+            "home": {
+                "title": "",
+                "description": ""
+            },
+            "signin": {
+                "title": "",
+                "description": ""
+            },
+            "loading": {
+                "title": "",
+                "description": ""
+            },
+            "notFound": {
+                "title": "",
+                "description": ""
+            },
+            "search": {
+                "title": "",
+                "description": ""
+            },
+            "help": {
+                "title": "",
+                "description": ""
+            }
+        }
     },
     "manifest": {
         "name": "",
         "shortName": "",
         "description": "",
         "categories": ""
-    },
-    "titles": {
-        "default": "",
-        "template": "",
-        "description": "",
-        "home": {
-            "title": "",
-            "description": ""
-        },
-        "signin": {
-            "title": "",
-            "description": ""
-        },
-        "loading": {
-            "title": "",
-            "description": ""
-        },
-        "notFound": {
-            "title": "",
-            "description": ""
-        },
-        "search": {
-            "title": "",
-            "description": ""
-        },
-        "help": {
-            "title": "",
-            "description": ""
-        }
     },
     "shared": {
         "back": "",

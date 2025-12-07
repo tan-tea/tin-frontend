@@ -18,11 +18,11 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const {} = props;
 
-    const t = await getTranslations('titles.home');
+    const t = await getTranslations('metadata');
 
     return {
-        title: t('title'),
-        description: t('description'),
+        title: t('titles.home.title'),
+        description: t('titles.home.description'),
     };
 }
 

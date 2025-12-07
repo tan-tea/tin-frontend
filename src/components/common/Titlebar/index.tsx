@@ -27,7 +27,6 @@ const titlebar = tv({
         wrapper: cn(
             'top-0 w-full flex items-center gap-x-2 justify-start p-4 z-10 bg-white',
             'transition-transform duration-300 ease-in-out',
-            'dark:bg-dark-600'
         ),
         text: 'max-w-[180px] font-semibold leading-5 text-[inherit] truncate',
     },
@@ -45,10 +44,10 @@ const titlebar = tv({
         },
         position: {
             relative: {
-                wrapper: 'relative',
+                wrapper: 'relative dark:bg-dark-600',
             },
             fixed: {
-                wrapper: 'fixed',
+                wrapper: 'fixed bg-transparent border-none',
             },
         },
     },

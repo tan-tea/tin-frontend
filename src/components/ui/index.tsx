@@ -21,11 +21,7 @@ import Label, {
     type LabelProps,
     type LabelVariants,
 } from './field/label';
-import IconButton, {
-    iconButton,
-    type IconButtonProps,
-    type IconButtonVariants,
-} from './icon-button';
+import IconButton from './icon-button';
 import Dropdown, {
     dropdown,
     type DropdownProps,
@@ -64,7 +60,6 @@ export {
     Label,
     label,
     IconButton,
-    iconButton,
     Dropdown,
     dropdown,
     Separator,
@@ -75,8 +70,6 @@ export {
 export type {
     LabelProps,
     LabelVariants,
-    IconButtonProps,
-    IconButtonVariants,
     DropdownProps,
     DropdownVariants,
     SeparatorProps,

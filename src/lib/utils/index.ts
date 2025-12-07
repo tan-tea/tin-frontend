@@ -9,14 +9,21 @@ import {
     PaletteColorOptions,
 } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
-import { minutesToMilliseconds } from 'date-fns';
+import { minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 
 import {
     DISCORD_CDN,
     AVAILABLE_EXTENSIONS,
 } from 'lib/utils/constants';
-import type { Currency } from 'lib/utils/types';
-import { Customization } from 'shared/models';
+import type {
+    BackoffFn,
+    CacheFactory,
+    Currency,
+    GetCachedFn,
+    SetCachedFn
+} from 'lib/utils/types';
+
+import type { Customization } from 'shared/models';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -133,16 +140,41 @@ export function toBase64(value: string): string {
         : window.btoa(value);
 }
 
-type CacheFactory = (minutes: number) => number;
+export async function sleep(durationMs: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, durationMs));
+}
+
+export const fetchWithBackoff: BackoffFn = async (
+    callback,
+    args,
+    opts,
+) => {
+    const maximumDelayInMs = opts?.maximunDelay || secondsToMilliseconds(20);
+    const deadline = Date.now() + maximumDelayInMs;
+
+    let delayInMs = opts?.delay || 500;
+
+    let result = await callback(args);
+    if (result) return result;
+
+    while (Date.now() < deadline) {
+        const remainingMs = deadline - Date.now();
+
+        await sleep(Math.min(delayInMs, remainingMs));
+
+        result = await callback(args);
+        if (result) return result;
+
+        delayInMs = Math.min(delayInMs * 2, maximumDelayInMs);
+    }
+
+    return undefined;
+}
 
 export const cacheDurationFactory: CacheFactory = (
     minutes = 5
 ) => minutesToMilliseconds(minutes);
 
-type GetCachedFn = <
-    TStore extends Map<string, any>,
-    TResult,
->(store: TStore, key: string) => TResult | null;
 
 export const getCached: GetCachedFn = (store, key) => {
     const cached = store.get(key);
@@ -152,11 +184,6 @@ export const getCached: GetCachedFn = (store, key) => {
 
     return null;
 };
-
-type SetCachedFn = <
-    TData,
-    TStore extends Map<string, unknown>,
->(store: TStore, key: string, data: TData, duration?: number) => void;
 
 /**
  *

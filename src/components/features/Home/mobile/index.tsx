@@ -63,8 +63,8 @@ const HomeMobile: FC<HomeMobileProps> = ({
     return (
         <Section
             ref={sectionRef}
-            label={t('titles.home.title')}
-            description={t('titles.home.description')}
+            label={t('metadata.titles.home.title')}
+            description={t('metadata.titles.home.description')}
             className='h-full scrollbar-hide'
         >
             <Box className='size-full flex flex-col gap-y-4 p-4 pt-0 max-w-7xl mx-auto'>

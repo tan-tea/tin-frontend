@@ -8,9 +8,9 @@ import {
     Box,
 } from 'ui/index';
 
-import { BrowseProps, } from 'feature/Browse';
+import { LocationProps, } from 'components/features/Location';
 
-type BrowseDesktopProps = BrowseProps;
+type BrowseDesktopProps = LocationProps;
 
 const BrowseDesktop: FC<BrowseDesktopProps> = (
     props: BrowseDesktopProps

@@ -1,9 +1,8 @@
 'use client'
 
-import {
-    useState,
-    type FC,
-    type ReactElement,
+import type {
+    FC,
+    ReactElement,
 } from 'react';
 import {
     MapCameraProps,
@@ -12,19 +11,34 @@ import {
 import { useTranslations, } from 'next-intl';
 import { useShallow, } from 'zustand/react/shallow';
 
+import dynamic from 'next/dynamic';
+
+import type {
+    Shop
+} from 'shared/models';
 import {
+    useHideUI,
     useNavigation,
+    useLocalStorage,
 } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
 import DeviceDetectorLayout from 'common/DeviceDetector';
 
-import BrowseMobile from './mobile';
-import BrowseDesktop from './desktop';
+import LocationMobileSkeleton from './mobile/skeleton';
 
-type OwnBrowseProps = object;
+const LocationMobile = dynamic(
+    () => import('./mobile'),
+    {
+        loading: () => <LocationMobileSkeleton/>
+    },
+);
 
-export type BrowseProps = {
+type OwnLocationProps = {
+    shops: Array<Shop>;
+};
+
+export type LocationProps = OwnLocationProps & {
     camera: MapCameraProps;
     geolocation: GeolocationPosition | null;
     t: ReturnType<typeof useTranslations>;
@@ -32,11 +46,16 @@ export type BrowseProps = {
     onCameraChanged: (camera: MapCameraChangedEvent) => void;
 };
 
-export default function Browse(
-    props: OwnBrowseProps,
-): ReactElement<FC<OwnBrowseProps>> {
+export default function Location(
+    props: OwnLocationProps,
+): ReactElement<FC<OwnLocationProps>> {
     'use memo'
-    const {} = props;
+    const { shops } = props;
+
+    useHideUI({
+        hideHeader: true,
+        hideBottomNavigation: true,
+    });
 
     const t = useTranslations();
     const navigation = useNavigation();
@@ -45,26 +64,27 @@ export default function Browse(
         useShallow(store => store),
     );
 
-    const [cameraProps, setCameraProps,] = useState<MapCameraProps>({
+    const [camera, setCamera,] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
             lat: geolocation?.coords?.latitude || 0,
             lng: geolocation?.coords?.longitude || 0,
         },
-        zoom: 17.5,
+        zoom: 14,
     });
 
-    const childProps: BrowseProps = {
+    const childProps: LocationProps = {
         t,
+        shops,
         navigation,
         geolocation,
-        camera: cameraProps,
-        onCameraChanged: (event) => setCameraProps(event?.detail),
+        camera,
+        onCameraChanged: (event) => setCamera(event?.detail),
     };
 
     return (
         <DeviceDetectorLayout
-            MobileComponent={<BrowseMobile {...childProps}/>}
-            DesktopComponent={<BrowseDesktop {...childProps}/>}
+            MobileComponent={<LocationMobile {...childProps}/>}
+            DesktopComponent={<LocationMobile {...childProps}/>}
         />
     );
 };

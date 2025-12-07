@@ -10,6 +10,8 @@ import {
 import { useTranslations, } from 'next-intl';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
+import { cn } from 'lib/utils';
+
 import { useNavigation, } from 'shared/hooks';
 
 import {
@@ -21,9 +23,23 @@ import { MoveLeft, } from 'icons/index';
 
 const backButton = tv({
     slots: {
-        container: 'flex items-center gap-x-1 text-[var(--mui-palette-grey-800)] cursor-pointer dark:text-[var(--mui-palette-grey-200)]',
+        container: 'flex items-center gap-x-1 cursor-pointer',
         button: 'top-0 left-0 text-inherit',
         label: 'text-xs font-semibold text-inherit',
+    },
+    variants: {
+        variant: {
+            rounded: {
+                container: cn(
+                    'p-1 rounded-full',
+                    'bg-white dark:bg-dark-600'
+                ),
+                button: 'text-dark-600 dark:text-light-600'
+            },
+            normal: {
+                container: cn('text-dark-600 dark:text-light-600'),
+            },
+        },
     },
 });
 
@@ -48,19 +64,20 @@ const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
     },
 }
 
-const BackButton: FC<BackButtonProps> = (props) => {
+const BackButton: FC<BackButtonProps> = ({
+    className,
+    showLabel = false,
+    showAnimation = true,
+    variant = 'normal',
+}) => {
     'use memo'
-    const {
-        className,
-        showLabel = false,
-        showAnimation = true,
-    } = props;
-
     const {
         container,
         button,
         label,
-    } = backButton();
+    } = backButton({
+        variant,
+    });
 
     const t = useTranslations();
 

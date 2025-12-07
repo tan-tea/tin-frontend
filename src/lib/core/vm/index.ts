@@ -15,8 +15,8 @@ import {
 import { createClient, createStaticClient } from 'lib/supabase/server';
 
 import type {
-    Offer,
     Shop,
+    Offer,
 } from 'shared/models';
 
 const offersCache = new Map<string, Cache<Offer>>();
@@ -117,6 +117,39 @@ async function getDefaultShopByWorkspaceId(workspaceId: string): Promise<Shop | 
     return result;
 }
 
+function getCachedShopsByWorkspaceId(workspaceId: string): Array<Shop> | null {
+    return getCached(shopsCache, workspaceId);
+}
+
+function setCachedShopsByWorkspaceId(workspaceId: string, data: Array<Shop>): void {
+    return setCached(shopsCache, workspaceId, data, 60);
+}
+
+async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<Shop>> {
+    const cached = getCachedShopsByWorkspaceId(workspaceId);
+    if (cached) return cached;
+
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+        .from('shops')
+        .select(`
+            *,
+            workspace:workspaces!workspace_id ( * ),
+            address:addresses!address_id ( * ),
+            geolocation:geolocations!geolocation_id ( * )
+        `)
+        .eq('workspace_id', workspaceId);
+
+    if (error && !data) return [];
+
+    const result = camelcaseKeys(data, { deep: true });
+
+    setCachedShopsByWorkspaceId(workspaceId, result);
+
+    return result;
+}
+
 function getCachedOffersByShopId(shopId: string): Array<Offer> | null {
     return getCached(offersCache, shopId);
 }
@@ -156,4 +189,5 @@ export {
     getOffersSlugByWorkspace,
     getDefaultShopByWorkspaceId,
     getOffersByShopId,
+    getShopsByWorkspaceId,
 };

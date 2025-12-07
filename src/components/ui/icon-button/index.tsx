@@ -2,20 +2,20 @@
 
 import type {
     FC,
-    ElementType,
     ReactNode,
     RefCallback,
+    ComponentProps,
 } from 'react';
 import { useRef } from 'react';
-import type { LucideProps, } from 'lucide-react';
-import { motion, type HTMLMotionProps } from 'motion/react';
+import { motion, } from 'motion/react';
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
+
 import { Icon } from 'icons/index';
 
-export const iconButton = tv({
+const iconButton = tv({
     base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer',
     variants: {
         size: {
@@ -53,15 +53,17 @@ export const iconButton = tv({
         },
         {
             selected: false,
-            className: 'text-gray-600 dark:text-light-600'
+            className: 'text-dark-600 dark:text-light-400'
         }
     ],
 });
 
-export type IconButtonVariants = VariantProps<typeof iconButton>;
+type IconButtonVariants = VariantProps<typeof iconButton>;
 
-export type IconButtonProps = IconButtonVariants & HTMLMotionProps<'button'> & {
-    icon?: ElementType<LucideProps>;
+type IconButtonProps = IconButtonVariants
+& ComponentProps<typeof motion.button>
+& {
+    icon?: ComponentProps<typeof Icon>['value'];
     children?: ReactNode;
 };
 

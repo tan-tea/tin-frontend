@@ -46,7 +46,7 @@
     "lexical": "^0.38.2",
     "lucide-react": "^0.503.0",
     "motion": "^12.23.14",
-    "next": "15.5.6",
+    "next": "15.5.7",
     "next-intl": "^4.1.0",
     "optics-ts": "^2.4.1",
     "postcss": "^8.5.3",

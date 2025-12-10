@@ -6,8 +6,8 @@ import type {
 } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
-import { tv } from 'tailwind-variants';
 import { motion } from 'motion/react';
+import { tv } from 'tailwind-variants';
 
 import { cn } from 'lib/utils';
 import { Link } from 'lib/i18n/navigation';
@@ -18,7 +18,8 @@ const link = tv({
 
 type LinkVariants = VariantProps<typeof link>;
 
-type LinkProps = LinkVariants & ComponentProps<typeof Link>;
+type LinkProps = LinkVariants
+& ComponentProps<typeof Link>;
 
 export const InternalLink: FC<LinkProps> = ({
     className,

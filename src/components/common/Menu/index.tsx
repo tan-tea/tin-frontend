@@ -5,15 +5,11 @@ import type { VariantProps } from 'tailwind-variants';
 
 import { useState } from 'react';
 import { tv,} from 'tailwind-variants';
-import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
-
-import { cn, } from 'lib/utils';
-import { Link } from 'lib/i18n/navigation';
 
 import {
     Box,
-    Text,
+    IconButton,
 } from 'ui/index';
 import {
     Drawer,
@@ -21,9 +17,12 @@ import {
     DrawerContent,
     DrawerTitle,
 } from 'ui/drawer';
+import {
+    Icon,
+    LayoutGrid,
+} from 'icons/index';
 
 import Titlebar from 'common/Titlebar';
-import Avatar from 'components/Avatar';
 import ThemeSwitcher from 'components/ThemeSwitcher';
 import LanguageSwitcher from 'components/LanguageSwitcher';
 
@@ -48,17 +47,13 @@ const Menu: FC<MenuProps> = ({}) => {
 
     return (
         <Drawer onOpenChange={(o) => setOpen(o)}>
-            <DrawerTrigger>
-                <Avatar
-                    size='md'
-                    selected={open}
-                    fallback='profile'
-                />
+            <DrawerTrigger selected={open}>
+                <Icon value={LayoutGrid}/>
             </DrawerTrigger>
             <DrawerContent className='flex flex-col h-[90%]'>
                 <Box className='p-4 flex-1 overflow-y-auto scrollbar-hide'>
                     <Titlebar
-                        className='p-0 pb-4'
+                        className='p-0 pb-4 mb-4'
                         renderStart={() => (
                             <DrawerTitle className='font-nunito font-bold leading-5'>
                                 {t('menu')}
@@ -71,15 +66,6 @@ const Menu: FC<MenuProps> = ({}) => {
                             </Box>
                         )}
                     />
-                    <Box className={cn('flex flex-row items-center py-3 gap-x-3 mb-2')}>
-                        <Avatar size='xxxl' fallback='Profile'/>
-                        <Box className='flex flex-col'>
-                            <Text>{t('welcomeBack')}</Text>
-                            <Link href={'/sign-in'} className="text-sm leading-4 text-[var(--mui-palette-primary-main)]">
-                                {t('signIn')}
-                            </Link>
-                        </Box>
-                    </Box>
                     <MenuList/>
                 </Box>
                 <Box className='mt-auto'>

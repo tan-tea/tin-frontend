@@ -36,7 +36,7 @@ const LocationButton: FC<LocationButtonProps> = () => {
     'use memo'
     const locationButtonRef = useRef<HTMLButtonElement | null>(null);
 
-    const t = useTranslations('language');
+    const t = useTranslations('location');
 
     const { isWatching } = useGeolocation();
 

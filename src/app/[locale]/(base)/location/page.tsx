@@ -3,7 +3,6 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
-import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
 import { clientEnv } from 'env/client';
@@ -30,10 +29,15 @@ export async function generateMetadata(
 
     const _ = (await params).locale;
 
-    const t = await getTranslations();
+    const t = await getTranslations('metadata');
 
     return {
-        title: 'Map',
+        title: t('titles.location.title'),
+        description: t('titles.location.description'),
+        openGraph: {
+            title: t('titles.location.title'),
+            description: t('titles.location.description'),
+        },
     };
 };
 

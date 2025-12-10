@@ -8,7 +8,7 @@ import { useHideUI } from 'shared/hooks';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import {
     Field,
@@ -48,13 +48,13 @@ const SignInMobile: FC<SignInMobileProps> = ({
             />
             <Box className='block size-full p-4 dark:text-light-400'>
                 <Box className='flex flex-col gap-y-2 mb-6 text-center'>
-                    <Text component='h2' className='text-2xl leading-6 font-secondary font-semibold'>
+                    <Typography component='h2' className='text-2xl leading-6 font-secondary font-semibold'>
                         Welcome back to {workspace?.name}!
-                    </Text>
+                    </Typography>
                     {workspace?.description && (
-                        <Text className='text-sm leading-5'>
+                        <Typography className='text-sm leading-5'>
                             {workspace?.description}
-                        </Text>
+                        </Typography>
                     )}
                 </Box>
                 {/* <Field>

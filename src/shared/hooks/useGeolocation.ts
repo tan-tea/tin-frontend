@@ -7,6 +7,7 @@ import {
 import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
+import { defaultInitState } from 'shared/stores/application-store/constants';
 
 const POSITION_OPTIONS: PositionOptions = {
     enableHighAccuracy: false,
@@ -14,8 +15,8 @@ const POSITION_OPTIONS: PositionOptions = {
 
 type UseGeolocation = {
     isWatching: boolean;
-    geolocationPosition: GeolocationPosition | null;
-    geolocationError: GeolocationPositionError | null;
+    geolocation: GeolocationPosition | null;
+    error: GeolocationPositionError | null;
     requestGeolocationPermission: () => GeolocationPosition;
 };
 
@@ -47,8 +48,9 @@ export const useGeolocation: UseGeolocationHandler = () => {
 
     const onError = useCallback(
         (error: GeolocationPositionError) => {
-            setGeolocation(null);
+            setGeolocation(defaultInitState.geolocation);
             setGeolocationError(error);
+            setIsWatching(false);
         },
         [],
     );
@@ -98,8 +100,8 @@ export const useGeolocation: UseGeolocationHandler = () => {
 
     return {
         isWatching,
-        geolocationError,
-        geolocationPosition: geolocation,
+        error: geolocationError,
+        geolocation: geolocation,
         requestGeolocationPermission,
     };
 };

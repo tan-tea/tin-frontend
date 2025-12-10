@@ -8,7 +8,7 @@ import { Link } from 'lib/i18n/navigation';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 
 import { NotFoundProps, } from 'feature/NotFound';
@@ -31,20 +31,20 @@ const NotFoundMobile: FC<NotFoundMobileProps> = (
         >
             <Box className='relative size-full p-4'>
                 <Box className='size-full flex flex-col justify-center gap-y-4 items-center'>
-                    <Text
+                    <Typography
                         variant='h1'
                         component='h2'
                         className='text-primary font-secondary text-2xl font-bold text-center'
                     >
                         {title}
-                    </Text>
-                    <Text
+                    </Typography>
+                    <Typography
                         variant='body1'
                         component='p'
                         className='text-sm text-gray-800 text-center'
                     >
                         {description}
-                    </Text>
+                    </Typography>
                     {/* <Button
                         block
                         mobile

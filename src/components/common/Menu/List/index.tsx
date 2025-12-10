@@ -28,29 +28,21 @@ const menuList = tv({
 
 type MenuListVariants = VariantProps<typeof menuList>;
 
-type Link = ComponentProps<typeof MenuItem>;
-
 type MenuListProps = MenuListVariants;
 
-const MenuList: FC<MenuListProps> = ({}) => {
+const MenuList: FC<MenuListProps> = () => {
     'use memo'
     const uniqueId = useId();
 
     const t = useTranslations();
 
-    const links: Array<Link> = [
+    const links: Array<ComponentProps<typeof MenuItem>> = [
         {
             href: '/location',
-            label: 'Ver ubicacion',
+            label: t('location.tooltip'),
             isExternal: false,
             icon: MapPin,
         },
-        // {
-        //     href: '/browse',
-        //     label: 'Explorar',
-        //     isExternal: false,
-        //     icon: MapPin,
-        // },
     ];
 
     return (

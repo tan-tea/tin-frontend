@@ -1,9 +1,12 @@
 'use client';
 
+import type {
+    FC,
+    JSX,
+} from 'react';
 import {
     useState,
     useEffect,
-    type JSX,
 } from 'react';
 import { tv } from 'tailwind-variants';
 import { motion } from 'motion/react';
@@ -12,22 +15,24 @@ import { cn } from 'lib/utils';
 
 const switcher = tv({});
 
-type SwitcherOption<T> = {
+type SwitcherOption = {
     icon: JSX.Element;
-    value: T;
+    value: any;
 }
 
-type SwitcherOptionProps<T> = SwitcherOption<T> & {
+type SwitcherOptionProps = SwitcherOption & {
     isActive?: boolean;
-    onClick?: (value: T) => void;
+    onClick?: (value: any) => void;
 }
 
-function SwitcherOption<T>({
+const SwitcherOption: FC<SwitcherOptionProps> = ({
     icon,
     value,
     isActive,
     onClick,
-}: SwitcherOptionProps<T>) {
+}) => {
+    'use memo'
+
     return (
         <button
             className={cn(
@@ -57,17 +62,17 @@ function SwitcherOption<T>({
     );
 }
 
-type SwitcherProps<T> = {
-    current: T;
-    setCurrent: (value: T) => void;
-    options: Array<SwitcherOption<T>>;
+type SwitcherProps = {
+    current: any;
+    setCurrent: (value: any) => void;
+    options: Array<SwitcherOption>;
 }
 
-function Switcher<T>({
+const Switcher: FC<SwitcherProps> = ({
     current,
     options,
     setCurrent,
-}: SwitcherProps<T>) {
+}) => {
     'use memo'
     const [isMounted, setIsMounted] = useState(false);
 
@@ -81,22 +86,24 @@ function Switcher<T>({
 
     return (
         <motion.div
-            key={String(isMounted)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             className='inline-flex items-center overflow-hidden rounded-full bg-white ring-1 ring-light-400 ring-inset dark:bg-dark-600 dark:ring-dark-400'
             role='radiogroup'
         >
-            {options?.map?.((option) => (
-                <SwitcherOption
-                    key={String(option.value)}
-                    icon={option.icon}
-                    value={option.value}
-                    isActive={current === option.value}
-                    onClick={() => setCurrent(option.value)}
-                />
-            ))}
+            {options?.map?.((option) => {
+                return (
+                    <SwitcherOption
+                        key={option.value}
+                        icon={option.icon}
+                        value={option.value}
+                        isActive={current == option?.value}
+                        onClick={() => setCurrent(option.value)}
+                    />
+                )
+            }
+            )}
         </motion.div>
     );
 }

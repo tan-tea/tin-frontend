@@ -1,10 +1,11 @@
 'use client'
 
+import type { FC } from 'react';
+
 import {
     useRef,
     useState,
     useEffect,
-    type FC,
 } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -96,7 +97,11 @@ const Search: FC<SearchProps> = () => {
                 >
                     <AutocompletePopup className='w-[90%] top-0 mx-auto'>
                         <SearchBox label={t('search.placeholder')}/>
-                        {currentSearch && <AutocompleteEmpty>{writing ? 'Typing...' : 'No items'}</AutocompleteEmpty>}
+                        {currentSearch && (
+                            <AutocompleteEmpty>
+                                {writing ? t('typing') : t('noResults')}
+                            </AutocompleteEmpty>
+                        )}
                         <AutocompleteList>
                             {!currentSearch && !writing && (
                                 <AutocompleteGroup>

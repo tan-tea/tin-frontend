@@ -18,6 +18,17 @@ import Switcher, {
     type SwitcherOption
 } from './Switcher';
 
+const options: Array<SwitcherOption> = [
+    {
+        icon: <En/>,
+        value: 'en',
+    },
+    {
+        icon: <Es/>,
+        value: 'es',
+    },
+];
+
 const LanguageSwitcher: FC = () => {
     'use memo'
     const {
@@ -26,17 +37,6 @@ const LanguageSwitcher: FC = () => {
     } = useApplicationStore(
         useShallow(store => store),
     );
-
-    const options: Array<SwitcherOption<ApplicationLanguage>> = [
-        {
-            icon: <En/>,
-            value: 'en',
-        },
-        {
-            icon: <Es/>,
-            value: 'es',
-        },
-    ];
 
     return (
         <Switcher

@@ -6,7 +6,7 @@ import type {
 
 import {
     Box,
-    Text,
+    Typography,
     Button,
 } from 'ui/index';
 
@@ -34,20 +34,20 @@ const LoadingDesktop: FC<LoadingDesktopProps> = (
             <Box className='relative size-full p-4'>
                 <BackButton className='ml-4 mt-4'/>
                 <Box className='size-full flex flex-col justify-center gap-y-4 items-center'>
-                    <Text
+                    <Typography
                         variant='h1'
                         component='h2'
                         className='text-primary font-secondary text-2xl font-bold text-center'
                     >
                         {t('notFound.title')}
-                    </Text>
-                    <Text
+                    </Typography>
+                    <Typography
                         variant='body1'
                         component='p'
                         className='text-sm text-gray-800 text-center'
                     >
                         {t('notFound.description')}
-                    </Text>
+                    </Typography>
                     <Button
                         block
                         mobile

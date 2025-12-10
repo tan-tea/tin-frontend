@@ -17,7 +17,7 @@ import type {
 } from 'shared/models';
 import { useCountdown } from 'shared/hooks';
 
-import { Text } from 'ui/index';
+import { Typography } from 'ui/index';
 import {
     CardRoot,
     CardMedia,
@@ -104,7 +104,7 @@ const ProductCardTimeLeft: FC<ProductCardTimeLeftProps> = ({
     if (!show || !timeLeft) return null;
 
     return (
-        <Text
+        <Typography
             role='complementary'
             component='span'
             className={timeleftText({
@@ -113,7 +113,7 @@ const ProductCardTimeLeft: FC<ProductCardTimeLeftProps> = ({
             })}
         >
             {t('discountTimeLeft', { left: timeLeft })}
-        </Text>
+        </Typography>
     );
 }
 
@@ -177,16 +177,16 @@ const ProductCardGridVariant: FC<ProductCardGridVariantProps> = ({
                     <ProductCardMediaImage src={banner} alt={title} className={mediaImage()}/>
                 </CardMedia>
                 <CardContent className={content()}>
-                    <Text
+                    <Typography
                         component='h2'
                         className={titleText()}
                     >
                         {title}
-                    </Text>
+                    </Typography>
                     {description && !discount && (
-                        <Text component='p' className={descriptionText()}>
+                        <Typography component='p' className={descriptionText()}>
                             {description}
-                        </Text>
+                        </Typography>
                     )}
                     <PriceWithDiscount
                         size='md'
@@ -239,9 +239,9 @@ const ProductCardListVariant: FC<ProductCardListVariantProps> = ({
                     <ProductCardMediaImage src={banner} alt={title} className={mediaImage()}/>
                 </CardMedia>
                 <CardContent className={content()}>
-                    <Text component='h2' className={titleText()}>
+                    <Typography component='h2' className={titleText()}>
                         {title}
-                    </Text>
+                    </Typography>
                     <ExpandableText
                         text={description}
                         isExpandable={false}

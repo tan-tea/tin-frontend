@@ -5,7 +5,7 @@ type ApplicationLanguage = 'en' | 'es';
 type ApplicationState = {
     theme: ApplicationTheme;
     language: ApplicationLanguage;
-    geolocation: GeolocationPosition | null;
+    geolocation: GeolocationPosition;
     loading: boolean;
     showHeader: boolean;
     showBottomNavigation: boolean;
@@ -14,7 +14,7 @@ type ApplicationState = {
 type ApplicationActions = {
     setTheme: (theme: ApplicationTheme) => void;
     setLanguage: (language: ApplicationLanguage) => void;
-    setGeolocation: (geolocation: GeolocationPosition | null) => void;
+    setGeolocation: (geolocation: GeolocationPosition) => void;
     setLoading: (loading: boolean) => void;
     setShowHeader: (show: boolean) => void;
     setShowBottomNavigation: (show: boolean) => void;

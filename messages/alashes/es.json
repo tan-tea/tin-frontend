@@ -13,18 +13,25 @@
     "goHome": "Ir al inicio",
     "socialMedia": "Redes sociales",
     "navigation": "Navegaci\u00f3n",
+    "typing": "Buscando...",
+    "noResults": "Sin resultados",
+    "address": "Direcci\u00f3n",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
+        "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
         "openGraphDescription": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
         "titleDefault": "Alashes — Extensiones de pestañas en Armenia, Quindio",
         "titleTemplate": "%s | Alashes",
-        "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
-        "keywords": "Pestañas,Extensiones de pestañas,Cejas,Cejas en Henna,Epilación,Depilación,Depilación con cera.",
+        "keywords": "Pestañas,Extensiones de pestañas,Cejas,Cejas en Henna,Epilación,Depilación,Depilación con cera,Armenia,Quindio,Colombia.",
         "titles": {
             "home": {
                 "title": "Extensiones de pestañas y cejas",
                 "description": "Descubre en Alashes extensiones de pesta\u00f1as, dise\u00f1o de cejas y productos de cuidado pensados para realzar tu belleza con resultados naturales."
+            },
+            "location": {
+                "title": "Sedes, Ubicaciones y Puntos de Atenci\u00f3n",
+                "description": "Encuentra todas las sedes cerca de ti. Consulta direcciones y puntos de atenci\u00f3n para visitarnos f\u00e1cilmente."
             },
             "signin": {
                 "title": "Iniciar sesi\u00f3n",
@@ -39,12 +46,6 @@
                 "description": "P\u00e1gina no encontrada"
             }
         }
-    },
-    "manifest": {
-        "name": "Alashes — Extensiones de pestañas en Armenia, Quindio",
-        "shortName": "Alashes",
-        "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
-        "categories": "Pestañas,Extensiones de pestañas,Cejas,Cejas en henna,Armenia - Quindio,Colombia"
     },
     "shared": {
         "back": "Atr\u00e1s",
@@ -80,6 +81,7 @@
     },
     "location": {
         "tooltip": "Nuestra ubicaci\u00f3n",
+        "heading": "Sedes",
         "dialog": {
             "title": "Ubicaci\u00f3n",
             "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",

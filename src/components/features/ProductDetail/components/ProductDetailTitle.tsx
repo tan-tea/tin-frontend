@@ -12,7 +12,7 @@ import {
 
 import { Offer } from 'shared/models';
 
-import { Box, Separator, Text } from 'ui/index';
+import { Box, Separator, Typography } from 'ui/index';
 
 const productDetailTitle = tv({
     slots: {
@@ -63,17 +63,17 @@ const ProductDetailTitle: FC<ProductDetailTitleProps> = ({
 
     return (
         <Box className={container()}>
-            <Text className={titleSlot()}>
+            <Typography className={titleSlot()}>
                 {title}
-            </Text>
+            </Typography>
             <Box className={wrapper()}>
                 {displaySubTitles.map((s, index) => (
                     s === 'separator'
                     ? <Separator key={`${uniqueId}-${s}-${index}`} orientation='vertical'/>
                     : (
-                        <Text key={`${uniqueId}-${s}-${index}`} className={subtitle()}>
+                        <Typography key={`${uniqueId}-${s}-${index}`} className={subtitle()}>
                             {s}
-                        </Text>
+                        </Typography>
                     )
                 ))}
             </Box>

@@ -9,6 +9,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const es = getPathname({ locale: 'es', href: '/' });
     const en = getPathname({ locale: 'en', href: '/' });
 
+    const esUrl = `${clientEnv.NEXT_PUBLIC_SITE_URL}${es}`;
+    const enUrl = `${clientEnv.NEXT_PUBLIC_SITE_URL}${en}`;
+
     return [
         {
             url: clientEnv.NEXT_PUBLIC_SITE_URL,
@@ -17,8 +20,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1,
             alternates: {
                 languages: {
-                    es: clientEnv.NEXT_PUBLIC_SITE_URL + es,
-                    en: clientEnv.NEXT_PUBLIC_SITE_URL + en,
+                    es: esUrl,
+                    en: enUrl,
+                },
+            },
+        },
+        {
+            url: `${clientEnv.NEXT_PUBLIC_SITE_URL}/location`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.9,
+            alternates: {
+                languages: {
+                    es: `${esUrl}/location`,
+                    en: `${enUrl}/location`,
                 },
             },
         },

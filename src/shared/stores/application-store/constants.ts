@@ -8,7 +8,6 @@ import type {
 const defaultInitState: ApplicationState = {
     theme: 'system',
     language: FALLBACK_LANGUAGE,
-    // geolocation: null,
     geolocation: {
         coords: {
             heading: 0,
@@ -17,7 +16,6 @@ const defaultInitState: ApplicationState = {
             accuracy: 0,
             altitude: null,
             altitudeAccuracy: null,
-            // text: null,
             speed: null,
             toJSON: function () {}
         },

@@ -29,7 +29,7 @@ const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
     const { closeDialog, } = useDialog();
     const {
         isWatching,
-        geolocationError,
+        error: geolocationError,
         requestGeolocationPermission,
     } = useGeolocation();
 

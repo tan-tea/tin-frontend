@@ -14,7 +14,7 @@ import { formatCurrency } from 'lib/utils';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 
 const priceWithDiscount = tv({
@@ -130,28 +130,28 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
             className,
         })}>
             {hasDiscount && (
-                <Text
+                <Typography
                     variant='h2'
                     component='h3'
                     className={valueWithDiscount()}
                 >
                     {formatCurrency('COP', roundToCOP(priceWithDiscountApplied))}
-                </Text>
+                </Typography>
             )}
             <Box className='flex items-center gap-x-1'>
                 {(hasDiscount && orientation === 'vertical') && (
-                    <Text className={discountSlot()}>{t('discountPercentage', {
+                    <Typography className={discountSlot()}>{t('discountPercentage', {
                         value: Math.round(discount),
-                    })}</Text>
+                    })}</Typography>
                 )}
-                <Text
+                <Typography
                     through={hasDiscount}
                     variant='h2'
                     component='h3'
                     className={value()}
                 >
                     {formatCurrency('COP', roundToCOP(price))}
-                </Text>
+                </Typography>
             </Box>
         </Box>
     );

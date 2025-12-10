@@ -13,7 +13,7 @@ import {
     CardHeaderProps as RootCardHeaderProps,
 } from '@mui/material/CardHeader';
 
-import Text from 'ui/text';
+import Typography from 'ui/text';
 
 const cardHeader = tv({
     slots: {
@@ -45,7 +45,7 @@ const CardHeader: FC<CardHeaderProps> = (props: CardHeaderProps) => {
                 className,
             })}
             slots={{
-                title: Text,
+                title: Typography,
             }}
             slotProps={{
                 title: { className: title(), },

@@ -6,7 +6,7 @@ import type {
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 
 import { LoadingProps, } from 'feature/Loading';
@@ -27,21 +27,21 @@ const LoadingMobile: FC<LoadingMobileProps> = (
         >
             <Box className='relative size-full flex items-center justify-center'>
                 <Box className='relative w-20 h-[50px]'>
-                    <Text
+                    <Typography
                         component='span'
                         className='absolute top-0 text-primary-dark font-medium text-base'
                     >
                         {t('message')}
-                    </Text>
-                    <Text
+                    </Typography>
+                    <Typography
                         component='span'
                         className='absolute bottom-0 block h-4 w-8 rounded-full bg-primary  animate-[var(--animate-loading_713)]'
                     >
-                        <Text
+                        <Typography
                             component='span'
                             className='absolute inset-0 block rounded-full bg-primary-light animate-[var(--animate-loading2_713)]'
                         />
-                    </Text>
+                    </Typography>
                 </Box>
             </Box>
         </Box>

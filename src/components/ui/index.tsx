@@ -9,7 +9,7 @@ import Dialog from './dialog';
 import DialogTitle from './dialog/title';
 import DialogActions from './dialog/actions';
 import DialogContent from './dialog/content';
-import Text from './text';
+import Typography from './text';
 import AppBar from './app-bar';
 import Button from './button';
 import Popper from './popper';
@@ -50,7 +50,7 @@ export {
     DialogTitle,
     DialogActions,
     DialogContent,
-    Text,
+    Typography,
     AppBar,
     Button,
     Popper,

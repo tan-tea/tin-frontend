@@ -16,6 +16,7 @@ import {
 import type {
     Shop,
     Offer,
+    Category,
     Workspace,
     Customization,
 } from 'shared/models';
@@ -48,4 +49,17 @@ export async function getOfferDetailsBySlug(slug: string): Promise<Offer> {
 export async function getOffersByShop(shopId: string): Promise<Array<Offer>> {
     'use server'
     return await getOffersByShopId(shopId);
+}
+
+export async function search(text: string): Promise<{
+    offers: Array<Offer>;
+    categories: Array<Category>;
+}> {
+    'use server'
+
+
+    return {
+        offers: [],
+        categories: [],
+    };
 }

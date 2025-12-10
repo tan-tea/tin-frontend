@@ -9,7 +9,7 @@ import type {
 import { ApplicationTheme, } from 'shared/stores/application-store/types';
 
 import {
-    Text,
+    Typography,
     Card,
     CardMedia,
     CardHeader,
@@ -67,20 +67,20 @@ const ThemeOptionCard: FC<ThemeOptionCardProps> = (
                     image={image}
                 />
                 <CardContent>
-                    <Text
+                    <Typography
                         variant='h2'
                         component='h3'
                         className='hidden text-lg md:block dark:text-[var(--mui-palette-grey-50)]'
                     >
                         {label}
-                    </Text>
-                    <Text
+                    </Typography>
+                    <Typography
                         variant='body2'
                         component='p'
                         className='text-gray-800 dark:text-[var(--mui-palette-grey-50)] text-sm'
                     >
                         {description}
-                    </Text>
+                    </Typography>
                 </CardContent>
             </CardActionsArea>
         </Card>

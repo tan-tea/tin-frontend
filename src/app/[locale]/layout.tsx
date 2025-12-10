@@ -73,7 +73,7 @@ export const viewport: Viewport = {
     themeColor: [
         {
             media: '(prefers-color-scheme: light)',
-            color: '#000000',
+            color: '#121212',
         },
         {
             media: '(prefers-color-scheme: dark)',
@@ -99,7 +99,7 @@ export async function generateMetadata(
 
     return {
         title: {
-            default: t('titleDefault'),
+            default: t('siteName'),
             template: t('titleTemplate'),
         },
         metadataBase: new URL(clientEnv.NEXT_PUBLIC_SITE_URL),
@@ -119,11 +119,11 @@ export async function generateMetadata(
             }
         ],
         openGraph: {
-            title: t('titleDefault'),
+            title: t('siteName'),
             url: clientEnv.NEXT_PUBLIC_SITE_URL,
             images: '../opengraph-image.png',
-            siteName: t('siteName'),
-            description: t('openGraphDescription'),
+            siteName: t('applicationName'),
+            description: t('description'),
             locale,
             type: 'website',
         },
@@ -134,6 +134,12 @@ export async function generateMetadata(
             googleBot: {
                 index: true,
                 follow: true,
+            },
+        },
+        icons: {
+            icon: {
+                url: `/favicons/${clientEnv.NEXT_PUBLIC_WORKSPACE_NAME ?? 'default'}.ico`,
+                href: `/favicons/${clientEnv.NEXT_PUBLIC_WORKSPACE_NAME ?? 'default'}.ico`,
             },
         },
     };

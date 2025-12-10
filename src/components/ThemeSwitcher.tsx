@@ -18,6 +18,21 @@ import Switcher, {
     type SwitcherOption
 } from './Switcher';
 
+const options: Array<SwitcherOption> = [
+    {
+        icon: <MonitorIcon/>,
+        value: 'system',
+    },
+    {
+        icon: <SunIcon/>,
+        value: 'light',
+    },
+    {
+        icon: <MoonStarIcon/>,
+        value: 'dark',
+    },
+];
+
 const ThemeSwitcher: FC = () => {
     'use memo'
     const {
@@ -26,21 +41,6 @@ const ThemeSwitcher: FC = () => {
     } = useApplicationStore(
         useShallow(store => store),
     );
-
-    const options: Array<SwitcherOption<ApplicationTheme>> = [
-        {
-            icon: <MonitorIcon/>,
-            value: 'system',
-        },
-        {
-            icon: <SunIcon/>,
-            value: 'light',
-        },
-        {
-            icon: <MoonStarIcon/>,
-            value: 'dark',
-        },
-    ];
 
     return (
         <Switcher

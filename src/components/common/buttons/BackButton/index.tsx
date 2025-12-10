@@ -17,7 +17,7 @@ import { useNavigation, } from 'shared/hooks';
 import {
     Box,
     IconButton,
-    Text,
+    Typography,
 } from 'ui/index';
 import { MoveLeft, } from 'icons/index';
 
@@ -100,7 +100,7 @@ const BackButton: FC<BackButtonProps> = ({
                 })}
                 icon={MoveLeft}
             />
-            {showLabel && <Text className={label()}>{t('shared.back')}</Text>}
+            {showLabel && <Typography className={label()}>{t('shared.back')}</Typography>}
         </Box>
     );
 };

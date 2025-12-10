@@ -4,6 +4,7 @@ import type {
     FC,
     ComponentProps,
 } from 'react';
+
 import { useId, useMemo } from 'react';
 
 import { clientEnv } from 'env/client';
@@ -25,8 +26,7 @@ import Section from 'common/Section';
 import Titlebar from 'common/Titlebar';
 import BackButton from 'common/buttons/BackButton';
 import LocationButton from 'common/buttons/LocationButton';
-
-type LocationMobileProps = LocationProps;
+import LocationContent from 'feature/Location/components/LocationContent';
 
 type Marker = {
     latitude: number;
@@ -34,16 +34,17 @@ type Marker = {
     pin: ComponentProps<typeof Pin>['glyph'];
 };
 
-const LocationMobile: FC<LocationMobileProps> = (props) => {
-    'use memo'
-    const {
-        t,
-        shops,
-        camera,
-        geolocation,
-        onCameraChanged,
-    } = props;
+type LocationMobileProps = LocationProps;
 
+const LocationMobile: FC<LocationMobileProps> = ({
+    t,
+    shops,
+    camera,
+    geolocation,
+    onCameraChanged,
+    onLocatePin,
+}) => {
+    'use memo'
     const uniqueId = useId();
 
     const markers: Array<Marker> = useMemo(
@@ -63,7 +64,7 @@ const LocationMobile: FC<LocationMobileProps> = (props) => {
         <Section
             label={''}
             description={''}
-            className='w-full h-dvh overflow-hidden'
+            className='w-full flex flex-col h-dvh overflow-hidden'
         >
             <Titlebar
                 position='fixed'
@@ -74,7 +75,7 @@ const LocationMobile: FC<LocationMobileProps> = (props) => {
                     </Box>
                 )}
             />
-            <Box className='h-[420px]'>
+            <Box className='h-[420px] shrink-0'>
                 <Map
                     mapId={clientEnv.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     zoom={camera?.zoom}
@@ -99,7 +100,6 @@ const LocationMobile: FC<LocationMobileProps> = (props) => {
                                 lng: marker?.longitude,
                             }}
                         >
-                            {/* {marker?.pin && <Pin glyph={marker.pin}/>} */}
                             <Pin
                                 background={'var(--mui-palette-primary-main)'}
                                 glyphColor={'var(--mui-palette-primary-main)'}
@@ -109,9 +109,10 @@ const LocationMobile: FC<LocationMobileProps> = (props) => {
                     ))}
                 </Map>
             </Box>
-            <Box className='size-full overflow-y-auto scrollbar-hide'>
-
-            </Box>
+            <LocationContent
+                shops={shops}
+                onFocusInMap={(geolocation) => onLocatePin && onLocatePin({ ...geolocation })}
+            />
         </Section>
     );
 };

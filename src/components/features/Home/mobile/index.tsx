@@ -10,7 +10,9 @@ import dynamic from 'next/dynamic';
 import Autoplay from 'embla-carousel-autoplay';
 
 import Box from 'ui/box';
-import Text from 'ui/text';
+import Typography, {
+    Heading,
+} from 'ui/text';
 import {
     Carousel,
     CarouselItem,
@@ -84,9 +86,9 @@ const HomeMobile: FC<HomeMobileProps> = ({
                 )}
                 {(discounts?.length > 0 && !selectedCategory) && (
                     <Box className='flex flex-col gap-y-2'>
-                        <Text component='h3' className='font-bold text-lg leading-4.5 font-nunito'>
+                        <Heading>
                             {t('exploreDiscounts')}
-                        </Text>
+                        </Heading>
                         <Carousel
                             className='w-full'
                             opts={{ loop: true }}

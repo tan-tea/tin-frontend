@@ -7,7 +7,7 @@ import { useTranslations, } from 'next-intl';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import { Blob, } from 'icons/index';
 
@@ -32,21 +32,21 @@ const SignInDesktop: FC<SignInDesktopProps> = (
                 <Blob className='-z-10 absolute -right-1/3 top-0 h-screen w-full fill-light-500 dark:fill-dark-300'/>
                 <Box className='h-full grid grid-cols-3 items-center'>
                     <Box className='col-span-2 flex flex-col gap-y-4 items-start justify-center mr-12'>
-                        <Text
+                        <Typography
                             color='primary'
                             variant='h1'
                             component='h2'
                             className='text-5xl font-secondary font-bold'
                         >
                             {t('signin.title')}
-                        </Text>
-                        <Text
+                        </Typography>
+                        <Typography
                             variant='body1'
                             component='p'
                             className='text-xl font-primary font-medium text-gray-800 dark:text-gray-200 max-w-5xl'
                         >
                             {t('signin.description')}
-                        </Text>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>

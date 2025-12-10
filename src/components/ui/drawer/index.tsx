@@ -4,7 +4,10 @@ import type {
     FC,
     ComponentProps
 } from 'react';
-import { tv } from 'tailwind-variants';
+import {
+    tv,
+    type VariantProps,
+} from 'tailwind-variants';
 import { motion } from 'motion/react';
 import { Drawer as BaseDrawer } from 'vaul';
 
@@ -34,7 +37,19 @@ const drawer = tv({
         ),
         description: cn('text-muted-foreground text-sm'),
     },
+    variants: {
+        selected: {
+            true: {
+                trigger: 'text-[var(--mui-palette-primary-main)]',
+            },
+            false: {
+                trigger: 'text-dark-600 dark:text-light-400',
+            },
+        },
+    },
 });
+
+type DrawerVariants = VariantProps<typeof drawer>;
 
 const Drawer: FC<ComponentProps<typeof BaseDrawer.Root>> = ({ ...props }) => {
     return (
@@ -45,12 +60,18 @@ const Drawer: FC<ComponentProps<typeof BaseDrawer.Root>> = ({ ...props }) => {
     );
 };
 
-const DrawerTrigger: FC<ComponentProps<typeof BaseDrawer.Trigger>> = ({
+type DrawerTriggerProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Trigger>;
+
+const DrawerTrigger: FC<DrawerTriggerProps> = ({
     className,
+    selected,
     ...props
 }) => {
     'use memo'
-    const { trigger } = drawer();
+    const { trigger } = drawer({
+        selected,
+    });
 
     return (
         <BaseDrawer.Trigger

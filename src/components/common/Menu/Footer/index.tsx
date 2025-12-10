@@ -7,7 +7,7 @@ import { Link } from 'lib/i18n/navigation';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 
 type MenuFooterLink = {
@@ -36,9 +36,9 @@ const MenuFooter: FC<MenuFooterProps> = () => {
 
     return (
         <Box className='flex flex-col gap-y-1 p-4 text-sm dark:text-light-600'>
-            <Text className='text-xs text-center'>
+            <Typography className='text-xs text-center'>
                 &copy; {currentYear} - {t('allRightsReserved')}
-            </Text>
+            </Typography>
             <Box className='flex flex-wrap items-center justify-center gap-x-2'>
                 {links?.length > 0 && links?.map?.(link => (
                     <Link

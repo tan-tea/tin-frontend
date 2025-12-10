@@ -7,7 +7,7 @@ import { useTranslations, } from 'next-intl';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import {
     Sun,
@@ -76,13 +76,13 @@ const ThemeSelectorDialogContent: FC<ThemeSelectorDialogContentProps> = (
 
     return (
         <Box className='size-full flex flex-col gap-y-6'>
-            <Text
+            <Typography
                 variant='body2'
                 component='p'
                 className='hidden text-xs text-center md:block md:text-left md:text-sm text-gray-800'
             >
                 {t('theme.dialog.description')}
-            </Text>
+            </Typography>
             <Box className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4 flex-wrap overflow-hidden'>
                 {themeOptions && themeOptions?.map?.(
                     (option) => <ThemeOptionCard key={option?.label} {...option}/>

@@ -8,21 +8,28 @@ import { getTranslations, } from 'next-intl/server';
 import Home from 'feature/Home';
 
 type HomePageProps = {
+    params: Promise<{
+        locale: string;
+    }>;
     searchParams: Promise<{
         [key: string]: string | Array<string> | undefined;
-    }>
+    }>;
 };
 
 export async function generateMetadata(
     props: HomePageProps,
 ): Promise<Metadata> {
-    const {} = props;
+    const {
+        params,
+    } = props;
+
+    const { locale } = await params;
 
     const t = await getTranslations('metadata');
 
     return {
-        title: t('titles.home.title'),
-        description: t('titles.home.description'),
+        title: t('siteName'),
+        description: t('description'),
     };
 }
 

@@ -11,10 +11,6 @@ import {
 import { twMerge } from 'tailwind-merge';
 import { minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 
-import {
-    DISCORD_CDN,
-    AVAILABLE_EXTENSIONS,
-} from 'lib/utils/constants';
 import type {
     BackoffFn,
     CacheFactory,
@@ -24,48 +20,10 @@ import type {
 } from 'lib/utils/types';
 
 import type { Customization } from 'shared/models';
+import { Address } from 'shared/models/address';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function getDiscordAssetExtension(asset: string): string {
-    const isGif = asset?.startsWith?.('a_');
-    return isGif
-        ? AVAILABLE_EXTENSIONS['gif']
-        : AVAILABLE_EXTENSIONS['photo']
-}
-
-export function getDiscordAvatar(user: any): string {
-    if (!user) return '';
-
-    const avatarExtension = getDiscordAssetExtension(user.avatar);
-
-    const result = [
-        DISCORD_CDN,
-        '/avatars',
-        `/${user.id}`,
-        `/${user.avatar}`,
-        `${avatarExtension}`,
-    ];
-
-    return result.join('');
-}
-
-export function getDiscordBanner(user: any): string {
-    if (!user) return '';
-
-    const bannerExtension = getDiscordAssetExtension(user?.banner);
-
-    const result = [
-        DISCORD_CDN,
-        '/banners',
-        `/${user.id}`,
-        `/${user.banner}`,
-        `${bannerExtension}`,
-    ];
-
-    return result.join('');
 }
 
 export function createRandomState(length: number = 32): string {
@@ -92,6 +50,28 @@ export function formatCurrency(
         currency,
         maximumFractionDigits: 0,
     }).format(value);
+}
+
+export function formatAddress(address: Address): string {
+    const {
+        street,
+        number,
+        complement,
+        neighborhood,
+        city,
+        state,
+        country,
+        postalCode,
+    } = address;
+
+    const formatted = [
+        street,
+        number,
+        neighborhood,
+        complement,
+    ].filter(Boolean).join(" ");
+
+    return `${formatted}, ${city}, ${state}`;
 }
 
 export function getValueInitials(value: string): string {
@@ -174,7 +154,6 @@ export const fetchWithBackoff: BackoffFn = async (
 export const cacheDurationFactory: CacheFactory = (
     minutes = 5
 ) => minutesToMilliseconds(minutes);
-
 
 export const getCached: GetCachedFn = (store, key) => {
     const cached = store.get(key);

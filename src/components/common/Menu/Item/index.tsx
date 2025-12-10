@@ -59,8 +59,8 @@ const MenuItem: FC<MenuItemProps> = ({
         <Wrapper
             {...props}
             className={cn(
-                'w-full flex items-center px-6 py-4 gap-x-4 rounded-2xl',
-                'bg-light-400 dark:bg-dark-400'
+                'w-full flex items-center px-6 py-4 gap-x-4 rounded-xl',
+                'bg-light-600 dark:bg-dark-300'
             )}
         >
             <Icon value={icon} className={cn('')}/>

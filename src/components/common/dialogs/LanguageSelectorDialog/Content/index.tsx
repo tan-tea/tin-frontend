@@ -8,7 +8,7 @@ import { useTranslations, } from 'next-intl';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import {
     En,
@@ -65,13 +65,13 @@ const LanguageSelectorDialogContent: FC<LanguageSelectorDialogContentProps> = (
     return (
         <Box className='size-full flex flex-col gap-y-6'>
             {description && (
-                <Text
+                <Typography
                     variant='body2'
                     component='p'
                     className='text-xs text-center md:text-left md:text-sm text-gray-800'
                 >
                     {description}
-                </Text>
+                </Typography>
             )}
             <Box className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4 flex-wrap overflow-hidden'>
                 {languageOptions && languageOptions?.map?.(

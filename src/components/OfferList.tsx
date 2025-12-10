@@ -26,12 +26,13 @@ import {
 } from 'icons/index';
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import { Toggle } from 'ui/toggle';
 import { ToggleGroup } from 'ui/toggle-group';
 
 import ProductCardSkeleton from 'common/ProductCard/skeleton';
+import { Heading } from 'ui/text';
 
 const ProductCard = dynamic(
     () => import('common/ProductCard'),
@@ -104,14 +105,12 @@ const OfferList: FC<OfferListProps> = ({
             className={root()}
         >
             <Box className={actions()}>
-                <Text
+                <Heading
                     role='feed'
                     aria-label='heading'
-                    component='h2'
-                    className={actionsTitle()}
                 >
                     {t('offers')}
-                </Text>
+                </Heading>
                 <ToggleGroup
                     value={[view]}
                     onValueChange={handleViewChange}

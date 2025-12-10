@@ -1,17 +1,17 @@
 'use client'
 
-import {
+import type {
     FC,
-    memo,
 } from 'react';
+import { memo } from 'react';
 
 import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
 import {
-    default as RootTooltip,
-    TooltipProps as RootTooltipProps,
+    default as BaseTooltip,
+    TooltipProps as BaseTooltipProps,
 } from '@mui/material/Tooltip';
 
 const tooltip = tv({
@@ -21,28 +21,25 @@ const tooltip = tv({
     }
 });
 
-const {
-    base: rootTooltip,
-    arrow: rootArrow,
-} = tooltip();
-
 type TooltipVariants = VariantProps<typeof tooltip>;
 
-type TooltipProps = TooltipVariants & RootTooltipProps;
+type TooltipProps = TooltipVariants & BaseTooltipProps;
 
-const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
+const Tooltip: FC<TooltipProps> = ({
+    className,
+    arrow = true,
+    ...props
+}) => {
+    'use memo'
     const {
-        children,
-        className,
-        arrow = true,
-        ...rest
-    } = props;
+        base: rootTooltip,
+        arrow: rootArrow,
+    } = tooltip();
 
     return (
-        <RootTooltip
-            {...rest}
+        <BaseTooltip
+            {...props}
             arrow={arrow}
-            children={children}
             slotProps={{
                 arrow: { className: rootArrow(), },
                 tooltip: {

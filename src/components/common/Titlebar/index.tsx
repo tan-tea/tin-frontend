@@ -19,7 +19,7 @@ import { cn } from 'lib/utils';
 
 import {
     Box,
-    Text
+    Typography
 } from 'ui/index';
 
 const titlebar = tv({
@@ -136,7 +136,7 @@ const Titlebar: FC<TitlebarProps> = (props) => {
         >
             {renderStart ? renderStart?.(props) : <motion.div/>}
             {title && !renderCenter
-                ? <Text className={text()}>{title}</Text>
+                ? <Typography className={text()}>{title}</Typography>
                 : renderCenter && !title
                     ? renderCenter?.(props)
                     : !title && !renderCenter

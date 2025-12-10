@@ -7,13 +7,13 @@ import { useTranslations, } from 'next-intl';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 
 type LocationSelectorDialogContentProps = {
     t: ReturnType<typeof useTranslations>;
     currentLocation: GeolocationPosition | null;
-    onSelectLocation: (location: GeolocationPosition | null) => void;
+    onSelectLocation: (location: GeolocationPosition) => void;
 };
 
 const LocationSelectorDialogContent: FC<LocationSelectorDialogContentProps> = (
@@ -28,13 +28,13 @@ const LocationSelectorDialogContent: FC<LocationSelectorDialogContentProps> = (
 
     return (
         <Box className='size-full flex flex-col gap-y-6'>
-            <Text
+            <Typography
                 variant='body2'
                 component='p'
                 className='text-xs text-center dark:text-light-400 md:block md:text-left md:text-sm text-gray-800'
             >
                 {t('location.dialog.description')}
-            </Text>
+            </Typography>
         </Box>
     );
 };

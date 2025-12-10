@@ -13,7 +13,7 @@ import {
 import dynamic from 'next/dynamic';
 
 import Box from 'ui/box';
-import Text from 'ui/text';
+import Typography from 'ui/text';
 
 const ProductDetailImage = dynamic(
     () => import('feature/ProductDetail/components/ProductDetailImage'),
@@ -71,9 +71,9 @@ const Empty: FC<EmptyProps> = (props) => {
                 />
             )}
             <Box>
-                <Text variant='h2' className={titleSlot()}>
+                <Typography variant='h2' className={titleSlot()}>
                     {title}
-                </Text>
+                </Typography>
             </Box>
         </Box>
     )

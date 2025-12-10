@@ -5,6 +5,11 @@ import type {
     ReactElement,
 } from 'react';
 import {
+    useMemo,
+    useState,
+    useEffect,
+} from 'react';
+import {
     MapCameraProps,
     MapCameraChangedEvent,
 } from '@vis.gl/react-google-maps';
@@ -22,6 +27,7 @@ import {
     useLocalStorage,
 } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
+import { defaultInitState } from 'shared/stores/application-store/constants';
 
 import DeviceDetectorLayout from 'common/DeviceDetector';
 
@@ -44,6 +50,10 @@ export type LocationProps = OwnLocationProps & {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
     onCameraChanged: (camera: MapCameraChangedEvent) => void;
+    onLocatePin?: (geolocation: {
+        lat: number;
+        lng: number;
+    }) => void;
 };
 
 export default function Location(
@@ -64,12 +74,17 @@ export default function Location(
         useShallow(store => store),
     );
 
+    const primaryShop = useMemo(
+        () => shops?.find?.(shop => shop.isPrimary === true),
+        [shops,]
+    );
+
     const [camera, setCamera,] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
-            lat: geolocation?.coords?.latitude || 0,
-            lng: geolocation?.coords?.longitude || 0,
+            lat: primaryShop?.geolocation.latitude || geolocation?.coords?.latitude! || defaultInitState.geolocation.coords.latitude,
+            lng: primaryShop?.geolocation.longitude ||  geolocation?.coords?.longitude! || defaultInitState.geolocation.coords.longitude,
         },
-        zoom: 14,
+        zoom: 17.5,
     });
 
     const childProps: LocationProps = {
@@ -78,6 +93,13 @@ export default function Location(
         navigation,
         geolocation,
         camera,
+        onLocatePin: (geolocation) => setCamera({
+            center: {
+                lat: geolocation.lat,
+                lng: geolocation.lng,
+            },
+            zoom: 19,
+        }),
         onCameraChanged: (event) => setCamera(event?.detail),
     };
 

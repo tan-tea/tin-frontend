@@ -12,7 +12,7 @@ import { cn, getValueInitials } from 'lib/utils';
 
 import {
     Box,
-    Text,
+    Typography,
 } from 'ui/index';
 import {
     AvatarRoot,
@@ -23,7 +23,7 @@ import {
 const categoryCard = tv({
     slots: {
         wrapper: cn(
-            'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl w-26',
+            'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl  w-26',
             'min-h-[110px] border transition-all duration-200 cursor-pointer',
             'dark:bg-dark-400'
         ),
@@ -98,13 +98,13 @@ const CategoryCard: FC<CategoryCardProps> = (props) => {
                     {getValueInitials(label!)}
                 </AvatarFallback>
             </AvatarRoot>
-            <Text
+            <Typography
                 variant='body1'
                 component='p'
                 className={text()}
             >
                 {label}
-            </Text>
+            </Typography>
         </Box>
     );
 };

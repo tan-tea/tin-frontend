@@ -12,13 +12,8 @@ import type {
 import { useCache } from 'shared/hooks';
 import { offersAtom } from 'shared/state';
 
-type UseOfferData = Readonly<{
+type UseOfferData = Readonly<QueryObserverResult<Array<Offer>> & {
     queryId: string;
-    data: Array<Offer>;
-    isLoading: boolean;
-    error: Error | null;
-    refetch: QueryObserverResult['refetch'];
-    isRefetching: boolean;
 }>;
 
 type UseOfferDataProps = {
@@ -38,13 +33,7 @@ export const useOffersData: UseOfferDataHandler = ({
         saveMany,
     } = useCache<Array<Offer>>('offers', offersAtom);
 
-    const {
-        data: offerData,
-        isLoading,
-        error,
-        refetch,
-        isRefetching,
-    } = useQuery({
+    const result = useQuery({
         queryKey: [QUERY_ID, shopId,],
         queryFn: async () => {
             const cached = await load(undefined, 5);
@@ -62,11 +51,7 @@ export const useOffersData: UseOfferDataHandler = ({
     });
 
     return {
+        ...result,
         queryId: QUERY_ID,
-        data: offerData || [],
-        isLoading,
-        error,
-        refetch,
-        isRefetching,
     };
 };

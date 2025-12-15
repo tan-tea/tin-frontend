@@ -1,7 +1,14 @@
+import dynamic from 'next/dynamic';
+
 import contextFactory from 'shared/contexts/contextFactory';
 import useDialogContextState from 'shared/contexts/dialog/useDialogContextState';
 
-import DialogManager from 'common/dialogs/DialogManager';
+const DialogManager = dynamic(
+    () => import('common/dialogs/DialogManager'),
+    {
+        ssr: false,
+    },
+);
 
 const {
     Provider,

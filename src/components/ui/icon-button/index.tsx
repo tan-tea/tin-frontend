@@ -16,7 +16,7 @@ import {
 import { Icon } from 'icons/index';
 
 const iconButton = tv({
-    base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer',
+    base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer outline-none',
     variants: {
         size: {
             sm: 'p-0.5',

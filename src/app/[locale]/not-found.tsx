@@ -5,7 +5,7 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import NotFound from 'feature/NotFound';
+import NotFound from 'components/pages/not-found';
 
 type NotFoundProps = object;
 

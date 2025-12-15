@@ -12,11 +12,8 @@ import { useDialog, } from 'shared/contexts/dialog';
 
 type DialogManagerProps = object;
 
-const DialogManager: FC<DialogManagerProps> = (
-    props: DialogManagerProps,
-) => {
-    const {} = props;
-
+const DialogManager: FC<DialogManagerProps> = () => {
+    'use memo'
     const { dialogs, } = useDialog();
 
     const [mounted, setMounted] = useState(false);

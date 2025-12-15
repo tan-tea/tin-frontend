@@ -12,7 +12,6 @@ import DialogContent from './dialog/content';
 import Typography from './text';
 import AppBar from './app-bar';
 import Button from './button';
-import Popper from './popper';
 import Spinner from './spinner';
 import Tooltip from './tooltip';
 import Input from './field/input';
@@ -27,11 +26,6 @@ import Dropdown, {
     type DropdownProps,
     type DropdownVariants,
 } from './dropdown';
-import Separator, {
-    separator,
-    type SeparatorProps,
-    type SeparatorVariants,
-} from './separator';
 import Skeleton, {
     skeleton,
     type SkeletonProps,
@@ -53,7 +47,6 @@ export {
     Typography,
     AppBar,
     Button,
-    Popper,
     Spinner,
     Tooltip,
     Input,
@@ -62,18 +55,15 @@ export {
     IconButton,
     Dropdown,
     dropdown,
-    Separator,
-    separator,
     Skeleton,
     skeleton,
 };
+export { Separator } from './separator';
 export type {
     LabelProps,
     LabelVariants,
     DropdownProps,
     DropdownVariants,
-    SeparatorProps,
-    SeparatorVariants,
     SkeletonProps,
     SkeletonVariants,
 };

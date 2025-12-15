@@ -10,3 +10,4 @@ export type { Attribute } from './attribute';
 export type { Value } from './value';
 export type { History } from './history';
 export type { Managed } from './managed';
+export type { Address } from './address';

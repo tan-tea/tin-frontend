@@ -19,7 +19,7 @@ import type {
     Offer
 } from 'shared/models';
 
-import ProductDetail from 'feature/ProductDetail';
+import ProductDetail from 'components/pages/product-detail';
 
 type ProductDetailStaticParams = {
     params: Awaited<{

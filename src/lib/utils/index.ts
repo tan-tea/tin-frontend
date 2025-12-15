@@ -19,8 +19,10 @@ import type {
     SetCachedFn
 } from 'lib/utils/types';
 
-import type { Customization } from 'shared/models';
-import { Address } from 'shared/models/address';
+import type {
+    Address,
+    Customization,
+} from 'shared/models';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

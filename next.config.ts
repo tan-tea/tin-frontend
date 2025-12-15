@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
-import { fileURLToPath } from 'node:url';
+
 import { createJiti } from 'jiti';
+import { fileURLToPath } from 'node:url';
 
 import createNextIntlPlugin from 'next-intl/plugin';
 
@@ -12,10 +13,21 @@ jiti.import('./src/env/client.ts');
 const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig: NextConfig = {
-    /* config options here */
+    output: 'standalone',
+    devIndicators: false,
+    compiler: {
+        removeConsole: isProd,
+    },
+    reactCompiler: {
+        compilationMode: 'annotation',
+    },
+    transpilePackages: [
+        '@t3-oss/env-nextjs',
+        '@t3-oss/env-core',
+    ],
+    allowedDevOrigins: ['http://172.23.94.42'],
     experimental: {
         useCache: true,
-        nextScriptWorkers: true,
         optimizePackageImports: [
             'lucide-react',
             'date-fns',
@@ -23,20 +35,13 @@ const nextConfig: NextConfig = {
         serverActions: {
             bodySizeLimit: '50mb',
         },
-        reactCompiler: {
-            compilationMode: 'annotation',
-        },
         staleTimes: {
             dynamic: 10,
             static: 30,
         },
     },
-    transpilePackages: ['@t3-oss/env-nextjs', '@t3-oss/env-core'],
-    output: 'standalone',
-    devIndicators: false,
-    allowedDevOrigins: ['http://172.23.94.42'],
     images: {
-        qualities: [25, 50, 75, 100],
+        qualities: [75, 100],
         remotePatterns: [
             {
                 hostname: '**',
@@ -48,13 +53,7 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    compiler: {
-        removeConsole: isProd,
-    },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    async headers() {
+    headers: async () => {
         return [
             {
                 source: '/(.*)',
@@ -92,10 +91,10 @@ const nextConfig: NextConfig = {
             },
         ];
     },
-    async redirects() {
+    redirects: async () => {
         return [];
     },
-    async rewrites() {
+    rewrites: async () => {
         return [];
     },
 };

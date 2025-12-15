@@ -1,49 +1,82 @@
 {
-    "compilerOptions": {
-        "target": "ES2017",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "noEmit": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "incremental": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "app/*": ["./src/app/*"],
-            "lib/*": ["./src/lib/*"],
-            "public/*": ["./public/*"],
-            "messages/*": ["./messages/*"],
-            "shared/*": ["./src/shared/*"],
-            "ui/*": ["./src/components/ui/*"],
-            "env/*": ["./src/env/*"],
-            "components/*": ["./src/components/*"],
-            "common/*": ["./src/components/common/*"],
-            "contexts/*": ["./src/contexts/*"],
-            "icons/*": ["./src/components/icons/*"],
-            "layout/*": ["./src/components/layout/*"],
-            "feature/*": ["./src/components/features/*"]
-        }
-    },
-    "include": [
-        "next-env.d.ts",
-        "global.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts",
-        "public/workers/background.js",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "exclude": ["node_modules"]
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "app/*": [
+        "./src/app/*"
+      ],
+      "lib/*": [
+        "./src/lib/*"
+      ],
+      "public/*": [
+        "./public/*"
+      ],
+      "messages/*": [
+        "./messages/*"
+      ],
+      "shared/*": [
+        "./src/shared/*"
+      ],
+      "ui/*": [
+        "./src/components/ui/*"
+      ],
+      "env/*": [
+        "./src/env/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "common/*": [
+        "./src/components/common/*"
+      ],
+      "contexts/*": [
+        "./src/contexts/*"
+      ],
+      "icons/*": [
+        "./src/components/icons/*"
+      ],
+      "layout/*": [
+        "./src/components/layout/*"
+      ],
+      "pages/*": [
+        "./src/components/pages/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "global.d.ts",
+    "next-intl.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "public/workers/background.js",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

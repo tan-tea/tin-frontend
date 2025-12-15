@@ -87,6 +87,89 @@ async function getOffersSlugByWorkspace(): Promise<Array<{ slug: string }>> {
     return data.map(d => ({ slug: d.slug, }));
 }
 
+function getCachedOffersByShopId(shopId: string): Array<Offer> | null {
+    return getCached(offersCache, shopId);
+}
+
+function setCachedOffersByShopId(shopId: string, data: Array<Offer>): void {
+    return setCached(offersCache, shopId, data, 10);
+}
+
+async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
+    const cached = getCachedOffersByShopId(shopId);
+    if (cached) return cached;
+
+    const supabase = await createClient();
+
+    const now = formatISO(new Date());
+
+    const { data, error } = await supabase
+        .from('offers')
+        .select('*')
+        .eq('shop_id', shopId)
+        .lte('start_date', now)
+        .gte('end_date', now)
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+
+    if (error && !data) return [];
+
+    const result = camelcaseKeys(data, { deep: true }) as Array<Offer>;
+
+    setCachedOffersByShopId(shopId, result);
+
+    return result;
+}
+
+async function getOffersByCriteria(
+    query: string,
+    top: number = 10,
+    skip: number = 0,
+): Promise<Array<Offer>> {
+    const supabase = await createClient();
+
+    const now = formatISO(new Date());
+
+    const { data, error } = await supabase
+        .from('offers')
+        // .select(`
+        //     id,
+        //     title,
+        //     description,
+        //     slug,
+        //     categories!inner (
+        //         category_id,
+        //         id,
+        //         label,
+        //         description
+        //     )
+        // `)
+        // .or(`title.ilike.%${query}%,description.ilike.%${query}%,slug.ilike.%${query}%,categories.label.ilike.%${query}%,categories.description.ilike.%${query}%`, {
+        //     referencedTable: 'categories',
+        //     foreignTable: 'categories',
+        // })
+        // .lte('start_date', now)
+        // .gte('end_date', now)
+        // .eq('is_active', true)
+        // .range(skip, top);
+        .select(`
+            id,
+            title,
+            description,
+            slug
+        `)
+        .or(`title.ilike.%${query}%,description.ilike.%${query}%,slug.ilike.%${query}%`)
+        .lte('start_date', now)
+        .gte('end_date', now)
+        .eq('is_active', true)
+        .range(skip, top);
+
+    if (error && !data) return [];
+
+    const result = camelcaseKeys(data, { deep: true }) as unknown as Array<Offer>;
+    return result;
+}
+
 function getCachedDefaultShopByWorkspaceId(workspaceId: string): Shop | null {
     return getCached(shopsCache, workspaceId);
 }
@@ -150,44 +233,11 @@ async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<Shop>> 
     return result;
 }
 
-function getCachedOffersByShopId(shopId: string): Array<Offer> | null {
-    return getCached(offersCache, shopId);
-}
-
-function setCachedOffersByShopId(shopId: string, data: Array<Offer>): void {
-    return setCached(offersCache, shopId, data, 10);
-}
-
-async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
-    const cached = getCachedOffersByShopId(shopId);
-    if (cached) return cached;
-
-    const supabase = await createClient();
-
-    const now = formatISO(new Date());
-
-    const { data, error } = await supabase
-        .from('offers')
-        .select('*')
-        .eq('shop_id', shopId)
-        .lte('start_date', now)
-        .gte('end_date', now)
-        .eq('is_active', true)
-        .order('created_at', { ascending: false });
-
-    if (error && !data) return [];
-
-    const result = camelcaseKeys(data, { deep: true }) as Array<Offer>;
-
-    setCachedOffersByShopId(shopId, result);
-
-    return result;
-}
-
 export {
     getOfferBySlug,
     getOffersSlugByWorkspace,
     getDefaultShopByWorkspaceId,
-    getOffersByShopId,
     getShopsByWorkspaceId,
+    getOffersByShopId,
+    getOffersByCriteria,
 };

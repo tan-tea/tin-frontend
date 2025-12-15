@@ -16,7 +16,7 @@ import { cn } from 'lib/utils';
 
 const menu = tv({
     slots: {
-        trigger: cn(''),
+        trigger: cn('flex items-center'),
         backdrop: cn(''),
         positioner: cn('outline-none z-[100]'),
         popup: cn(

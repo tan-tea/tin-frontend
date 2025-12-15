@@ -19,7 +19,7 @@ import Input from 'ui/field/input';
 const autocomplete = tv({
     slots: {
         input: cn('w-full'),
-        trigger: cn(''),
+        trigger: cn('outline-none'),
         clear: cn('h-6 w-6 flex items-center justify-center'),
         positioner: cn('outline-none'),
         popup: cn(

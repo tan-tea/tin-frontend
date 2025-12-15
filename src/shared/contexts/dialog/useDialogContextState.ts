@@ -6,7 +6,6 @@ import {
 import type {
     DialogProps,
 } from 'shared/contexts/dialog/types';
-import { DEFAULT_DIALOGS_STATE, } from 'shared/contexts/dialog/constants'
 
 type DialogContextState = {
     dialogs: Array<DialogProps>;
@@ -19,7 +18,7 @@ type DialogContextState = {
 };
 
 const useDialogContextState: () => DialogContextState = () => {
-    const [dialogsState, setDialogsState,] = useState<Array<DialogProps>>(DEFAULT_DIALOGS_STATE);
+    const [dialogsState, setDialogsState,] = useState<Array<DialogProps>>([]);
 
     const isDialogOpen = useCallback(
         (id: DialogProps['id']) => {

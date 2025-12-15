@@ -1,9 +1,5 @@
 import './globals.css';
 
-import 'reflect-metadata';
-
-import 'lib/di';
-
 import type {
     FC,
     ReactNode,
@@ -23,17 +19,17 @@ import {
     hasLocale,
     NextIntlClientProvider,
 } from 'next-intl';
-import { notFound, } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { AppRouterCacheProvider, } from '@mui/material-nextjs/v15-appRouter';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import { clientEnv } from 'env/client';
 
 import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
+import { LANGUAGES } from 'lib/i18n/constants';
 
 import Providers from 'layout/Providers';
-import { LANGUAGES } from 'lib/i18n/constants';
 
 const poppins = Poppins({
     subsets: ['latin',],
@@ -81,7 +77,6 @@ export const viewport: Viewport = {
         },
     ],
 };
-
 
 export async function generateMetadata(
     props: RootLayoutProps

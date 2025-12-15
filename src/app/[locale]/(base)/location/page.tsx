@@ -14,7 +14,7 @@ import type {
     Shop
 } from 'shared/models';
 
-import Location from 'feature/Location';
+import Location from 'components/pages/location';
 
 type LocationPageProps = {
     params: Promise<{

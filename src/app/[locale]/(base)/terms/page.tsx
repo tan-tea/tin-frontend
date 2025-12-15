@@ -3,9 +3,10 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
-import Terms from 'components/features/Terms';
+import Terms from 'pages/terms';
 
 type TermsProps = object;
 
@@ -18,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default function TermsPage(
-    props: TermsProps
-): ReactElement<FC<TermsProps>> {
+export default async function TermsPage(props: TermsProps): Promise<ReactElement<FC<TermsProps>>> {
     const {} = props;
 
     return (

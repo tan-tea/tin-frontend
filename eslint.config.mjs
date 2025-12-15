@@ -9,25 +9,37 @@ import prettierConfig from 'eslint-config-prettier';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const eslintConfig = [...nextCoreWebVitals, ...nextTypescript, {
-    plugins: {
-        prettier: prettierPlugin,
+const eslintConfig = [
+    ...nextCoreWebVitals,
+    ...nextTypescript,
+    {
+        plugins: {
+            prettier: prettierPlugin,
+        },
+        rules: {
+            'prettier/prettier': [
+                'error',
+                {
+                    singleCoute: true,
+                    trailingComma: 'all',
+                    semi: true,
+                    printWidth: 100,
+                    tabWidth: 4,
+                    useTabs: false,
+                },
+            ],
+        },
     },
-    rules: {
-        'prettier/prettier': [
-            'error',
-            {
-                singleCoute: true,
-                trailingComma: 'all',
-                semi: true,
-                printWidth: 100,
-                tabWidth: 4,
-                useTabs: false,
-            },
-        ],
-    },
-}, prettierConfig, {
-    ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "next-env.d.ts"]
-}];
+    prettierConfig,
+    {
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "build/**",
+            "next-env.d.ts"
+        ]
+    }
+];
 
 export default eslintConfig;

@@ -10,7 +10,7 @@ import Box from 'ui/box';
 import type { BaseLayoutProps } from 'layout/Base';
 
 const Header = dynamic(
-    () => import('common/Header'),
+    () => import('components/common/header'),
 );
 
 type BaseLayoutDesktopProps = BaseLayoutProps;

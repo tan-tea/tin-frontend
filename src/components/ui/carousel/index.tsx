@@ -1,17 +1,22 @@
 'use client';
 
+import type {
+    FC,
+    ComponentProps,
+    KeyboardEvent,
+} from 'react';
+
 import {
     useState,
     useEffect,
     useContext,
     useCallback,
     createContext,
-    type FC,
-    type ComponentProps,
-    type KeyboardEvent,
 } from 'react';
 import { tv } from 'tailwind-variants';
-import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import useEmblaCarousel, {
+    type UseEmblaCarouselType
+} from 'embla-carousel-react';
 
 import { IconButton } from 'ui/index';
 import { ArrowLeft, ArrowRight } from 'icons/index';

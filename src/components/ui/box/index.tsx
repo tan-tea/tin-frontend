@@ -1,10 +1,11 @@
 'use client'
 
-import {
-    memo,
-    type FC,
-    type ComponentProps,
+import type {
+    FC,
+    ComponentProps,
 } from 'react';
+
+import { memo } from 'react';
 import {
     tv,
     type VariantProps,
@@ -16,7 +17,7 @@ import BaseBox, {
 } from '@mui/material/Box';
 
 const box = tv({
-    base: '',
+    base: 'outline-none',
 });
 
 type BoxVariants = VariantProps<typeof box>;

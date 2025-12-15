@@ -18,7 +18,7 @@ import {
 import { workspaceAtom, } from 'shared/state';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import DeviceDetectorLayout from 'common/DeviceDetector';
+import DeviceDetector from 'common/device-detector';
 
 import BaseLayoutMobile from './mobile';
 import BaseLayoutDesktop from './desktop';
@@ -70,7 +70,7 @@ export default function BaseLayout(
     if (!initialWorkspace || loading) return null;
 
     return (
-        <DeviceDetectorLayout
+        <DeviceDetector
             MobileComponent={<BaseLayoutMobile {...childProps}/>}
             DesktopComponent={<BaseLayoutDesktop {...childProps}/>}
         />

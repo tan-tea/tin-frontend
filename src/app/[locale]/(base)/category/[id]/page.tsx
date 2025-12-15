@@ -3,7 +3,7 @@ import type {
     ReactElement,
 } from 'react';
 
-import CategoryDetail from 'feature/CategoryDetail';
+import CategoryDetail from 'components/pages/category-detail';
 
 type CategoryDetailPageProps = {
     params: Promise<{

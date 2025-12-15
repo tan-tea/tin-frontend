@@ -29,11 +29,13 @@ import {
     MenuGroupLabel,
 } from 'ui/menu';
 import {
+    Icon,
     House,
     SiInstagram,
     SiTiktok,
     SiWhatsapp,
     SiFacebook,
+    ChevronDown,
 } from 'icons/index';
 
 const LogoImage = dynamic(
@@ -82,10 +84,8 @@ const Logo: FC<LogoProps> = () => {
     return (
         <Menu>
             <MenuTrigger>
-                <LogoImage
-                    src={(customization?.logo || workspace?.logo)!}
-                    alt={workspace?.name!}
-                />
+                <LogoImage alt={workspace?.name!} src={(customization?.logo || workspace?.logo)!}/>
+                <Icon value={ChevronDown}/>
             </MenuTrigger>
             <MenuPortal>
                 <MenuPositioner>
@@ -110,7 +110,7 @@ const Logo: FC<LogoProps> = () => {
                         <MenuGroup>
                             <MenuGroupLabel>{t('socialMedia')}</MenuGroupLabel>
                             {customization?.socialMedia?.map?.(item => {
-                                const Icon = item?.platform && item?.platform in platformMap
+                                const Platform = (item?.platform && item?.platform in platformMap)
                                     ? platformMap?.[item.platform as keyof typeof platformMap]
                                     : House;
 
@@ -124,7 +124,7 @@ const Logo: FC<LogoProps> = () => {
                                             target='_blank'
                                         />}
                                     >
-                                        <Icon className='text-dark-300 dark:text-light-600'/> {item?.label || item?.platform}
+                                        <Platform className='text-dark-300 dark:text-light-600'/> {item?.label || item?.platform}
                                     </MenuItem>
                                 );
                             })}

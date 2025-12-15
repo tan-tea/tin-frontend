@@ -3,11 +3,14 @@ import type {
     ReactElement,
 } from 'react';
 import type { Metadata, } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
-import Privacy from 'feature/Privacy';
+import Privacy from 'pages/privacy';
 
-type Props = object;
+type PrivacyPageProps = Readonly<{
+    params: Promise<{ locale: string; }>;
+}>;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations('titles');
@@ -19,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function PrivacyPage(
-    props: Props
-): ReactElement<FC<Props>> {
+    props: PrivacyPageProps
+): ReactElement<FC<PrivacyPageProps>> {
     const {} = props;
 
     return (

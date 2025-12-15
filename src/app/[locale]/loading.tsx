@@ -5,7 +5,7 @@ import type {
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import Loading from 'feature/Loading';
+import Loading from 'components/pages/loading';
 
 type LoadingProps = object;
 

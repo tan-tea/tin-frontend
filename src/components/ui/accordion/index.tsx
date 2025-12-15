@@ -6,9 +6,9 @@ import type {
 } from 'react';
 
 import {
-    AnimatePresence,
     motion,
-    type MotionNodeAnimationOptions,
+    AnimatePresence,
+    MotionNodeAnimationOptions,
 } from 'motion/react';
 import {
     tv,

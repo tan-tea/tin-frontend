@@ -8,6 +8,7 @@ import {
 } from 'lib/core/wm';
 import {
     getOfferBySlug,
+    getOffersByCriteria,
     getOffersByShopId,
     getOffersSlugByWorkspace,
     getShopsByWorkspaceId,
@@ -51,15 +52,7 @@ export async function getOffersByShop(shopId: string): Promise<Array<Offer>> {
     return await getOffersByShopId(shopId);
 }
 
-export async function search(text: string): Promise<{
-    offers: Array<Offer>;
-    categories: Array<Category>;
-}> {
+export async function autocomplete(query: string): Promise<Array<Offer>> {
     'use server'
-
-
-    return {
-        offers: [],
-        categories: [],
-    };
+    return await getOffersByCriteria(query);
 }

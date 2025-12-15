@@ -1,8 +1,6 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
 
 import {
     tv,
@@ -13,7 +11,7 @@ import {
     Separator as BaseSeparator,
 } from '@base-ui-components/react/separator';
 
-export const separator = tv({
+const separator = tv({
     base: 'bg-[var(--mui-palette-grey-100)]',
     variants: {
         orientation: {
@@ -23,31 +21,31 @@ export const separator = tv({
     },
 });
 
-export type SeparatorVariants = VariantProps<typeof separator>;
+type SeparatorVariants = VariantProps<typeof separator>;
 
-export type SeparatorProps = SeparatorVariants & BaseSeparator.Props & {
-    className?: ClassValue;
-};
+type SeparatorProps = SeparatorVariants & ComponentProps<typeof BaseSeparator>;
 
-const Separator: FC<SeparatorProps> = (props: SeparatorProps) => {
-    const {
-        children,
-        orientation = 'horizontal',
-        className,
-        ...rest
-    } = props;
+const Separator: FC<SeparatorProps> = ({
+    orientation = 'horizontal',
+    className,
+    ...props
+}) => {
+    'use memo'
 
     return (
         <BaseSeparator
-            {...rest}
+            {...props}
+            data-slot='separator'
             className={separator({
                 orientation,
-                className,
+                className: className as ClassValue,
             })}
-        >
-            {children}
-        </BaseSeparator>
+        />
     );
 };
 
-export default Separator;
+Separator.displayName = 'Separator';
+
+export {
+    Separator,
+};

@@ -5,7 +5,7 @@ import type {
 import type { Metadata, } from 'next';
 import { getTranslations, } from 'next-intl/server';
 
-import Home from 'feature/Home';
+import Home from 'components/pages/home';
 
 type HomePageProps = {
     params: Promise<{

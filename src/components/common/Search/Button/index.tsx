@@ -20,7 +20,7 @@ const SearchButton: FC<SearchButtonProps> = ({
     selected,
 }) => {
     'use memo'
-    const t = useTranslations('language');
+    const t = useTranslations('search');
 
     return (
         <Tooltip title={t('tooltip')}>

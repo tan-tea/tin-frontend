@@ -1,10 +1,8 @@
 'use client'
 
-import {
-    type FC,
-    type ComponentProps,
-    useId,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
+
+import { useId } from 'react';
 import {
     tv,
     type VariantProps,

@@ -51,7 +51,14 @@ const drawer = tv({
 
 type DrawerVariants = VariantProps<typeof drawer>;
 
-const Drawer: FC<ComponentProps<typeof BaseDrawer.Root>> = ({ ...props }) => {
+type DrawerProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Root>;
+
+const Drawer: FC<DrawerProps> = ({
+    ...props
+}) => {
+    'use memo'
+
     return (
         <BaseDrawer.Root
             {...props}
@@ -84,7 +91,14 @@ const DrawerTrigger: FC<DrawerTriggerProps> = ({
     );
 }
 
-const DrawerPortal: FC<ComponentProps<typeof BaseDrawer.Portal>> = ({ ...props }) => {
+type DrawerPortalProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Portal>;
+
+const DrawerPortal: FC<DrawerPortalProps> = ({
+    ...props
+}) => {
+    'use memo'
+
     return (
         <BaseDrawer.Portal
             {...props}
@@ -93,7 +107,14 @@ const DrawerPortal: FC<ComponentProps<typeof BaseDrawer.Portal>> = ({ ...props }
     );
 }
 
-const DrawerClose: FC<ComponentProps<typeof BaseDrawer.Close>> = ({ ...props }) => {
+type DrawerCloseProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Close>;
+
+const DrawerClose: FC<DrawerCloseProps> = ({
+    ...props
+}) => {
+    'use memo'
+
     return (
         <BaseDrawer.Close
             {...props}
@@ -102,7 +123,10 @@ const DrawerClose: FC<ComponentProps<typeof BaseDrawer.Close>> = ({ ...props }) 
     );
 }
 
-const DrawerOverlay: FC<ComponentProps<typeof BaseDrawer.Overlay>> = ({
+type DrawerOverlayProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Overlay>;
+
+const DrawerOverlay: FC<DrawerOverlayProps> = ({
     className,
     ...props
 }) => {
@@ -120,7 +144,10 @@ const DrawerOverlay: FC<ComponentProps<typeof BaseDrawer.Overlay>> = ({
     );
 }
 
-const DrawerContent: FC<ComponentProps<typeof BaseDrawer.Content>> = ({
+type DrawerContentProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Content>;
+
+const DrawerContent: FC<DrawerContentProps> = ({
     className,
     children,
     ...props
@@ -151,7 +178,10 @@ const DrawerContent: FC<ComponentProps<typeof BaseDrawer.Content>> = ({
     );
 }
 
-const DrawerHeader: FC<ComponentProps<typeof motion.div>> = ({
+type DrawerHeaderProps = DrawerVariants
+& ComponentProps<typeof motion.div>;
+
+const DrawerHeader: FC<DrawerHeaderProps> = ({
     className,
     ...props
 }) => {
@@ -169,7 +199,10 @@ const DrawerHeader: FC<ComponentProps<typeof motion.div>> = ({
     );
 }
 
-const DrawerFooter: FC<ComponentProps<typeof motion.div>> = ({
+type DrawerFooterProps = DrawerVariants
+& ComponentProps<typeof motion.div>;
+
+const DrawerFooter: FC<DrawerFooterProps> = ({
     className,
     ...props
 }) => {
@@ -187,7 +220,10 @@ const DrawerFooter: FC<ComponentProps<typeof motion.div>> = ({
     );
 }
 
-const DrawerTitle: FC<ComponentProps<typeof BaseDrawer.Title>> = ({
+type DrawerTitleProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Title>;
+
+const DrawerTitle: FC<DrawerTitleProps> = ({
     className,
     ...props
 }) => {
@@ -205,7 +241,10 @@ const DrawerTitle: FC<ComponentProps<typeof BaseDrawer.Title>> = ({
     );
 }
 
-const DrawerDescription: FC<ComponentProps<typeof BaseDrawer.Description>> = ({
+type DrawerDescriptionProps = DrawerVariants
+& ComponentProps<typeof BaseDrawer.Description>;
+
+const DrawerDescription: FC<DrawerDescriptionProps> = ({
     className,
     ...props
 }) => {

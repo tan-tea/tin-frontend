@@ -4,7 +4,7 @@ import type {
     FC,
 } from 'react';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { formatAddress } from 'lib/utils';
@@ -52,6 +52,12 @@ const LocationContent: FC<LocationContentProps> = ({
 
     const [open, setOpen] = useState<boolean>(false);
 
+    const availableShops = useMemo<typeof shops>(
+        () => (shops ?? [])
+            .filter(shop => shop.address && shop.geolocation),
+        [shops],
+    );
+
     const handleFocusInMap = (coords: Coords) => {
         if (onFocusInMap) onFocusInMap(coords);
     };
@@ -73,7 +79,7 @@ const LocationContent: FC<LocationContentProps> = ({
                     {t('location.heading')}
                 </Heading>
                 <Accordion>
-                    {shops.map(shop => (
+                    {availableShops.map(shop => (
                         <AccordionItem key={shop?.id} onOpenChange={(o) => setOpen(o)}>
                             <AccordionHeader>
                                 <AccordionTrigger>

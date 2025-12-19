@@ -48,11 +48,13 @@ const LocationMobile: FC<LocationMobileProps> = ({
     const uniqueId = useId();
 
     const markers: Array<Marker> = useMemo(
-        () => shops?.map?.(shop => ({
-            latitude: shop.geolocation.latitude,
-            longitude: shop.geolocation.longitude,
-            pin: shop?.workspace?.logo,
-        })),
+        () => (shops ?? [])
+            ?.filter(shop => shop.geolocation && !shop.address.isOnline)
+            ?.map(shop => ({
+                latitude: shop?.geolocation?.latitude!,
+                longitude: shop?.geolocation?.longitude!,
+                pin: shop?.workspace?.logo!,
+            })),
         [shops,]
     );
 

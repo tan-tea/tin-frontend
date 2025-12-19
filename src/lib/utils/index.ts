@@ -52,7 +52,9 @@ export function formatCurrency(
     }).format(value);
 }
 
-export function formatAddress(address: Address): string {
+export function formatAddress(address: Address): string | null {
+    if (!address) return null;
+
     const {
         street,
         number,

@@ -77,6 +77,8 @@ async function getCustomizationByWorkspaceId(workspaceId: string): Promise<Custo
         .eq('workspace_id', workspaceId)
         .single();
 
+    console.error(error);
+
     if (error && !data) throw new Error('Cannot get customization by workspace: ' + workspaceId);
 
     const result = camelcaseKeys(data, { deep: true }) as Customization;

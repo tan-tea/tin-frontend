@@ -11,3 +11,5 @@ export type { Value } from './value';
 export type { History } from './history';
 export type { Managed } from './managed';
 export type { Address } from './address';
+export type { Schedule } from './schedule';
+export type { TimeSlot } from './time-slot.ts';

@@ -11,7 +11,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { Menu } from '@base-ui-components/react/menu';
+import { Menu } from '@base-ui/react/menu';
 
 import {
     Icon,

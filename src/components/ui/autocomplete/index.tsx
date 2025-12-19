@@ -10,7 +10,7 @@ import {
     type VariantProps,
 } from 'tailwind-variants';
 import { motion } from 'motion/react';
-import { Autocomplete as BaseAutocomplete } from '@base-ui-components/react/autocomplete'
+import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete'
 
 import { cn } from 'lib/utils';
 

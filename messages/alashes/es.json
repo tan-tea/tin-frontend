@@ -1,7 +1,7 @@
 {
     "sharingLocation": "Compartiendo ubicaci\u00f3n...",
     "discountTimeLeft": "El descuento termina en: {left}",
-    "allRightsReserved": "Todos los derechos reservados",
+    "allRightsReserved": "www.yimall.co",
     "privacyPolicy": "Pol\u00edtica de privacidad",
     "termsOfService": "T\u00e9rminos del servicio",
     "discountPercentage": "{value}%",
@@ -16,6 +16,9 @@
     "typing": "Buscando...",
     "noResults": "Sin resultados",
     "address": "Direcci\u00f3n",
+    "noscript": "Esta aplicación requiere JavaScript para funcionar correctamente. Por favor, habilita JavaScript en tu navegador para continuar.",
+    "open": "Abierto",
+    "close": "Cerrado",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
@@ -42,8 +45,8 @@
                 "description": "Loading page"
             },
             "notFound": {
-                "title": "404",
-                "description": "P\u00e1gina no encontrada"
+                "title": "404 - P\u00e1gina no encontrada",
+                "description": "No encontramos la página que buscas. Descubre nuestros productos, servicios y contenidos disponibles y continúa navegando en nuestro sitio."
             }
         }
     },

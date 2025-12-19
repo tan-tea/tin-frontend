@@ -4,7 +4,6 @@ import CardMedia from './card/media';
 import CardHeader from './card/header';
 import CardContent from './card/content';
 import CardActions from './card/actions';
-import CardActionsArea from './card/actions/area';
 import Dialog from './dialog';
 import DialogTitle from './dialog/title';
 import DialogActions from './dialog/actions';
@@ -39,7 +38,6 @@ export {
     CardHeader,
     CardContent,
     CardActions,
-    CardActionsArea,
     Dialog,
     DialogTitle,
     DialogActions,

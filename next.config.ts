@@ -28,6 +28,8 @@ const nextConfig: NextConfig = {
     allowedDevOrigins: ['http://172.23.94.42'],
     experimental: {
         useCache: true,
+        globalNotFound: true,
+        turbopackFileSystemCacheForDev: true,
         optimizePackageImports: [
             'lucide-react',
             'date-fns',

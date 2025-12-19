@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
 import { motion } from 'motion/react';
@@ -13,7 +10,7 @@ import { cn } from 'lib/utils';
 import { Link } from 'lib/i18n/navigation';
 
 const link = tv({
-    base: cn(''),
+    base: cn('hover:text-[var(--mui-palette-primary-main)]'),
 });
 
 type LinkVariants = VariantProps<typeof link>;

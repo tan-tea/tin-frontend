@@ -2,12 +2,12 @@ import type { MetadataRoute } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 import { clientEnv } from 'env/client';
-import { FALLBACK_LANGUAGE } from 'lib/i18n/constants';
+import { fallbackLanguage } from 'lib/i18n/constants';
 
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
     const t = await getTranslations({
         namespace: 'metadata',
-        locale: FALLBACK_LANGUAGE,
+        locale: fallbackLanguage,
     });
 
     return {

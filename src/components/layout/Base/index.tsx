@@ -1,10 +1,9 @@
 'use client'
 
-import type {
-    FC,
-    ReactNode,
-    ReactElement,
-} from 'react';
+import type { ReactNode } from 'react';
+
+import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 import { useHydrateAtoms } from 'jotai/utils';
 import { useShallow, } from 'zustand/react/shallow';
 
@@ -25,7 +24,7 @@ import BaseLayoutDesktop from './desktop';
 
 type OwnBaseLayoutProps = {
     children: ReactNode;
-    initialWorkspace: Workspace;
+    initialWorkspace: Workspace | null;
 }
 
 export type BaseLayoutProps = Omit<OwnBaseLayoutProps, 'initialWorkspace'> & {
@@ -33,23 +32,30 @@ export type BaseLayoutProps = Omit<OwnBaseLayoutProps, 'initialWorkspace'> & {
     showBottomNavigation?: boolean;
 };
 
-export default function BaseLayout(
-    props: OwnBaseLayoutProps,
-): ReactElement<FC<OwnBaseLayoutProps>> | null {
+export default function BaseLayout(props: OwnBaseLayoutProps) {
     'use memo'
     const {
         children,
         initialWorkspace,
     } = props;
 
+    if (!initialWorkspace) {
+        toast.error('Something went wrong');
+        return null;
+    }
+
     useHideUI({
         hideHeader: false,
         hideBottomNavigation: true,
     });
 
+    useSyncLanguageWithRouter();
+
     useHydrateAtoms([
         [ workspaceAtom, initialWorkspace, ] as any,
     ] as const);
+
+    const t = useTranslations();
 
     const {
         loading,
@@ -59,15 +65,13 @@ export default function BaseLayout(
         useShallow(store => store),
     );
 
-    useSyncLanguageWithRouter();
-
     const childProps: BaseLayoutProps = {
         children,
         showHeader,
         showBottomNavigation,
     };
 
-    if (!initialWorkspace || loading) return null;
+    if (loading) return null;
 
     return (
         <DeviceDetector

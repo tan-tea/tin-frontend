@@ -1,13 +1,13 @@
 'use client'
 
-import {
-    useMemo,
-    useRef,
-    type FC,
-    type Ref,
-    type ReactNode,
-    type RefCallback,
+import type {
+    FC,
+    ReactNode,
+    RefCallback,
+    ComponentProps,
 } from 'react';
+
+import { useRef } from 'react';
 import {
     tv,
     type ClassValue,
@@ -59,27 +59,31 @@ const titlebar = tv({
 
 type TitlebarVariants = VariantProps<typeof titlebar>;
 
-type TitlebarProps = TitlebarVariants & {
+type TitlebarProps = TitlebarVariants
+& ComponentProps<typeof motion.div>
+& {
     title?: string;
-    ref?: Ref<HTMLDivElement>;
     className?: ClassValue;
-    animation?: MotionNodeAnimationOptions;
     showAnimation?: boolean;
     renderStart?: (props: TitlebarProps) => ReactNode;
     renderCenter?: (props: TitlebarProps) => ReactNode;
     renderEnd?: (props: TitlebarProps) => ReactNode;
 };
 
-const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
+const TITLEBAR_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
+        y: -20,
+        visibility: 'hidden',
         opacity: 0,
     },
     animate: {
+        y: 0,
+        visibility: 'visible',
         opacity: 1,
     },
     transition: {
         type: 'spring',
-        duration: 1,
+        duration: 0.5,
     },
 };
 
@@ -91,7 +95,6 @@ const Titlebar: FC<TitlebarProps> = (props) => {
         position,
         className,
         border,
-        animation,
         showAnimation = true,
         renderStart,
         renderCenter,
@@ -115,36 +118,29 @@ const Titlebar: FC<TitlebarProps> = (props) => {
         else if (ref) ref.current = node;
     }
 
-    const animate = useMemo(
-        () => ({
-            ...DEFAULT_ANIMATION,
-            ...animation,
-        }),
-        [animation, showAnimation,]
-    );
+    const hasRenderStart = !!renderStart;
+    const hasRenderCenter = !!renderCenter;
+    const hasRenderEnd = !!renderEnd;
+    const shouldRenderTitle = title && !hasRenderCenter;
+    const shouldRenderCenter = !title && hasRenderCenter;
 
     return (
-        <Box
-            {...(showAnimation && animate)}
+        <motion.div
+            {...(showAnimation && TITLEBAR_ANIMATION)}
+            {...props}
             ref={refCallback}
             role='heading'
             aria-label={title}
-            component={motion.div}
             className={wrapper({
                 className,
             })}
         >
-            {renderStart ? renderStart?.(props) : <motion.div/>}
-            {title && !renderCenter
-                ? <Typography className={text()}>{title}</Typography>
-                : renderCenter && !title
-                    ? renderCenter?.(props)
-                    : !title && !renderCenter
-                        ? <motion.div/>
-                        : null
-            }
-            {renderEnd ? renderEnd?.(props) : <motion.div/>}
-        </Box>
+            {hasRenderStart ? renderStart?.(props) : <motion.div/>}
+            {shouldRenderTitle && <Typography className={text()}>{title}</Typography>}
+            {shouldRenderCenter && renderCenter?.(props)}
+            {(!shouldRenderTitle && !shouldRenderCenter) && <motion.div/>}
+            {hasRenderEnd ? renderEnd?.(props) : <motion.div/>}
+        </motion.div>
     );
 }
 

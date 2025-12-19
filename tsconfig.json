@@ -63,6 +63,9 @@
       ],
       "pages/*": [
         "./src/components/pages/*"
+      ],
+      "features/*": [
+        "./src/components/features/*"
       ]
     }
   },

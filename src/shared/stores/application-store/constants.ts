@@ -1,5 +1,5 @@
 import {
-    FALLBACK_LANGUAGE,
+    fallbackLanguage,
 } from 'lib/i18n/constants';
 import type {
     ApplicationState,
@@ -7,7 +7,7 @@ import type {
 
 const defaultInitState: ApplicationState = {
     theme: 'system',
-    language: FALLBACK_LANGUAGE,
+    language: fallbackLanguage,
     geolocation: {
         coords: {
             heading: 0,

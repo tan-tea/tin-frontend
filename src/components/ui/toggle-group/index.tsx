@@ -9,7 +9,7 @@ import {
     type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
-import { ToggleGroup as BaseToggleGroup } from '@base-ui-components/react/toggle-group';
+import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
 
 const toggleGroup = tv({
     base: 'flex',

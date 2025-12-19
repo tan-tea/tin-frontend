@@ -10,34 +10,61 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { motion } from 'motion/react';
+import { motion, MotionNodeAnimationOptions } from 'motion/react';
 import BaseTypography, {
     TypographyProps as BaseTypographyProps,
 } from '@mui/material/Typography';
 
 import { cn } from 'lib/utils';
 
+const TEXT_ANIMATION: MotionNodeAnimationOptions = {
+    initial: {
+        opacity: 0,
+        y: 8,
+    },
+    animate: {
+        opacity: 1,
+        y: 0,
+    },
+    transition: {
+        duration: 0.35,
+        ease: 'easeInOut',
+    },
+} as const;
+
 const text = tv({
     slots: {
-        root: cn('text-base font-primary font-normal m-0 p-0 text-inherit'),
-        heading: cn('font-secondary font-bold'),
-        paragraph: '',
+        root: cn('text-base font-normal m-0 p-0 text-inherit'),
+        heading: cn('block font-secondary font-bold'),
+        paragraph: cn('block font-primary-alt text-normal truncate'),
         label: '',
     },
     variants: {
-        as: {
-            heading: {},
-            paragraph: {},
-            label: {},
-            link: {},
-        },
         level: {
-            '1': { heading: cn('text-xl md:text-2xl') },
-            '2': { heading: cn('text-lg md:text-xl') },
-            '3': { heading: cn('text-base md:text-lg') },
-            '4': { heading: cn('text-sm md:text-base') },
-            '5': { heading: cn('text-xs md:text-sm') },
-            '6': { heading: cn('text-[10px] md:text-xs') },
+            '1': {
+                heading: cn('text-2xl leading-10 md:text-3xl'),
+                paragraph: cn('text-[20px] leading-[22px]')
+            },
+            '2': {
+                heading: cn('text-xl leading-8 md:text-2xl'),
+                paragraph: cn('text-[18px] leading-[20px]')
+            },
+            '3': {
+                heading: cn('text-lg leading-6 md:text-xl'),
+                paragraph: cn('text-base leading-[18px]')
+            },
+            '4': {
+                heading: cn('text-base leading-4 md:text-lg'),
+                paragraph: cn('text-sm leading-4'),
+            },
+            '5': {
+                heading: cn('text-sm leading-3.5 md:text-base'),
+                paragraph: cn('text-xs leading-3.5'),
+            },
+            '6': {
+                heading: cn('text-xs leading-2.5 md:text-sm'),
+                paragraph: cn('text-[10px] leading-[12px]')
+            },
         },
         color: {
             normal: {
@@ -55,6 +82,16 @@ const text = tv({
                 root: 'no-underline',
             },
         },
+        truncate: {
+            true: {
+                heading: 'truncate',
+                paragraph: 'truncate',
+            },
+            false: {
+                heading: 'text-clip',
+                paragraph: 'text-clip',
+            },
+        },
     },
     defaultVariants: {
         through: false,
@@ -63,8 +100,7 @@ const text = tv({
 
 type TextVariants = VariantProps<typeof text>;
 
-type HeadingProps = Omit<TextVariants, 'as'>
-& ComponentProps<typeof motion.h1>;
+type HeadingProps = TextVariants & ComponentProps<typeof motion.h1>;
 
 const headingLevelMap = {
     '1': motion.h1,
@@ -95,9 +131,36 @@ export const Heading: FC<HeadingProps> = ({
 
     return (
         <Wrapper
+            {...TEXT_ANIMATION}
             {...props}
+            role='heading'
+            aria-label={props.children?.toString()}
             data-slot={`text-heading-${level}`}
             className={heading({
+                level,
+                className,
+            })}
+        />
+    );
+}
+
+type ParagraphProps = TextVariants & ComponentProps<typeof motion.p>;
+
+export const Paragraph: FC<ParagraphProps> = ({
+    level = '4',
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { paragraph } = text();
+
+    return (
+        <motion.p
+            {...TEXT_ANIMATION}
+            {...props}
+            data-slot='text-paragraph'
+            className={paragraph({
+                className,
                 level,
             })}
         />

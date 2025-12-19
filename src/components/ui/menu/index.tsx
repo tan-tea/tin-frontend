@@ -10,13 +10,13 @@ import {
     type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
-import { Menu as BaseMenu } from '@base-ui-components/react/menu';
+import { Menu as BaseMenu } from '@base-ui/react/menu';
 
 import { cn } from 'lib/utils';
 
 const menu = tv({
     slots: {
-        trigger: cn('flex items-center'),
+        trigger: cn('flex items-center gap-x-1.5'),
         backdrop: cn(''),
         positioner: cn('outline-none z-[100]'),
         popup: cn(

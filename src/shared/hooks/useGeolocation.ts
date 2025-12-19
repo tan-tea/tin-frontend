@@ -87,8 +87,7 @@ export const useGeolocation: UseGeolocationHandler = () => {
     ) as UseGeolocation['requestGeolocationPermission'];
 
     useEffect(() => {
-        if (isWatching)
-            watchGeolocationPosition();
+        if (isWatching) watchGeolocationPosition();
 
         return () => {
             if (geolocationWatchIdRef.current) {

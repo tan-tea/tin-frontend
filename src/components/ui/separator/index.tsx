@@ -9,7 +9,7 @@ import {
 } from 'tailwind-variants';
 import {
     Separator as BaseSeparator,
-} from '@base-ui-components/react/separator';
+} from '@base-ui/react/separator';
 
 const separator = tv({
     base: 'bg-[var(--mui-palette-grey-100)]',

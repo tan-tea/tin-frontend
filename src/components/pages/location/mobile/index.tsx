@@ -26,7 +26,7 @@ import Section from 'common/Section';
 import Titlebar from 'common/Titlebar';
 import BackButton from 'common/buttons/BackButton';
 import LocationButton from 'common/buttons/LocationButton';
-import LocationContent from 'components/pages/location/components/LocationContent';
+import LocationContent from 'pages/location/components/LocationContent';
 
 type Marker = {
     latitude: number;
@@ -64,7 +64,7 @@ const LocationMobile: FC<LocationMobileProps> = ({
         <Section
             label={''}
             description={''}
-            className='w-full flex flex-col h-dvh overflow-hidden'
+            className='w-full flex flex-col h-dvh'
         >
             <Titlebar
                 position='fixed'

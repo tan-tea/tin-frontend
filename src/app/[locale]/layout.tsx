@@ -1,19 +1,15 @@
-import './globals.css';
+import 'app/globals.css';
 
-import type {
-    FC,
-    ReactNode,
-    ReactElement,
-} from 'react';
-import type {
-    Viewport,
-    Metadata,
-} from 'next';
+import type { ReactNode } from 'react';
+import type { Viewport, Metadata } from 'next';
+
 import {
-    Nunito,
+    Inter,
+    Nunito_Sans,
     Poppins,
     Raleway,
 } from 'next/font/google';
+import { Toaster } from 'sonner';
 import { Provider } from 'jotai';
 import {
     hasLocale,
@@ -27,36 +23,41 @@ import { clientEnv } from 'env/client';
 
 import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
-import { LANGUAGES } from 'lib/i18n/constants';
+import { locales } from 'lib/i18n/constants';
 
 import Providers from 'layout/Providers';
 
+const inter = Inter({
+    variable: '--font-inter',
+    subsets: ['latin'],
+    display: 'swap',
+    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900',],
+});
+
 const poppins = Poppins({
+    variable: '--font-poppins',
     subsets: ['latin',],
     display: 'swap',
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900',],
-    variable: '--font-primary',
 });
 
 const raleway = Raleway({
+    variable: '--font-raleway',
     subsets: ['latin', 'latin-ext', 'cyrillic',],
     display: 'swap',
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900',],
-    variable: '--font-secondary',
 });
 
-const nunito = Nunito({
+const nunito = Nunito_Sans({
+    variable: '--font-nunito',
     subsets: ['latin'],
     display: 'swap',
     weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000',],
-    variable: '--font-nunito',
 });
 
 type RootLayoutProps = {
     children: ReactNode;
-    params: Promise<{
-        locale: string;
-    }>;
+    params: Promise<{ locale: string; }>;
 };
 
 export const viewport: Viewport = {
@@ -100,7 +101,7 @@ export async function generateMetadata(
         metadataBase: new URL(clientEnv.NEXT_PUBLIC_SITE_URL),
         alternates: {
             canonical: '/',
-            languages: LANGUAGES.map(language => ({
+            languages: locales.map(language => ({
                 [language]: clientEnv.NEXT_PUBLIC_SITE_URL + `/${language}`,
             })) as any,
         },
@@ -142,7 +143,7 @@ export async function generateMetadata(
 
 export default async function RootLayout(
     props: RootLayoutProps
-): Promise<ReactElement<FC<RootLayoutProps>>> {
+) {
     const {
         params,
         children,
@@ -154,22 +155,25 @@ export default async function RootLayout(
         notFound();
     }
 
+    const t = await getTranslations();
+
     return (
         <html
             lang={locale}
             translate='no'
             suppressHydrationWarning
-            className={cn(
-                poppins.className,
-                raleway.className,
-                nunito.className,
-                'scrollbar-hide',
-            )}
         >
             <body
                 suppressHydrationWarning
-                className='isolate bg-white dark:bg-dark-600'
+                className={cn(
+                    poppins.variable,
+                    raleway.variable,
+                    nunito.variable,
+                    inter.variable,
+                    'relative isolate scrollbar-hide md:scrollbar-default bg-white dark:bg-dark-600'
+                )}
             >
+                <noscript>{t('noscript')}</noscript>
                 <Provider>
                     <NextIntlClientProvider>
                         <AppRouterCacheProvider
@@ -178,6 +182,7 @@ export default async function RootLayout(
                                 enableCssLayer: true,
                             }}
                         >
+                            <Toaster position='bottom-center'/>
                             <Providers>
                                 {children}
                             </Providers>

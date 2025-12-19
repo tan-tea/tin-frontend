@@ -14,7 +14,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { Input as BaseInput, } from '@base-ui-components/react/input';
+import { Input as BaseInput, } from '@base-ui/react/input';
 
 const input = tv({
     base: 'block box-border bg-none focus:outline-none text-base text-[inherit] font-secondary',

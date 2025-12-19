@@ -5,6 +5,7 @@ import type {
     ReactNode,
     ReactElement
 } from 'react';
+
 import { useState } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -16,8 +17,13 @@ import { ContainerProvider } from 'shared/contexts/container';
 import { ApplicationStoreProvider } from 'shared/stores/application-store';
 import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 
+import {
+    Item,
+    BreadcrumbProvider,
+} from 'ui/breadcrumb';
+
 import ThemeLayout from 'layout/Theme';
-import ThemeWatcher from 'common/Theme/Watcher';
+import ThemeWatcher from 'components/theme-watcher';
 
 type ProvidersProps = {
     children: ReactNode;
@@ -26,6 +32,7 @@ type ProvidersProps = {
 export default function Providers(
     props: ProvidersProps,
 ): ReactElement<FC<ProvidersProps>> {
+    'use memo'
     const { children } = props;
 
     const [queryClient] = useState(
@@ -42,6 +49,13 @@ export default function Providers(
         })
     );
 
+    const breadcrumbs: Array<Item> = [
+        {
+            label: 'Home',
+            href: '/',
+        },
+    ];
+
     return (
         <ContainerProvider>
             <DatabaseProvider>
@@ -51,7 +65,9 @@ export default function Providers(
                             <ThemeLayout>
                                 <DialogProvider>
                                     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
-                                        {children}
+                                        <BreadcrumbProvider value={breadcrumbs}>
+                                            {children}
+                                        </BreadcrumbProvider>
                                     </APIProvider>
                                     <ThemeWatcher/>
                                 </DialogProvider>

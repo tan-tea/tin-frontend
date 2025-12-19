@@ -8,11 +8,7 @@ import { useNavigation } from 'shared/hooks';
 import { ApplicationLanguage, ApplicationStore } from 'shared/stores/application-store/types';
 import { useApplicationStore, useApplicationStoreContext } from 'shared/stores/application-store';
 
-type UseSyncLanguageWithRouter = {
-    loading: boolean;
-};
-
-type UseSyncLanguageWithRouterHandler = () => UseSyncLanguageWithRouter;
+type UseSyncLanguageWithRouterHandler = () => void;
 
 export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () => {
     'use memo'
@@ -58,8 +54,4 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
             setLanguage(locale);
         }
     }, []);
-
-    return {
-        loading: isChangingLanguage,
-    };
 };

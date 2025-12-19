@@ -1,12 +1,10 @@
 'use client'
 
-import {
-    useMemo,
-    type FC,
-    type ReactElement,
-} from 'react';
-import { useAtom, useAtomValue } from 'jotai';
+import type { FC, ReactElement, } from 'react';
+
+import { useMemo } from 'react';
 import { useTranslations, } from 'next-intl';
+import { useAtom, useAtomValue } from 'jotai';
 
 import dynamic from 'next/dynamic';
 

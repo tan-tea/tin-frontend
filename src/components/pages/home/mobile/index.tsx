@@ -1,18 +1,14 @@
 'use client'
 
-import {
-    useMemo,
-    useRef,
-    type FC,
-} from 'react';
+import type { FC } from 'react';
+
+import { useMemo, useRef } from 'react';
 
 import dynamic from 'next/dynamic';
 import Autoplay from 'embla-carousel-autoplay';
 
 import Box from 'ui/box';
-import Typography, {
-    Heading,
-} from 'ui/text';
+import { Heading } from 'ui/text';
 import {
     Carousel,
     CarouselItem,
@@ -23,23 +19,25 @@ import type {
     HomeProps,
 } from 'components/pages/home';
 
-import OfferList from 'components/OfferList';
+import OfferList from 'components/offer-list';
 import Empty from 'common/Empty';
 import Section from 'common/Section';
 import ProductCardSkeleton from 'common/ProductCard/skeleton';
-import CategoryCardSkeleton from 'common/CategoryCard/skeleton';
+import CategoryCardSkeleton from 'components/common/category-card/skeleton';
 
 const ProductCard = dynamic(
     () => import('common/ProductCard'),
     {
+        ssr: false,
         loading: () => <ProductCardSkeleton/>
     },
 );
 
 const CategoryCard = dynamic(
-    () => import('common/CategoryCard'),
+    () => import('components/common/category-card'),
     {
-        loading: () => <CategoryCardSkeleton/>
+        ssr: false,
+        loading: () => <CategoryCardSkeleton/>,
     },
 );
 
@@ -76,10 +74,10 @@ const HomeMobile: FC<HomeMobileProps> = ({
                             ?.sort?.((a, b) => a?.position - b?.position)
                             ?.map?.(category => (
                                 <CategoryCard
+                                    key={category?.id}
+                                    category={category}
                                     selected={category?.id === selectedCategory?.id}
                                     onSelectCategory={(id) => onSelectCategory(categories?.find?.(c => c.id === id))}
-                                    key={category?.id}
-                                    {...category}
                                 />
                         ))}
                     </Box>

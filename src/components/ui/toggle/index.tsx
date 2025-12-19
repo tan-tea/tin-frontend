@@ -9,7 +9,7 @@ import {
     type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
-import { Toggle as BaseToggle } from '@base-ui-components/react/toggle';
+import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 
 import { cn } from 'lib/utils';
 

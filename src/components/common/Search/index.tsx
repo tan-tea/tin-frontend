@@ -81,7 +81,7 @@ const Search: FC<SearchProps> = () => {
         if (query) params.set('q', debouncedQuery);
         else params.delete('q');
 
-        router.replace(`?${params.toString()}`);
+        router.replace(`?${params.toString()}` as any);
     }, [query]);
 
     const {
@@ -91,7 +91,6 @@ const Search: FC<SearchProps> = () => {
 
     const isTyping = query !== debouncedQuery;
     const noResults = !isTyping && !isLoading && data && data.length === 0;
-    const hasResults = data && data.length > 0;
 
     return (
         <Controller

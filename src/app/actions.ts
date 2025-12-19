@@ -32,7 +32,7 @@ export async function getAllCustomizationByWorkspace(workspaceId: string): Promi
     return await getCustomizationByWorkspaceId(workspaceId);
 }
 
-export async function getShopsByWorkspace(workspaceId: string): Promise<Array<Shop>> {
+export async function getShopsDetailsByWorkspace(workspaceId: string): Promise<Array<Shop>> {
     'use server'
     return await getShopsByWorkspaceId(workspaceId);
 }

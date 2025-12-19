@@ -33,6 +33,7 @@ import {
 import type {
     LocationProps,
 } from 'components/pages/location';
+import NavigationBreadcrumb from 'features/navigation/breadcrumb';
 
 type Coords = {
     lat: number;
@@ -69,9 +70,10 @@ const LocationContent: FC<LocationContentProps> = ({
     return (
         <Box className='flex-1 size-full overflow-y-auto scrollbar-hide'>
             <Box className='size-full flex flex-col gap-y-4 p-4'>
-                <Heading level='1'>
+                <NavigationBreadcrumb/>
+                {/* <Heading level='1'>
                     {t('location.heading')}
-                </Heading>
+                </Heading> */}
                 <Accordion>
                     {shops.map(shop => (
                         <AccordionItem key={shop?.id} onOpenChange={(o) => setOpen(o)}>

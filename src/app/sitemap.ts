@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: clientEnv.NEXT_PUBLIC_SITE_URL,
             lastModified: new Date(),
-            changeFrequency: 'yearly',
+            changeFrequency: 'always',
             priority: 1,
             alternates: {
                 languages: {
@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${clientEnv.NEXT_PUBLIC_SITE_URL}/location`,
             lastModified: new Date(),
-            changeFrequency: 'yearly',
+            changeFrequency: 'always',
             priority: 0.9,
             alternates: {
                 languages: {

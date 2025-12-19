@@ -1,16 +1,11 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
+
+import { tv } from 'tailwind-variants';
 import { motion, } from 'motion/react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
-import { Avatar as BaseAvatar, } from '@base-ui-components/react/avatar';
+import { Avatar as BaseAvatar, } from '@base-ui/react/avatar';
 
 import Image from 'next/image';
 

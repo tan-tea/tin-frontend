@@ -8,7 +8,7 @@ import {
     tv,
     type VariantProps,
 } from 'tailwind-variants';
-import { Field as BaseField, } from '@base-ui-components/react/field';
+import { Field as BaseField, } from '@base-ui/react/field';
 
 export const label = tv({
     base: 'text-sm font-medium leading-4 text-gray-400',

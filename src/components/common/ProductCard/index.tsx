@@ -170,7 +170,7 @@ const ProductCardGridVariant: FC<ProductCardGridVariantProps> = ({
             <CardActionsArea
                 scroll
                 prefetch
-                href={'/product/' + slug}
+                href={'/product/' + slug as any}
                 className={actionsArea()}
             >
                 <CardMedia alt={title} className={media()}>

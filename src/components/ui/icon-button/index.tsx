@@ -41,6 +41,7 @@ const iconButton = tv({
         },
         selected: {
             true: 'text-[var(--mui-palette-primary-main)]',
+            false: 'text-dark-600 dark:text-light-600',
         },
         borderless: {
             true: 'border-none'
@@ -81,6 +82,8 @@ const IconButton: FC<IconButtonProps> = ({
     ...rest
 }) => {
     'use memo'
+    console.log('selected', selected);
+
     const innerRef = useRef<HTMLButtonElement | null>(null);
 
     const refCallback: RefCallback<HTMLButtonElement> = (node) => {
@@ -108,7 +111,6 @@ const IconButton: FC<IconButtonProps> = ({
             {icon && (
                 <Icon
                     value={icon}
-                    color='primary'
                     selected={selected}
                 />
             )}

@@ -3,6 +3,7 @@ import { ShopReadModel } from 'contexts/vm/shop/application/query/read-model/Sho
 import { Workspace } from './workspace';
 import { Address } from './address';
 import { Geolocation } from './geolocation';
+import { Schedule } from './schedule';
 
 export interface Shop extends ShopReadModel {
     slug: string;
@@ -12,4 +13,5 @@ export interface Shop extends ShopReadModel {
     addressId: string;
     geolocation: Geolocation;
     geolocationId: string;
+    schedules: Array<Schedule>;
 }

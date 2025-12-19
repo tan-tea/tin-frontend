@@ -1,11 +1,9 @@
 'use client'
 
-import type {
-    FC
-} from 'react';
+import type { FC } from 'react';
+
 import {
     tv,
-    type ClassValue,
     type VariantProps,
 } from 'tailwind-variants';
 
@@ -21,9 +19,9 @@ import type {
     HeaderProps
 } from 'components/common/header';
 
-import Menu from 'common/Menu';
-import SearchValues from 'common/Search';
-import Logo from 'components/Logo';
+import Search from 'common/Search';
+import Logo from 'components/logo';
+import NavigationDrawer from 'features/navigation/drawer';
 
 const header = tv({
     slots: {
@@ -42,7 +40,7 @@ const header = tv({
                 navigation: cn('flex items-center gap-x-4'),
             },
             center: {
-                wrapper: cn('grid grid-cols-3 items-center'),
+                wrapper: cn('grid grid-cols-5 items-center'),
                 navigation: cn('flex items-center'),
             },
         },
@@ -73,8 +71,8 @@ const StartVariant: FC<HeaderMobileVariant> = ({
         <Box className={wrapper()}>
             <Logo/>
             <Box className={navigation()}>
-                <SearchValues/>
-                <Menu/>
+                <Search/>
+                <NavigationDrawer/>
             </Box>
         </Box>
     );
@@ -93,12 +91,12 @@ const CenterVariant: FC<HeaderMobileVariant> = ({
 
     return (
         <Box className={wrapper()}>
-            <SearchValues/>
-            <Box className='h-full flex items-center gap-x-1'>
+            <Search/>
+            <Box className='col-span-3 flex items-center justify-center'>
                 <Logo/>
             </Box>
             <Box className={navigation()}>
-                <Menu/>
+                <NavigationDrawer/>
             </Box>
         </Box>
     );

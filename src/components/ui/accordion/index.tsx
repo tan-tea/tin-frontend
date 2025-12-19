@@ -15,7 +15,7 @@ import {
     type VariantProps,
     type ClassValue,
 } from 'tailwind-variants';
-import { Accordion as BaseAccordion } from '@base-ui-components/react/accordion';
+import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
 
 import { cn } from 'lib/utils';
 
@@ -29,7 +29,7 @@ const accordion = tv({
         header: cn('rounded-[inherit] m-0 text-base font-bold font-secondary'),
         trigger: cn(
             'px-4 py-2.5 box-border relative flex w-full gap-4 items-center justify-between font-[family:inherit] outline-none',
-            'data-[panel-open]:rounded-b-none data-[panel-open]:border-b-none',
+            'data-[panel-open]:rounded-b-none data-[panel-open]:border-b border-b-light-600 dark:border-b-dark-400',
         ),
         panel: cn(
             'flex-1 h-auto box-border p-4',

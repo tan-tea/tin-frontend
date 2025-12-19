@@ -23,22 +23,22 @@ const baseIcon = tv({
             secondary: '',
         },
         selected: {
-            true: '',
-            false: '',
+            true: 'text-[var(--mui-palette-primary-main)]',
+            false: 'text-dark-600 dark:text-light-600',
         },
     },
-    compoundVariants: [
-        {
-            selected: true,
-            color: 'primary',
-            className: 'text-[var(--mui-palette-primary-main)]',
-        },
-        {
-            selected: true,
-            color: 'secondary',
-            className: 'text-[var(--mui-palette-secondary-main)]',
-        }
-    ],
+    // compoundVariants: [
+    //     {
+    //         selected: true,
+    //         color: 'primary',
+    //         className: 'text-[var(--mui-palette-primary-main)]',
+    //     },
+    //     {
+    //         selected: true,
+    //         color: 'secondary',
+    //         className: 'text-[var(--mui-palette-secondary-main)]',
+    //     }
+    // ],
     defaultVariants: {
         color: 'primary',
         selected: false,
@@ -52,28 +52,26 @@ type IconProps = IconVariants & {
     className?: ClassValue;
 };
 
-const Icon: FC<IconProps> = (props) => {
+const Icon: FC<IconProps> = ({
+    value: BaseIcon,
+    className,
+    color,
+    selected,
+    ...props
+}) => {
     'use memo'
-    const {
-        value: BaseIcon,
-        className,
-        color,
-        selected,
-        ...rest
-    } = props;
-
     const iconProps: LucideProps = {
         className: baseIcon({
-            color,
-            selected,
             className,
+            // color,
+            selected,
         }),
         strokeWidth: 2,
         absoluteStrokeWidth: true,
     };
 
     return (
-        <BaseIcon {...iconProps} {...rest}/>
+        <BaseIcon {...props} {...iconProps}/>
     );
 };
 
@@ -125,6 +123,9 @@ export {
     Menu,
     ExternalLink,
     Store,
+    MoreHorizontal,
+    Slash,
+    Clock,
 } from 'lucide-react';
 export {
     SiTiktok,

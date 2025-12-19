@@ -220,11 +220,18 @@ async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<Shop>> 
             *,
             workspace:workspaces!workspace_id ( * ),
             address:addresses!address_id ( * ),
-            geolocation:geolocations!geolocation_id ( * )
+            geolocation:geolocations!geolocation_id ( * ),
+            schedules:schedules!shop_id (
+                *,
+                timeSlots:schedule_time_slots!schedule_id ( * )
+            )
         `)
         .eq('workspace_id', workspaceId);
 
-    if (error && !data) return [];
+    if (error && !data) {
+        console.error('error', error);
+        return []
+    };
 
     const result = camelcaseKeys(data, { deep: true });
 

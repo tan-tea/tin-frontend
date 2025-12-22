@@ -11,7 +11,6 @@ import DialogContent from './dialog/content';
 import Typography from './text';
 import AppBar from './app-bar';
 import Button from './button';
-import Spinner from './spinner';
 import Tooltip from './tooltip';
 import Input from './field/input';
 import Label, {
@@ -45,7 +44,6 @@ export {
     Typography,
     AppBar,
     Button,
-    Spinner,
     Tooltip,
     Input,
     Label,

@@ -1,12 +1,10 @@
 'use client'
 
-import type { FC, ReactElement, } from 'react';
+import dynamic from 'next/dynamic';
 
 import { useMemo } from 'react';
 import { useTranslations, } from 'next-intl';
 import { useAtom, useAtomValue } from 'jotai';
-
-import dynamic from 'next/dynamic';
 
 import type {
     Offer,
@@ -53,7 +51,7 @@ export type HomeProps = {
     onSelectCategory: (category: Category | undefined) => void;
 };
 
-export default function Home(): ReactElement<FC<OwnHomeProps>> {
+export default function Home() {
     'use memo'
     const t = useTranslations();
 

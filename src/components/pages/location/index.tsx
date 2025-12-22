@@ -2,6 +2,8 @@
 
 import type { FC, ReactElement } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useMemo } from 'react';
 import {
     MapCameraProps,
@@ -9,8 +11,6 @@ import {
 } from '@vis.gl/react-google-maps';
 import { useTranslations, } from 'next-intl';
 import { useShallow, } from 'zustand/react/shallow';
-
-import dynamic from 'next/dynamic';
 
 import type {
     Shop
@@ -22,12 +22,6 @@ import {
 } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 import { defaultInitState } from 'shared/stores/application-store/constants';
-
-import {
-    Item,
-    useBreadcrumbs,
-    BreadcrumbProvider,
-} from 'ui/breadcrumb';
 
 import DeviceDetector from 'common/device-detector';
 
@@ -69,7 +63,6 @@ export default function Location(
 
     const t = useTranslations();
     const navigation = useNavigation();
-    const parent = useBreadcrumbs();
 
     const { geolocation, } = useApplicationStore(
         useShallow(store => store),
@@ -88,14 +81,6 @@ export default function Location(
         zoom: 17.5,
     });
 
-    const breadcrumbs: Array<Item> = [
-        ...parent,
-        {
-            label: t('location.tooltip'),
-            href: '/location',
-        },
-    ];
-
     const childProps: LocationProps = {
         t,
         shops,
@@ -113,11 +98,9 @@ export default function Location(
     };
 
     return (
-        <BreadcrumbProvider value={breadcrumbs}>
-            <DeviceDetector
-                MobileComponent={<LocationMobile {...childProps}/>}
-                DesktopComponent={<LocationMobile {...childProps}/>}
-            />
-        </BreadcrumbProvider>
+        <DeviceDetector
+            MobileComponent={<LocationMobile {...childProps}/>}
+            DesktopComponent={<LocationMobile {...childProps}/>}
+        />
     );
 };

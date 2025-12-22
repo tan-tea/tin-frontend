@@ -1,0 +1,163 @@
+{
+    "sharingLocation": "Compartiendo ubicaci\u00f3n...",
+    "discountTimeLeft": "{left}",
+    "allRightsReserved": "\u00a9 {currentYear} - www.yimall.co",
+    "privacyPolicy": "Politica de privacidad",
+    "termsOfService": "Terminos del servicio",
+    "discountPercentage": "{value}%",
+    "signIn": "",
+    "welcomeBack": "",
+    "menu": "Men\u00fa",
+    "exploreDiscounts": "",
+    "offers": "Nuestros productos",
+    "goHome": "Ir al inicio",
+    "socialMedia": "Redes sociales",
+    "navigation": "",
+    "typing": "",
+    "noResults": "",
+    "address": "",
+    "noscript": "",
+    "open": "Abierto ahora",
+    "close": "Cerrado",
+    "selectHeadquarter": "",
+    "goBackError": "",
+    "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
+    "metadata": {
+        "applicationName": "La Perreria",
+        "siteName": "La Perreria — Perros Calientes Personalizados a tu gusto y Hamburguesas en Armenia",
+        "titleTemplate": "%s | La Perreria",
+        "description": "La Perrería es el lugar ideal en Armenia, Quindío, para disfrutar comida rápida personalizada. Perros calientes a tu gusto con 14 ingredientes y salsas ilimitadas, hamburguesas jugosas y salchipapas irresistibles.",
+        "keywords": "perros calientes personalizados, perros calientes en Armenia, hamburguesas en Armenia, comida rápida en Armenia, hot dogs personalizados, hamburguesas artesanales, comida rápida Armenia Quindío, perros calientes Armenia Quindío, hamburguesas Armenia Quindío, mejores perros calientes en Armenia, restaurantes de comida rápida en Armenia, perros calientes a tu gusto, hamburguesas jugosas, salchipapas crujientes, combos de comida rápida, pan artesanal, comida rápida personalizada, dónde comer perros calientes en Armenia, perros calientes personalizados en Armenia, hamburguesas artesanales en Armenia, comida rápida con domicilio en Armenia, perros calientes con muchos ingredientes",
+        "titles": {
+            "home": {
+                "title": "",
+                "description": ""
+            },
+            "location": {
+                "title": "",
+                "description": ""
+            },
+            "signin": {
+                "title": "",
+                "description": ""
+            },
+            "loading": {
+                "title": "",
+                "description": ""
+            },
+            "notFound": {
+                "title": "",
+                "description": ""
+            },
+            "search": {
+                "title": "",
+                "description": ""
+            },
+            "help": {
+                "title": "",
+                "description": ""
+            }
+        }
+    },
+    "shared": {
+        "back": "",
+        "cancel": "",
+        "close": "",
+        "accept": "",
+        "saveChanges": "",
+        "discount": "{discount}% off",
+        "showMore": "",
+        "showLess": ""
+    },
+    "theme": {
+        "tooltip": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "system": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "dark": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "light": {
+                "title": "",
+                "label": "",
+                "description": ""
+            }
+        }
+    },
+    "location": {
+        "tooltip": "Ubicaci\u00f3n",
+        "heading": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "button": ""
+        }
+    },
+    "language": {
+        "tooltip": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "es": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "en": {
+                "title": "",
+                "label": "",
+                "description": ""
+            }
+        }
+    },
+    "search": {
+        "tooltip": "",
+        "placeholder": "",
+        "recents": ""
+    },
+    "header": {
+        "greet": ""
+    },
+    "bottomNavigation": {
+        "home": "",
+        "search": "",
+        "browse": "",
+        "help": ""
+    },
+    "signin": {
+        "title": "",
+        "description": "",
+        "discord": "",
+        "instagram": "",
+        "mobile": {
+            "title": "",
+            "description": ""
+        }
+    },
+    "home": {
+        "notOffers": ""
+    },
+    "productDetail": {
+        "title": "",
+        "availableOptions": "",
+        "description": "",
+        "notProvided": "",
+        "button": "",
+        "message": "{name}"
+    },
+    "loading": {
+        "message": ""
+    },
+    "notFound": {
+        "title": "",
+        "description": "",
+        "home": ""
+    }
+}

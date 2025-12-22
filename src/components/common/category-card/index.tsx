@@ -1,3 +1,5 @@
+// TODO: deprecated
+
 'use client'
 
 import type { FC } from 'react';
@@ -22,7 +24,7 @@ import {
 const categoryCard = tv({
     slots: {
         wrapper: cn(
-            'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl  w-26',
+            'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl w-26',
             'min-h-[110px] border transition-all duration-200 cursor-pointer',
             'dark:bg-dark-400'
         ),
@@ -37,7 +39,7 @@ const categoryCard = tv({
                 avatar: cn('ring-[var(--mui-palette-primary-main)]')
             },
             false: {
-                wrapper: 'bg-[var(--mui-palette-grey-50)] border-transparent',
+                wrapper: 'bg-[var(--mui-palette-primary-400)] border-transparent',
                 text: cn(
                     'text-[var(--mui-palette-grey-700)] font-normal',
                     'dark:text-light-500',

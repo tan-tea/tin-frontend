@@ -11,15 +11,10 @@ import {
 } from 'tailwind-variants';
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 
-import { cn } from 'lib/utils';
-
 import IconButton from 'ui/icon-button';
 
 const toggle = tv({
-    base: cn(
-        'outline-none',
-        'data-[pressed]:color-[var(--mui-palette-primary-main)]',
-    ),
+    base: 'outline-none data-[pressed]:color-[var(--mui-palette-primary-main)]',
     variants: {},
 });
 

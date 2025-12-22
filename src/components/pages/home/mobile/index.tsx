@@ -19,11 +19,10 @@ import type {
     HomeProps,
 } from 'components/pages/home';
 
-import OfferList from 'components/offer-list';
 import Empty from 'common/Empty';
 import Section from 'common/Section';
 import ProductCardSkeleton from 'common/ProductCard/skeleton';
-import CategoryCardSkeleton from 'components/common/category-card/skeleton';
+import CategoryCardSkeleton from 'features/category/card/skeleton';
 
 const ProductCard = dynamic(
     () => import('common/ProductCard'),
@@ -34,7 +33,7 @@ const ProductCard = dynamic(
 );
 
 const CategoryCard = dynamic(
-    () => import('components/common/category-card'),
+    () => import('features/category/card'),
     {
         ssr: false,
         loading: () => <CategoryCardSkeleton/>,
@@ -111,7 +110,6 @@ const HomeMobile: FC<HomeMobileProps> = ({
                         </Carousel>
                     </Box>
                 )}
-                <OfferList offers={offers} loading={offersLoading}/>
             </Box>
             {!offers || offers?.length <= 0 && (
                 <Empty

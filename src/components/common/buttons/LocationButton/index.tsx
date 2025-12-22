@@ -15,7 +15,7 @@ import {
     Tooltip,
     IconButton,
 } from 'ui/index';
-import { MapPin } from 'icons/index';
+import { MapPin } from 'components/icons';
 
 import LocationSelectorDialog from 'common/dialogs/LocationSelectorDialog';
 

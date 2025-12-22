@@ -10,7 +10,7 @@ import {
     Tooltip,
     IconButton,
 } from 'ui/index';
-import { Search } from 'icons/index';
+import { Search } from 'components/icons';
 
 type SearchButtonProps = {
     selected: boolean;

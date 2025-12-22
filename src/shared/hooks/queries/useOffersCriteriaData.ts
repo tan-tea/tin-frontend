@@ -1,14 +1,16 @@
-import { minutesToMilliseconds } from 'date-fns';
+import { useAtomValue } from 'jotai';
 import {
     useQuery,
     type QueryObserverResult,
 } from '@tanstack/react-query';
+import { minutesToMilliseconds } from 'date-fns';
 
 import { autocomplete } from 'app/actions';
 
 import type {
     Offer
 } from 'shared/models';
+import { shopAtom } from 'shared/state';
 
 type UseOffersCriteriaData = Readonly<QueryObserverResult<Array<Offer>> & {
     queryId: string;
@@ -28,12 +30,15 @@ export const useOffersCriteriaData: UseOffersCriteriaDataHandler = (
     skip,
 ) => {
     'use memo'
+    const shop = useAtomValue(shopAtom);
 
     const result = useQuery({
         queryKey: [QUERY_ID, query, top, skip,],
         queryFn: async () => {
-            const offers = await autocomplete(query);
-            console.log('offers', offers);
+            const shopId = shop?.id;
+            if (!shopId) return [];
+
+            const offers = await autocomplete(query, shopId, top, skip);
             return offers;
         },
         enabled: !!query,

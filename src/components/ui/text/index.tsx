@@ -3,6 +3,7 @@
 import type {
     FC,
     ComponentProps,
+    JSX,
 } from 'react';
 
 import { memo } from 'react';
@@ -16,6 +17,7 @@ import BaseTypography, {
 } from '@mui/material/Typography';
 
 import { cn } from 'lib/utils';
+import { Icon } from 'components/icons';
 
 const TEXT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
@@ -37,6 +39,7 @@ const text = tv({
         root: cn('text-base font-normal m-0 p-0 text-inherit'),
         heading: cn('block font-secondary font-bold'),
         paragraph: cn('block font-primary-alt text-normal truncate'),
+        iconLabel: cn('flex flex-row items-center gap-x-1.5'),
         label: '',
     },
     variants: {
@@ -69,9 +72,11 @@ const text = tv({
         color: {
             normal: {
                 heading: 'text-dark-600 dark:text-light-400',
+                paragraph: 'text-dark-600 dark:text-light-400',
             },
             primary: {
-                heading: 'text-[var(--mui-palette-primary-main)]'
+                heading: 'text-[var(--mui-palette-primary-main)]',
+                paragraph: 'text-[var(--mui-palette-primary-main)]',
             },
         },
         through: {
@@ -95,6 +100,8 @@ const text = tv({
     },
     defaultVariants: {
         through: false,
+        color: 'normal',
+        truncate: false,
     },
 });
 
@@ -111,7 +118,7 @@ const headingLevelMap = {
     '6': motion.h6,
 } as const;
 
-export const Heading: FC<HeadingProps> = ({
+const Heading: FC<HeadingProps> = ({
     level = '2',
     color = 'normal',
     className,
@@ -142,12 +149,15 @@ export const Heading: FC<HeadingProps> = ({
             })}
         />
     );
-}
+};
+
+Heading.displayName = 'Heading';
 
 type ParagraphProps = TextVariants & ComponentProps<typeof motion.p>;
 
-export const Paragraph: FC<ParagraphProps> = ({
+const Paragraph: FC<ParagraphProps> = ({
     level = '4',
+    color,
     className,
     ...props
 }) => {
@@ -162,10 +172,77 @@ export const Paragraph: FC<ParagraphProps> = ({
             className={paragraph({
                 className,
                 level,
+                color,
             })}
         />
     );
-}
+};
+
+Paragraph.displayName = 'Paragraph';
+
+type IconLabelProps = TextVariants & ComponentProps<typeof motion.div> & {
+    icon: ComponentProps<typeof Icon>['value'];
+    label: string;
+};
+
+const ICON_LABEL_ANIMATION: MotionNodeAnimationOptions = {
+    initial: {
+        y: -10,
+        scale: 0.85,
+    },
+    animate: {
+        y: 0,
+        scale: 1,
+    },
+    exit: {
+        y: 10,
+        scale: 0,
+    },
+    transition: {
+        y: {
+            type: 'spring',
+            duration: 0.35,
+        },
+        scale: {
+            type: 'spring',
+            duration: 0.25,
+            delay: 0.35,
+        },
+    },
+} as const;
+
+const IconLabel: FC<IconLabelProps> = ({
+    icon,
+    label,
+    level,
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { iconLabel } = text({
+        level,
+    });
+
+    return (
+        <motion.div
+            {...ICON_LABEL_ANIMATION}
+            {...props}
+            data-slot='text-icon-label'
+            className={iconLabel({
+                className,
+            })}
+        >
+            {icon && <Icon value={icon}/>}
+            <Paragraph truncate>{label}</Paragraph>
+        </motion.div>
+    );
+};
+
+export {
+    Heading,
+    Paragraph,
+    IconLabel,
+};
 
 const componentMap = {
     'heading': Heading,

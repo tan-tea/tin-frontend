@@ -13,6 +13,7 @@ const layout = tv({
         main: cn('box-border outline-none min-h-dvh'),
         section: cn('w-full min-h-dvh box-border outline-none scrollbar-hide md:scrollbar-default'),
         article: cn('box-border outline-none transition-colors'),
+        wrapper: cn('w-full box-border outline-none'),
     },
     variants: {},
 });
@@ -141,8 +142,8 @@ const Article: FC<ArticleProps> = ({
 
     return (
         <motion.article
+            role='article'
             {...ARTICLE_ANIMATION}
-            whileTap={{ scale: 0.90 }}
             {...props}
             data-slot='layout-article'
             className={article({
@@ -152,7 +153,54 @@ const Article: FC<ArticleProps> = ({
     );
 }
 
-const Wrapper: FC = () => <></>;
+type WrapperProps = LayoutVariants & ComponentProps<typeof motion.div>;
+
+const WRAPPER_ANIMATION: MotionNodeAnimationOptions = {
+    initial: {
+        scale: 0.85,
+        opacity: 0,
+    },
+    animate: {
+        scale: 1,
+        opacity: 1,
+    },
+    exit: {
+        scale: 0,
+        opacity: 0,
+    },
+    transition: {
+        opacity: {
+            type: 'spring',
+            duration: 0.25,
+            delay: 0.35,
+        },
+        scale: {
+            type: 'spring',
+            duration: 0.15,
+            delay: 0.70,
+            stiffness: 500,
+        },
+    },
+} as const;
+
+const Wrapper: FC<WrapperProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { wrapper } = layout();
+
+    return (
+        <motion.div
+            {...WRAPPER_ANIMATION}
+            {...props}
+            data-slot='layout-wrapper'
+            className={wrapper({
+                className,
+            })}
+        />
+    );
+}
 
 export {
     Main,

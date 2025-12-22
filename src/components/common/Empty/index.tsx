@@ -16,7 +16,7 @@ import Box from 'ui/box';
 import Typography from 'ui/text';
 
 const ProductDetailImage = dynamic(
-    () => import('components/pages/product-detail/components/ProductDetailImage'),
+    () => import('components/pages/item-by-slug/components/ProductDetailImage'),
     {
         ssr: false,
     },

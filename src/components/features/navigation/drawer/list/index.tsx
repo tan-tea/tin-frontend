@@ -10,7 +10,7 @@ import { cn } from 'lib/utils';
 
 import {
     MapPin,
-} from 'icons/index';
+} from 'components/icons';
 
 import NavigationDrawerListItem from './item';
 

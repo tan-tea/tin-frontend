@@ -9,7 +9,7 @@ import {
     Box,
 } from 'ui/index';
 
-import BackButton from 'common/buttons/BackButton';
+import BackButton from 'components/common/buttons/back-button';
 
 import { NewWorkspaceProps, } from 'components/pages/new-workspace';
 

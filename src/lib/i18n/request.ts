@@ -1,8 +1,8 @@
 import { Formats, hasLocale, } from 'next-intl';
 import { getRequestConfig, } from 'next-intl/server';
 
-import { routing } from 'lib/i18n/routing';
 import { clientEnv } from 'env/client';
+import { routing } from 'lib/i18n/routing';
 
 export const formats: Formats = {
     dateTime: {
@@ -38,6 +38,7 @@ export default getRequestConfig(
         return {
             locale,
             messages: (await import(`messages/${clientEnv.NEXT_PUBLIC_WORKSPACE_NAME}/${locale}.json`)).default,
+            // getMessageFallback: () => ``,
         };
     }
 );

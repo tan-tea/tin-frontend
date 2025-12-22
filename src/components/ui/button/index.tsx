@@ -7,19 +7,35 @@ import type {
     KeyboardEvent,
     ComponentProps,
 } from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import type { VariantProps } from 'tailwind-variants';
+
+import { tv } from 'tailwind-variants';
+import { motion, MotionNodeAnimationOptions } from 'motion/react';
+import { Button as BaseButton } from '@base-ui/react/button';
+
 import {
     default as RootButton,
     ButtonProps as RootButtonProps,
 } from '@mui/material/Button';
-import { motion, MotionProps } from 'motion/react';
 
-import { Spinner, } from 'ui/index';
+const baseButton = tv({
+    base: [
+        'font-semibold',
+        'font-secondary',
+        'normal-case',
+    ],
+    variants: {
+        color: {
+            primary: 'bg-[var(--mui-palette-primary-main)] hover:bg-[var(--mui-palette-primary-700)]',
+            secondary: 'bg-[var(--mui-palette-secondary-main)] hover:bg-[var(--mui-palette-secondary-700)]',
+        },
+    }
+});
+
+type BaseButtonVariants = VariantProps<typeof baseButton>;
 
 const button = tv({
+    extend: baseButton,
     base: 'normal-case rounded-lg',
     variants: {
         color: {
@@ -47,9 +63,9 @@ const button = tv({
     }
 });
 
-type ButtonVariants = VariantProps<typeof button>;
+type ButtonVariants = BaseButtonVariants & VariantProps<typeof button>;
 
-type ButtonProps = ButtonVariants & ComponentProps<'button'> & MotionProps & {
+type ButtonProps = ButtonVariants & ComponentProps<'button'> & MotionNodeAnimationOptions & {
     block?: boolean;
     loading?: boolean;
     allowEnter?: boolean;
@@ -122,7 +138,7 @@ const Button: FC<ButtonProps> = (props) => {
             startIcon={startIcon}
             endIcon={endIcon}
         >
-            {loading && <Spinner/>}
+            {loading && <>Loading...</>}
             {!loading && children}
         </RootButton>
     );

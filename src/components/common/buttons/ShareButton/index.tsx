@@ -16,7 +16,7 @@ import {
     Tooltip,
     IconButton
 } from 'ui/index';
-import { Share } from 'icons/index';
+import { Share } from 'components/icons';
 
 const shareButton = tv({
     slots: {

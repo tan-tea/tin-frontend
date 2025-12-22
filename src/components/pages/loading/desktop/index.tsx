@@ -12,7 +12,7 @@ import {
 
 import { LoadingProps, } from 'components/pages/loading';
 
-import BackButton from 'common/buttons/BackButton';
+import BackButton from 'components/common/buttons/back-button';
 
 type LoadingDesktopProps = LoadingProps;
 

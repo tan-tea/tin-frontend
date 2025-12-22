@@ -14,4 +14,6 @@ export interface Shop extends ShopReadModel {
     geolocation: Geolocation;
     geolocationId: string;
     schedules: Array<Schedule>;
+    banner: string;
+    description: string;
 }

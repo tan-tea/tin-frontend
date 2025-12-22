@@ -1,33 +1,32 @@
 'use client';
 
-import type {
-    FC,
-    JSX,
-} from 'react';
+import type { FC, JSX } from 'react';
+
 import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
-import { ApplicationLanguage, } from 'shared/stores/application-store/types';
 
 import {
     En,
     Es,
-} from 'icons/index';
+} from 'components/icons';
 
 import Switcher, {
     type SwitcherOption
 } from './switcher';
+import { locales } from 'lib/i18n/constants';
 
-const options: Array<SwitcherOption> = [
-    {
-        icon: <En/>,
-        value: 'en',
-    },
-    {
-        icon: <Es/>,
-        value: 'es',
-    },
-];
+type Locale = typeof locales[number];
+
+const iconMap: Record<Locale, JSX.Element> = {
+    'en': <En/>,
+    'es': <Es/>,
+} as const;
+
+const options: Array<SwitcherOption> = locales.map(locale => ({
+    icon: iconMap[locale],
+    value: locale,
+}));
 
 const LanguageSwitcher: FC = () => {
     'use memo'
@@ -37,6 +36,8 @@ const LanguageSwitcher: FC = () => {
     } = useApplicationStore(
         useShallow(store => store),
     );
+
+    if (options?.length <= 1) return null;
 
     return (
         <Switcher

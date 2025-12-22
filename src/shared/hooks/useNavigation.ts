@@ -1,21 +1,24 @@
 import {
+    useMemo,
     useEffect,
     useCallback,
-    useTransition,
+    useTransition
 } from 'react';
-import { formatISO, } from 'date-fns';
-import { useParams, useSearchParams, } from 'next/navigation';
-import {
-    useRouter,
-    usePathname,
-} from 'lib/i18n/navigation';
+import { toast } from 'sonner';
+import { formatISO } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import { useParams, useSearchParams } from 'next/navigation';
+
+import { useRouter, usePathname } from 'lib/i18n/navigation';
 
 import type {
-    History,
+    History
 } from 'shared/models';
-import { useDatabase, } from 'shared/contexts/database';
+import { useDatabase } from 'shared/contexts/database';
 
 const MAX_HISTORY_RECORDS = 20;
+
+type RouteParams = Record<string, string | string[]>;
 
 type NavigationOptions = Parameters<ReturnType<typeof useRouter>['push']>[1];
 
@@ -24,10 +27,7 @@ type UseNavigation = {
     pathname: ReturnType<typeof usePathname>;
     params: ReturnType<typeof useParams>;
     searchParams: ReturnType<typeof useSearchParams>;
-    navigate: (
-        href: string,
-        options?: NavigationOptions,
-    ) => void;
+    navigate: (href: any, options?: NavigationOptions) => void;
     back: () => void | Promise<void>;
     isActivePath: (path: string) => boolean;
     changeLanguage: (locale: string) => void;
@@ -36,123 +36,135 @@ type UseNavigation = {
 
 type UseNavigationHandler = () => UseNavigation;
 
+
+function resolvePathname(pathname: string, params: RouteParams) {
+    let resolved = pathname;
+
+    Object.entries(params).forEach(([key, value]) => {
+        resolved = resolved.replace(`[${key}]`, Array.isArray(value) ? value.join('/') : value);
+    });
+
+    return resolved;
+}
+
 export const useNavigation: UseNavigationHandler = () => {
-    const {
-        database,
-    } = useDatabase();
+    const { database } = useDatabase();
 
-    const [isPending, startTransition,] = useTransition();
-
+    const t = useTranslations();
     const router = useRouter();
-    const params = useParams<Record<string,any>>();
     const pathname = usePathname();
+    const params = useParams<RouteParams>();
     const searchParams = useSearchParams();
 
-    const navigate: UseNavigation['navigate'] = router?.push;
+    const [isPending, startTransition] = useTransition();
 
-    const back: UseNavigation['back'] = async () => {
-        const records = await findAllHistoryFromNow();
+    /**
+     * Ruta real (sin [slug])
+     */
+    const resolvedPathname = useMemo(() => resolvePathname(pathname, params), [pathname, params]);
 
-        if (!Array.isArray(records) || records.length === 0)
-            return navigate('/');
+    /**
+     * Navegación básica
+     */
+    const navigate: UseNavigation['navigate'] = router.push;
 
-        let position = -1;
-        let lastRecord = records?.at(position);
-
-        while (lastRecord) {
-            if (lastRecord.path !== pathname)
-                return navigate(lastRecord.path);
-
-            position -= 1;
-            lastRecord = records?.at(position);
-        }
-
-        return navigate('/', { scroll: false, });
-    };
-
-    const isActivePath: UseNavigation['isActivePath'] =
-        (path: string) => pathname === path;
-
-    const changeLanguage: UseNavigation['changeLanguage'] = (locale: string) => {
-        startTransition(() => router.replace(
-            { pathname, },
-            { locale, }
-        ));
-    };
-
+    /**
+     * Guardar historial
+     */
     const saveHistory = useCallback(
         async (history: History) => {
-            const saved = await database
-                ?.history
-                ?.put({
-                    ...history,
-                    createdAt: formatISO(new Date()),
-                    modifiedAt: formatISO(new Date()),
-                });
-
-            return saved;
+            return database?.history?.put({
+                ...history,
+                createdAt: formatISO(new Date()),
+                modifiedAt: formatISO(new Date()),
+            });
         },
-        [database,],
+        [database],
     );
 
-    const findAllHistoryFromNow = useCallback(
-        async () => {
-            const records = await database
-                ?.history
-                ?.where('createdAt')
-                ?.belowOrEqual(formatISO(new Date()))
-                ?.sortBy('createdAt')
+    const findAllHistoryFromNow = useCallback(async () => {
+        return database?.history
+            ?.where('createdAt')
+            ?.belowOrEqual(formatISO(new Date()))
+            ?.sortBy('createdAt');
+    }, [database]);
 
-            return records;
-        },
-        [database,],
-    );
+    /**
+     * Sincronizar historial
+     */
+    const syncHistory = useCallback(async () => {
+        if (!database) return;
 
-    const syncHistory = useCallback(
-        async () => {
-            const newRecord: History = {
-                key: pathname,
-                hash: '',
-                params: searchParams ? [...searchParams?.entries?.()]
-                    ?.map(([key, value]) => `${key}=${value}`) : [],
-                path: pathname,
-                url: window?.location?.hostname,
-            };
+        const newRecord: History = {
+            url: window.location.href,
+            key: resolvedPathname,
+            path: resolvedPathname,
+            hash: typeof window !== 'undefined' ? window.location.hash : '',
+            params: [...searchParams.entries()].map(([k, v]) => `${k}=${v}`),
+        };
 
-            const [ count, records, ] = await Promise.all([
-                database?.history?.count?.(),
-                findAllHistoryFromNow(),
-            ]);
+        const [count, records] = await Promise.all([
+            database.history.count(),
+            findAllHistoryFromNow(),
+        ]);
 
-            if (count < MAX_HISTORY_RECORDS)
-                return await saveHistory(newRecord);
+        if (count < MAX_HISTORY_RECORDS) {
+            return saveHistory(newRecord);
+        }
 
-            const lastRecord = records?.at(0);
-            if (!lastRecord)
-                return await saveHistory(newRecord);
+        const oldest = records?.[0];
+        if (!oldest) return saveHistory(newRecord);
 
-            await Promise.all([
-                database?.history?.delete?.(lastRecord?.key),
-                saveHistory(newRecord),
-            ]);
-        },
-        [pathname, database, findAllHistoryFromNow,],
-    );
+        await Promise.all([database.history.delete(oldest.key), saveHistory(newRecord)]);
+    }, [database, resolvedPathname, searchParams, findAllHistoryFromNow, saveHistory]);
 
     useEffect(() => {
-        syncHistory()
-            .catch(err => console.error(err));
-    }, [syncHistory,]);
+        syncHistory().catch(console.error);
+    }, [syncHistory]);
+
+    /**
+     * Back inteligente
+     */
+    const back: UseNavigation['back'] = async () => {
+        const records = await findAllHistoryFromNow();
+        if (!records?.length) return navigate('/');
+
+        try {
+            for (let i = records.length - 1; i >= 0; i--) {
+                if (records[i].path !== resolvedPathname) {
+                    return navigate(records[i].path, {
+                        scroll: false,
+                    });
+                }
+            }
+        } catch (error) {
+            toast.error(t('goBackError'));
+            console.error('Something went wrong in go back');
+        } finally {
+            return navigate('/', { scroll: false });
+        }
+    };
+
+    /**
+     * Utils
+     */
+    const isActivePath: UseNavigation['isActivePath'] = (path) => resolvedPathname === path;
+
+    const changeLanguage: UseNavigation['changeLanguage'] = (locale) => {
+        startTransition(() => {
+            router.replace({ pathname, params } as any, { locale });
+        });
+    };
 
     return {
-        back,
-        navigate,
         router,
-        pathname,
+        navigate,
+        back,
+        pathname: resolvedPathname as any,
         params,
         searchParams,
         isActivePath,
         changeLanguage,
         isChangingLanguage: isPending,
     };
-}
+};

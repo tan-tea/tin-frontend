@@ -16,7 +16,7 @@ import { AutocompleteClear, AutocompleteInput } from 'ui/autocomplete';
 import {
     Search,
     Icon,
-} from 'icons/index';
+} from 'components/icons';
 
 const searchBox = tv({
     slots: {

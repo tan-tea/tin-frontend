@@ -11,28 +11,32 @@ import {
     getOffersByCriteria,
     getOffersByShopId,
     getOffersSlugByWorkspace,
+    getShopBySlug,
     getShopsByWorkspaceId,
+    getShopsSlugsByWorkspaceId,
 } from 'lib/core/vm';
 
-import type {
-    Shop,
-    Offer,
-    Category,
-    Workspace,
-    Customization,
-} from 'shared/models';
-
-export async function getWorkspaceDetailsById(id: string): Promise<Workspace> {
+export async function getWorkspaceDetailsById(id: string) {
     'use server'
     return await getWorkspaceById(id);
 }
 
-export async function getAllCustomizationByWorkspace(workspaceId: string): Promise<Customization> {
+export async function getAllCustomizationByWorkspace(workspaceId: string) {
     'use server'
     return await getCustomizationByWorkspaceId(workspaceId);
 }
 
-export async function getShopsDetailsByWorkspace(workspaceId: string): Promise<Array<Shop>> {
+export async function getShopsSlugsByWorkspace(workspaceId: string) {
+    'use server'
+    return await getShopsSlugsByWorkspaceId(workspaceId);
+}
+
+export async function getShopDetailsBySlug(slug: string) {
+    'use server'
+    return await getShopBySlug(slug);
+}
+
+export async function getShopsDetailsByWorkspace(workspaceId: string) {
     'use server'
     return await getShopsByWorkspaceId(workspaceId);
 }
@@ -42,17 +46,17 @@ export async function getOffersSlugByWorkspaceId() {
     return await getOffersSlugByWorkspace();
 }
 
-export async function getOfferDetailsBySlug(slug: string): Promise<Offer> {
+export async function getOfferDetailsBySlug(slug: string) {
     'use server'
     return await getOfferBySlug(slug);
 }
 
-export async function getOffersByShop(shopId: string): Promise<Array<Offer>> {
+export async function getOffersByShop(shopId: string) {
     'use server'
     return await getOffersByShopId(shopId);
 }
 
-export async function autocomplete(query: string): Promise<Array<Offer>> {
+export async function autocomplete(query: string, shopId: string, top?: number, skip?: number) {
     'use server'
-    return await getOffersByCriteria(query);
+    return await getOffersByCriteria(query, shopId, top, skip);
 }

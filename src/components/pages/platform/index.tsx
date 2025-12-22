@@ -14,7 +14,8 @@ import { workspaceAtom } from 'shared/state';
 import { useHideUI, useNavigation } from 'shared/hooks';
 
 import DeviceDetector from 'common/device-detector';
-import PlatformMobileSkeleton from 'pages/platform/mobile/skeleton';
+
+import PlatformMobileSkeleton from './mobile/skeleton';
 
 const PlatformMobile = dynamic(
     () => import('./mobile'),
@@ -41,9 +42,7 @@ export default function Platform(props: OwnPlatformProps) {
         hideBottomNavigation: true,
     });
 
-    const {
-        navigate,
-    } = useNavigation();
+    const { navigate } = useNavigation();
 
     const t = useTranslations();
 

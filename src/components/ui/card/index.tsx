@@ -38,7 +38,7 @@ const card = tv({
         media: cn('w-full relative rounded-[inherit]'),
         mediaImage: cn('size-full rounded-[inherit]'),
         header: cn('font-bold text-lg text-center text-dark-600'),
-        actions: cn('px-4 py-4 border-t border-t-light-600 dark:border-t-dark-300'),
+        actions: cn('px-4 py-4 border-t border-t-light-600 dark:border-t-dark-400'),
         content: cn('flex-1 shrink-0 h-full'),
         actionsArea: cn('size-full rounded-[inherit]'),
         collapse: cn(),

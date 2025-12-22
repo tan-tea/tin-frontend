@@ -34,7 +34,7 @@ import {
     SiTiktok,
     SiWhatsapp,
     SiFacebook,
-} from 'icons/index';
+} from 'components/icons';
 
 const LogoImage = dynamic(
     () => import('components/logo-image'),
@@ -98,7 +98,7 @@ const Logo: FC<LogoProps> = () => {
                                 <MenuItem
                                     key={children?.toString()}
                                     disabled={disabled}
-                                    render={<Link href={href}/>}
+                                    render={<Link href={href as any}/>}
                                 >
                                     {icon} {children}
                                 </MenuItem>

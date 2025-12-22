@@ -19,11 +19,11 @@ export const routing = defineRouting({
         '/location': {
             es: '/ubicacion',
         },
-        '/item/[id]': {
-            es: '/item/[id]',
-        },
         '/store/[slug]': {
             es: '/sucursal/[slug]'
+        },
+        '/store/[slug]/item/[itemSlug]': {
+            es: '/sucursal/[slug]/item/[itemSlug]',
         },
     },
 });

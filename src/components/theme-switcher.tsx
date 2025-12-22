@@ -1,18 +1,16 @@
 'use client';
 
-import type {
-    FC,
-} from 'react';
+import type { FC } from 'react';
+
 import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
-import { ApplicationTheme } from 'shared/stores/application-store/types';
 
 import {
     MonitorIcon,
     MoonStarIcon,
     SunIcon,
-} from 'icons/index';
+} from 'components/icons';
 
 import Switcher, {
     type SwitcherOption

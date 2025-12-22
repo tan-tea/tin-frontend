@@ -1,10 +1,6 @@
 'use client';
 
-import type {
-    FC,
-    ReactNode,
-    ReactElement
-} from 'react';
+import type { ReactNode } from 'react';
 
 import { useState } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
@@ -13,14 +9,9 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 
 import { DialogProvider } from 'shared/contexts/dialog';
 import { DatabaseProvider } from 'shared/contexts/database';
-import { ContainerProvider } from 'shared/contexts/container';
-import { ApplicationStoreProvider } from 'shared/stores/application-store';
+import { BreadcrumbProvider } from 'shared/contexts/breadcrumb';
 import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
-
-import {
-    Item,
-    BreadcrumbProvider,
-} from 'ui/breadcrumb';
+import { ApplicationStoreProvider } from 'shared/stores/application-store';
 
 import ThemeLayout from 'layout/Theme';
 import ThemeWatcher from 'components/theme-watcher';
@@ -29,9 +20,7 @@ type ProvidersProps = {
     children: ReactNode;
 };
 
-export default function Providers(
-    props: ProvidersProps,
-): ReactElement<FC<ProvidersProps>> {
+export default function Providers(props: ProvidersProps) {
     'use memo'
     const { children } = props;
 
@@ -49,33 +38,24 @@ export default function Providers(
         })
     );
 
-    const breadcrumbs: Array<Item> = [
-        {
-            label: 'Home',
-            href: '/',
-        },
-    ];
-
     return (
-        <ContainerProvider>
-            <DatabaseProvider>
-                <ApplicationStoreProvider>
-                    <QueryClientProvider client={queryClient}>
-                        <DynamicThemeProvider>
-                            <ThemeLayout>
-                                <DialogProvider>
-                                    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
-                                        <BreadcrumbProvider value={breadcrumbs}>
-                                            {children}
-                                        </BreadcrumbProvider>
-                                    </APIProvider>
-                                    <ThemeWatcher/>
-                                </DialogProvider>
-                            </ThemeLayout>
-                        </DynamicThemeProvider>
-                    </QueryClientProvider>
-                </ApplicationStoreProvider>
-            </DatabaseProvider>
-        </ContainerProvider>
+        <DatabaseProvider>
+            <ApplicationStoreProvider>
+                <QueryClientProvider client={queryClient}>
+                    <DynamicThemeProvider>
+                        <ThemeLayout>
+                            <DialogProvider>
+                                <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+                                    <BreadcrumbProvider>
+                                        {children}
+                                    </BreadcrumbProvider>
+                                </APIProvider>
+                                <ThemeWatcher/>
+                            </DialogProvider>
+                        </ThemeLayout>
+                    </DynamicThemeProvider>
+                </QueryClientProvider>
+            </ApplicationStoreProvider>
+        </DatabaseProvider>
     );
 }

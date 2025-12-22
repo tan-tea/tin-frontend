@@ -17,7 +17,7 @@ import {
     Icon,
     ChevronDown,
     ChevronUp,
-} from 'icons/index';
+} from 'components/icons';
 
 export const dropdown = tv({
     slots: {

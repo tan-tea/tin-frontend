@@ -13,7 +13,7 @@ import {
     type VariantProps,
 } from 'tailwind-variants';
 
-import { Icon } from 'icons/index';
+import { Icon } from 'components/icons';
 
 const iconButton = tv({
     base: 'size-auto relative flex items-center justify-center border rounded-lg cursor-pointer outline-none',
@@ -82,8 +82,6 @@ const IconButton: FC<IconButtonProps> = ({
     ...rest
 }) => {
     'use memo'
-    console.log('selected', selected);
-
     const innerRef = useRef<HTMLButtonElement | null>(null);
 
     const refCallback: RefCallback<HTMLButtonElement> = (node) => {

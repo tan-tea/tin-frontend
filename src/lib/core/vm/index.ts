@@ -123,6 +123,7 @@ async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
 
 async function getOffersByCriteria(
     query: string,
+    shopId: string,
     top: number = 10,
     skip: number = 0,
 ): Promise<Array<Offer>> {
@@ -162,6 +163,7 @@ async function getOffersByCriteria(
         .lte('start_date', now)
         .gte('end_date', now)
         .eq('is_active', true)
+        .eq('shop_id', shopId)
         .range(skip, top);
 
     if (error && !data) return [];
@@ -240,11 +242,60 @@ async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<Shop>> 
     return result;
 }
 
+async function getShopsSlugsByWorkspaceId(workspaceId: string): Promise<Array<string>> {
+    const supabase = createStaticClient();
+
+    const { data, error } = await supabase
+        .from('shops')
+        .select('slug')
+        .eq('workspace_id', workspaceId);
+
+    if (error && !data) {
+        console.log('error', error);
+        return [];
+    }
+
+    return data.map(s => s.slug);
+}
+
+function getCachedShopBySlug(slug: string): Shop | null {
+    return getCached(shopsCache, slug);
+}
+
+function setCachedShopBySlug(slug: string, data: Shop): void {
+    return setCached(shopsCache, slug, data, 15);
+}
+
+async function getShopBySlug(slug: string): Promise<Shop> {
+    const cached = getCachedShopBySlug(slug);
+    if (cached) return cached;
+
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+        .from('shops')
+        .select(`
+            *
+        `)
+        .eq('slug', slug)
+        .single();
+
+    if (error && !data) throw new Error('Cannot get shop by slug: ' + slug);
+
+    const result = camelcaseKeys(data, { deep: true }) as Shop;
+
+    setCachedShopBySlug(slug, result);
+
+    return result;
+}
+
 export {
     getOfferBySlug,
     getOffersSlugByWorkspace,
     getDefaultShopByWorkspaceId,
-    getShopsByWorkspaceId,
     getOffersByShopId,
     getOffersByCriteria,
+    getShopsByWorkspaceId,
+    getShopsSlugsByWorkspaceId,
+    getShopBySlug,
 };

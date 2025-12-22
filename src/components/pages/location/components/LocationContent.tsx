@@ -28,7 +28,7 @@ import {
     ChevronUp,
     Focus,
     ExternalLink,
-} from 'icons/index';
+} from 'components/icons';
 
 import type {
     LocationProps,
@@ -71,9 +71,6 @@ const LocationContent: FC<LocationContentProps> = ({
         <Box className='flex-1 size-full overflow-y-auto scrollbar-hide'>
             <Box className='size-full flex flex-col gap-y-4 p-4'>
                 <NavigationBreadcrumb/>
-                {/* <Heading level='1'>
-                    {t('location.heading')}
-                </Heading> */}
                 <Accordion>
                     {shops.map(shop => (
                         <AccordionItem key={shop?.id} onOpenChange={(o) => setOpen(o)}>

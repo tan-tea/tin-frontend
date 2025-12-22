@@ -54,11 +54,6 @@ const Search: FC<SearchProps> = () => {
     const [open, setOpen] = useState<boolean>(false);
 
     const {
-        router,
-        searchParams,
-    } = useNavigation();
-
-    const {
         control,
         watch,
     } = useForm<SearchValues>({
@@ -72,17 +67,6 @@ const Search: FC<SearchProps> = () => {
 
     const query = watch('query');
     const [debouncedQuery] = useDebounce(query, WAIT_IN_MS);
-
-    useEffect(() => {
-        if (query === undefined) return;
-
-        const params = new URLSearchParams(searchParams.toString());
-
-        if (query) params.set('q', debouncedQuery);
-        else params.delete('q');
-
-        router.replace(`?${params.toString()}` as any);
-    }, [query]);
 
     const {
         data,
@@ -113,11 +97,11 @@ const Search: FC<SearchProps> = () => {
                     <AutocompletePortal>
                         <AutocompleteBackdrop/>
                         <AutocompletePositioner
+                            positionMethod='fixed'
                             className={cn(
                                 'w-full fixed mx-auto -translate-x-[5px] z-50',
                                 'mt-20 transform-none'
                             )}
-                            positionMethod='fixed'
                         >
                             <AutocompletePopup className='w-[90%] top-0 mx-auto'>
                                 <SearchBox label={t('search.placeholder')}/>

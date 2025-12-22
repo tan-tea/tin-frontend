@@ -13,7 +13,7 @@ import {
 import {
     Icon,
     ChevronRight,
-} from 'icons/index';
+} from 'components/icons';
 
 type NavigationDrawerListItemProps = {
     href: string;

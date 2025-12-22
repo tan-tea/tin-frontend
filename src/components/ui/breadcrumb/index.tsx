@@ -15,7 +15,7 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from 'lib/utils';
 
-import { Slash, MoreHorizontal } from 'icons/index';
+import { Slash, MoreHorizontal } from 'components/icons';
 
 const breadcrumb = tv({
     slots: {
@@ -171,32 +171,6 @@ const BreadcrumbEllipsis: FC<BreadcrumbEllipsisProps> = ({ className, ...props }
     );
 }
 
-type Item = {
-    label: string;
-    href: string;
-};
-
-const BreadcrumbContext = createContext<Array<Item>>([]);
-
-type BreadcrumbProviderProps = {
-    children: ReactNode;
-    value: Array<Item>;
-}
-
-const BreadcrumbProvider: FC<BreadcrumbProviderProps> = ({ children, value }) => {
-    'use memo'
-
-    return (
-        <BreadcrumbContext.Provider value={value}>
-            {children}
-        </BreadcrumbContext.Provider>
-    );
-}
-
-const useBreadcrumbs = () => {
-    return useContext(BreadcrumbContext);
-}
-
 export {
     Breadcrumb,
     BreadcrumbList,
@@ -205,7 +179,4 @@ export {
     BreadcrumbPage,
     BreadcrumbSeparator,
     BreadcrumbEllipsis,
-    BreadcrumbProvider,
-    useBreadcrumbs,
 };
-export type { Item }

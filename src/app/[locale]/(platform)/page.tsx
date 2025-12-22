@@ -40,8 +40,6 @@ export default async function PlatformPage(props: PlatformPageProps) {
         Parameters<typeof getShopsDetailsByWorkspace>
     >(getShopsDetailsByWorkspace, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID])
 
-    console.log('shops', shops);
-
     return (
         // <Home/>
         <Platform shops={shops ?? []}/>

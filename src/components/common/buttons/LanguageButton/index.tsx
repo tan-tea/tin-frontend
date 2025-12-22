@@ -13,7 +13,7 @@ import {
     Tooltip,
     IconButton,
 } from 'ui/index';
-import { Languages } from 'icons/index';
+import { Languages } from 'components/icons';
 
 type LanguageButtonProps = object;
 

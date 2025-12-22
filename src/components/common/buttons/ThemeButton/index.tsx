@@ -12,7 +12,7 @@ import {
     Tooltip,
     IconButton,
 } from 'ui/index';
-import { Moon, SunMoon, } from 'icons/index';
+import { Moon, SunMoon, } from 'components/icons';
 
 import { useDialog, } from 'shared/contexts/dialog';
 import { useApplicationStore } from 'shared/stores/application-store';

@@ -15,7 +15,7 @@ import {
 import {
     Icon,
     LayoutGrid,
-} from 'icons/index';
+} from 'components/icons';
 
 import Titlebar from 'common/Titlebar';
 import ThemeSwitcher from 'components/theme-switcher';

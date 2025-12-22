@@ -4,6 +4,8 @@ import type { FC } from 'react';
 
 import { Fragment } from 'react';
 
+import { useBreadcrumb } from 'shared/contexts/breadcrumb';
+
 import { InternalLink } from 'ui/link';
 import {
     Breadcrumb,
@@ -12,22 +14,15 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-    useBreadcrumbs,
 } from 'ui/breadcrumb';
 
-type Segment = {
-    href: string;
-    label: string;
-    type?: 'link' | 'separator';
-};
+type NavigationBreadcrumbProps = Readonly<object>;
 
-type NavigationBreadcrumbProps = {
-    items?: Array<Segment>;
-};
-
-const NavigationBreadcrumb: FC<NavigationBreadcrumbProps> = ({ items }) => {
+const NavigationBreadcrumb: FC<NavigationBreadcrumbProps> = () => {
     'use memo'
-    const breadcrumbs = useBreadcrumbs();
+    const { breadcrumbs } = useBreadcrumb();
+
+    console.log('breadcrumbs', breadcrumbs);
 
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
@@ -42,7 +37,7 @@ const NavigationBreadcrumb: FC<NavigationBreadcrumbProps> = ({ items }) => {
                             <BreadcrumbItem>
                                 {breadcrumb.href && !isLast ? (
                                     <BreadcrumbLink asChild>
-                                        <InternalLink href={breadcrumb.href}>
+                                        <InternalLink href={breadcrumb.href as any}>
                                             {breadcrumb.label}
                                         </InternalLink>
                                     </BreadcrumbLink>

@@ -28,27 +28,28 @@ type StoreBySlugPageProps = Readonly<{
     }>;
 }>;
 
-export async function generateStaticParams(props: StaticParams) {
-    const { params } = props;
+// export async function generateStaticParams(props: StaticParams) {
+//     const { params } = props;
 
-    const locale = params.locale ?? fallbackLanguage;
+//     const locale = params.locale ?? fallbackLanguage;
 
-    let slugs: Awaited<ReturnType<typeof getShopsSlugsByWorkspace>> | [];
-    try {
-        slugs = await fetchWithBackoff<
-            ReturnType<typeof getShopsSlugsByWorkspace>,
-            typeof getShopsSlugsByWorkspace,
-            Parameters<typeof getShopsSlugsByWorkspace>
-        >(getShopsSlugsByWorkspace, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID]) ?? [];
-    } catch (error) {
-        slugs = [];
-    }
+//     let slugs: Awaited<ReturnType<typeof getShopsSlugsByWorkspace>> | [];
+//     try {
+//         slugs = await fetchWithBackoff<
+//             ReturnType<typeof getShopsSlugsByWorkspace>,
+//             typeof getShopsSlugsByWorkspace,
+//             Parameters<typeof getShopsSlugsByWorkspace>
+//         >(getShopsSlugsByWorkspace, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID]) ?? [];
+//     } catch (error) {
+//         slugs = [];
+//     }
 
-    return slugs.map(slug => ({
-        locale,
-        slug,
-    }));
-}
+//     return slugs.map(slug => ({
+//         locale,
+//         slug,
+//     }));
+// }
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(props: StoreBySlugPageProps): Promise<Metadata> {
     const { params } = props;
@@ -65,6 +66,7 @@ export async function generateMetadata(props: StoreBySlugPageProps): Promise<Met
         typeof getShopDetailsBySlug,
         Parameters<typeof getShopDetailsBySlug>
     >(getShopDetailsBySlug, [slug]);
+    // const shopBySlug = await getShopDetailsBySlug(slug);
 
     if (!shopBySlug) return {
         title: t('shopNotFound'),
@@ -101,7 +103,6 @@ export default async function StoreBySlugPage(props: StoreBySlugPageProps) {
     try{
         offersByShop = await getOffersByShop(shopBySlug.id);
     } catch (error) {
-        console.error('error', error);
         offersByShop = [];
     }
 

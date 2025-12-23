@@ -7,11 +7,11 @@ import Loading from 'pages/loading';
 type LoadingProps = Readonly<object>;
 
 export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations('titles.loading');
+    const t = await getTranslations();
 
     return {
-        title: t('title'),
-        description: t('description'),
+        title: 'Cargando',
+        description: 'Aguarda un momento...',
     };
 };
 

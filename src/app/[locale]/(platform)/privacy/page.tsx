@@ -9,11 +9,11 @@ type PrivacyPageProps = Readonly<{
 }>;
 
 export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations('titles');
+    const t = await getTranslations();
 
     return {
-        title: t('help.title'),
-        description: t('help.description'),
+        title: 'Privacy',
+        description: 'Privacy policy page',
     };
 }
 

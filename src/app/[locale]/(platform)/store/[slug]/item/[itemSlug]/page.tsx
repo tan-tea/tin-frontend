@@ -30,18 +30,21 @@ type ItemPageProps = {
     }>;
 };
 
-export async function generateStaticParams(props: StaticParams) {
-    const { params } = props;
+// TODO: review this one
+// export async function generateStaticParams(props: StaticParams) {
+//     const { params } = props;
 
-    const locale = params.locale;
+//     const locale = params.locale;
 
-    const offers = await getOffersSlugByWorkspaceId();
+//     const offers = await getOffersSlugByWorkspaceId();
 
-    return offers?.map?.(({ slug }) => ({
-        id: slug,
-        locale: locale || fallbackLanguage,
-    }));
-}
+//     return offers?.map?.(({ slug }) => ({
+//         id: slug,
+//         locale: locale || fallbackLanguage,
+//     }));
+// }
+
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(props: ItemPageProps): Promise<Metadata> {
     const { params } = props;
@@ -57,6 +60,7 @@ export async function generateMetadata(props: ItemPageProps): Promise<Metadata> 
         typeof getOfferDetailsBySlug,
         Parameters<typeof getOfferDetailsBySlug>
     >(getOfferDetailsBySlug, [itemSlug]);
+    // const offer = await getOfferDetailsBySlug(itemSlug);
 
     if (!offer) return {
         title: t('siteName'),

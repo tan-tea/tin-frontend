@@ -1,165 +1,116 @@
 {
-    "sharingLocation": "",
+    "sharingLocation": "Compartiendo ubicaci\u00f3n...",
     "discountTimeLeft": "{left}",
     "allRightsReserved": "\u00a9 {currentYear} - www.yimall.co",
-    "privacyPolicy": "",
-    "termsOfService": "",
+    "privacyPolicy": "Politica de privacidad",
+    "termsOfService": "Terminos del servicio",
     "discountPercentage": "{value}%",
-    "signIn": "",
-    "welcomeBack": "",
-    "menu": "",
-    "exploreDiscounts": "",
-    "offers": "",
-    "goHome": "",
-    "socialMedia": "",
-    "navigation": "",
-    "typing": "",
-    "noResults": "",
-    "address": "",
-    "noscript": "",
-    "open": "",
-    "close": "",
-    "selectHeadquarter": "",
-    "goBackError": "",
+    "menu": "Men\u00fa",
+    "exploreDiscounts": "Promociones",
+    "offers": "Elije tu antojo",
+    "goHome": "Ir al inicio",
+    "socialMedia": "Redes sociales",
+    "navigation": "Para ti",
+    "typing": "Escribiendo...",
+    "noResults": "No hay resultados",
+    "address": "Direcci\u00f3n",
+    "noscript": "Esta aplicación requiere JavaScript para funcionar correctamente. Por favor, habilita JavaScript en tu navegador para continuar.",
+    "open": "Abierto ahora",
+    "close": "Cerrado",
+    "selectHeadquarter": "Selecciona la sucursal m\u00e1s cercana a ti",
+    "goBackError": "Ups... Algo sali\u00f3 al volver atr\u00e1s. Te redirigimos al inicio.",
+    "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "metadata": {
-        "applicationName": "",
-        "siteName": "",
-        "titleTemplate": "",
-        "description": "",
-        "keywords": "",
-        "titles": {
-            "default": "",
-            "template": "",
-            "description": "",
-            "home": {
-                "title": "",
-                "description": ""
-            },
-            "location": {
-                "title": "",
-                "description": ""
-            },
-            "signin": {
-                "title": "",
-                "description": ""
-            },
-            "loading": {
-                "title": "",
-                "description": ""
-            },
-            "notFound": {
-                "title": "",
-                "description": ""
-            },
-            "search": {
-                "title": "",
-                "description": ""
-            },
-            "help": {
-                "title": "",
-                "description": ""
-            }
+        "applicationName": "La Perreria",
+        "siteName": "La Perreria — Perros Calientes Personalizados a tu gusto y Hamburguesas en Armenia",
+        "titleTemplate": "%s | La Perreria",
+        "description": "La Perrería es el lugar ideal en Armenia, Quindío, para disfrutar comida rápida personalizada. Perros calientes a tu gusto con 14 ingredientes y salsas ilimitadas, hamburguesas jugosas y salchipapas irresistibles.",
+        "keywords": "perros calientes personalizados, perros calientes en Armenia, hamburguesas en Armenia, comida rápida en Armenia, hot dogs personalizados, hamburguesas artesanales, comida rápida Armenia Quindío, perros calientes Armenia Quindío, hamburguesas Armenia Quindío, mejores perros calientes en Armenia, restaurantes de comida rápida en Armenia, perros calientes a tu gusto, hamburguesas jugosas, salchipapas crujientes, combos de comida rápida, pan artesanal, comida rápida personalizada, dónde comer perros calientes en Armenia, perros calientes personalizados en Armenia, hamburguesas artesanales en Armenia, comida rápida con domicilio en Armenia, perros calientes con muchos ingredientes",
+        "location": {
+            "title": "Ubicaci\u00f3n y Direcci\u00f3n — Comida R\u00e1pida en Armenia",
+            "description": "Visita La Perrería en Armenia, Quindío. Conoce nuestra ubicaci\u00f3n, direcci\u00f3n y c\u00f3mo llegar para disfrutar perros calientes, hamburguesas y comida r\u00e1pida preparada al momento."
+        },
+        "notFound": {
+            "title": "Página no encontrada",
+            "description": "La página que buscas no está disponible. Explora nuestro menú de hamburguesas, perros calientes y comida rápida en La Perrería"
         }
     },
     "shared": {
-        "back": "",
-        "cancel": "",
-        "close": "",
-        "accept": "",
-        "saveChanges": "",
+        "back": "Atrás",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "accept": "Aceptar",
+        "saveChanges": "Guardar cambios",
         "discount": "{discount}% off",
-        "showMore": "",
-        "showLess": ""
+        "showMore": "Leer más",
+        "showLess": "Ver menos"
     },
     "theme": {
-        "tooltip": "",
+        "tooltip": "Cambiar tema",
         "dialog": {
-            "title": "",
+            "title": "Configuración de la apariencia",
             "description": "",
             "system": {
-                "title": "",
-                "label": "",
-                "description": ""
+                "title": "Sistema",
+                "label": "Default",
+                "description": "Se establecera el tema por defecto del sistema"
             },
             "dark": {
-                "title": "",
-                "label": "",
-                "description": ""
+                "title": "Oscuro",
+                "label": "Dark Mode",
+                "description": "Diseño amigable para la vista en entornos con poca luz."
             },
             "light": {
-                "title": "",
-                "label": "",
-                "description": ""
+                "title": "Claro",
+                "label": "Ligh Mode",
+                "description": "Diseño amigable para la vista en entornos con mucha luz."
             }
         }
     },
     "location": {
-        "tooltip": "",
-        "heading": "",
+        "tooltip": "Nuestra Ubicaci\u00f3n",
         "dialog": {
-            "title": "",
-            "description": "",
-            "button": ""
+            "title": "Ubicación",
+            "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",
+            "button": "Compartir ubicación"
         }
     },
     "language": {
-        "tooltip": "",
+        "tooltip": "Cambiar idioma",
         "dialog": {
-            "title": "",
-            "description": "",
+            "title": "Configuración del idioma",
+            "description": "Establece el idioma que mas se ajuste a tus preferencias",
             "es": {
-                "title": "",
+                "title": "Español",
                 "label": "",
                 "description": ""
             },
             "en": {
-                "title": "",
+                "title": "Inglés",
                 "label": "",
                 "description": ""
             }
         }
     },
     "search": {
-        "tooltip": "",
-        "placeholder": "",
-        "recents": ""
-    },
-    "header": {
-        "greet": ""
-    },
-    "bottomNavigation": {
-        "home": "",
-        "search": "",
-        "browse": "",
-        "help": ""
-    },
-    "signin": {
-        "title": "",
-        "description": "",
-        "discord": "",
-        "instagram": "",
-        "mobile": {
-            "title": "",
-            "description": ""
-        }
-    },
-    "home": {
-        "notOffers": ""
+        "tooltip": "Buscar",
+        "placeholder": "Buscar productos",
+        "recents": "Búsquedas recientes"
     },
     "productDetail": {
-        "title": "",
-        "availableOptions": "",
-        "description": "",
-        "notProvided": "",
-        "button": "",
+        "title": "Detalles del producto",
+        "availableOptions": "Opciones disponibles",
+        "description": "Descripción",
+        "notProvided": "Ups... Apenas estamos preparando los ingredientes para este producto...",
+        "button": "Realizar pedido",
         "message": "{name}"
     },
     "loading": {
-        "message": ""
+        "message": "Cargando..."
     },
     "notFound": {
-        "title": "",
-        "description": "",
-        "home": ""
+        "title": "Ups... Estamos preparando el producto que buscar, por lo pronto no encontramos nada al respecto.",
+        "description": "Parece que los ingredientes están en camino, por ahora no podemos mostrarte lo que buscas. Puedes regresar al inicio o seguir navegando nuestros productos disponibles.",
+        "home": "Regresar al menú"
     }
 }

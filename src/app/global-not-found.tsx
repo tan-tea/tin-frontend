@@ -43,8 +43,8 @@ export async function generateMetadata(props: GlobalNotFoundProps): Promise<Meta
     });
 
     return {
-        title: t('titles.notFound.title'),
-        description: t('titles.notFound.description'),
+        title: t('notFound.title'),
+        description: t('notFound.description'),
     };
 }
 

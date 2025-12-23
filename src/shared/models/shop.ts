@@ -7,6 +7,9 @@ import { Schedule } from './schedule';
 
 export interface Shop extends ShopReadModel {
     slug: string;
+    phone: string;
+    banner: string;
+    description: string;
     workspace: Workspace;
     workspaceId: string;
     address: Address;
@@ -14,6 +17,4 @@ export interface Shop extends ShopReadModel {
     geolocation: Geolocation;
     geolocationId: string;
     schedules: Array<Schedule>;
-    banner: string;
-    description: string;
 }

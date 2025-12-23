@@ -15,9 +15,7 @@ import { NotFoundProps, } from 'components/pages/not-found';
 
 type NotFoundMobileProps = NotFoundProps;
 
-const NotFoundMobile: FC<NotFoundMobileProps> = (
-    props: NotFoundMobileProps
-) => {
+const NotFoundMobile: FC<NotFoundMobileProps> = (props) => {
     const {
         title,
         description,
@@ -45,15 +43,6 @@ const NotFoundMobile: FC<NotFoundMobileProps> = (
                     >
                         {description}
                     </Typography>
-                    {/* <Button
-                        block
-                        mobile
-                        rounded='full'
-                        variant='contained'
-                        onClick={() => navigate('/')}
-                    >
-                        {navigation}
-                    </Button> */}
                     <Link href='/'>{navigation}</Link>
                 </Box>
             </Box>

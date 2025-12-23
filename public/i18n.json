@@ -1,12 +1,11 @@
 {
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
     "sharingLocation": "",
     "discountTimeLeft": "{left}",
     "allRightsReserved": "",
     "privacyPolicy": "",
     "termsOfService": "",
     "discountPercentage": "{value}%",
-    "signIn": "",
-    "welcomeBack": "",
     "menu": "",
     "exploreDiscounts": "",
     "offers": "",
@@ -28,38 +27,13 @@
         "titleTemplate": "",
         "description": "",
         "keywords": "",
-        "titles": {
-            "default": "",
-            "template": "",
-            "description": "",
-            "home": {
-                "title": "",
-                "description": ""
-            },
-            "location": {
-                "title": "",
-                "description": ""
-            },
-            "signin": {
-                "title": "",
-                "description": ""
-            },
-            "loading": {
-                "title": "",
-                "description": ""
-            },
-            "notFound": {
-                "title": "",
-                "description": ""
-            },
-            "search": {
-                "title": "",
-                "description": ""
-            },
-            "help": {
-                "title": "",
-                "description": ""
-            }
+        "location": {
+            "title": "",
+            "description": ""
+        },
+        "notFound": {
+            "title": "",
+            "description": ""
         }
     },
     "shared": {
@@ -96,7 +70,6 @@
     },
     "location": {
         "tooltip": "",
-        "heading": "",
         "dialog": {
             "title": "",
             "description": "",
@@ -121,31 +94,9 @@
         }
     },
     "search": {
-        "tooltip": "",
-        "placeholder": "",
-        "recents": ""
-    },
-    "header": {
-        "greet": ""
-    },
-    "bottomNavigation": {
-        "home": "",
-        "search": "",
-        "browse": "",
-        "help": ""
-    },
-    "signin": {
-        "title": "",
-        "description": "",
-        "discord": "",
-        "instagram": "",
-        "mobile": {
-            "title": "",
-            "description": ""
-        }
-    },
-    "home": {
-        "notOffers": ""
+        "tooltip": "Buscar",
+        "placeholder": "Buscar productos",
+        "recents": "Recientes"
     },
     "productDetail": {
         "title": "",

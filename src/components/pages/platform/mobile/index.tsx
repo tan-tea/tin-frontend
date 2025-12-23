@@ -7,7 +7,7 @@ import { Main } from 'ui/layout';
 import { Paragraph } from 'ui/text';
 
 import ApplicationLogo from 'common/application-logo';
-import StoreCard from 'components/features/store/card';
+import StoreCard from 'features/store/card';
 import NavigationDrawer from 'features/navigation/drawer';
 
 type PlatformMobileProps = PlatformProps;

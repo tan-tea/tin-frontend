@@ -29,6 +29,7 @@ export type ItemBySlugProps = Pick<OwnItemBySlugProps, 'offer'> & {
 };
 
 export default function ItemBySlug(props: OwnItemBySlugProps) {
+    'use memo'
     const { offer } = props;
 
     useHideUI({

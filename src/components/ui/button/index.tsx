@@ -76,6 +76,7 @@ type ButtonProps = ButtonVariants & ComponentProps<'button'> & MotionNodeAnimati
     color?: RootButtonProps['color'];
     variant?: RootButtonProps['variant'];
     disableRipple?: RootButtonProps['disableRipple'];
+    component?: RootButtonProps['component'];
     ref?: Ref<HTMLButtonElement>;
 };
 
@@ -113,7 +114,7 @@ const Button: FC<ButtonProps> = (props) => {
     return (
         <RootButton
             {...rest}
-            component={motion.button}
+            // component={motion.button}
             className={button({
                 mobile,
                 rounded,

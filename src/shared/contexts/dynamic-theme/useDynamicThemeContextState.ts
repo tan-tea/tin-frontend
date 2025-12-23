@@ -10,9 +10,9 @@ import DEFAULT_THEME from 'app/theme';
 
 import { formatThemePalette } from 'lib/utils';
 
+import { customizationAtom } from 'shared/state';
 import { useCustomizationData } from 'shared/hooks/queries';
 import { useApplicationStore } from 'shared/stores/application-store';
-import { customizationAtom } from 'shared/state';
 
 type DynamicThemeContextState = {
     theme: Theme;
@@ -41,7 +41,8 @@ const useDynamicThemeContextState: UseDynamicThemeHandler = () => {
     } = useCustomizationData();
 
     useEffect(() => {
-        setCustomizationAtom(customizationData);
+        if (customizationData)
+            setCustomizationAtom(customizationData);
     }, [customizationData,]);
 
     const theme = useMemo<Theme>(

@@ -1,13 +1,10 @@
-import type {
-    FC,
-    ReactElement,
-} from 'react';
 import type { Metadata } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
-import Loading from 'components/pages/loading';
+import Loading from 'pages/loading';
 
-type LoadingProps = object;
+type LoadingProps = Readonly<object>;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations('titles.loading');
@@ -18,9 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 };
 
-export default function LoadingPage(
-    props: LoadingProps,
-): ReactElement<FC<LoadingProps>> {
+export default function LoadingPage(props: LoadingProps) {
     const {} = props;
 
     return (

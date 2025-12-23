@@ -23,7 +23,7 @@ import type {
 } from 'components/pages/location';
 
 import Section from 'common/Section';
-import Titlebar from 'common/Titlebar';
+import Titlebar from 'components/common/titlebar';
 import BackButton from 'components/common/buttons/back-button';
 import LocationButton from 'common/buttons/LocationButton';
 import LocationContent from 'pages/location/components/LocationContent';

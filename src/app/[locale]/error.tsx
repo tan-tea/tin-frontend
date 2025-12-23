@@ -1,18 +1,25 @@
 'use client'
 
-import {
-    FC,
-    ReactElement,
-} from 'react';
+import { useTranslations } from 'next-intl';
 
-type ErrorProps = object;
+import { Section } from 'ui/layout';
 
-export default function ErrorPage(
-    props: ErrorProps,
-): ReactElement<FC<ErrorProps>> {
+type ErrorProps = Readonly<object>;
+
+export default function ErrorPage(props: ErrorProps) {
     const {} = props;
 
+    const t = useTranslations();
+
     return (
-        <h1>something went wrong</h1>
+        <Section
+            aria-label=''
+            aria-description=''
+            className=''
+        >
+            <div>
+
+            </div>
+        </Section>
     );
 };

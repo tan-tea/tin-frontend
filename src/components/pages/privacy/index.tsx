@@ -1,10 +1,5 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
-} from 'react';
-
 import { useTranslations, } from 'next-intl';
 
 import {
@@ -17,16 +12,14 @@ import DeviceDetector from 'common/device-detector';
 // import SearchMobile from './mobile';
 // import SearchDesktop from './desktop';
 
-type Props = object;
+type Props = Readonly<object>;
 
-export type PrivacyProps = {
+export type PrivacyProps = Props & {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Privacy(
-    props: Props,
-): ReactElement<FC<Props>> {
+export default function Privacy(props: Props) {
     'use memo'
     const {} = props;
 

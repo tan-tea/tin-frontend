@@ -97,7 +97,7 @@ const ProductDetailImage: FC<ProductDetailImageProps> = (props) => {
                 loading='eager'
                 placeholder={`data:image/svg+xml;base64,${toBase64(BlankImage)}`}
                 alt={alt}
-                src={image}
+                src={image ?? BlankImage}
                 ref={imageRef}
                 width={parseFloat(containerComputedStyle?.width ?? '420')}
                 height={parseFloat(containerComputedStyle?.height ?? '420')}

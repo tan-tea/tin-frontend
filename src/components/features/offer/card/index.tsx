@@ -39,7 +39,7 @@ const offerCard = tv({
         mediaImage: cn('object-cover'),
         content: cn('w-full px-2.5 pb-2.5 pt-2 flex flex-col justify-between gap-y-1'),
         priceWithDiscount: cn('mt-auto'),
-        titleText: cn('text-base font-nunito leading-4.5 font-bold md:text-lg'),
+        titleText: cn('text-[15px] font-primary-alt leading-4.5 font-bold md:text-lg'),
         timeleftText: cn('text-xs leading-4 text-dark-300/75 dark:text-light-600'),
         descriptionText: cn('text-xs leading-4'),
     },
@@ -50,6 +50,7 @@ const offerCard = tv({
                 actionsArea: cn('flex flex-col'),
                 titleText: cn('truncate'),
                 descriptionText: cn('truncate'),
+                media: 'rounded-b-none'
             },
             list: {
                 root: cn('w-full'),
@@ -317,7 +318,7 @@ const OfferCard: FC<OfferCardProps> = ({
     const target = `/store/${slug}/item/${props.offer.slug}`;
 
     return (
-        <CardRoot className={root()}>
+        <CardRoot rounded='xl' className={root()}>
             <CardActionsArea href={target as any} className={actionsArea()}>
                 <Content {...props}/>
             </CardActionsArea>

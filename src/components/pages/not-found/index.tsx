@@ -1,10 +1,5 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
-} from 'react';
-
 import DeviceDetector from 'common/device-detector';
 
 import NotFoundMobile from './mobile';
@@ -18,9 +13,7 @@ type OwnNotFoundProps = {
 
 export type NotFoundProps = OwnNotFoundProps & object;
 
-export default function NotFound(
-    props: OwnNotFoundProps
-): ReactElement<FC<OwnNotFoundProps>> {
+export default function NotFound(props: OwnNotFoundProps) {
     const childProps: NotFoundProps = {
         ...props,
     };

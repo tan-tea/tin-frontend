@@ -4,10 +4,9 @@ import type { FC, ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
 import { motion } from 'motion/react';
-import { tv } from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 
-import { cn } from 'lib/utils';
-import { Link } from 'lib/i18n/navigation';
+import { Link as BaseLink } from 'lib/i18n/navigation';
 
 const link = tv({
     base: cn('hover:text-[var(--mui-palette-primary-main)]'),
@@ -15,17 +14,16 @@ const link = tv({
 
 type LinkVariants = VariantProps<typeof link>;
 
-type LinkProps = LinkVariants
-& ComponentProps<typeof Link>;
+type LinkProps = LinkVariants & ComponentProps<typeof BaseLink>;
 
-export const InternalLink: FC<LinkProps> = ({
+const InternalLink: FC<LinkProps> = ({
     className,
     ...props
 }) => {
     'use memo'
 
     return (
-        <Link
+        <BaseLink
             prefetch
             {...props}
             data-slot='internal-link'
@@ -34,9 +32,11 @@ export const InternalLink: FC<LinkProps> = ({
             })}
         />
     );
-}
+};
 
-export const ExternalLink: FC<LinkProps> = ({
+InternalLink.displayName = 'InternalLink';
+
+const ExternalLink: FC<LinkProps> = ({
     href,
     rel,
     target,
@@ -57,4 +57,11 @@ export const ExternalLink: FC<LinkProps> = ({
             {children}
         </motion.a>
     );
-}
+};
+
+ExternalLink.displayName = 'ExternalLink';
+
+export {
+    InternalLink,
+    ExternalLink,
+};

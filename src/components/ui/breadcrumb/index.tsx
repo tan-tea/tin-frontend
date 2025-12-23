@@ -20,7 +20,7 @@ import { Slash, MoreHorizontal } from 'components/icons';
 const breadcrumb = tv({
     slots: {
         root: cn(),
-        list: cn('text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5'),
+        list: cn('text-muted-foreground flex flex-wrap items-center gap-1.5 text-xs break-words sm:gap-2.5'),
         item: cn('inline-flex items-center gap-1.5'),
         link: cn('transition-colors'),
         page: cn('font-normal text-[length:inherit] text-[var(--mui-palette-primary-main)]'),
@@ -94,7 +94,6 @@ const BreadcrumbLink: FC<BreadcrumbLinkProps> = ({
     ...props
 }) => {
     'use memo'
-    // const Wrapper = asChild ? Slot : 'a';
     const { link } = breadcrumb();
 
     return (

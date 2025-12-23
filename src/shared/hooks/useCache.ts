@@ -20,14 +20,18 @@ type Timestamped<T> = T & {
     updatedAt: number;
 };
 
+type HiddenId<T> = T & {
+    _id?: string;
+};
+
 type UseCache<T> = {
     load: (key?: string, maxAge?: number) => Promise<T | null>;
     save: (
-        item: T,
+        item: HiddenId<T>,
         key?: string
     ) => Promise<void>;
-    saveMany: (items: T) => Promise<void>
-    getAge: (key?: string) => Promise<number | null>;
+    saveMany: (items: HiddenId<T>) => Promise<void>
+    getAge: (key?: string) => Promise<number | Array<number> | null>;
 };
 
 export const useCache = <T>(
@@ -48,8 +52,12 @@ export const useCache = <T>(
     const load: UseCache<T>['load'] = useCallback(
         async (key, maxAge = 10) => {
             const age = await getAge(key);
-
-            if (age === null || age >= maxAge) return null;
+            if (Array.isArray(age)) {
+                const someIsOutOfAge = age.some(a => a >= maxAge);
+                if (someIsOutOfAge) return null;
+            } else {
+                if (age === null || age >= maxAge) return null;
+            }
 
             const stored =  key
                 ? await table.get(key)
@@ -103,16 +111,22 @@ export const useCache = <T>(
 
     const getAge: UseCache<T>['getAge'] = useCallback(
         async (key) => {
-            if (!(entity in database)) return null;
+            const fromMillisecondsToMinutes = (timestamp: number) =>
+                millisecondsToMinutes(Date.now() - timestamp);
 
-            const item = (key
+            const items = (key
                 ? await table.get(key)
-                : (await table.toArray())?.[0]
-            ) as Timestamped<T> | undefined
+                : await table.toArray()
+            ) as Timestamped<T> | Array<Timestamped<T>>;
 
-            if (!item || !item?.createdAt) return null;
+            const multipleItems = Array.isArray(items);
+            if (multipleItems) {
+                return items.map(item => fromMillisecondsToMinutes(item.createdAt));
+            }
 
-            return millisecondsToMinutes(Date.now() - item?.createdAt);
+            if (!items || !items?.createdAt) return null;
+
+            return fromMillisecondsToMinutes(items.createdAt);
         },
         [table,],
     );

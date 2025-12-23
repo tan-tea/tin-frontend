@@ -1,8 +1,5 @@
-import type {
-    FC,
-    ReactElement,
-} from 'react';
 import type { Metadata, } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
 import { clientEnv } from 'env/client';
@@ -14,13 +11,13 @@ import type {
     Shop
 } from 'shared/models';
 
-import Location from 'components/pages/location';
+import Location from 'pages/location';
 
-type LocationPageProps = {
+type LocationPageProps = Readonly<{
     params: Promise<{
-        locale: string;
-    }>;
-};
+        locale: string
+    }>
+}>;
 
 export async function generateMetadata(
     props: LocationPageProps
@@ -32,18 +29,16 @@ export async function generateMetadata(
     const t = await getTranslations('metadata');
 
     return {
-        title: t('titles.location.title'),
-        description: t('titles.location.description'),
+        title: t('location.title'),
+        description: t('location.description'),
         openGraph: {
-            title: t('titles.location.title'),
-            description: t('titles.location.description'),
+            title: t('location.title'),
+            description: t('location.description'),
         },
     };
 };
 
-export default async function LocationPage(
-    props: LocationPageProps
-): Promise<ReactElement<FC<LocationPageProps>>> {
+export default async function LocationPage(props: LocationPageProps) {
     const {} = props;
 
     let shops = await fetchWithBackoff<

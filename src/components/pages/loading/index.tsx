@@ -1,9 +1,5 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
-} from 'react';
 import { useTranslations, } from 'next-intl';
 
 import { useNavigation, } from 'shared/hooks';
@@ -20,9 +16,8 @@ export type LoadingProps = {
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Loading(
-    props: OwnLoadingProps
-): ReactElement<FC<OwnLoadingProps>> {
+export default function Loading(props: OwnLoadingProps) {
+    'use memo'
     const {} = props;
 
     const t = useTranslations('loading');

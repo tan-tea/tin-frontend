@@ -22,8 +22,6 @@ const NavigationBreadcrumb: FC<NavigationBreadcrumbProps> = () => {
     'use memo'
     const { breadcrumbs } = useBreadcrumb();
 
-    console.log('breadcrumbs', breadcrumbs);
-
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
     return (
@@ -31,7 +29,6 @@ const NavigationBreadcrumb: FC<NavigationBreadcrumbProps> = () => {
             <BreadcrumbList>
                 {breadcrumbs.map((breadcrumb, index) => {
                     const isLast = index === breadcrumbs.length - 1;
-
                     return (
                         <Fragment key={breadcrumb.label}>
                             <BreadcrumbItem>

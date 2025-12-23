@@ -9,15 +9,13 @@ import { useTranslations } from 'next-intl';
 
 import { formatCurrency } from 'lib/utils';
 
-import {
-    Box,
-    Typography,
-} from 'ui/index';
+import { Wrapper } from 'ui/layout';
+import { Heading, Paragraph } from 'ui/text';
 
 const priceWithDiscount = tv({
     slots: {
         box: 'flex text-primary',
-        value: 'font-nunito',
+        value: 'font-primary-alt',
         valueWithDiscount: '',
         discount: 'text-[var(--mui-palette-primary-main)] bg-[var(--mui-palette-primary-50)] pl-2 pr-1.5 py-1 rounded-lg',
     },
@@ -123,34 +121,34 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
     });
 
     return (
-        <Box className={box({
+        <Wrapper className={box({
             className,
         })}>
             {hasDiscount && (
-                <Typography
-                    variant='h2'
-                    component='h3'
+                <Heading
+                    level='3'
+                    color='primary'
                     className={valueWithDiscount()}
                 >
                     {formatCurrency('COP', roundToCOP(priceWithDiscountApplied))}
-                </Typography>
+                </Heading>
             )}
-            <Box className='flex items-center gap-x-1'>
+            <div className='flex items-center gap-x-1'>
                 {(hasDiscount && orientation === 'vertical') && (
-                    <Typography className={discountSlot()}>{t('discountPercentage', {
+                    <Paragraph className={discountSlot()}>{t('discountPercentage', {
                         value: Math.round(discount),
-                    })}</Typography>
+                    })}</Paragraph>
                 )}
-                <Typography
+                <Heading
+                    color='primary'
+                    level='3'
                     through={hasDiscount}
-                    variant='h2'
-                    component='h3'
                     className={value()}
                 >
                     {formatCurrency('COP', roundToCOP(price))}
-                </Typography>
-            </Box>
-        </Box>
+                </Heading>
+            </div>
+        </Wrapper>
     );
 }
 

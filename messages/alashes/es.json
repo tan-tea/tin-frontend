@@ -5,8 +5,6 @@
     "privacyPolicy": "Pol\u00edtica de privacidad",
     "termsOfService": "T\u00e9rminos del servicio",
     "discountPercentage": "{value}%",
-    "signIn": "Ingresar",
-    "welcomeBack": "¡Bienvenido de nuevo!",
     "menu": "Men\u00fa",
     "exploreDiscounts": "Explorar descuentos",
     "offers": "Servicios",
@@ -21,33 +19,20 @@
     "close": "Cerrado",
     "selectHeadquarter": "Selecciona la sucursal m\u00e1s cercana a ti",
     "goBackError": "Ups... Algo sali\u00f3 al volver atr\u00e1s. Te redirigimos al inicio.",
+    "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
         "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva",
         "titleTemplate": "%s | Alashes",
         "keywords": "Pestañas,Extensiones de pestañas,Cejas,Cejas en Henna,Epilación,Depilación,Depilación con cera,Armenia,Quindio,Colombia.",
-        "titles": {
-            "home": {
-                "title": "Extensiones de pestañas y cejas en sombreado temporal en Armenia, Quindio",
-                "description": "Te ofrecemos extensiones de pestañas y cejas en sombreado temporal, las pestañas van desde la más natural hasta efectos más abundantes para darle un mayor realce a tu mirada y en las cejas te hacemos un diseño de cejas de acuerdo a la naturalidad de tu rostro, utilizamos productos de alta calidad. Para ofrecerte un mejor servicio la intención es que tengas una mirada mucho más expresiva"
-            },
-            "location": {
-                "title": "Sedes, Ubicaciones y Puntos de Atenci\u00f3n",
-                "description": "Encuentra todas las sedes cerca de ti. Consulta direcciones y puntos de atenci\u00f3n para visitarnos f\u00e1cilmente."
-            },
-            "signin": {
-                "title": "Iniciar sesi\u00f3n",
-                "description": "Inicia sesi\u00f3n para acceder a promociones y todo el contenido de nuestro cat\u00e1logo"
-            },
-            "loading": {
-                "title": "Cargando",
-                "description": "Loading page"
-            },
-            "notFound": {
-                "title": "404 - P\u00e1gina no encontrada",
-                "description": "No encontramos la página que buscas. Descubre nuestros productos, servicios y contenidos disponibles y continúa navegando en nuestro sitio."
-            }
+        "location": {
+            "title": "Sedes, Ubicaciones y Puntos de Atenci\u00f3n",
+            "description": "Encuentra todas las sedes cerca de ti. Consulta direcciones y puntos de atenci\u00f3n para visitarnos f\u00e1cilmente."
+        },
+        "notFound": {
+            "title": "404 - P\u00e1gina no encontrada",
+            "description": "No encontramos la página que buscas. Descubre nuestros productos, servicios y contenidos disponibles y continúa navegando en nuestro sitio."
         }
     },
     "shared": {
@@ -84,7 +69,6 @@
     },
     "location": {
         "tooltip": "Nuestra ubicaci\u00f3n",
-        "heading": "Sedes",
         "dialog": {
             "title": "Ubicaci\u00f3n",
             "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",

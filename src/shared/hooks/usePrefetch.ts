@@ -23,7 +23,7 @@ export const usePrefetch: UsePrefetchHandler = () => {
             if (prefetched.current?.has(route)) return;
 
             try {
-                router.prefetch(route);
+                router.prefetch(route as any);
                 prefetched.current?.add(route);
             } catch {}
         },

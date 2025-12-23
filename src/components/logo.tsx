@@ -116,7 +116,7 @@ const Logo: FC<LogoProps> = () => {
                                         key={item?.url}
                                         closeOnClick={false}
                                         render={<ExternalLink
-                                            href={item?.url}
+                                            href={item?.url as any}
                                             rel='noopener noreferrer'
                                             target='_blank'
                                         />}

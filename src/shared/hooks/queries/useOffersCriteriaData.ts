@@ -12,7 +12,7 @@ import type {
 } from 'shared/models';
 import { shopAtom } from 'shared/state';
 
-type UseOffersCriteriaData = Readonly<QueryObserverResult<Array<Offer>> & {
+type OffersCriteriaData = Readonly<QueryObserverResult<Array<Offer>> & {
     queryId: string;
 }>;
 
@@ -20,7 +20,7 @@ type UseOffersCriteriaDataHandler = (
     query: string,
     top?: number,
     skip?: number,
-) => UseOffersCriteriaData;
+) => OffersCriteriaData;
 
 const QUERY_ID = 'offers-by-criteria';
 

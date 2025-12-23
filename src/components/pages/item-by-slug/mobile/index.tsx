@@ -16,15 +16,15 @@ import { Typography } from 'ui/index';
 
 import type { ItemBySlugProps } from 'pages/item-by-slug';
 
-import Titlebar from 'common/Titlebar';
+import Titlebar from 'common/titlebar';
 import BackButton from 'common/buttons/back-button';
 import ShareButton from 'common/buttons/ShareButton';
 import ExpandableText from 'common/expandable-text';
 import PriceWithDiscount from 'common/price-with-discount';
 
 import ProductDetailImage from 'components/pages/item-by-slug/components/ProductDetailImage';
-import ProductDetailButton from 'components/pages/item-by-slug/components/ProductDetailButton';
-import ProductDetailTitle from 'components/pages/item-by-slug/components/ProductDetailTitle';
+import OfferDetailTittle from 'features/offer/detail/title';
+import OfferDetailButton from 'features/offer/detail/button';
 
 type ItemBySlugMobileProps = ItemBySlugProps;
 
@@ -35,8 +35,8 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
     'use memo'
     const { scroll } = useScroll();
 
-    const productDetailButtonRef = useRef<HTMLDivElement | null>(null);
-    const productDetailButtonComputedStyle = useComputedStyle(productDetailButtonRef.current);
+    const buttonRef = useRef<HTMLDivElement | null>(null);
+    const buttonComputedStyle = useComputedStyle(buttonRef.current);
 
     const handleClick: MouseEventHandler = () => {
         const translated = t('message', { name: offer?.title });
@@ -79,7 +79,7 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
             <div
                 className='relative size-full flex flex-col gap-y-4 p-4'
                 style={{
-                    marginBottom: `${parseFloat(productDetailButtonComputedStyle?.height ?? '0')}px`,
+                    marginBottom: `${parseFloat(buttonComputedStyle?.height ?? '0')}px`,
                 }}
             >
                 <PriceWithDiscount
@@ -88,7 +88,7 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     price={offer?.price}
                     discount={offer?.discount}
                 />
-                <ProductDetailTitle offer={offer}/>
+                <OfferDetailTittle offer={offer}/>
                 <ExpandableText text={offer?.description ?? t('notProvided')}/>
                 {offer?.type?.attributes?.length! > 0 && (
                     <div className='relative flex flex-col justify-center gap-y-4'>
@@ -117,8 +117,8 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     </div>
                 )}
             </div>
-            <ProductDetailButton
-                ref={productDetailButtonRef}
+            <OfferDetailButton
+                ref={buttonRef}
                 onClick={handleClick}
             />
         </Section>

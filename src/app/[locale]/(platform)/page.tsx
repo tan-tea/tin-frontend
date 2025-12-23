@@ -6,7 +6,6 @@ import { clientEnv } from 'env/client';
 import { fetchWithBackoff } from 'lib/utils';
 import { getShopsDetailsByWorkspace } from 'app/actions';
 
-// import Home from 'pages/home';
 import Platform from 'pages/platform';
 
 type PlatformPageProps = Readonly<{
@@ -41,7 +40,6 @@ export default async function PlatformPage(props: PlatformPageProps) {
     >(getShopsDetailsByWorkspace, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID])
 
     return (
-        // <Home/>
         <Platform shops={shops ?? []}/>
     );
 };

@@ -98,7 +98,7 @@ const useBreadcrumbContextState: BreadcrumbContextStateHandler = () => {
     useEffect(() => {
         const elements: Array<BreadcrumbElement> = [
             {
-                label: t('bottomNavigation.home'),
+                label: locale.toUpperCase(),
                 href: '/',
             },
             ...getBreadcrumbsFromPath(),

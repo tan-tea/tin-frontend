@@ -1,20 +1,19 @@
 'use client'
 
+import type { FC } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
+
 import {
     useId,
     useMemo,
     useState,
-    type FC,
 } from 'react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps
-} from 'tailwind-variants';
-import { motion, MotionNodeAnimationOptions, } from 'motion/react';
+import { tv } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
+import { motion, MotionNodeAnimationOptions, } from 'motion/react';
 
-import Box from 'ui/box';
+import { Wrapper } from 'ui/layout';
+import { Paragraph } from 'ui/text';
 
 const expandableText = tv({
     slots: {
@@ -94,39 +93,35 @@ const ExpandableText: FC<ExpandableTextProps> = ({
     );
 
     return (
-        <Box
+        <Wrapper
             {...(showAnimation && animate)}
             id={uniqueId}
             layout
-            role='article'
             aria-label={text}
             aria-description={text}
-            component={motion.div}
             className={container()}
         >
-            <Box
+            <Paragraph
                 aria-describedby={uniqueId}
-                component={motion.p}
                 className={textSlot({
                     className,
                 })}
             >
                 {displayText}{' '}
                 {expandable && (
-                    <Box
+                    <motion.button
                         transition={{
                             type: 'tween',
                             duration: 0.25,
                         }}
-                        component={motion.button}
                         className={button()}
                         onClick={() => setExpanded((prev) => !prev)}
                     >
                         {expanded ? t('showLess') : t('showMore')}
-                    </Box>
+                    </motion.button>
                 )}
-            </Box>
-        </Box>
+            </Paragraph>
+        </Wrapper>
     );
 };
 

@@ -12,7 +12,7 @@ import type {
 import { useCache } from 'shared/hooks';
 import { offersAtom } from 'shared/state';
 
-type UseOfferData = Readonly<QueryObserverResult<Array<Offer>> & {
+type OfferData = Readonly<QueryObserverResult<Array<Offer>> & {
     queryId: string;
 }>;
 
@@ -20,9 +20,9 @@ type UseOfferDataProps = {
     shopId: string;
 };
 
-type UseOfferDataHandler = (props: UseOfferDataProps) => UseOfferData;
+type UseOfferDataHandler = (props: UseOfferDataProps) => OfferData;
 
-const QUERY_ID = 'offers-by-shop-data';
+const QUERY_ID = 'offers-by-shop-data' as const;
 
 export const useOffersData: UseOfferDataHandler = ({
     shopId,
@@ -33,7 +33,7 @@ export const useOffersData: UseOfferDataHandler = ({
         saveMany,
     } = useCache<Array<Offer>>('offers', offersAtom);
 
-    const result = useQuery({
+    const query = useQuery({
         queryKey: [QUERY_ID, shopId,],
         queryFn: async () => {
             const cached = await load(undefined, 5);
@@ -41,7 +41,7 @@ export const useOffersData: UseOfferDataHandler = ({
 
             const offers = await getOffersByShop(shopId);
 
-            await saveMany(offers);
+            await saveMany(offers.map(o => ({ ...o, _id: o.id, })));
 
             return offers;
         },
@@ -51,7 +51,7 @@ export const useOffersData: UseOfferDataHandler = ({
     });
 
     return {
-        ...result,
+        ...query,
         queryId: QUERY_ID,
     };
 };

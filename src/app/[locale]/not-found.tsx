@@ -1,26 +1,21 @@
-import type {
-    FC,
-    ReactElement,
-} from 'react';
 import type { Metadata, } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
-import NotFound from 'components/pages/not-found';
+import NotFound from 'pages/not-found';
 
-type NotFoundProps = object;
+type NotFoundProps = Readonly<object>;
 
 export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations('titles.notFound');
+    const t = await getTranslations('metadata');
 
     return {
-        title: t('title'),
-        description: t('description'),
+        title: t('notFound.title'),
+        description: t('notFound.description'),
     };
 };
 
-export default async function NotFoundPage(
-    props: NotFoundProps
-): Promise<ReactElement<FC<NotFoundProps>>> {
+export default async function NotFoundPage(props: NotFoundProps) {
     const {} = props;
 
     const t = await getTranslations('notFound');

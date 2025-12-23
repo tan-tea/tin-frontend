@@ -3,10 +3,8 @@
 import type { FC, ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
-import { tv } from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
-
-import { cn } from 'lib/utils';
 
 const layout = tv({
     slots: {

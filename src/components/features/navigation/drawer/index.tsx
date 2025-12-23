@@ -17,7 +17,7 @@ import {
     LayoutGrid,
 } from 'components/icons';
 
-import Titlebar from 'common/Titlebar';
+import Titlebar from 'components/common/titlebar';
 import ThemeSwitcher from 'components/theme-switcher';
 import LanguageSwitcher from 'components/language-switcher';
 

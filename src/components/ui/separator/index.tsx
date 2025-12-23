@@ -12,7 +12,7 @@ import {
 } from '@base-ui/react/separator';
 
 const separator = tv({
-    base: 'bg-[var(--mui-palette-grey-100)]',
+    base: 'bg-dark-300 dark:bg-light-600',
     variants: {
         orientation: {
             vertical: 'h-4 w-px',

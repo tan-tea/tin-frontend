@@ -6,21 +6,13 @@ import type {
     RefCallback,
     ComponentProps,
 } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
 
 import { useRef } from 'react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
-import { cn } from 'lib/utils';
-
-import {
-    Box,
-    Typography
-} from 'ui/index';
+import { Paragraph } from 'ui/text';
 
 const titlebar = tv({
     slots: {
@@ -59,9 +51,7 @@ const titlebar = tv({
 
 type TitlebarVariants = VariantProps<typeof titlebar>;
 
-type TitlebarProps = TitlebarVariants
-& ComponentProps<typeof motion.div>
-& {
+type TitlebarProps = TitlebarVariants & ComponentProps<typeof motion.div> & {
     title?: string;
     className?: ClassValue;
     showAnimation?: boolean;
@@ -136,7 +126,7 @@ const Titlebar: FC<TitlebarProps> = (props) => {
             })}
         >
             {hasRenderStart ? renderStart?.(props) : <motion.div/>}
-            {shouldRenderTitle && <Typography className={text()}>{title}</Typography>}
+            {shouldRenderTitle && <Paragraph className={text()}>{title}</Paragraph>}
             {shouldRenderCenter && renderCenter?.(props)}
             {(!shouldRenderTitle && !shouldRenderCenter) && <motion.div/>}
             {hasRenderEnd ? renderEnd?.(props) : <motion.div/>}

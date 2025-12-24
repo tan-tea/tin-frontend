@@ -49,12 +49,9 @@ const Search: FC<SearchProps> = () => {
    'use memo'
     const t = useTranslations();
 
-    const params = useParams<{
-        locale: string;
-        slug: string;
-    }>();
+    const params = useParams<{ slug: string }>();
 
-    const { locale, slug } = params;
+    const { slug } = params;
 
     const [open, setOpen] = useState<boolean>(false);
 

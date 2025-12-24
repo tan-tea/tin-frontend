@@ -28,7 +28,7 @@ const CategoryDrawer: FC<CategoryDrawerProps> = ({
     'use memo'
     useHydrateAndSyncAtom([
         [currentCategoryAtom, category],
-    ]);
+    ] as const);
 
     const { label } = category;
 

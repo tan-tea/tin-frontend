@@ -12,8 +12,11 @@ type Handler = <T>(
     ],
 ) => void;
 
+// TODO: review this, we shouldn't change or re-hydrate by this way, use another way directly changing or setting the atom value.
 export const useHydrateAndSyncAtom: Handler = (values) => {
-    useHydrateAtoms(values);
+    const hydratedRef = useRef<boolean>(false);
+
+    useHydrateAtoms(values, { dangerouslyForceHydrate: true, });
 
     const sync = useAtomCallback(
         useCallback((_, set) => {
@@ -23,13 +26,12 @@ export const useHydrateAndSyncAtom: Handler = (values) => {
         }, [values]),
     );
 
-    const isInitial = useRef<boolean>(true);
-
     useEffect(() => {
-        if (isInitial.current) {
-            isInitial.current = false;
-        } else {
-            sync();
+        if (!hydratedRef.current) {
+            hydratedRef.current = true;
+            return;
         }
-    }, [sync]);
+
+        sync();
+    }, [sync, values]);
 }

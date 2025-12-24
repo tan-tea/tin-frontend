@@ -13,14 +13,14 @@ import type {
 
 import Location from 'pages/location';
 
-type LocationPageProps = Readonly<{
+type PageProps = Readonly<{
     params: Promise<{
         locale: string
     }>
 }>;
 
 export async function generateMetadata(
-    props: LocationPageProps
+    props: PageProps
 ): Promise<Metadata> {
     const { params } = props;
 
@@ -38,7 +38,7 @@ export async function generateMetadata(
     };
 };
 
-export default async function LocationPage(props: LocationPageProps) {
+export default async function Page(props: PageProps) {
     const {} = props;
 
     let shops = await fetchWithBackoff<

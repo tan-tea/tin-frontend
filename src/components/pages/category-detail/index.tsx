@@ -1,45 +1,56 @@
 'use client'
-import type {
-    FC,
-    ReactElement,
-} from 'react';
-import { useTranslations } from 'next-intl';
 
 import dynamic from 'next/dynamic';
+
+import { useTranslations } from 'next-intl';
+
+import type {
+    Category
+} from 'shared/models';
+import { currentCategoryAtom } from 'shared/state';
+import { useHideUI, useHydrateAndSyncAtom } from 'shared/hooks';
 
 import DeviceDetector from 'common/device-detector';
 
 const CategoryDetailMobile = dynamic(
     () => import('./mobile'),
     {
+        ssr: false,
         loading: () => <>Loading...</>
     },
 );
 
 type OwnCategoryDetailProps = {
-    id: string;
+    slug: string;
+    category: Category;
 };
 
-export type CategoryDetailProps = {
+export type CategoryDetailProps = OwnCategoryDetailProps & {
     t: ReturnType<typeof useTranslations>;
 };
 
-export default function CategoryDetail(
-    props: OwnCategoryDetailProps
-): ReactElement<FC<OwnCategoryDetailProps>> {
+export default function CategoryDetail(props: OwnCategoryDetailProps) {
     'use memo'
-    const { id } = props;
+    useHydrateAndSyncAtom([
+        [currentCategoryAtom, props.category],
+    ]);
+
+    useHideUI({
+        hideHeader: true,
+        hideBottomNavigation: true,
+    });
 
     const t = useTranslations();
 
     const childProps: CategoryDetailProps = {
+        ...props,
         t,
     };
 
     return (
         <DeviceDetector
             MobileComponent={<CategoryDetailMobile {...childProps}/>}
-            DesktopComponent={<>Desktop</>}
+            DesktopComponent={<CategoryDetailMobile {...childProps}/>}
         />
     );
 }

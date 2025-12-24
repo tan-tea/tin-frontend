@@ -4,15 +4,16 @@ import { clientEnv } from 'env/client';
 import { fetchWithBackoff } from 'lib/utils';
 import { getWorkspaceDetailsById, } from 'app/actions';
 
-import BaseLayout from 'layout/Base';
+import BaseLayout from 'layouts/base';
 
-type LayoutProps = {
+type LayoutProps = Readonly<{
     params: Promise<{ locale: string }>;
+    modal: ReactNode;
     children: ReactNode;
-};
+}>;
 
 export default async function Layout(props: LayoutProps) {
-    const { children } = props;
+    const { modal, children } = props;
 
     let workspace: Awaited<ReturnType<typeof getWorkspaceDetailsById>> | null = null;
     try {
@@ -29,6 +30,7 @@ export default async function Layout(props: LayoutProps) {
     return (
         <BaseLayout initialWorkspace={workspace}>
             {children}
+            {modal}
         </BaseLayout>
     );
 };

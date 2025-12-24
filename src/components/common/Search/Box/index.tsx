@@ -1,16 +1,9 @@
 'use client'
+import type { FC, Ref, RefCallback, ComponentProps } from 'react';
 
-import {
-    useId,
-    type FC,
-    type Ref,
-    type RefCallback,
-    type ComponentProps,
-} from 'react';
+import { useId } from 'react';
 import { motion } from 'motion/react';
-import { tv } from 'tailwind-variants';
-
-import { cn } from 'lib/utils';
+import { tv, cn } from 'tailwind-variants';
 
 import { AutocompleteClear, AutocompleteInput } from 'ui/autocomplete';
 import {

@@ -4,13 +4,9 @@ import { notFound } from 'next/navigation';
 import { getTranslations, } from 'next-intl/server';
 
 import { clientEnv } from 'env/client';
-import {
-    getOfferDetailsBySlug,
-    getOffersSlugByWorkspaceId,
-} from 'app/actions';
+import { getOfferDetailsBySlug } from 'app/actions';
 
 import { fetchWithBackoff } from 'lib/utils';
-import { fallbackLanguage } from 'lib/i18n/constants';
 
 import type {
     Offer
@@ -18,11 +14,7 @@ import type {
 
 import ItemBySlug from 'pages/item-by-slug';
 
-type StaticParams = {
-    params: Awaited<{ locale: string; }>;
-}
-
-type ItemPageProps = {
+type PageProps = {
     params: Promise<{
         locale: string;
         slug: string;
@@ -30,23 +22,9 @@ type ItemPageProps = {
     }>;
 };
 
-// TODO: review this one
-// export async function generateStaticParams(props: StaticParams) {
-//     const { params } = props;
-
-//     const locale = params.locale;
-
-//     const offers = await getOffersSlugByWorkspaceId();
-
-//     return offers?.map?.(({ slug }) => ({
-//         id: slug,
-//         locale: locale || fallbackLanguage,
-//     }));
-// }
-
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(props: ItemPageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const { params } = props;
 
     const locale = (await params).locale;
@@ -60,7 +38,6 @@ export async function generateMetadata(props: ItemPageProps): Promise<Metadata> 
         typeof getOfferDetailsBySlug,
         Parameters<typeof getOfferDetailsBySlug>
     >(getOfferDetailsBySlug, [itemSlug]);
-    // const offer = await getOfferDetailsBySlug(itemSlug);
 
     if (!offer) return {
         title: t('siteName'),
@@ -103,7 +80,7 @@ export async function generateMetadata(props: ItemPageProps): Promise<Metadata> 
     } as Metadata;
 }
 
-export default async function ItemPage(props: ItemPageProps) {
+export default async function Page(props: PageProps) {
     const { params } = props;
 
     const itemSlug = (await params).itemSlug;

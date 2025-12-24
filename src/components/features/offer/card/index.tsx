@@ -53,7 +53,7 @@ const offerCard = tv({
                 media: 'rounded-b-none'
             },
             list: {
-                root: cn('w-full'),
+                root: cn('w-full h-34'),
                 actionsArea: cn('grid grid-cols-2'),
                 media: cn('col-span-1 h-34'),
                 content: cn('flex-1 justify-start'),

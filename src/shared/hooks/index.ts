@@ -10,4 +10,5 @@ export { useWindowSize } from './useWindowSize';
 export { useGeolocation } from './useGeolocation';
 export { useLocalStorage } from './useLocalStorage';
 export { useComputedStyle } from './useComputedStyle';
+export { useHydrateAndSyncAtom } from './useHydrateAndSyncAtom';
 export { useSyncLanguageWithRouter } from './useSyncLanguageWithRouter';

@@ -5,11 +5,9 @@ import type { VariantProps } from 'tailwind-variants';
 
 import dynamic from 'next/dynamic';
 
-import { useMemo } from 'react';
-import { tv } from 'tailwind-variants';
+import { useEffect, useMemo } from 'react';
+import { tv, cn } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
-
-import { cn } from 'lib/utils';
 
 import type {
     Offer
@@ -31,6 +29,7 @@ import OfferCardSkeleton from 'features/offer/card/skeleton';
 const OfferCard = dynamic(
     () => import('features/offer/card'),
     {
+        ssr: false,
         loading: () => <OfferCardSkeleton/>
     },
 );
@@ -67,12 +66,16 @@ type ListVariants = VariantProps<typeof list>;
 
 type OfferListProps = {
     offers?: Array<Offer>;
-    loading?: boolean;
+    showActions?: boolean;
+    defaultView?: ListVariants['view'];
+    forceDefaultView?: boolean;
 };
 
 const OfferList: FC<OfferListProps> = ({
     offers = [],
-    loading = false,
+    showActions = true,
+    defaultView = 'grid',
+    forceDefaultView = false,
 }) => {
     'use memo'
     const {
@@ -88,7 +91,7 @@ const OfferList: FC<OfferListProps> = ({
         [offers],
     );
 
-    const [ view, setView ] = useLocalStorage<ListVariants['view']>('list', 'grid');
+    const [ view, setView ] = useLocalStorage<ListVariants['view']>('list', defaultView);
 
     const handleViewChange = (value: Array<any>) => {
         const [ newView, ] = value;
@@ -97,25 +100,33 @@ const OfferList: FC<OfferListProps> = ({
         else setView(newView);
     };
 
+    useEffect(() => {
+        if (defaultView && forceDefaultView) {
+            setView(defaultView);
+        }
+    }, [defaultView, forceDefaultView, setView]);
+
     return (
         <Wrapper className={root()}>
-            <div className={actions()}>
-                <Heading
-                    role='feed'
-                    aria-label='heading'
-                >
-                    {t('offers')}
-                </Heading>
-                <ToggleGroup
-                    value={[view]}
-                    onValueChange={handleViewChange}
-                    className='ml-auto'
-                >
-                    <Toggle selected={view === 'list'} value='list' icon={List}/>
-                    <Toggle selected={view === 'grid'} value='grid' icon={Grid}/>
-                    <Toggle selected={view === 'complete'} value='complete' icon={Fullscreen}/>
-                </ToggleGroup>
-            </div>
+            {showActions && (
+                <div className={actions()}>
+                    <Heading
+                        role='feed'
+                        aria-label='heading'
+                    >
+                        {t('offers')}
+                    </Heading>
+                    <ToggleGroup
+                        value={[view]}
+                        onValueChange={handleViewChange}
+                        className='ml-auto'
+                    >
+                        <Toggle selected={view === 'list'} value='list' icon={List}/>
+                        <Toggle selected={view === 'grid'} value='grid' icon={Grid}/>
+                        <Toggle selected={view === 'complete'} value='complete' icon={Fullscreen}/>
+                    </ToggleGroup>
+                </div>
+            )}
             <div className={rootList({
                 view,
             })}>

@@ -15,17 +15,17 @@ import {
     hasLocale,
     NextIntlClientProvider,
 } from 'next-intl';
+import { cn } from 'tailwind-variants';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import { clientEnv } from 'env/client';
 
-import { cn } from 'lib/utils';
 import { routing } from 'lib/i18n/routing';
 import { locales } from 'lib/i18n/constants';
 
-import Providers from 'layout/Providers';
+import Providers from 'layouts/providers';
 
 const inter = Inter({
     variable: '--font-inter',

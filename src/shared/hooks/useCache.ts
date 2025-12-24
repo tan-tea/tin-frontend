@@ -1,19 +1,18 @@
+import type { PrimitiveAtom } from 'jotai';
+
 import {
+    useMemo,
     useCallback,
-    useMemo
 } from 'react';
-import {
-    useAtomValue,
-    useSetAtom,
-    type PrimitiveAtom
-} from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomCallback } from 'jotai/utils';
+import { millisecondsToMinutes } from 'date-fns';
 
 import type {
     CacheDatabaseTables
 } from 'lib/db';
 
 import { useDatabase } from 'shared/contexts/database';
-import { millisecondsToMinutes } from 'date-fns';
 
 type Timestamped<T> = T & {
     createdAt: number;
@@ -41,6 +40,13 @@ export const useCache = <T>(
     'use memo'
     const setAtom = useSetAtom(atom);
     const atomValue = useAtomValue(atom);
+
+    const atomCallback = useAtomCallback(
+        useCallback((get, set) => {
+            const currentValue = get(atom);
+
+        }, [atom]),
+    );
 
     const { database } = useDatabase();
 

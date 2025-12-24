@@ -1,19 +1,13 @@
 'use client'
 
 import type { FC } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 
-import { cn } from 'lib/utils';
 import { clientEnv } from 'env/client';
 
-import {
-    Box,
-    AppBar,
-} from 'ui/index';
+import { AppBar } from 'ui/index';
 
 import type {
     HeaderProps
@@ -68,13 +62,13 @@ const StartVariant: FC<HeaderMobileVariant> = ({
     });
 
     return (
-        <Box className={wrapper()}>
+        <div className={wrapper()}>
             <Logo/>
-            <Box className={navigation()}>
+            <div className={navigation()}>
                 <Search/>
                 <NavigationDrawer/>
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 };
 
@@ -90,15 +84,15 @@ const CenterVariant: FC<HeaderMobileVariant> = ({
     });
 
     return (
-        <Box className={wrapper()}>
+        <div className={wrapper()}>
             <Search/>
-            <Box className='col-span-3 flex items-center justify-center'>
+            <div className='col-span-3 flex items-center justify-center'>
                 <Logo/>
-            </Box>
-            <Box className={navigation()}>
+            </div>
+            <div className={navigation()}>
                 <NavigationDrawer/>
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 };
 
@@ -107,7 +101,7 @@ const layoutMap = {
     'center': CenterVariant,
 } as const;
 
-const defaultVariant = clientEnv.NEXT_PUBLIC_WORKSPACE_VARIANT || 'center';
+const defaultVariant = clientEnv.NEXT_PUBLIC_WORKSPACE_VARIANT ?? 'center';
 
 const HeaderMobile: FC<Omit<HeaderMobileProps, 'variant'>> = ({
     scrolling,

@@ -1,16 +1,13 @@
 'use client'
 
-import type {
-    FC
-} from 'react';
+import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { cn } from 'lib/utils';
+import { Fragment } from 'react';
+import { cn } from 'tailwind-variants';
 
-import Box from 'ui/box';
-
-import type { BaseLayoutProps } from 'layout/Base';
+import type { BaseLayoutProps } from 'layouts/base';
 
 const Header = dynamic(
     () => import('components/common/header'),
@@ -25,15 +22,15 @@ const BaseLayoutMobile: FC<BaseLayoutMobileProps> = ({
     'use memo'
 
     return (
-        <>
+        <Fragment>
             {showHeader && <Header/>}
-            <Box className={cn(
+            <div className={cn(
                 'relative bg-inherit scrollbar-hide dark:bg-dark-600 dark:text-light-600',
                 showHeader && 'top-header-mobile',
             )}>
                 {children}
-            </Box>
-        </>
+            </div>
+        </Fragment>
     );
 }
 

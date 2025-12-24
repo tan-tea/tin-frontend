@@ -1,13 +1,10 @@
 'use client'
-import type {
-    FC
-} from 'react';
+
+import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import Box from 'ui/box';
-
-import type { BaseLayoutProps } from 'layout/Base';
+import type { BaseLayoutProps } from 'layouts/base';
 
 const Header = dynamic(
     () => import('components/common/header'),
@@ -25,9 +22,9 @@ const BaseLayoutDesktop: FC<BaseLayoutDesktopProps> = ({
     return (
         <>
             {showHeader && <Header/>}
-            <Box className={`relative bg-inherit ${showHeader ? 'top-header-desktop' : ''}`}>
+            <div className={`relative bg-inherit ${showHeader ? 'top-header-desktop' : ''}`}>
                 {children}
-            </Box>
+            </div>
         </>
     );
 }

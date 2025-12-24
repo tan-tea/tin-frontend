@@ -79,7 +79,6 @@ const useBreadcrumbContextState: BreadcrumbContextStateHandler = () => {
 
     const getBreadcrumbsFromPath: BreadcrumbContextState['getBreadcrumbsFromPath'] = useCallback(
         () => {
-            console.log('pathname', pathname);
             const segments = pathname.split('/').filter(Boolean);
             const formatted = segments.map((segment, index) => {
                 const href = '/' + segments.slice(0, index + 1).join('/');

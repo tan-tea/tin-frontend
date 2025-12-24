@@ -3,23 +3,21 @@
 import type { FC } from 'react';
 
 import z from 'zod';
-import {
-    useState,
-    useEffect,
-} from 'react';
+import { useState } from 'react';
 import {
     useForm,
     Controller,
 } from 'react-hook-form';
+import { useParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from 'use-debounce';
 import { useTranslations } from 'next-intl';
 
 import { cn } from 'lib/utils';
 
-import { useNavigation } from 'shared/hooks';
 import { useOffersCriteriaData } from 'shared/hooks/queries';
 
+import { InternalLink } from 'ui/link';
 import {
     Autocomplete,
     AutocompleteBackdrop,
@@ -51,6 +49,13 @@ const Search: FC<SearchProps> = () => {
    'use memo'
     const t = useTranslations();
 
+    const params = useParams<{
+        locale: string;
+        slug: string;
+    }>();
+
+    const { locale, slug } = params;
+
     const [open, setOpen] = useState<boolean>(false);
 
     const {
@@ -75,6 +80,7 @@ const Search: FC<SearchProps> = () => {
 
     const isTyping = query !== debouncedQuery;
     const noResults = !isTyping && !isLoading && data && data.length === 0;
+    const showEmpty = query && isTyping && !noResults;
 
     return (
         <Controller
@@ -105,7 +111,7 @@ const Search: FC<SearchProps> = () => {
                         >
                             <AutocompletePopup className='w-[90%] top-0 mx-auto'>
                                 <SearchBox label={t('search.placeholder')}/>
-                                {query && (
+                                {showEmpty && (
                                     <AutocompleteEmpty>
                                         {isTyping && t('typing')}
                                         {!isTyping && isLoading && 'Loading'}
@@ -115,14 +121,16 @@ const Search: FC<SearchProps> = () => {
                                 <AutocompleteList>
                                     {data && data?.map?.((offer) => (
                                         <AutocompleteItem key={offer.slug}>
-                                            {offer.title}
+                                            <InternalLink href={`./${slug}/item/${offer.slug}` as any}>
+                                                {offer.title}
+                                            </InternalLink>
                                         </AutocompleteItem>
                                     ))}
-                                    {!query && !isLoading && (
+                                    {/* {!query && !isLoading && (
                                         <AutocompleteGroup>
                                             <AutocompleteGroupLabel>{t('search.recents')}</AutocompleteGroupLabel>
                                         </AutocompleteGroup>
-                                    )}
+                                    )} */}
                                 </AutocompleteList>
                             </AutocompletePopup>
                         </AutocompletePositioner>

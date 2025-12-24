@@ -17,6 +17,7 @@ import { createClient, createStaticClient } from 'lib/supabase/server';
 import type {
     Shop,
     Offer,
+    Category,
 } from 'shared/models';
 
 const offersCache = new Map<string, Cache<Offer>>();
@@ -289,6 +290,28 @@ async function getShopBySlug(slug: string): Promise<Shop> {
     return result;
 }
 
+async function getCategoryWithOffersBySlug(slug: string): Promise<Category | null> {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+        .from('categories')
+        .select(`
+            *,
+            offers:offers ( * )
+        `)
+        .eq('slug', slug)
+        .eq('workspace_id', clientEnv.NEXT_PUBLIC_WORKSPACE_ID)
+        .single();
+
+    if (error && !data) {
+        console.error('error', error);
+        throw new Error('Cannot get category with offers by slug: ' + slug);
+    }
+
+    const result = camelcaseKeys(data, { deep: true }) as Category;
+    return result;
+}
+
 export {
     getOfferBySlug,
     getOffersSlugByWorkspace,
@@ -298,4 +321,5 @@ export {
     getShopsByWorkspaceId,
     getShopsSlugsByWorkspaceId,
     getShopBySlug,
+    getCategoryWithOffersBySlug,
 };

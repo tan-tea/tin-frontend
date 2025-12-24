@@ -3,8 +3,6 @@
 import type { ReactNode } from 'react';
 
 import { toast } from 'sonner';
-import { useTranslations } from 'next-intl';
-import { useHydrateAtoms } from 'jotai/utils';
 import { useShallow, } from 'zustand/react/shallow';
 
 import type {
@@ -12,6 +10,7 @@ import type {
 } from 'shared/models';
 import {
     useHideUI,
+    useHydrateAndSyncAtom,
     useSyncLanguageWithRouter,
 } from 'shared/hooks';
 import { workspaceAtom, } from 'shared/state';
@@ -44,18 +43,16 @@ export default function BaseLayout(props: OwnBaseLayoutProps) {
         return null;
     }
 
+    useHydrateAndSyncAtom([
+        [ workspaceAtom, initialWorkspace, ],
+    ]);
+
     useHideUI({
         hideHeader: false,
         hideBottomNavigation: true,
     });
 
     useSyncLanguageWithRouter();
-
-    useHydrateAtoms([
-        [ workspaceAtom, initialWorkspace, ] as any,
-    ] as const);
-
-    const t = useTranslations();
 
     const {
         loading,

@@ -1,18 +1,11 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
+
+import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete'
-
-import { cn } from 'lib/utils';
 
 import Input from 'ui/field/input';
 
@@ -32,7 +25,8 @@ const autocomplete = tv({
             'dark:bg-dark-300/50'
         ),
         empty: cn('text-center text-sm text-gray-600/75 py-2 font-nunito'),
-        item: '',
+        list: 'pt-2 flex flex-col gap-y-1.5',
+        item: 'px-4 py-2',
         group: cn(''),
         groupLabel: cn('text-base leading-4 pt-2.5 pb-1.5 font-semibold'),
     },
@@ -42,8 +36,7 @@ const autocomplete = tv({
 
 type AutocompleteVariants = VariantProps<typeof autocomplete>;
 
-type AutocompleteProps = ComponentProps<typeof BaseAutocomplete.Root>
-& AutocompleteVariants;
+type AutocompleteProps = AutocompleteVariants & ComponentProps<typeof BaseAutocomplete.Root>;
 
 export const Autocomplete: FC<AutocompleteProps> = ({ ...props }) => {
     'use memo'
@@ -199,15 +192,22 @@ export const AutocompleteEmpty: FC<AutocompleteEmptyProps> = ({ ...props }) => {
     );
 }
 
-type AutocompleteListProps = ComponentProps<typeof BaseAutocomplete.List>
-& AutocompleteVariants;
+type AutocompleteListProps = AutocompleteVariants & ComponentProps<typeof BaseAutocomplete.List>;
 
-export const AutocompleteList: FC<AutocompleteListProps> = ({ ...props }) => {
+export const AutocompleteList: FC<AutocompleteListProps> = ({
+    className,
+    ...props
+}) => {
     'use memo'
+    const { list } = autocomplete();
+
     return (
         <BaseAutocomplete.List
             {...props}
             data-slot='autocomplete-list'
+            className={list({
+                className: className as ClassValue,
+            })}
         />
     );
 }

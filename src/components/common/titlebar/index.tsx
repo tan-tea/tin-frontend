@@ -12,7 +12,7 @@ import { useRef } from 'react';
 import { tv, cn } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
-import { Paragraph } from 'ui/text';
+import { Heading } from 'ui/text';
 
 const titlebar = tv({
     slots: {
@@ -20,7 +20,7 @@ const titlebar = tv({
             'top-0 w-full flex items-center gap-x-2 justify-start p-4 z-10 bg-white',
             'transition-transform duration-300 ease-in-out',
         ),
-        text: 'max-w-[180px] font-semibold leading-5 text-[inherit] truncate',
+        text: 'max-w-[180px] font-semibold text-lg leading-5 text-[inherit] truncate',
     },
     variants: {
         border: {
@@ -126,7 +126,7 @@ const Titlebar: FC<TitlebarProps> = (props) => {
             })}
         >
             {hasRenderStart ? renderStart?.(props) : <motion.div/>}
-            {shouldRenderTitle && <Paragraph className={text()}>{title}</Paragraph>}
+            {shouldRenderTitle && <Heading className={text()}>{title}</Heading>}
             {shouldRenderCenter && renderCenter?.(props)}
             {(!shouldRenderTitle && !shouldRenderCenter) && <motion.div/>}
             {hasRenderEnd ? renderEnd?.(props) : <motion.div/>}

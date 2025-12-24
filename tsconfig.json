@@ -58,8 +58,8 @@
       "icons/*": [
         "./src/components/icons/*"
       ],
-      "layout/*": [
-        "./src/components/layout/*"
+      "layouts/*": [
+        "./src/components/layouts/*"
       ],
       "pages/*": [
         "./src/components/pages/*"

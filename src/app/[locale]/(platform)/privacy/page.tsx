@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 
 import Privacy from 'pages/privacy';
 
-type PrivacyPageProps = Readonly<{
+type PageProps = Readonly<{
     params: Promise<{ locale: string; }>;
 }>;
 
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default function PrivacyPage(props: PrivacyPageProps) {
+export default function Page(props: PageProps) {
     const {} = props;
 
     return (

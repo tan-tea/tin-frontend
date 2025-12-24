@@ -13,7 +13,7 @@ import { BreadcrumbProvider } from 'shared/contexts/breadcrumb';
 import { DynamicThemeProvider } from 'shared/contexts/dynamic-theme';
 import { ApplicationStoreProvider } from 'shared/stores/application-store';
 
-import ThemeLayout from 'layout/Theme';
+import ThemeLayout from 'layouts/theme';
 import ThemeWatcher from 'components/theme-watcher';
 
 type ProvidersProps = {

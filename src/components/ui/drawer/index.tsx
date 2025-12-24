@@ -1,15 +1,11 @@
 'use client';
 
 import type { FC, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 import { Drawer as BaseDrawer } from 'vaul';
-
-import { cn } from 'lib/utils';
 
 const drawer = tv({
     slots: {
@@ -49,8 +45,7 @@ const drawer = tv({
 
 type DrawerVariants = VariantProps<typeof drawer>;
 
-type DrawerProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Root>;
+type DrawerProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Root>;
 
 const Drawer: FC<DrawerProps> = ({
     ...props
@@ -65,8 +60,7 @@ const Drawer: FC<DrawerProps> = ({
     );
 };
 
-type DrawerTriggerProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Trigger>;
+type DrawerTriggerProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Trigger>;
 
 const DrawerTrigger: FC<DrawerTriggerProps> = ({
     className,
@@ -89,8 +83,7 @@ const DrawerTrigger: FC<DrawerTriggerProps> = ({
     );
 }
 
-type DrawerPortalProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Portal>;
+type DrawerPortalProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Portal>;
 
 const DrawerPortal: FC<DrawerPortalProps> = ({
     ...props
@@ -105,8 +98,7 @@ const DrawerPortal: FC<DrawerPortalProps> = ({
     );
 }
 
-type DrawerCloseProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Close>;
+type DrawerCloseProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Close>;
 
 const DrawerClose: FC<DrawerCloseProps> = ({
     ...props
@@ -121,8 +113,7 @@ const DrawerClose: FC<DrawerCloseProps> = ({
     );
 }
 
-type DrawerOverlayProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Overlay>;
+type DrawerOverlayProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Overlay>;
 
 const DrawerOverlay: FC<DrawerOverlayProps> = ({
     className,
@@ -142,8 +133,7 @@ const DrawerOverlay: FC<DrawerOverlayProps> = ({
     );
 }
 
-type DrawerContentProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Content>;
+type DrawerContentProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Content>;
 
 const DrawerContent: FC<DrawerContentProps> = ({
     className,
@@ -176,8 +166,7 @@ const DrawerContent: FC<DrawerContentProps> = ({
     );
 }
 
-type DrawerHeaderProps = DrawerVariants
-& ComponentProps<typeof motion.div>;
+type DrawerHeaderProps = DrawerVariants & ComponentProps<typeof motion.div>;
 
 const DrawerHeader: FC<DrawerHeaderProps> = ({
     className,
@@ -197,8 +186,7 @@ const DrawerHeader: FC<DrawerHeaderProps> = ({
     );
 }
 
-type DrawerFooterProps = DrawerVariants
-& ComponentProps<typeof motion.div>;
+type DrawerFooterProps = DrawerVariants & ComponentProps<typeof motion.div>;
 
 const DrawerFooter: FC<DrawerFooterProps> = ({
     className,
@@ -218,8 +206,7 @@ const DrawerFooter: FC<DrawerFooterProps> = ({
     );
 }
 
-type DrawerTitleProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Title>;
+type DrawerTitleProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Title>;
 
 const DrawerTitle: FC<DrawerTitleProps> = ({
     className,
@@ -239,8 +226,7 @@ const DrawerTitle: FC<DrawerTitleProps> = ({
     );
 }
 
-type DrawerDescriptionProps = DrawerVariants
-& ComponentProps<typeof BaseDrawer.Description>;
+type DrawerDescriptionProps = DrawerVariants & ComponentProps<typeof BaseDrawer.Description>;
 
 const DrawerDescription: FC<DrawerDescriptionProps> = ({
     className,

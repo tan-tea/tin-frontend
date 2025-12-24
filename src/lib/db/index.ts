@@ -1,15 +1,17 @@
 import 'lib/db/polyfill';
 
-import Dexie, {
-    type EntityTable,
-} from 'dexie';
+import type { EntityTable } from 'dexie';
+
+import Dexie from 'dexie';
+
 import { indexedDB, IDBKeyRange, } from 'fake-indexeddb';
 
 import type {
+    Offer,
     History,
     Workspace,
+    Category,
     Customization,
-    Offer,
 } from 'shared/models';
 
 export interface CacheDatabaseTables {
@@ -17,6 +19,7 @@ export interface CacheDatabaseTables {
     readonly workspaces: EntityTable<Workspace, 'id'>;
     readonly customizations: EntityTable<Customization, 'id'>;
     readonly offers: EntityTable<Offer, 'id'>;
+    readonly categories: EntityTable<Category, 'id'>;
 }
 
 export class CacheDatabase extends Dexie implements CacheDatabaseTables {
@@ -24,6 +27,7 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
     workspaces!: EntityTable<Workspace, 'id'>;
     customizations!: EntityTable<Customization, 'id'>;
     offers!: EntityTable<Offer, 'id'>;
+    categories!: EntityTable<Category, 'id'>;
 
     constructor() {
         super('cache', {
@@ -39,6 +43,7 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
             workspaces: 'id',
             customizations: 'id',
             offers: 'id',
+            categories: 'id',
         });
     }
 }

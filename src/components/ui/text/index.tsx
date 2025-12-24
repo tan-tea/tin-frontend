@@ -45,11 +45,11 @@ const text = tv({
     variants: {
         level: {
             '1': {
-                heading: cn('text-2xl leading-10 md:text-3xl'),
+                heading: cn('text-2xl leading-8 md:text-3xl'),
                 paragraph: cn('text-[20px] leading-[22px]')
             },
             '2': {
-                heading: cn('text-xl leading-8 md:text-2xl'),
+                heading: cn('text-xl leading-6 md:text-2xl'),
                 paragraph: cn('text-[18px] leading-[20px]')
             },
             '3': {

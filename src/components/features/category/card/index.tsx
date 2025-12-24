@@ -3,6 +3,7 @@
 import type { FC } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
+import { useMemo } from 'react';
 import { tv } from 'tailwind-variants';
 
 import { getValueInitials } from 'lib/utils';
@@ -19,6 +20,7 @@ import {
     AvatarFallback,
 } from 'ui/avatar';
 import { CardActionsArea } from 'ui/card';
+import { useNavigation } from 'shared/hooks';
 
 // TODO: parse to UI component because can be shareable.
 const categoryCard = tv({
@@ -31,7 +33,7 @@ const categoryCard = tv({
     variants: {
         selected: {
             true: {
-                wrapper: 'bg-[var(--mui-palette-primary-50)] border-[var(--mui-palette-primary-main)]',
+                wrapper: 'bg-[var(--mui-palette-primary-50)] border-[var(--mui-palette-primary-main)] dark:bg-transparent',
                 text: 'text-[var(--mui-palette-primary-main)] font-bold',
                 avatar: 'ring-[var(--mui-palette-primary-main)]'
             },
@@ -54,23 +56,30 @@ type CategoryCardProps = CategoryCardVariants & {
 const CategoryCard: FC<CategoryCardProps> = ({
     category,
     selected,
-    onSelectCategory,
 }) => {
     'use memo'
+    const {
+        slug,
+        banner,
+        label,
+        description,
+    } = category;
+
+    const { isActivePath } = useNavigation();
+
+    const path = useMemo<string>(
+        () => `/category/${slug}`,
+        [slug],
+    );
+
     const {
         wrapper,
         avatar,
         text,
     } = categoryCard({
-        selected,
+        selected: isActivePath(path) || selected,
     });
 
-    const {
-        id,
-        banner,
-        label,
-        description,
-    } = category;
 
     return (
         <Article
@@ -78,11 +87,10 @@ const CategoryCard: FC<CategoryCardProps> = ({
             aria-label={label}
             aria-description={description}
             className={wrapper()}
-            onClick={() => onSelectCategory(id)}
         >
             <CardActionsArea
-                href={`/category/${id}` as any}
-                className='size-full grow flex flex-col gap-y-2 items-center justify-start'
+                href={path as any}
+                className='size-full grow flex flex-col gap-y-2 items-center justify-start bg-inherit'
             >
                 <AvatarRoot
                     size='xxxl'

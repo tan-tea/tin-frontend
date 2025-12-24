@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 
 import Terms from 'pages/terms';
 
-type TermsProps = object;
+type PageProps = object;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations();
@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default async function TermsPage(props: TermsProps) {
+export default async function Page(props: PageProps) {
     const {} = props;
 
     return (

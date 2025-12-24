@@ -8,13 +8,11 @@ import { getShopsDetailsByWorkspace } from 'app/actions';
 
 import Platform from 'pages/platform';
 
-type PlatformPageProps = Readonly<{
+type PageProps = Readonly<{
     params: Promise<{ locale: string; }>;
 }>;
 
-export async function generateMetadata(
-    props: PlatformPageProps,
-): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const { params } = props;
 
     const locale = (await params).locale;
@@ -30,7 +28,7 @@ export async function generateMetadata(
     };
 }
 
-export default async function PlatformPage(props: PlatformPageProps) {
+export default async function Page(props: PageProps) {
     const {} = props;
 
     const shops = await fetchWithBackoff<

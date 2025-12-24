@@ -175,7 +175,7 @@ const WRAPPER_ANIMATION: MotionNodeAnimationOptions = {
         scale: {
             type: 'spring',
             duration: 0.15,
-            delay: 0.70,
+            delay: 0.35,
             stiffness: 500,
         },
     },

@@ -3,55 +3,24 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { clientEnv } from 'env/client';
 import {
-    getShopDetailsBySlug,
-    getShopsSlugsByWorkspace,
     getOffersByShop,
+    getShopDetailsBySlug,
 } from 'app/actions';
 import { fetchWithBackoff } from 'lib/utils';
-import { fallbackLanguage } from 'lib/i18n/constants';
 
 import StoreBySlug from 'pages/store-by-slug';
 
-type StaticParams = Readonly<{
-    params: Awaited<{
-        locale: string;
-        slug: string;
-    }>;
-}>;
-
-type StoreBySlugPageProps = Readonly<{
+type PageProps = Readonly<{
     params: Promise<{
         locale: string;
         slug: string;
     }>;
 }>;
 
-// export async function generateStaticParams(props: StaticParams) {
-//     const { params } = props;
-
-//     const locale = params.locale ?? fallbackLanguage;
-
-//     let slugs: Awaited<ReturnType<typeof getShopsSlugsByWorkspace>> | [];
-//     try {
-//         slugs = await fetchWithBackoff<
-//             ReturnType<typeof getShopsSlugsByWorkspace>,
-//             typeof getShopsSlugsByWorkspace,
-//             Parameters<typeof getShopsSlugsByWorkspace>
-//         >(getShopsSlugsByWorkspace, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID]) ?? [];
-//     } catch (error) {
-//         slugs = [];
-//     }
-
-//     return slugs.map(slug => ({
-//         locale,
-//         slug,
-//     }));
-// }
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(props: StoreBySlugPageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const { params } = props;
 
     const slug = (await params).slug;
@@ -66,7 +35,6 @@ export async function generateMetadata(props: StoreBySlugPageProps): Promise<Met
         typeof getShopDetailsBySlug,
         Parameters<typeof getShopDetailsBySlug>
     >(getShopDetailsBySlug, [slug]);
-    // const shopBySlug = await getShopDetailsBySlug(slug);
 
     if (!shopBySlug) return {
         title: t('shopNotFound'),
@@ -91,7 +59,7 @@ export async function generateMetadata(props: StoreBySlugPageProps): Promise<Met
     } as Metadata;
 }
 
-export default async function StoreBySlugPage(props: StoreBySlugPageProps) {
+export default async function Page(props: PageProps) {
     const { params } = props;
 
     const slug = (await params).slug;

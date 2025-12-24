@@ -5,7 +5,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Box } from 'ui/index';
 import {
     Drawer,
     DrawerTitle,
@@ -17,7 +16,7 @@ import {
     LayoutGrid,
 } from 'components/icons';
 
-import Titlebar from 'components/common/titlebar';
+import Titlebar from 'common/titlebar';
 import ThemeSwitcher from 'components/theme-switcher';
 import LanguageSwitcher from 'components/language-switcher';
 
@@ -38,7 +37,7 @@ const NavigationDrawer: FC<NavigationDrawerProps> = () => {
                 <Icon selected={open} value={LayoutGrid}/>
             </DrawerTrigger>
             <DrawerContent className='flex flex-col h-[90%]'>
-                <Box className='p-4 flex-1 overflow-y-auto scrollbar-hide'>
+                <div className='p-4 flex-1 overflow-y-auto scrollbar-hide'>
                     <Titlebar
                         initial={{ x: -100 }}
                         animate={{ x: 0 }}
@@ -54,17 +53,17 @@ const NavigationDrawer: FC<NavigationDrawerProps> = () => {
                             </DrawerTitle>
                         )}
                         renderEnd={() => (
-                            <Box className='ml-auto flex items-center gap-x-4'>
+                            <div className='ml-auto flex items-center gap-x-4'>
                                 <ThemeSwitcher/>
                                 <LanguageSwitcher/>
-                            </Box>
+                            </div>
                         )}
                     />
                     <NavigationDrawerList/>
-                </Box>
-                <Box className='mt-auto'>
+                </div>
+                <div className='mt-auto'>
                     <NavigationDrawerFooter/>
-                </Box>
+                </div>
             </DrawerContent>
         </Drawer>
     );

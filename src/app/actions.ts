@@ -14,6 +14,7 @@ import {
     getShopBySlug,
     getShopsByWorkspaceId,
     getShopsSlugsByWorkspaceId,
+    getCategoryWithOffersBySlug,
 } from 'lib/core/vm';
 
 export async function getWorkspaceDetailsById(id: string) {
@@ -54,6 +55,11 @@ export async function getOfferDetailsBySlug(slug: string) {
 export async function getOffersByShop(shopId: string) {
     'use server'
     return await getOffersByShopId(shopId);
+}
+
+export async function getCategoryWithOffers(slug: string) {
+    'use server'
+    return await getCategoryWithOffersBySlug(slug);
 }
 
 export async function autocomplete(query: string, shopId: string, top?: number, skip?: number) {

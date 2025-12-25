@@ -1,16 +1,10 @@
 'use client'
 
-import {
-    type FC,
-} from 'react';
+import type { FC } from 'react';
 
-import {
-    Box,
-} from 'ui/index';
+import { Section } from 'ui/layout';
 
-import { TermsProps, } from 'components/pages/terms';
-
-import Section from 'common/Section';
+import type { TermsProps, } from 'pages/terms';
 
 type SearchMobileProps = TermsProps;
 
@@ -25,12 +19,11 @@ const TermsMobile: FC<SearchMobileProps> = (
 
     return (
         <Section
-            label=''
-            description=''
-            className='h-dvh overflow-hidden'
+            aria-label=''
+            aria-description=''
         >
-            <Box className='size-full p-4'>
-            </Box>
+            <div className='size-full p-4'>
+            </div>
         </Section>
     );
 };

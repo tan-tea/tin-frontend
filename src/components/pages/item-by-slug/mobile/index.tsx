@@ -2,6 +2,8 @@
 
 import type { FC, MouseEventHandler } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useRef, useEffect } from 'react';
 
 import { clientEnv } from 'env/client';
@@ -11,8 +13,9 @@ import {
     useComputedStyle,
 } from 'shared/hooks';
 
-import { Section } from 'ui/layout';
 import { Typography } from 'ui/index';
+import { ButtonRoot } from 'ui/button';
+import { Section, Wrapper } from 'ui/layout';
 
 import type { ItemBySlugProps } from 'pages/item-by-slug';
 
@@ -22,9 +25,19 @@ import ShareButton from 'common/buttons/ShareButton';
 import ExpandableText from 'common/expandable-text';
 import PriceWithDiscount from 'common/price-with-discount';
 
-import ProductDetailImage from 'components/pages/item-by-slug/components/ProductDetailImage';
-import OfferDetailTittle from 'features/offer/detail/title';
-import OfferDetailButton from 'features/offer/detail/button';
+const OfferDetailImage = dynamic(
+    () => import('features/offer/detail/image'),
+    {
+        ssr: false,
+    },
+);
+
+const OfferDetailTitle = dynamic(
+    () => import('features/offer/detail/title'),
+    {
+        ssr: false,
+    },
+);
 
 type ItemBySlugMobileProps = ItemBySlugProps;
 
@@ -54,17 +67,18 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
         };
     }, []);
 
+    const marginFromButtonPx = `${parseFloat(buttonComputedStyle?.height ?? '0')}px`;
+
     return (
         <Section
             aria-label={t('title')}
-            aria-description={t('title')}
+            aria-description={offer?.description}
         >
             <Titlebar
-                position='relative'
-                title={offer?.title}
-                renderStart={({ title, }) => <BackButton showLabel={title ? false : true}/>}
+                position='fixed'
+                renderStart={() => <BackButton variant='rounded'/>}
                 renderEnd={() => (
-                    <div className='ml-auto flex items-center gap-x-2'>
+                    <div className='ml-auto bg-white p-1 rounded-full flex items-center gap-x-2'>
                         <ShareButton shareableItem={{
                             heading: offer?.title,
                             description: offer?.description,
@@ -72,15 +86,10 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     </div>
                 )}
             />
-            <ProductDetailImage
-                alt={offer?.title || offer?.description}
-                image={offer?.banner}
-            />
+            <OfferDetailImage alt={offer?.title || offer?.description} image={offer?.banner}/>
             <div
                 className='relative size-full flex flex-col gap-y-4 p-4'
-                style={{
-                    marginBottom: `${parseFloat(buttonComputedStyle?.height ?? '0')}px`,
-                }}
+                style={{ marginBottom: marginFromButtonPx, }}
             >
                 <PriceWithDiscount
                     size='lg'
@@ -88,7 +97,7 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     price={offer?.price}
                     discount={offer?.discount}
                 />
-                <OfferDetailTittle offer={offer}/>
+                <OfferDetailTitle offer={offer}/>
                 <ExpandableText text={offer?.description ?? t('notProvided')}/>
                 {offer?.type?.attributes?.length! > 0 && (
                     <div className='relative flex flex-col justify-center gap-y-4'>
@@ -117,10 +126,25 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     </div>
                 )}
             </div>
-            <OfferDetailButton
-                ref={buttonRef}
-                onClick={handleClick}
-            />
+            <Wrapper ref={buttonRef} className='fixed bottom-0 left-0 w-full h-auto p-4 bg-light-400 dark:bg-dark-300'>
+                <ButtonRoot
+                    animate={{
+                        opacity: 1,
+                        scale: [1,  1.035, 1],
+                    }}
+                    transition={{
+                        scale: {
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: 'mirror',
+                            ease: 'easeInOut',
+                        },
+                    }}
+                    onClick={handleClick}
+                >
+                    {t('button')}
+                </ButtonRoot>
+            </Wrapper>
         </Section>
     );
 };

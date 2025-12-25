@@ -281,7 +281,10 @@ async function getShopBySlug(slug: string): Promise<Shop> {
         .eq('slug', slug)
         .single();
 
-    if (error && !data) throw new Error('Cannot get shop by slug: ' + slug);
+    if (error && !data) {
+        console.log('error', error);
+        throw new Error('Cannot get shop by slug: ' + slug);
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as Shop;
 

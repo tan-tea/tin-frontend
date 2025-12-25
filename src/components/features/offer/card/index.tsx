@@ -15,7 +15,7 @@ import type {
 } from 'shared/models';
 import { useCountdown } from 'shared/hooks';
 
-import { Typography } from 'ui/index';
+import { Heading, Paragraph } from 'ui/text';
 import {
     CardRoot,
     CardMedia,
@@ -46,11 +46,11 @@ const offerCard = tv({
     variants: {
         variant: {
             grid: {
-                root: cn('col-span-1 h-[250px]'),
+                root: cn('col-span-1 h-[250px] rounded-4xl ring-[none]'),
                 actionsArea: cn('flex flex-col'),
-                titleText: cn('truncate'),
+                titleText: cn(''),
                 descriptionText: cn('truncate'),
-                media: 'rounded-b-none'
+                media: 'shrink-0'
             },
             list: {
                 root: cn('w-full h-34'),
@@ -103,16 +103,15 @@ const OfferCardTimeLeft: FC<OfferCardTimeLeftProps> = ({
     if (!show || !timeLeft) return null;
 
     return (
-        <Typography
+        <Paragraph
             role='complementary'
-            component='span'
             className={timeleftText({
                 variant,
                 className,
             })}
         >
             {t('discountTimeLeft', { left: timeLeft })}
-        </Typography>
+        </Paragraph>
     );
 }
 
@@ -171,16 +170,13 @@ const OfferCardGridVariant: FC<OfferCardGridVariantProps> = ({
                 <OfferCardMediaImage src={banner} alt={title} className={mediaImage()}/>
             </CardMedia>
             <CardContent className={content()}>
-                <Typography
-                    component='h2'
-                    className={titleText()}
-                >
+                <Heading className={titleText()}>
                     {title}
-                </Typography>
+                </Heading>
                 {description && !discount && (
-                    <Typography component='p' className={descriptionText()}>
+                    <Paragraph className={descriptionText()}>
                         {description}
-                    </Typography>
+                    </Paragraph>
                 )}
                 <PriceWithDiscount
                     size='md'
@@ -225,9 +221,9 @@ const OfferCardListVariant: FC<OfferCardListVariantProps> = ({
                 <OfferCardMediaImage src={banner} alt={title} className={mediaImage()}/>
             </CardMedia>
             <CardContent className={content()}>
-                <Typography component='h2' className={titleText()}>
+                <Heading className={titleText()}>
                     {title}
-                </Typography>
+                </Heading>
                 <ExpandableText
                     text={description}
                     isExpandable={false}

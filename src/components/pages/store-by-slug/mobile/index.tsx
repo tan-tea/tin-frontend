@@ -29,7 +29,7 @@ const StoreBySlugMobile: FC<StoreBySlugMobileProps> = ({
             aria-description={shop.slug}
             className='overflow-hidden'
         >
-            <div className='px-6 pb-2'>
+            <div className='px-4 pb-2'>
                 <NavigationBreadcrumb/>
             </div>
                 {/* {(discounts?.length > 0 && !selectedCategory) && (

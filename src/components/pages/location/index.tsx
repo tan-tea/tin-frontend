@@ -1,7 +1,5 @@
 'use client'
 
-import type { FC, ReactElement } from 'react';
-
 import dynamic from 'next/dynamic';
 
 import { useMemo } from 'react';
@@ -30,6 +28,7 @@ import LocationMobileSkeleton from './mobile/skeleton';
 const LocationMobile = dynamic(
     () => import('./mobile'),
     {
+        ssr: false,
         loading: () => <LocationMobileSkeleton/>
     },
 );
@@ -50,9 +49,7 @@ export type LocationProps = OwnLocationProps & {
     }) => void;
 };
 
-export default function Location(
-    props: OwnLocationProps,
-): ReactElement<FC<OwnLocationProps>> {
+export default function Location(props: OwnLocationProps) {
     'use memo'
     const { shops } = props;
 

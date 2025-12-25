@@ -14,7 +14,7 @@ import { Heading, Paragraph } from 'ui/text';
 
 type OfferDetailTitleProps = Readonly<{ offer: Offer }>;
 
-const OfferDetailTittle: FC<OfferDetailTitleProps> = ({
+const OfferDetailTitle: FC<OfferDetailTitleProps> = ({
     offer,
 }) => {
     const {
@@ -52,4 +52,4 @@ const OfferDetailTittle: FC<OfferDetailTitleProps> = ({
     );
 };
 
-export default OfferDetailTittle;
+export default OfferDetailTitle;

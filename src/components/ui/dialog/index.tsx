@@ -20,6 +20,8 @@ import {
     DialogContent,
     DialogActions,
 } from 'ui/index';
+import { Heading, Paragraph } from 'ui/text';
+import { TriggerButton } from 'ui/button';
 
 const dialog = tv({
     slots: {
@@ -180,7 +182,7 @@ DialogPopup.displayName = 'DialogPopup';
 
 type DialogTitleProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Title>
-    & ComponentProps<typeof motion.h2>;
+    & ComponentProps<typeof Heading>;
 
 const DialogTitle: FC<DialogTitleProps> = ({
     className,
@@ -196,7 +198,7 @@ const DialogTitle: FC<DialogTitleProps> = ({
             className={title({
                 className: className as ClassValue,
             })}
-            render={<motion.h2/>}
+            render={<Heading/>}
         />
     );
 };
@@ -205,7 +207,7 @@ DialogTitle.displayName = 'DialogTitle';
 
 type DialogDescriptionProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Description>
-    & ComponentProps<typeof motion.p>;;
+    & ComponentProps<typeof Paragraph>;
 
 const DialogDescription: FC<DialogDescriptionProps> = ({
     className,
@@ -221,7 +223,7 @@ const DialogDescription: FC<DialogDescriptionProps> = ({
             className={description({
                 className: className as ClassValue,
             })}
-            render={<motion.p/>}
+            render={<Paragraph/>}
         />
     );
 };
@@ -230,7 +232,7 @@ DialogDescription.displayName = 'DialogDescription';
 
 type DialogCloseProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Close>
-    & ComponentProps<typeof motion.button>;;
+    & ComponentProps<typeof TriggerButton>;;
 
 const DialogClose: FC<DialogCloseProps> = ({
     className,
@@ -246,7 +248,7 @@ const DialogClose: FC<DialogCloseProps> = ({
             className={close({
                 className: className as ClassValue,
             })}
-            render={<motion.button/>}
+            render={<TriggerButton/>}
         />
     );
 };

@@ -1,20 +1,14 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
+import type { FC } from 'react';
 
 import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { formatAddress } from 'lib/utils';
 
-import {
-    Box,
-    Typography,
-    IconButton,
-} from 'ui/index';
-import { Heading } from 'ui/text';
+import { IconButton } from 'ui/index';
+import { Heading, Paragraph } from 'ui/text';
 import {
     Accordion,
     AccordionItem,
@@ -32,7 +26,7 @@ import {
 
 import type {
     LocationProps,
-} from 'components/pages/location';
+} from 'pages/location';
 import NavigationBreadcrumb from 'features/navigation/breadcrumb';
 
 type Coords = {
@@ -63,6 +57,7 @@ const LocationContent: FC<LocationContentProps> = ({
         if (onFocusInMap) onFocusInMap(coords);
     };
 
+    // TODO: use google maps url as ENV VAR
     const navigateToGoogleMaps = (coords: Coords) => {
         const searchParams = new URLSearchParams({
             q: `${coords.lat}, ${coords.lng}`,
@@ -74,24 +69,25 @@ const LocationContent: FC<LocationContentProps> = ({
     }
 
     return (
-        <Box className='flex-1 size-full overflow-y-auto scrollbar-hide'>
-            <Box className='size-full flex flex-col gap-y-4 p-4'>
+        // <div className='flex-1 size-full overflow-y-auto scrollbar-hide'>
+        <div className='flex-1 flex flex-col'>
+            <div className='flex-1 flex flex-col gap-y-4 p-4'>
                 <NavigationBreadcrumb/>
                 <Accordion>
                     {availableShops.map(shop => (
                         <AccordionItem key={shop?.id} onOpenChange={(o) => setOpen(o)}>
                             <AccordionHeader>
                                 <AccordionTrigger>
-                                    <Box className='flex flex-col'>
+                                    <div className='flex flex-col text-start'>
                                         {shop?.isPrimary && (
-                                            <Typography variant='body1' className='text-start text-sm'>
-                                                Sede principal
-                                            </Typography>
+                                            <Heading level='4' className='font-normal'>
+                                                {t('headquarter')}
+                                            </Heading>
                                         )}
                                         <Heading color='primary' level='3'>
                                             {shop?.name}
                                         </Heading>
-                                    </Box>
+                                    </div>
                                     {open
                                         ? <Icon value={ChevronUp}/>
                                         : <Icon value={ChevronDown}/>
@@ -99,13 +95,13 @@ const LocationContent: FC<LocationContentProps> = ({
                                 </AccordionTrigger>
                             </AccordionHeader>
                             <AccordionPanel>
-                                <Box className='flex flex-col gap-y-1'>
+                                <div className='flex flex-col gap-y-1'>
                                     <Heading level='4'>{t('address')}</Heading>
-                                    <Typography className='text-sm font-normal'>
+                                    <Paragraph>
                                         {formatAddress(shop?.address)}
-                                    </Typography>
-                                </Box>
-                                <Box className='mt-4 flex justify-end gap-x-4'>
+                                    </Paragraph>
+                                </div>
+                                <div className='mt-4 flex justify-end gap-x-4'>
                                     <IconButton
                                         icon={Focus}
                                         rounded='full'
@@ -122,13 +118,13 @@ const LocationContent: FC<LocationContentProps> = ({
                                             lng: shop.geolocation.longitude,
                                         })}
                                     />
-                                </Box>
+                                </div>
                             </AccordionPanel>
                         </AccordionItem>
                     ))}
                 </Accordion>
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 }
 

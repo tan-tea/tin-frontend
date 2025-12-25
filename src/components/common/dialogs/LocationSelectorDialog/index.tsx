@@ -11,7 +11,7 @@ import { useDialog, } from 'shared/contexts/dialog';
 import { DialogProps, } from 'shared/contexts/dialog/types';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
-import Button from 'ui/button';
+import { ButtonRoot } from 'ui/button';
 
 import SelectorDialog from 'common/dialogs/SelectorDialog';
 import SelectorDialogActions from 'common/dialogs/SelectorDialog/Actions';
@@ -54,13 +54,9 @@ const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
                 t={t}
                 renderAction={() => (
                     <>
-                        <Button
+                        <ButtonRoot
                             block
-                            mobile
                             disabled={isWatching}
-                            rounded='full'
-                            variant='contained'
-                            color='primary'
                             onClick={() => requestGeolocationPermission()}
                         >
                             {!isWatching && !geolocationError
@@ -69,7 +65,7 @@ const LocationSelectorDialog: FC<LocationSelectorDialogProps> = ({
                                     ? geolocationError.message
                                     : t('sharingLocation')
                             }
-                        </Button>
+                        </ButtonRoot>
                     </>
                 )}
                 onCancel={() => closeDialog('location')}

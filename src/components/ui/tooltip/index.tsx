@@ -1,14 +1,10 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
-import { memo } from 'react';
+import type { FC } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import { memo } from 'react';
+import { tv } from 'tailwind-variants';
 import {
     default as BaseTooltip,
     TooltipProps as BaseTooltipProps,

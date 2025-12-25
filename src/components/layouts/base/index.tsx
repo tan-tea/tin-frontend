@@ -45,7 +45,7 @@ export default function BaseLayout(props: OwnBaseLayoutProps) {
 
     useHydrateAndSyncAtom([
         [ workspaceAtom, initialWorkspace, ],
-    ]);
+    ], false);
 
     useHideUI({
         hideHeader: false,

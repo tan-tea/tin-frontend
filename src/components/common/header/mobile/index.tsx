@@ -13,7 +13,7 @@ import type {
     HeaderProps
 } from 'components/common/header';
 
-import Search from 'common/Search';
+import Search from 'common/search';
 import Logo from 'components/logo';
 import NavigationDrawer from 'features/navigation/drawer';
 

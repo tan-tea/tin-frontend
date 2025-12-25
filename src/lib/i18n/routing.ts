@@ -25,5 +25,8 @@ export const routing = defineRouting({
         '/store/[slug]/item/[itemSlug]': {
             es: '/sucursal/[slug]/item/[itemSlug]',
         },
+        '/category/[slug]': {
+            es: '/categoria/[slug]',
+        },
     },
 });

@@ -36,7 +36,6 @@ type UseNavigation = {
 
 type UseNavigationHandler = () => UseNavigation;
 
-
 function resolvePathname(pathname: string, params: RouteParams) {
     let resolved = pathname;
 

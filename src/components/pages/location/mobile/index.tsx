@@ -1,17 +1,12 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
 
 import { useId, useMemo } from 'react';
 
 import { clientEnv } from 'env/client';
 
-import {
-    Box,
-} from 'ui/index';
+import { Section } from 'ui/layout';
 import {
     Map,
     Pin,
@@ -22,9 +17,8 @@ import type {
     LocationProps,
 } from 'components/pages/location';
 
-import Section from 'common/Section';
-import Titlebar from 'components/common/titlebar';
-import BackButton from 'components/common/buttons/back-button';
+import Titlebar from 'common/titlebar';
+import BackButton from 'common/buttons/back-button';
 import LocationButton from 'common/buttons/LocationButton';
 import LocationContent from 'pages/location/components/LocationContent';
 
@@ -64,20 +58,20 @@ const LocationMobile: FC<LocationMobileProps> = ({
 
     return (
         <Section
-            label={''}
-            description={''}
-            className='w-full flex flex-col h-dvh'
+            aria-label=''
+            aria-description=''
+            className='w-full flex flex-col min-h-dvh h-auto scrollbar-hide'
         >
             <Titlebar
                 position='fixed'
                 renderStart={() => <BackButton variant='rounded'/>}
                 renderEnd={() => (
-                    <Box className='ml-auto bg-white p-1 rounded-full dark:bg-dark-600'>
+                    <div className='ml-auto bg-white p-1 rounded-full dark:bg-dark-600'>
                         <LocationButton/>
-                    </Box>
+                    </div>
                 )}
             />
-            <Box className='h-[420px] shrink-0'>
+            <div className='h-[420px] shrink-0'>
                 <Map
                     mapId={clientEnv.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     zoom={camera?.zoom}
@@ -110,7 +104,7 @@ const LocationMobile: FC<LocationMobileProps> = ({
                         </AdvancedMarker>
                     ))}
                 </Map>
-            </Box>
+            </div>
             <LocationContent
                 shops={shops}
                 onFocusInMap={(geolocation) => onLocatePin && onLocatePin({ ...geolocation })}

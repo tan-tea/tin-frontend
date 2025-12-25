@@ -1,13 +1,10 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
+import type { FC } from 'react';
 
 import {
     Box,
     Typography,
-    Button,
 } from 'ui/index';
 
 import { LoadingProps, } from 'components/pages/loading';
@@ -16,9 +13,7 @@ import BackButton from 'components/common/buttons/back-button';
 
 type LoadingDesktopProps = LoadingProps;
 
-const LoadingDesktop: FC<LoadingDesktopProps> = (
-    props: LoadingDesktopProps
-) => {
+const LoadingDesktop: FC<LoadingDesktopProps> = (props) => {
     const {
         t,
         navigation: {
@@ -48,15 +43,6 @@ const LoadingDesktop: FC<LoadingDesktopProps> = (
                     >
                         {t('notFound.description')}
                     </Typography>
-                    <Button
-                        block
-                        mobile
-                        rounded='full'
-                        variant='contained'
-                        onClick={() => navigate('/')}
-                    >
-                        {t('notFound.home')}
-                    </Button>
                 </Box>
             </Box>
         </Box>

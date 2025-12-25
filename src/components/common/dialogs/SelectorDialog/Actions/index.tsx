@@ -1,18 +1,14 @@
 'use client'
 
-import {
-    useRef,
-    useEffect,
-    type FC,
-    type ReactNode,
-    type MouseEventHandler,
+import type {
+    FC,
+    ReactNode,
+    MouseEventHandler,
 } from 'react';
+
 import { useTranslations, } from 'next-intl';
 
-import {
-    Box,
-    Button,
-} from 'ui/index';
+import { ButtonRoot } from 'ui/button';
 
 type SelectorDialogActionsProps = {
     t: ReturnType<typeof useTranslations>;
@@ -21,9 +17,7 @@ type SelectorDialogActionsProps = {
     onCancel: () => void;
 };
 
-const SelectorDialogActions: FC<SelectorDialogActionsProps> = (
-    props: SelectorDialogActionsProps,
-) => {
+const SelectorDialogActions: FC<SelectorDialogActionsProps> = (props) => {
     'use memo'
     const {
         t,
@@ -36,20 +30,12 @@ const SelectorDialogActions: FC<SelectorDialogActionsProps> = (
     };
 
     return (
-        <Box className='w-full flex flex-col gap-y-4 md:w-auto md:flex-row md:gap-x-4'>
+        <div className='w-full flex flex-col gap-y-4 md:w-auto md:flex-row md:gap-x-4'>
             {renderAction && renderAction(props)}
-            <Button
-                block
-                mobile
-                rounded='full'
-                size='large'
-                color='primary'
-                variant='outlined'
-                onClick={handleClick}
-            >
+            <ButtonRoot onClick={handleClick}>
                 {t('shared.close')}
-            </Button>
-        </Box>
+            </ButtonRoot>
+        </div>
     );
 };
 

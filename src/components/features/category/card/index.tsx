@@ -26,7 +26,7 @@ import { useNavigation } from 'shared/hooks';
 const categoryCard = tv({
     slots: {
         // wrapper: 'shrink-0 flex flex-col items-center justify-start px-2 py-4 gap-y-2 rounded-4xl w-26 min-h-[110px] border transition-all duration-200 cursor-pointer',
-        wrapper: 'shrink-0 px-2 py-4 rounded-4xl w-26 min-h-[110px] border transition-all duration-200 cursor-pointer',
+        wrapper: 'shrink-0 px-2 py-2.5 pb-4 rounded-4xl w-26 min-h-[110px] border transition-all duration-200 cursor-pointer',
         avatar: 'shrink-0 w-14 h-14 ring-2',
         text: 'w-full font-alternative text-xs leading-tight text-center break-words',
     },

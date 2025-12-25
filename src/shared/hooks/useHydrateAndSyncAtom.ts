@@ -10,13 +10,14 @@ type Handler = <T>(
     values: [
         [PrimitiveAtom<T>, T]
     ],
+    forceHydrate?: boolean,
 ) => void;
 
 // TODO: review this, we shouldn't change or re-hydrate by this way, use another way directly changing or setting the atom value.
-export const useHydrateAndSyncAtom: Handler = (values) => {
+export const useHydrateAndSyncAtom: Handler = (values, forceHydrate = true) => {
     const hydratedRef = useRef<boolean>(false);
 
-    useHydrateAtoms(values, { dangerouslyForceHydrate: true, });
+    useHydrateAtoms(values, { dangerouslyForceHydrate: forceHydrate, });
 
     const sync = useAtomCallback(
         useCallback((_, set) => {

@@ -100,11 +100,11 @@ const OfferList: FC<OfferListProps> = ({
         else setView(newView);
     };
 
-    useEffect(() => {
-        if (defaultView && forceDefaultView) {
-            setView(defaultView);
-        }
-    }, [defaultView, forceDefaultView, setView]);
+    // useEffect(() => {
+    //     if (defaultView && forceDefaultView) {
+    //         setView(defaultView);
+    //     }
+    // }, [defaultView, forceDefaultView, setView]);
 
     return (
         <Wrapper className={root()}>

@@ -4,11 +4,12 @@ import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
+import { Section } from 'ui/layout';
+
 import type {
     CategoryDetailProps
 } from 'pages/category-detail';
 
-import Section from 'common/Section';
 import Titlebar from 'common/titlebar';
 import BackButton from 'common/buttons/back-button';
 
@@ -32,8 +33,8 @@ const CategoryDetailMobile: FC<CategoryDetailMobileProps> = ({
 
     return (
         <Section
-            label='category detail'
-            description='Lorem ipsum'
+            aria-label='category detail'
+            aria-description='Lorem ipsum'
         >
             <Titlebar
                 title={label}

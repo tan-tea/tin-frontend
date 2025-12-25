@@ -18,16 +18,16 @@ import type {
 const workspaceCache = new Map<string, Cache<Workspace>>();
 const customizationCache = new Map<string, Cache<Customization>>();
 
-function getCachedWorkspaceById(id: string): Workspace | null {
+async function getCachedWorkspaceById(id: string): Promise<Workspace | null> {
     return getCached(workspaceCache, id);
 }
 
-function setCachedWorkspaceById(id: string, data: Workspace): void {
+async function setCachedWorkspaceById(id: string, data: Workspace): Promise<void> {
     return setCached(workspaceCache, id, data, 30);
 }
 
 async function getWorkspaceById(id: string): Promise<Workspace> {
-    const cached = getCachedWorkspaceById(id);
+    const cached = await getCachedWorkspaceById(id);
     if (cached) return cached;
 
     const supabase = await createClient();
@@ -37,7 +37,8 @@ async function getWorkspaceById(id: string): Promise<Workspace> {
         .select(`
             *,
             shops ( * ),
-            categories ( * )
+            categories ( * ),
+            segment:segments ( * )
         `)
         .eq('id', id)
         .single();
@@ -51,16 +52,16 @@ async function getWorkspaceById(id: string): Promise<Workspace> {
     return result;
 }
 
-function getCachedCustomizationByWorkspaceId(workspaceId: string): Customization | null {
+async function getCachedCustomizationByWorkspaceId(workspaceId: string): Promise<Customization | null> {
     return getCached(customizationCache, workspaceId);
 }
 
-function setCachedCustomizationByWorkspaceId(workspaceId: string, data: Customization): void {
+async function setCachedCustomizationByWorkspaceId(workspaceId: string, data: Customization): Promise<void> {
     return setCached(customizationCache, workspaceId, data, 60)
 }
 
 async function getCustomizationByWorkspaceId(workspaceId: string): Promise<Customization> {
-    const cached = getCachedCustomizationByWorkspaceId(workspaceId);
+    const cached = await getCachedCustomizationByWorkspaceId(workspaceId);
     if (cached) return cached;
 
     const supabase = await createClient();

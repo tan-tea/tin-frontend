@@ -8,7 +8,7 @@ import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
 const layout = tv({
     slots: {
-        main: cn('box-border outline-none min-h-dvh'),
+        main: cn('box-border outline-none min-h-dvh scrollbar-hide md:scrollbar-default'),
         section: cn('w-full min-h-dvh box-border outline-none scrollbar-hide md:scrollbar-default'),
         article: cn('box-border outline-none transition-colors'),
         wrapper: cn('w-full box-border outline-none'),

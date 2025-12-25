@@ -10,7 +10,6 @@ import DialogActions from './dialog/actions';
 import DialogContent from './dialog/content';
 import Typography from './text';
 import AppBar from './app-bar';
-import Button from './button';
 import Tooltip from './tooltip';
 import Input from './field/input';
 import Label, {
@@ -38,7 +37,6 @@ export {
     DialogContent,
     Typography,
     AppBar,
-    Button,
     Tooltip,
     Input,
     Label,

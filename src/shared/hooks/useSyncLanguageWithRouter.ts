@@ -1,6 +1,4 @@
-import {
-    useEffect,
-} from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
@@ -30,6 +28,12 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
     } = useNavigation();
 
     useEffect(() => {
+        if (locale !== language) {
+            setLanguage(locale);
+        }
+    }, []);
+
+    useEffect(() => {
         if (!store) return;
 
         const handleChangeLanguage = (
@@ -48,10 +52,4 @@ export const useSyncLanguageWithRouter: UseSyncLanguageWithRouterHandler = () =>
     useEffect(() => {
         setLoading(isChangingLanguage);
     }, [isChangingLanguage,]);
-
-    useEffect(() => {
-        if (locale !== language) {
-            setLanguage(locale);
-        }
-    }, []);
 };

@@ -21,6 +21,7 @@
     "selectHeadquarter": "",
     "goBackError": "",
     "shopNotFound": "",
+    "headquarter": "",
     "metadata": {
         "applicationName": "",
         "siteName": "",
@@ -46,6 +47,8 @@
         "showMore": "",
         "showLess": ""
     },
+    "Platform": {},
+    "Location": {},
     "theme": {
         "tooltip": "",
         "dialog": {

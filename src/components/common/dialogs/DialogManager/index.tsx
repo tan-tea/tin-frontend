@@ -16,17 +16,19 @@ const DialogManager: FC<DialogManagerProps> = () => {
     'use memo'
     const { dialogs, } = useDialog();
 
-    const [mounted, setMounted] = useState(false);
+    // const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    // useEffect(() => {
+    //     setMounted(true);
+    // }, []);
 
-    if (!mounted) return null;
+    // if (!mounted) return null;
+
+    if (!dialogs || dialogs.length === 0) return null;
 
     return (
         <Fragment>
-            {dialogs && dialogs?.length > 0 && dialogs?.map?.((dialog, index) => {
+            {dialogs?.map?.((dialog, index) => {
                 const {
                     Component: Dialog,
                     ...props

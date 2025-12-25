@@ -1,16 +1,11 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import type { FC } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+
+import { tv, cn } from 'tailwind-variants';
 import { useTranslations, } from 'next-intl';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
-
-import { cn } from 'lib/utils';
 
 import { useNavigation, } from 'shared/hooks';
 
@@ -81,14 +76,11 @@ const BackButton: FC<BackButtonProps> = ({
 
     const t = useTranslations();
 
-    const {
-        back,
-    } = useNavigation();
+    const { back } = useNavigation();
 
     return (
-        <Box
+        <motion.div
             {...(showAnimation && DEFAULT_ANIMATION)}
-            component={motion.div}
             className={container()}
             onClick={async () => await back()}
         >
@@ -101,7 +93,7 @@ const BackButton: FC<BackButtonProps> = ({
                 icon={MoveLeft}
             />
             {showLabel && <Typography className={label()}>{t('shared.back')}</Typography>}
-        </Box>
+        </motion.div>
     );
 };
 

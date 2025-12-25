@@ -1,20 +1,16 @@
 'use client'
 
 import type { FC, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
 import { useId } from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import {
     Map as BaseMap,
     Pin as BasePin,
     InfoWindow as BaseInfoWindow,
     AdvancedMarker as BaseAdvanceMarker,
 } from '@vis.gl/react-google-maps';
-
-import { cn } from 'lib/utils';
 
 const map = tv({
     slots: {
@@ -27,8 +23,7 @@ const map = tv({
 
 type MapVariants = VariantProps<typeof map>;
 
-type MapProps = MapVariants
-& ComponentProps<typeof BaseMap>;
+type MapProps = MapVariants & ComponentProps<typeof BaseMap>;
 
 export const Map: FC<MapProps> = ({
     className,
@@ -58,8 +53,7 @@ export const Map: FC<MapProps> = ({
     );
 }
 
-type PinProps = MapVariants &
-ComponentProps<typeof BasePin>;
+type PinProps = MapVariants & ComponentProps<typeof BasePin>;
 
 export const Pin: FC<PinProps> = ({ ...props }) => {
     'use memo'
@@ -69,8 +63,7 @@ export const Pin: FC<PinProps> = ({ ...props }) => {
     );
 }
 
-type AdvancedMarkerProps = MapVariants &
-ComponentProps<typeof BaseAdvanceMarker>;
+type AdvancedMarkerProps = MapVariants & ComponentProps<typeof BaseAdvanceMarker>;
 
 export const AdvancedMarker: FC<AdvancedMarkerProps> = ({
     className,
@@ -90,8 +83,7 @@ export const AdvancedMarker: FC<AdvancedMarkerProps> = ({
     );
 }
 
-type InfoWindowProps = MapVariants &
-ComponentProps<typeof BaseInfoWindow>;
+type InfoWindowProps = MapVariants & ComponentProps<typeof BaseInfoWindow>;
 
 export const InfoWindow: FC<InfoWindowProps> = ({
     className,

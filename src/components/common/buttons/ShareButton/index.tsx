@@ -65,7 +65,9 @@ const ShareButton: FC<ShareButtonProps> = ({
         <Tooltip title={'share'}>
             <Box className={container()}>
                 <IconButton
+                    selected
                     borderless
+                    color='primary'
                     icon={Share}
                     onClick={handleClick}
                 />

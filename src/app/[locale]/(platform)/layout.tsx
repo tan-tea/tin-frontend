@@ -27,6 +27,8 @@ export default async function Layout(props: LayoutProps) {
         console.error(error);
     }
 
+    console.log('workspace', workspace);
+
     return (
         <BaseLayout initialWorkspace={workspace}>
             {children}

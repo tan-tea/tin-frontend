@@ -1,9 +1,7 @@
 'use client';
 
-import type {
-    FC,
-    MouseEventHandler,
-} from 'react';
+import type { FC, MouseEventHandler } from 'react';
+
 import { useEffect, useRef } from 'react';
 import { useTranslations, } from 'next-intl';
 import { motion, Variants } from 'motion/react';
@@ -30,7 +28,7 @@ const variants: Variants = {
       ease: 'easeInOut',
     },
   },
-};
+} as const;
 
 const LocationButton: FC<LocationButtonProps> = () => {
     'use memo'

@@ -4,18 +4,27 @@ import { getTranslations } from 'next-intl/server';
 
 import Loading from 'pages/loading';
 
-type LoadingProps = Readonly<object>;
+type PageProps = Readonly<{
+    params: Promise<{ locale: string; }>;
+}>;
 
-export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations();
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+    const { params } = props;
+
+    const locale = (await params).locale;
+
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
+    });
 
     return {
-        title: 'Cargando',
-        description: 'Aguarda un momento...',
+        title: t('loading.title'),
+        description: t('loading.description'),
     };
 };
 
-export default function LoadingPage(props: LoadingProps) {
+export default function Page(props: PageProps) {
     const {} = props;
 
     return (

@@ -32,7 +32,7 @@ const offerCard = tv({
     slots: {
         root: cn(
             'flex overflow-visible shadow-xs ring ring-[var(--mui-palette-grey-50)]',
-            'dark:text-light-400 dark:ring-[transparent] dark:border-dark-300 dark:bg-dark-400',
+            'dark:text-light-400 dark:ring-[transparent] dark:bg-transparent',
         ),
         actionsArea: cn('size-full'),
         media: cn('w-full h-40 border-none'),

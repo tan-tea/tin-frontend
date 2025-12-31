@@ -1,26 +1,20 @@
 'use client'
 
+import type { FC, Ref, ComponentProps } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
+
 import {
     useId,
-    type FC,
-    type ComponentProps,
     useImperativeHandle,
-    Ref,
 } from 'react';
 import {
     $getRoot,
     $getSelection,
     type EditorThemeClasses,
 } from 'lexical';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 
 import { LexicalComposer, InitialConfigType, } from '@lexical/react/LexicalComposer';
-
-import { cn } from 'lib/utils';
 
 const editor = tv({
     slots: {
@@ -28,27 +22,21 @@ const editor = tv({
     },
     variants: {
         size: {
-            // h6
             xs: {
                 text: 'text-xs'
             },
-            // h5
             sm: {
                 text: 'text-sm',
             },
-            // h4
             md: {
                 text: 'text-base',
             },
-            // h3
             lg: {
                 text: 'text-lg',
             },
-            // h2
             xl: {
                 text: 'text-xl',
             },
-            // h1
             xxl: {
                 text: 'text-2xl',
             },

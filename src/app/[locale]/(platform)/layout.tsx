@@ -5,6 +5,7 @@ import { fetchWithBackoff } from 'lib/utils';
 import { getWorkspaceDetailsById, } from 'app/actions';
 
 import BaseLayout from 'layouts/base';
+import LocationDialog from 'dialogs/location-dialog';
 
 type LayoutProps = Readonly<{
     params: Promise<{ locale: string }>;
@@ -24,15 +25,13 @@ export default async function Layout(props: LayoutProps) {
         >(getWorkspaceDetailsById, [clientEnv.NEXT_PUBLIC_WORKSPACE_ID]) ?? null;
     } catch (error) {
         workspace = null;
-        console.error(error);
     }
-
-    console.log('workspace', workspace);
 
     return (
         <BaseLayout initialWorkspace={workspace}>
             {children}
             {modal}
+            <LocationDialog/>
         </BaseLayout>
     );
 };

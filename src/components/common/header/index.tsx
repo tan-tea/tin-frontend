@@ -1,12 +1,8 @@
 'use client'
 
-import type {
-    FC,
-    ReactElement,
-} from 'react';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-
 import dynamic from 'next/dynamic';
+
+import { useAtomValue } from 'jotai';
 
 import type {
     Shop,
@@ -17,7 +13,6 @@ import { useScroll } from 'shared/hooks';
 import {
     workspaceAtom,
     customizationAtom,
-    currentShopAtom,
 } from 'shared/state';
 
 import DeviceDetector from 'common/device-detector';
@@ -45,39 +40,22 @@ export type HeaderProps = {
     workspace: Workspace | null;
     customization: Customization | null;
     shops: Array<Shop>;
-    currentShop: Shop | null;
-    onSelectShop: (shopId: string) => void;
 };
 
-export default function Header(
-    props: OwnHeaderProps,
-): ReactElement<FC<OwnHeaderProps>> {
+export default function Header(props: OwnHeaderProps) {
     'use memo'
     const {} = props;
 
-    const {
-        moving,
-    } = useScroll();
+    const { moving } = useScroll();
 
     const workspace = useAtomValue(workspaceAtom);
     const customization = useAtomValue(customizationAtom)
-
-    const [currentShop, setCurrentShop] = useAtom(currentShopAtom);
-
-    const onSelectShop: HeaderProps['onSelectShop'] = (shopId) => {
-        const selectedShop = workspace?.shops?.find?.(s => s?.id === shopId);
-        if (!selectedShop) return;
-
-        setCurrentShop(selectedShop);
-    };
 
     const childProps: HeaderProps = {
         scrolling: moving,
         workspace,
         customization,
         shops: workspace?.shops || [],
-        currentShop,
-        onSelectShop,
     };
 
     return (

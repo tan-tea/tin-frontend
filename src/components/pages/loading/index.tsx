@@ -1,26 +1,32 @@
 'use client'
 
+import dynamic from 'next/dynamic';
+
 import { useTranslations, } from 'next-intl';
 
 import { useNavigation, } from 'shared/hooks';
 
 import DeviceDetector from 'common/device-detector';
 
-import LoadingMobile from './mobile';
-// import LoadingDesktop from './desktop';
+const LoadingMobile = dynamic(
+    () => import('./mobile'),
+    {
+        ssr: false,
+    },
+);
 
-type OwnLoadingProps = object;
+type Props = Readonly<object>;
 
-export type LoadingProps = {
+export type LoadingProps = Props & {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Loading(props: OwnLoadingProps) {
+export default function Loading(props: Props) {
     'use memo'
     const {} = props;
 
-    const t = useTranslations('loading');
+    const t = useTranslations();
     const navigation = useNavigation();
 
     const childProps: LoadingProps = {

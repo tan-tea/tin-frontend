@@ -43,13 +43,6 @@ async function getOfferBySlug(slug: string): Promise<Offer> {
         .from('offers')
         .select(`
             *,
-            type:offer_types (
-                *,
-                attributes:offer_attributes (
-                    *,
-                    values:offer_attribute_values ( * )
-                )
-            ),
             category:categories ( * )
         `)
         .eq('slug', slug)
@@ -58,7 +51,10 @@ async function getOfferBySlug(slug: string): Promise<Offer> {
         .gte('end_date', now)
         .single();
 
-    if (error && !data) throw new Error('Cannot get product id: ' + slug);
+    if (error && !data) {
+        console.error('error', error);
+        throw new Error('Cannot get product id: ' + slug);
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as Offer;
 
@@ -83,7 +79,10 @@ async function getOffersSlugByWorkspace(): Promise<Array<{ slug: string }>> {
         .lte('start_date', now)
         .gte('end_date', now);
 
-    if (error && !data) return [];
+    if (error && !data) {
+        console.error('error', error);
+        return [];
+    }
 
     return data.map(d => ({ slug: d.slug, }));
 }
@@ -93,7 +92,7 @@ function getCachedOffersByShopId(shopId: string): Array<Offer> | null {
 }
 
 function setCachedOffersByShopId(shopId: string, data: Array<Offer>): void {
-    return setCached(offersCache, shopId, data, 10);
+    return setCached(offersCache, shopId, data);
 }
 
 async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
@@ -113,7 +112,10 @@ async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
         .eq('is_active', true)
         .order('created_at', { ascending: false });
 
-    if (error && !data) return [];
+    if (error && !data) {
+        console.error('error', error);
+        return [];
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as Array<Offer>;
 
@@ -167,7 +169,10 @@ async function getOffersByCriteria(
         .eq('shop_id', shopId)
         .range(skip, top);
 
-    if (error && !data) return [];
+    if (error && !data) {
+        console.error('error', error);
+        return [];
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as unknown as Array<Offer>;
     return result;
@@ -194,7 +199,10 @@ async function getDefaultShopByWorkspaceId(workspaceId: string): Promise<Shop | 
         .eq('is_primary', true)
         .single()
 
-    if (error && !data) return null;
+    if (error && !data) {
+        console.error('error', error);
+        return null;
+    }
 
     const result = camelcaseKeys(data, { deep: true });
 
@@ -208,7 +216,7 @@ function getCachedShopsByWorkspaceId(workspaceId: string): Array<Shop> | null {
 }
 
 function setCachedShopsByWorkspaceId(workspaceId: string, data: Array<Shop>): void {
-    return setCached(shopsCache, workspaceId, data, 60);
+    return setCached(shopsCache, workspaceId, data);
 }
 
 async function getShopsByWorkspaceId(workspaceId: string): Promise<Array<Shop>> {
@@ -264,7 +272,7 @@ function getCachedShopBySlug(slug: string): Shop | null {
 }
 
 function setCachedShopBySlug(slug: string, data: Shop): void {
-    return setCached(shopsCache, slug, data, 15);
+    return setCached(shopsCache, slug, data);
 }
 
 async function getShopBySlug(slug: string): Promise<Shop> {

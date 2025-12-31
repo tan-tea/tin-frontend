@@ -1,22 +1,12 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-    JSX,
-} from 'react';
+import type { FC, ReactNode, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
-import { memo } from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import { Fragment } from 'react';
+import { tv, cn } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
-import BaseTypography, {
-    TypographyProps as BaseTypographyProps,
-} from '@mui/material/Typography';
 
-import { cn } from 'lib/utils';
 import { Icon } from 'components/icons';
 
 const TEXT_ANIMATION: MotionNodeAnimationOptions = {
@@ -238,39 +228,47 @@ const IconLabel: FC<IconLabelProps> = ({
     );
 };
 
+IconLabel.displayName = 'IconLabel';
+
+type RichTextTag = 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'p'
+    | 'b';
+
+type RichTextProps = {
+    children(tags: Record<RichTextTag, (chunks: ReactNode) => ReactNode>): ReactNode;
+};
+
+const RichText: FC<RichTextProps> = ({
+    children,
+}) => {
+    'use memo'
+
+    return (
+        <Fragment>
+            {children({
+                h1: (chunks) => <Heading level='1' className='font-alternative'>{chunks}</Heading>,
+                h2: (chunks) => <Heading level='2' className='font-alternative'>{chunks}</Heading>,
+                h3: (chunks) => <Heading level='3' className='font-alternative'>{chunks}</Heading>,
+                h4: (chunks) => <Heading level='4' className='font-alternative'>{chunks}</Heading>,
+                h5: (chunks) => <Heading level='5' className='font-alternative'>{chunks}</Heading>,
+                h6: (chunks) => <Heading level='6' className='font-alternative'>{chunks}</Heading>,
+                p: (chunks) => <Paragraph level='3'>{chunks}</Paragraph>,
+                b: (chunks) => <b className='font-bold'>{chunks}</b>,
+            })}
+        </Fragment>
+    );
+};
+
+RichText.displayName = 'RichText';
+
 export {
     Heading,
     Paragraph,
     IconLabel,
+    RichText,
 };
-
-const componentMap = {
-    'heading': Heading,
-    'subtitle': motion.h2,
-    'paragraph': motion.p,
-} as const;
-
-type TypographyProps = TextVariants
-& BaseTypographyProps;
-
-const Typography: FC<TypographyProps> = ({
-    through,
-    className,
-    ...props
-}) => {
-    'use memo'
-    const { root } = text({
-        through,
-    })
-
-    return (
-        <BaseTypography
-            {...props}
-            className={root({
-                className,
-            })}
-        />
-    )
-};
-
-export default memo(Typography);

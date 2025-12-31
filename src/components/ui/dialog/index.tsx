@@ -3,9 +3,8 @@
 import type { FC, ComponentProps, ReactNode } from 'react';
 import type { VariantProps, ClassValue } from 'tailwind-variants';
 
-
 import { memo } from 'react';
-import { tv } from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { motion, MotionNodeAnimationOptions } from 'motion/react';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import {
@@ -13,27 +12,26 @@ import {
     DialogProps as RootDialogProps,
 } from '@mui/material/Dialog';
 
-import { cn } from 'lib/utils';
-
 import {
     DialogTitle as Title,
     DialogContent,
     DialogActions,
 } from 'ui/index';
+import { Wrapper } from 'ui/layout';
+import { ButtonRoot, TriggerButton } from 'ui/button';
 import { Heading, Paragraph } from 'ui/text';
-import { TriggerButton } from 'ui/button';
 
 const dialog = tv({
     slots: {
         papper: 'shadow-sm rounded-lg bg-white dark:bg-dark-600', // TODO: remove
         trigger: cn(),
-        portal: cn(),
-        backdrop: cn(),
+        portal: cn(''),
+        backdrop: cn('fixed min-h-dvh inset-0 bg-dark-600 opacity-25 dark:opacity-50'),
         viewport: cn(),
-        popup: cn(),
-        title: cn(),
-        description: cn(),
-        close: cn(),
+        popup: cn('outline-none w-5/6 box-border bg-light-400 fixed top-1/2 left-1/2 -translate-1/2 rounded-2xl p-4 md:p-6 md:w-full md:max-w-lg dark:bg-dark-300'),
+        title: cn('mb-2'),
+        description: cn('mb-4'),
+        close: cn(''),
     },
     variants: {},
 });
@@ -57,7 +55,7 @@ DialogRoot.displayName = 'Dialog';
 
 type DialogTriggerProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Trigger>
-    & ComponentProps<typeof motion.button>;
+    & ComponentProps<typeof TriggerButton>;
 
 const DialogTrigger: FC<DialogTriggerProps> = ({
     className,
@@ -73,7 +71,7 @@ const DialogTrigger: FC<DialogTriggerProps> = ({
             className={trigger({
                 className: className as ClassValue,
             })}
-            render={<motion.button/>}
+            render={<TriggerButton/>}
         />
     );
 };
@@ -157,7 +155,7 @@ DialogViewport.displayName = 'DialogViewport';
 
 type DialogPopupProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Popup>
-    & ComponentProps<typeof motion.div>;
+    & ComponentProps<typeof Wrapper>;
 
 const DialogPopup: FC<DialogPopupProps> = ({
     className,
@@ -173,7 +171,7 @@ const DialogPopup: FC<DialogPopupProps> = ({
             className={popup({
                 className: className as ClassValue,
             })}
-            render={<motion.div/>}
+            render={<Wrapper/>}
         />
     );
 };
@@ -232,7 +230,7 @@ DialogDescription.displayName = 'DialogDescription';
 
 type DialogCloseProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Close>
-    & ComponentProps<typeof TriggerButton>;;
+    & ComponentProps<typeof ButtonRoot>;;
 
 const DialogClose: FC<DialogCloseProps> = ({
     className,
@@ -248,7 +246,7 @@ const DialogClose: FC<DialogCloseProps> = ({
             className={close({
                 className: className as ClassValue,
             })}
-            render={<TriggerButton/>}
+            render={<ButtonRoot/>}
         />
     );
 };

@@ -2,7 +2,6 @@
 
 import type { FC, MouseEventHandler } from 'react';
 
-import { useEffect, useRef } from 'react';
 import { useTranslations, } from 'next-intl';
 import { motion, Variants } from 'motion/react';
 
@@ -14,8 +13,6 @@ import {
     IconButton,
 } from 'ui/index';
 import { MapPin } from 'components/icons';
-
-import LocationSelectorDialog from 'common/dialogs/LocationSelectorDialog';
 
 type LocationButtonProps = object;
 
@@ -32,25 +29,14 @@ const variants: Variants = {
 
 const LocationButton: FC<LocationButtonProps> = () => {
     'use memo'
-    const locationButtonRef = useRef<HTMLButtonElement | null>(null);
-
     const t = useTranslations('location');
 
     const { isWatching } = useGeolocation();
 
     const {
-        mountDialog,
         openDialog,
         isDialogOpen,
     } = useDialog();
-
-    useEffect(() => {
-        mountDialog({
-            id: 'location',
-            open: false,
-            Component: (props) => <LocationSelectorDialog {...props}/>,
-        });
-    }, []);
 
     const handleClick: MouseEventHandler = () => openDialog('location');
 
@@ -65,7 +51,6 @@ const LocationButton: FC<LocationButtonProps> = () => {
                 className='justify-self-start'
             >
                 <IconButton
-                    ref={locationButtonRef}
                     borderless
                     size='md'
                     selected={selected}

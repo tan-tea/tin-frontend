@@ -11,16 +11,16 @@ import { getValueInitials } from 'lib/utils';
 import type {
     Category,
 } from 'shared/models';
+import { useNavigation } from 'shared/hooks';
 
-import { Typography } from 'ui/index';
-import { Article } from 'ui/layout';
 import {
     AvatarRoot,
     AvatarImage,
     AvatarFallback,
 } from 'ui/avatar';
+import { Article } from 'ui/layout';
+import { Paragraph } from 'ui/text';
 import { CardActionsArea } from 'ui/card';
-import { useNavigation } from 'shared/hooks';
 
 // TODO: parse to UI component because can be shareable.
 const categoryCard = tv({
@@ -48,10 +48,9 @@ const categoryCard = tv({
 
 type CategoryCardVariants = VariantProps<typeof categoryCard>;
 
-type CategoryCardProps = CategoryCardVariants & {
+type CategoryCardProps = Readonly<CategoryCardVariants & {
     category: Category;
-    onSelectCategory: (id: string) => void;
-};
+}>;
 
 const CategoryCard: FC<CategoryCardProps> = ({
     category,
@@ -79,7 +78,6 @@ const CategoryCard: FC<CategoryCardProps> = ({
     } = categoryCard({
         selected: isActivePath(path) || selected,
     });
-
 
     return (
         <Article
@@ -109,13 +107,9 @@ const CategoryCard: FC<CategoryCardProps> = ({
                         {getValueInitials(label!)}
                     </AvatarFallback>
                 </AvatarRoot>
-                <Typography
-                    variant='body1'
-                    component='p'
-                    className={text()}
-                >
+                <Paragraph className={text()}>
                     {label}
-                </Typography>
+                </Paragraph>
             </CardActionsArea>
         </Article>
     );

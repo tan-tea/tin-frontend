@@ -20,7 +20,7 @@ import {
 
 const baseButton = tv({
     base: [
-        'inline-flex',
+        'flex',
         'justify-center',
         'items-center',
         'gap-x-2',
@@ -31,6 +31,7 @@ const baseButton = tv({
         'outline-none',
         'select-none',
         'border',
+        'whitespace-nowrap',
         'transition-colors',
         'cursor-pointer',
     ],
@@ -38,12 +39,12 @@ const baseButton = tv({
         color: {
             primary: [
                 'border-[var(--mui-palette-primary-main)]',
-                'text-[var(--mui-palette-primary-main)] hover:text-[var(--mui-palette-primary-700)]',
+                'text-[var(--mui-palette-primary-main)]',
                 'bg-[var(--mui-palette-primary-main)] hover:bg-[var(--mui-palette-primary-700)]',
             ],
             secondary: [
                 'border-[var(--mui-palette-primary-main)]',
-                'text-[var(--mui-palette-secondary-main)] hover:text-[var(--mui-palette-secondary-700)]',
+                'text-[var(--mui-palette-secondary-main)]',
                 'bg-[var(--mui-palette-secondary-main)] hover:bg-[var(--mui-palette-secondary-700)]'
             ],
             default: [
@@ -75,7 +76,7 @@ const baseButton = tv({
             lg: 'px-8 py-2.5 text-lg',
         },
         variant: {
-            filled: '',
+            filled: 'data-[disabled]:bg-gray-200',
             outline: '',
             text: '',
         },
@@ -91,17 +92,23 @@ const baseButton = tv({
         {
             color: ['primary', 'secondary', 'default'],
             variant: 'filled',
-            className: 'text-[color:inherit] border-transparent',
+            className: [
+                'text-[color:inherit] border-transparent',
+            ],
         },
         {
             color: ['primary', 'secondary', 'default'],
             variant: 'outline',
-            className: 'bg-transparent border',
+            className: [
+                'bg-transparent border',
+            ],
         },
         {
             color: ['primary', 'secondary', 'default'],
             variant: 'text',
-            className: 'bg-transparent border-transparent',
+            className: [
+                'bg-transparent border-transparent',
+            ],
         },
         {
             size: ['sm', 'md', 'lg'],
@@ -166,11 +173,16 @@ const ButtonRoot: FC<ButtonRootProps> = ({
 
 ButtonRoot.displayName = 'ButtonRoot';
 
-type TriggerButtonProps = ComponentProps<typeof ButtonRoot>;
+type TriggerButtonProps = Omit<
+    ComponentProps<typeof ButtonRoot>,
+    'size'
+    | 'variant'
+    | 'color'
+    | 'rounded'
+    | 'block'
+>;
 
-const TriggerButton: FC<TriggerButtonProps> = ({
-    ...props
-}) => {
+const TriggerButton: FC<TriggerButtonProps> = ({ ...props }) => {
     'use memo'
 
     return (

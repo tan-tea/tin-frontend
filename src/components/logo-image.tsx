@@ -14,7 +14,7 @@ import BlankImage from 'public/images/blank.svg';
 import { toBase64 } from 'lib/utils';
 
 const logoImage = tv({
-    base: 'h-8 w-auto object-contain fill-[var(--mui-palette-primary-main)]',
+    base: 'h-6 w-auto object-contain fill-[var(--mui-palette-primary-main)]',
 });
 
 type LogoImageVariants = VariantProps<typeof logoImage>;

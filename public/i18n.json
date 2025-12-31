@@ -32,6 +32,14 @@
             "title": "",
             "description": ""
         },
+        "privacy": {
+            "title": "",
+            "description": ""
+        },
+        "loading": {
+            "title": "",
+            "description": ""
+        },
         "notFound": {
             "title": "",
             "description": ""
@@ -46,6 +54,12 @@
         "discount": "{discount}% off",
         "showMore": "",
         "showLess": ""
+    },
+    "Privacy": {
+        "content": ""
+    },
+    "Loading": {
+        "message": ""
     },
     "Platform": {},
     "Location": {},
@@ -108,9 +122,6 @@
         "notProvided": "",
         "button": "",
         "message": "{name}"
-    },
-    "loading": {
-        "message": ""
     },
     "notFound": {
         "title": "",

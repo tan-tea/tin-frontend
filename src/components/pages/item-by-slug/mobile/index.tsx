@@ -13,7 +13,7 @@ import {
     useComputedStyle,
 } from 'shared/hooks';
 
-import { Typography } from 'ui/index';
+import { Paragraph } from 'ui/text';
 import { ButtonRoot } from 'ui/button';
 import { Section, Wrapper } from 'ui/layout';
 
@@ -99,32 +99,32 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                 />
                 <OfferDetailTitle offer={offer}/>
                 <ExpandableText text={offer?.description ?? t('notProvided')}/>
-                {offer?.type?.attributes?.length! > 0 && (
+                {/* {offer?.type?.attributes?.length! > 0 && (
                     <div className='relative flex flex-col justify-center gap-y-4'>
                         {offer?.type?.attributes?.map?.(attribute => (
                             <div
                                 key={attribute?.id}
                                 className='flex flex-col gap-y-1.5 shadow-xs px-4 py-2.5 rounded-xl border border-[var(--mui-palette-grey-50)] dark:border-dark-400'
                             >
-                                <Typography className='text-sm font-semibold text-[var(--mui-palette-secondary-main)]'>
+                                <Paragraph className='text-sm font-semibold text-[var(--mui-palette-secondary-main)]'>
                                     {attribute?.name}
-                                </Typography>
+                                </Paragraph>
                                 <div className='flex items-center gap-x-2'>
                                     {attribute?.values
                                         ?.filter(value => attribute?.isGlobal || value?.offerId === offer?.id)
                                         ?.map((value, index) => (
-                                            <Typography
+                                            <Paragraph
                                                 key={index}
                                                 className='p-2 py-1.5 text-xs rounded-full bg-[var(--mui-palette-grey-50)] text-dark-600 dark:bg-dark-400 dark:text-white'
                                             >
                                                 {value?.label ?? value?.value}
-                                            </Typography>
+                                            </Paragraph>
                                         ))}
                                 </div>
                             </div>
                         ))}
                     </div>
-                )}
+                )} */}
             </div>
             <Wrapper ref={buttonRef} className='fixed bottom-0 left-0 w-full h-auto p-4 bg-light-400 dark:bg-dark-300'>
                 <ButtonRoot

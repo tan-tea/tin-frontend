@@ -4,7 +4,9 @@ import { getTranslations } from 'next-intl/server';
 
 import Terms from 'pages/terms';
 
-type PageProps = object;
+type PageProps = Readonly<{
+    params: Promise<{ locale: string; }>;
+}>;
 
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations();

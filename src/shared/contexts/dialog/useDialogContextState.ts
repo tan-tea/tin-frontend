@@ -3,34 +3,34 @@ import {
     useCallback,
 } from 'react';
 
-import type {
-    DialogProps,
-} from 'shared/contexts/dialog/types';
+type Dialog = {
+    id: string;
+    open: boolean;
+};
 
 type DialogContextState = {
-    dialogs: Array<DialogProps>;
-    openDialog: (id: DialogProps['id']) => void;
-    closeDialog: (id: DialogProps['id']) => void;
-    getDialog: (id: DialogProps['id']) => DialogProps;
-    isDialogOpen: (id: DialogProps['id']) => boolean;
+    dialogs: Array<Dialog>;
     closeAllDialogs: () => void;
-    mountDialog: (dialog: DialogProps) => void;
+    openDialog: (id: Dialog['id']) => void;
+    closeDialog: (id: Dialog['id']) => void;
+    isDialogOpen: (id: Dialog['id']) => boolean;
+    mountDialog: (dialog: Dialog) => void;
 };
 
 const useDialogContextState: () => DialogContextState = () => {
-    const [dialogsState, setDialogsState,] = useState<Array<DialogProps>>([]);
+    const [dialogs, setDialogs,] = useState<DialogContextState['dialogs']>([]);
 
-    const isDialogOpen = useCallback(
-        (id: DialogProps['id']) => {
-            const currentDialog = dialogsState?.find?.(d => d?.id === id);
-            return currentDialog?.open;
+    const isDialogOpen: DialogContextState['isDialogOpen'] = useCallback(
+        (id) => {
+            const currentDialog = dialogs?.find?.(d => d?.id === id);
+            return currentDialog?.open ?? false;
         },
-        [dialogsState,],
-    ) as DialogContextState['isDialogOpen'];
+        [dialogs,],
+    );
 
-    const closeDialog = useCallback(
-        (id: DialogProps['id']) => {
-            setDialogsState(
+    const closeDialog: DialogContextState['closeDialog'] = useCallback(
+        (id) => {
+            setDialogs(
                 (state) => state?.map?.(
                     (dialog) => dialog?.id === id
                         ? { ...dialog, open: false, }
@@ -39,13 +39,14 @@ const useDialogContextState: () => DialogContextState = () => {
             );
         },
         [],
-    ) as DialogContextState['closeDialog'];
+    );
 
-    const openDialog = useCallback(
-        (id: DialogProps['id']) => {
-            if (isDialogOpen(id)) closeDialog(id);
+    const openDialog: DialogContextState['openDialog'] = useCallback(
+        (id) => {
+            const isOpen = isDialogOpen(id);
+            if (isOpen) return;
 
-            setDialogsState(
+            setDialogs(
                 (state) => state?.map?.(
                     (dialog) => dialog?.id === id
                         ? { ...dialog, open: true, }
@@ -54,47 +55,38 @@ const useDialogContextState: () => DialogContextState = () => {
             );
         },
         [],
-    ) as DialogContextState['openDialog'];
+    );
 
-    const getDialog = useCallback(
-        (id: DialogProps['id']) => {
-            const currentDialog = dialogsState?.find?.(d => d?.id === id);
-            return currentDialog;
-        },
-        [],
-    ) as DialogContextState['getDialog'];
-
-    const closeAllDialogs = useCallback(
+    const closeAllDialogs: DialogContextState['closeAllDialogs'] = useCallback(
         () => {
-            const newState = dialogsState?.map?.(dialog => ({
+            const newState = dialogs?.map?.(dialog => ({
                 ...dialog,
                 open: false,
             }));
-            setDialogsState(newState);
+            setDialogs(newState);
         },
         [],
-    ) as DialogContextState['closeAllDialogs'];
+    );
 
-    const mountDialog = useCallback(
+    const mountDialog: DialogContextState['mountDialog'] = useCallback(
         (dialog) => {
-            const isDialogMounted = dialogsState?.find?.(d => d?.id === dialog.id);
+            const isDialogMounted = dialogs?.find?.(d => d?.id === dialog.id);
             if (isDialogMounted) return;
 
             const newState = [
-                ...dialogsState,
+                ...dialogs,
                 dialog,
             ];
 
-            setDialogsState(newState);
+            setDialogs(newState);
         },
         [],
-    ) as DialogContextState['mountDialog'];
+    );
 
     return {
-        dialogs: dialogsState,
+        dialogs: dialogs,
         openDialog,
         closeDialog,
-        getDialog,
         isDialogOpen,
         closeAllDialogs,
         mountDialog,

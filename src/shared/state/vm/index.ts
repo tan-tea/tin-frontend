@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 
 import type {
+    Shop,
     Offer,
-    Shop
 } from 'shared/models';
 
 import { workspaceAtom } from '../wm';
@@ -19,9 +19,9 @@ export const currentShopAtom = atom(
 
         return workspace?.shops?.find(shop => shop?.isPrimary) || null;
     },
-    (_, set, newShop: Shop) => {
-        set(shopAtom, newShop);
-    }
+    // (_, set, newShop: Shop) => {
+    //     set(shopAtom, newShop);
+    // }
 );
 
 export const offersAtom = atom<Array<Offer>>([]);

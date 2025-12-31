@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { Typography } from 'ui/index';
+import { Paragraph } from 'ui/text';
 import { InternalLink } from 'ui/link';
 
 type Link = {
@@ -33,11 +33,11 @@ const NavigationDrawerFooter: FC<NavigationDrawerFooterProps> = () => {
 
     return (
         <div className='flex flex-col gap-y-1 p-4 text-sm dark:text-light-600'>
-            <Typography className='text-xs text-center'>
+            <Paragraph className='text-xs text-center'>
                 {t('allRightsReserved', {
                     currentYear,
                 })}
-            </Typography>
+            </Paragraph>
             <div className='flex flex-wrap items-center justify-center gap-x-2'>
                 {links?.length > 0 && links?.map?.(link => (
                     <InternalLink

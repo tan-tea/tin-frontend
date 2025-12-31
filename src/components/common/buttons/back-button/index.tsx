@@ -9,11 +9,8 @@ import { motion, MotionNodeAnimationOptions } from 'motion/react';
 
 import { useNavigation, } from 'shared/hooks';
 
-import {
-    Box,
-    IconButton,
-    Typography,
-} from 'ui/index';
+import { Paragraph } from 'ui/text';
+import { IconButton } from 'ui/index';
 import { MoveLeft, } from 'components/icons';
 
 const backButton = tv({
@@ -92,7 +89,7 @@ const BackButton: FC<BackButtonProps> = ({
                 })}
                 icon={MoveLeft}
             />
-            {showLabel && <Typography className={label()}>{t('shared.back')}</Typography>}
+            {showLabel && <Paragraph className={label()}>{t('shared.back')}</Paragraph>}
         </motion.div>
     );
 };

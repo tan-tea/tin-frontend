@@ -5,35 +5,45 @@ import { clientEnv } from 'env/client';
 import { getPathname } from 'lib/i18n/navigation';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-
     const es = getPathname({ locale: 'es', href: '/' });
     const en = getPathname({ locale: 'en', href: '/' });
 
-    const esUrl = `${clientEnv.NEXT_PUBLIC_SITE_URL}${es}`;
-    const enUrl = `${clientEnv.NEXT_PUBLIC_SITE_URL}${en}`;
+    const baseUrl = clientEnv.NEXT_PUBLIC_SITE_URL;
 
     return [
         {
-            url: clientEnv.NEXT_PUBLIC_SITE_URL,
+            url: baseUrl,
             lastModified: new Date(),
             changeFrequency: 'always',
             priority: 1,
             alternates: {
                 languages: {
-                    es: esUrl,
-                    en: enUrl,
+                    es: `${baseUrl}/es`,
+                    en: `${baseUrl}/en`,
                 },
             },
         },
         {
-            url: `${clientEnv.NEXT_PUBLIC_SITE_URL}/location`,
+            url: `${baseUrl}/location`,
             lastModified: new Date(),
             changeFrequency: 'always',
             priority: 0.9,
             alternates: {
                 languages: {
-                    es: `${esUrl}/location`,
-                    en: `${enUrl}/location`,
+                    es: `${baseUrl}/es/ubicacion`,
+                    en: `${baseUrl}/en/location`,
+                },
+            },
+        },
+        {
+            url: `${baseUrl}/privacy`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.8,
+            alternates: {
+                languages: {
+                    es: `${baseUrl}/es/privacidad`,
+                    en: `${baseUrl}/en/privacy`,
                 },
             },
         },

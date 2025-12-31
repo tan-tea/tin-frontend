@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 
 import type {
     Shop,
-    Schedule,
     Address,
 } from 'shared/models';
 
@@ -43,16 +42,6 @@ const StoreCard: FC<StoreCardProps> = ({
         [shop],
     );
 
-    const currentSchedule = useMemo<Schedule | null>(
-        () => {
-            const now = new Date();
-            const today = now.getDay();
-            return (shop?.schedules ?? [])
-                .find(s => s.dayOfWeek === today) ?? null;
-        },
-        [shop]
-    );
-
     return (
         <CardRoot className='h-auto rounded-2xl bg-light-400 dark:bg-dark-300'>
             <CardActionsArea href={`/store/${slug}` as any}>
@@ -68,7 +57,7 @@ const StoreCard: FC<StoreCardProps> = ({
                     </div>
                 </CardContent>
                 <CardActions className='grid grid-cols-2 gap-2'>
-                    <StoreAvailability schedule={currentSchedule}/>
+                    <StoreAvailability/>
                     <StoreLocation address={currentAddress}/>
                 </CardActions>
             </CardActionsArea>

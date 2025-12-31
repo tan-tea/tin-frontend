@@ -2,14 +2,11 @@
 
 import type { FC } from 'react';
 
-import {
-    Box,
-    Typography,
-} from 'ui/index';
+import { Paragraph } from 'ui/text';
 
-import { LoadingProps, } from 'components/pages/loading';
+import type { LoadingProps, } from 'pages/loading';
 
-import BackButton from 'components/common/buttons/back-button';
+import BackButton from 'common/buttons/back-button';
 
 type LoadingDesktopProps = LoadingProps;
 
@@ -22,30 +19,19 @@ const LoadingDesktop: FC<LoadingDesktopProps> = (props) => {
     } = props;
 
     return (
-        <Box
-            component='section'
-            className='h-dvh w-full overflow-hidden'
-        >
-            <Box className='relative size-full p-4'>
+        <div className='h-dvh w-full overflow-hidden'>
+            <div className='relative size-full p-4'>
                 <BackButton className='ml-4 mt-4'/>
-                <Box className='size-full flex flex-col justify-center gap-y-4 items-center'>
-                    <Typography
-                        variant='h1'
-                        component='h2'
-                        className='text-primary font-secondary text-2xl font-bold text-center'
-                    >
+                <div className='size-full flex flex-col justify-center gap-y-4 items-center'>
+                    <Paragraph className='text-primary font-secondary text-2xl font-bold text-center'>
                         {t('notFound.title')}
-                    </Typography>
-                    <Typography
-                        variant='body1'
-                        component='p'
-                        className='text-sm text-gray-800 text-center'
-                    >
+                    </Paragraph>
+                    <Paragraph className='text-sm text-gray-800 text-center'>
                         {t('notFound.description')}
-                    </Typography>
-                </Box>
-            </Box>
-        </Box>
+                    </Paragraph>
+                </div>
+            </div>
+        </div>
     );
 };
 

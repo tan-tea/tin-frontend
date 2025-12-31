@@ -66,6 +66,9 @@
       ],
       "features/*": [
         "./src/components/features/*"
+      ],
+      "dialogs/*": [
+        "./src/components/dialogs/*"
       ]
     }
   },

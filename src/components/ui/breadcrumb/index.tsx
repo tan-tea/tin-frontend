@@ -1,21 +1,13 @@
 'use client';
 
-import type { FC, ComponentProps, ReactNode } from 'react';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
 
-import {
-    useContext,
-    createContext
-} from 'react';
 import { motion } from 'motion/react';
-import {
-    tv,
-    type VariantProps
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { Slot } from '@radix-ui/react-slot';
 
-import { cn } from 'lib/utils';
-
-import { Slash, MoreHorizontal } from 'components/icons';
+import { ChevronRight, MoreHorizontal } from 'components/icons';
 
 const breadcrumb = tv({
     slots: {
@@ -143,7 +135,7 @@ const BreadcrumbSeparator: FC<BreadcrumbSeparatorProps> = ({ children, className
                 className,
             })}
         >
-            {children ?? <Slash/>}
+            {children ?? <ChevronRight/>}
         </motion.li>
     );
 }

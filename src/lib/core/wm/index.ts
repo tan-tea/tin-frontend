@@ -23,7 +23,7 @@ async function getCachedWorkspaceById(id: string): Promise<Workspace | null> {
 }
 
 async function setCachedWorkspaceById(id: string, data: Workspace): Promise<void> {
-    return setCached(workspaceCache, id, data, 30);
+    return setCached(workspaceCache, id, data);
 }
 
 async function getWorkspaceById(id: string): Promise<Workspace> {
@@ -43,7 +43,10 @@ async function getWorkspaceById(id: string): Promise<Workspace> {
         .eq('id', id)
         .single();
 
-    if (error && !data) throw new Error('Cannot get workspace id: ' + id);
+    if (error && !data) {
+        console.error('error', error);
+        throw new Error('Cannot get workspace id: ' + id);
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as Workspace;
 
@@ -57,7 +60,7 @@ async function getCachedCustomizationByWorkspaceId(workspaceId: string): Promise
 }
 
 async function setCachedCustomizationByWorkspaceId(workspaceId: string, data: Customization): Promise<void> {
-    return setCached(customizationCache, workspaceId, data, 60)
+    return setCached(customizationCache, workspaceId, data);
 }
 
 async function getCustomizationByWorkspaceId(workspaceId: string): Promise<Customization> {
@@ -78,9 +81,10 @@ async function getCustomizationByWorkspaceId(workspaceId: string): Promise<Custo
         .eq('workspace_id', workspaceId)
         .single();
 
-    console.error(error);
-
-    if (error && !data) throw new Error('Cannot get customization by workspace: ' + workspaceId);
+    if (error && !data) {
+        console.error('error', error);
+        throw new Error('Cannot get customization by workspace: ' + workspaceId);
+    }
 
     const result = camelcaseKeys(data, { deep: true }) as Customization;
 

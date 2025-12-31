@@ -7,7 +7,7 @@ import { tv, cn } from 'tailwind-variants';
 
 import { clientEnv } from 'env/client';
 
-import { AppBar } from 'ui/index';
+import { Header } from 'ui/layout';
 
 import type {
     HeaderProps
@@ -20,7 +20,7 @@ import NavigationDrawer from 'features/navigation/drawer';
 const header = tv({
     slots: {
         root: cn(
-            'h-header-mobile py-4 z-50 rounded-b-2xl shadow-none',
+            'h-header-mobile py-4 rounded-b-2xl shadow-none',
             'bg-white dark:bg-dark-600',
         ),
         wrapper: cn('size-full px-4'),
@@ -115,7 +115,7 @@ const HeaderMobile: FC<Omit<HeaderMobileProps, 'variant'>> = ({
     const Layout = layoutMap?.[defaultVariant] || layoutMap?.['center'];
 
     return (
-        <AppBar
+        <Header
             position='fixed'
             scrolling={scrolling}
             className={root()}
@@ -124,7 +124,7 @@ const HeaderMobile: FC<Omit<HeaderMobileProps, 'variant'>> = ({
                 {...props}
                 variant={defaultVariant}
             />
-        </AppBar>
+        </Header>
     );
 }
 

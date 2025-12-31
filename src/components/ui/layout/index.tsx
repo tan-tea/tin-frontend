@@ -12,8 +12,32 @@ const layout = tv({
         section: cn('w-full min-h-dvh box-border outline-none scrollbar-hide md:scrollbar-default'),
         article: cn('box-border outline-none transition-colors'),
         wrapper: cn('w-full box-border outline-none'),
+        header: cn('z-50 w-full overflow-hidden transition-transform duration-300 ease-in-out'),
     },
-    variants: {},
+    variants: {
+        position: {
+            fixed: {
+                header: 'fixed',
+            },
+            absolute: {
+                header: 'absolute',
+            },
+            sticky: {
+                header: 'sticky',
+            },
+            static: {
+                header: 'static'
+            },
+            relative: {
+                header: 'relative',
+            },
+        },
+        scrolling: {
+            true: { header: '-translate-y-full' },
+            false: { header: 'translate-y-0' }
+        },
+    },
+    defaultVariants: {},
 });
 
 type LayoutVariants = VariantProps<typeof layout>;
@@ -198,11 +222,55 @@ const Wrapper: FC<WrapperProps> = ({
             })}
         />
     );
-}
+};
+
+type HeaderProps = LayoutVariants & ComponentProps<typeof motion.header>;
+
+const HEADER_ANIMATION: MotionNodeAnimationOptions = {
+    initial: {
+        y: -100,
+    },
+    animate: {
+        y: 0,
+    },
+    exit: {
+        y: -200,
+    },
+    transition: {
+        y: {
+            type: 'spring',
+            duration: 0.25,
+        },
+    },
+} as const;
+
+const Header: FC<HeaderProps> = ({
+    className,
+    position = 'fixed',
+    scrolling = false,
+    ...props
+}) => {
+    'use memo'
+    const { header } = layout();
+
+    return (
+        <motion.header
+            {...HEADER_ANIMATION}
+            {...props}
+            data-slot='layout-header'
+            className={header({
+                className,
+                position,
+                scrolling,
+            })}
+        />
+    );
+};
 
 export {
     Main,
     Section,
     Article,
     Wrapper,
+    Header,
 };

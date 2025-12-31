@@ -8,12 +8,19 @@ type PageProps = Readonly<{
     params: Promise<{ locale: string; }>;
 }>;
 
-export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations();
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+    const { params } = props;
+
+    const locale = (await params).locale;
+
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
+    });
 
     return {
-        title: 'Privacy',
-        description: 'Privacy policy page',
+        title: t('privacy.title'),
+        description: t('privacy.description'),
     };
 }
 

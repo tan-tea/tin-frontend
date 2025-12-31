@@ -38,6 +38,11 @@ export function createRandomState(length: number = 32): string {
         .join('');
 }
 
+export function random(max: number): number {
+    const random = Math.floor(Math.random() * max);
+    return random;
+}
+
 export function formatCurrency(
     currency: Currency,
     value: number,
@@ -155,13 +160,11 @@ export const fetchWithBackoff: BackoffFn = async (
     return undefined;
 }
 
-export const cacheDurationFactory: CacheFactory = (
-    minutes = 5
-) => minutesToMilliseconds(minutes);
+export const cacheDurationFactory: CacheFactory = (minutes) => minutesToMilliseconds(minutes);
 
 export const getCached: GetCachedFn = (store, key) => {
     const cached = store.get(key);
-    if (cached && cached.expiresAt > Date.now()) return cached.data;
+    if (cached && cached?.expiresAt > Date.now()) return cached.data;
 
     if (cached) store.delete(key);
 

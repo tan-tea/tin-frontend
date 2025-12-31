@@ -17,11 +17,6 @@ const StoreBySlugMobile: FC<StoreBySlugMobileProps> = ({
     offers,
 }) => {
     'use memo'
-    // const discounts = useMemo<typeof offers>(
-    //     () => offers.filter(o => o.discount && o.discount > 0),
-    //     [offers,],
-    // );
-
     return (
         <Section
             role='application'
@@ -32,35 +27,6 @@ const StoreBySlugMobile: FC<StoreBySlugMobileProps> = ({
             <div className='px-4 pb-2'>
                 <NavigationBreadcrumb/>
             </div>
-                {/* {(discounts?.length > 0 && !selectedCategory) && (
-                    <Box className='flex flex-col gap-y-2'>
-                        <Heading>
-                            {t('exploreDiscounts')}
-                        </Heading>
-                        <Carousel
-                            className='w-full'
-                            opts={{ loop: true }}
-                            plugins={[
-                                Autoplay({
-                                    playOnInit: true,
-                                    delay: 10000,
-                                }),
-                            ]}
-                        >
-                            <CarouselContent>
-                                {discounts?.map?.(discount => (
-                                    <CarouselItem key={discount?.title}>
-                                        <ProductCard
-                                            variant='grid'
-                                            showDiscountTimeLeft
-                                            offer={discount}
-                                        />
-                                    </CarouselItem>
-                                ))}
-                            </CarouselContent>
-                        </Carousel>
-                    </Box>
-                )} */}
             <CategoryList/>
             <OfferList offers={offers}/>
         </Section>

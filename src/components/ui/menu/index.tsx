@@ -1,18 +1,14 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
+
 import { motion } from 'motion/react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 
-import { cn } from 'lib/utils';
+import { Wrapper } from 'ui/layout';
+import { TriggerButton } from 'ui/button';
 
 const menu = tv({
     slots: {
@@ -61,7 +57,7 @@ export const Menu: FC<MenuProps> = ({ ...props }) => {
 }
 
 type MenuTriggerProps = ComponentProps<typeof BaseMenu.Trigger>
-& ComponentProps<typeof motion.button>
+& ComponentProps<typeof TriggerButton>
 & MenuVariants;
 
 export const MenuTrigger: FC<MenuTriggerProps> = ({ ...props }) => {
@@ -72,7 +68,7 @@ export const MenuTrigger: FC<MenuTriggerProps> = ({ ...props }) => {
         <BaseMenu.Trigger
             {...props}
             data-slot='menu-trigger'
-            render={<motion.button/>}
+            render={<TriggerButton/>}
             className={trigger({
                 className: props.className as ClassValue,
             })}
@@ -130,8 +126,9 @@ export const MenuPositioner: FC<MenuPositionerProps> = ({ ...props }) => {
     );
 }
 
-type MenuPopupProps = ComponentProps<typeof BaseMenu.Popup>
-& MenuVariants;
+type MenuPopupProps = MenuVariants
+    & ComponentProps<typeof BaseMenu.Popup>
+    & ComponentProps<typeof Wrapper>;
 
 export const MenuPopup: FC<MenuPopupProps> = ({ ...props }) => {
     'use memo'
@@ -144,6 +141,7 @@ export const MenuPopup: FC<MenuPopupProps> = ({ ...props }) => {
             className={popup({
                 className: props.className as ClassValue,
             })}
+            render={<Wrapper/>}
         />
     );
 }

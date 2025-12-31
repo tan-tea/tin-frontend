@@ -18,7 +18,6 @@ const OfferDetailTitle: FC<OfferDetailTitleProps> = ({
     offer,
 }) => {
     const {
-        type,
         title,
         category,
     } = offer;
@@ -28,12 +27,10 @@ const OfferDetailTitle: FC<OfferDetailTitleProps> = ({
     const displaySubTitles = useMemo<Array<string>>(
         () => {
             return [
-                type?.name!,
-                'separator',
                 category?.label!
             ].filter(Boolean);
         },
-        [type?.name, category?.label],
+        [category?.label],
     );
 
     return (

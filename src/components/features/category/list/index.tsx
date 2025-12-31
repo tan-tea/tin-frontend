@@ -37,16 +37,10 @@ const CategoryList: FC<CategoryListProps> = () => {
         [workspace],
     );
 
-    const handleSelectCategory = () => {}
-
     return (
         <Wrapper className='px-4 py-2 flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>
             {categories.map(category => (
-                <CategoryCard
-                    key={category.id}
-                    category={category}
-                    onSelectCategory={handleSelectCategory}
-                />
+                <CategoryCard key={category.id} category={category}/>
             ))}
         </Wrapper>
     );

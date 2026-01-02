@@ -21,7 +21,7 @@ const LoadingDesktop: FC<LoadingDesktopProps> = (props) => {
     return (
         <div className='h-dvh w-full overflow-hidden'>
             <div className='relative size-full p-4'>
-                <BackButton className='ml-4 mt-4'/>
+                <BackButton/>
                 <div className='size-full flex flex-col justify-center gap-y-4 items-center'>
                     <Paragraph className='text-primary font-secondary text-2xl font-bold text-center'>
                         {t('notFound.title')}

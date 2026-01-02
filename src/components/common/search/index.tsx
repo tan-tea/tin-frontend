@@ -49,9 +49,7 @@ const Search: FC<SearchProps> = () => {
    'use memo'
     const t = useTranslations();
 
-    const params = useParams<{ slug: string }>();
-
-    const { slug } = params;
+    const { slug } = useParams<{ slug: string }>();
 
     const [open, setOpen] = useState<boolean>(false);
 
@@ -63,7 +61,7 @@ const Search: FC<SearchProps> = () => {
         mode: 'all',
         reValidateMode: 'onChange',
         values: {
-            query: new URLSearchParams(window.location.search).get('q') ?? '',
+            query: '',
         },
     });
 

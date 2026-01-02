@@ -11,7 +11,7 @@ import { Header } from 'ui/layout';
 
 import type {
     HeaderProps
-} from 'components/common/header';
+} from 'common/header';
 
 import Search from 'common/search';
 import Logo from 'components/logo';
@@ -86,7 +86,7 @@ const CenterVariant: FC<HeaderMobileVariant> = ({
     return (
         <div className={wrapper()}>
             <Search/>
-            <div className='col-span-3 flex items-center justify-center'>
+            <div className='relative col-span-3 flex items-center justify-center'>
                 <Logo/>
             </div>
             <div className={navigation()}>

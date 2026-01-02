@@ -36,7 +36,10 @@ const titlebar = tv({
         },
         position: {
             relative: {
-                wrapper: 'relative dark:bg-dark-600',
+                wrapper: 'relative bg-transparent',
+            },
+            absolute: {
+                wrapper: 'absolute bg-transparent'
             },
             fixed: {
                 wrapper: 'fixed bg-transparent border-none',

@@ -58,15 +58,19 @@ const LocationMobile: FC<LocationMobileProps> = ({
 
     return (
         <Section
-            aria-label=''
-            aria-description=''
-            className='w-full flex flex-col min-h-dvh h-auto scrollbar-hide'
+            aria-label={t('metadata.location.title')}
+            aria-description={t('metadata.location.description')}
+            className='flex flex-col h-auto'
         >
             <Titlebar
                 position='fixed'
-                renderStart={() => <BackButton variant='rounded'/>}
+                renderStart={() => (
+                    <div>
+                        <BackButton/>
+                    </div>
+                )}
                 renderEnd={() => (
-                    <div className='ml-auto bg-white p-1 rounded-full dark:bg-dark-600'>
+                    <div className='ml-auto'>
                         <LocationButton/>
                     </div>
                 )}

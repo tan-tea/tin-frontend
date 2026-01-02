@@ -46,7 +46,7 @@ const offerCard = tv({
     variants: {
         variant: {
             grid: {
-                root: cn('col-span-1 h-[250px] rounded-4xl ring-[none]'),
+                root: cn('h-full col-span-1 rounded-4xl ring-[none]'),
                 actionsArea: cn('flex flex-col'),
                 titleText: cn(''),
                 descriptionText: cn('truncate'),

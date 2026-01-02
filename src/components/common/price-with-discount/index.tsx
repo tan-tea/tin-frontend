@@ -17,7 +17,7 @@ const priceWithDiscount = tv({
         box: 'flex text-primary',
         value: 'font-primary-alt',
         valueWithDiscount: '',
-        discount: 'text-[var(--mui-palette-primary-main)] bg-[var(--mui-palette-primary-50)] pl-2 pr-1.5 py-1 rounded-lg',
+        discount: 'text-[var(--mui-palette-primary-main)] bg-[var(--mui-palette-primary-main)] pl-2 pr-1.5 py-1 rounded-lg',
     },
     variants: {
         size: {

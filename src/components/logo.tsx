@@ -1,7 +1,7 @@
-import type {
-    FC,
-    ReactNode
-} from 'react';
+'use client'
+
+import type { FC, ReactNode } from 'react';
+
 import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
@@ -9,10 +9,7 @@ import dynamic from 'next/dynamic';
 
 import { Link } from 'lib/i18n/navigation';
 
-import {
-    workspaceAtom,
-    customizationAtom,
-} from 'shared/state';
+import { customizationAtom } from 'shared/state';
 import { useNavigation } from 'shared/hooks';
 
 import Skeleton from 'ui/skeleton';
@@ -36,10 +33,11 @@ import {
     SiFacebook,
 } from 'components/icons';
 
-const LogoImage = dynamic(
-    () => import('components/logo-image'),
+const ApplicationLogo = dynamic(
+    () => import('common/application-logo'),
     {
-        loading: () => <Skeleton rounded='md' className='h-[40px] w-[100px]'/>
+        ssr: false,
+        loading: () => <Skeleton rounded='md' className='h-10 w-[100px]'/>
     },
 );
 
@@ -67,7 +65,6 @@ const Logo: FC<LogoProps> = () => {
         isActivePath
     } = useNavigation();
 
-    const workspace = useAtomValue(workspaceAtom);
     const customization = useAtomValue(customizationAtom);
 
     const navigation: Array<Navigation> = [
@@ -81,8 +78,8 @@ const Logo: FC<LogoProps> = () => {
 
     return (
         <Menu>
-            <MenuTrigger>
-                <LogoImage alt={workspace?.name!} src={(customization?.logo || workspace?.logo)!}/>
+            <MenuTrigger className='h-10'>
+                <ApplicationLogo/>
             </MenuTrigger>
             <MenuPortal>
                 <MenuPositioner>

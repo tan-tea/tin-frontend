@@ -3,13 +3,14 @@
 import type { ReactNode } from 'react';
 
 import { toast } from 'sonner';
+import { useEffect } from 'react';
 import { useShallow, } from 'zustand/react/shallow';
 
 import type {
     Workspace
 } from 'shared/models';
 import {
-    useHideUI,
+    useCache,
     useHydrateAndSyncAtom,
     useSyncLanguageWithRouter,
 } from 'shared/hooks';
@@ -45,14 +46,13 @@ export default function BaseLayout(props: OwnBaseLayoutProps) {
 
     useHydrateAndSyncAtom([
         [ workspaceAtom, initialWorkspace, ],
-    ], false);
-
-    useHideUI({
-        hideHeader: false,
-        hideBottomNavigation: true,
-    });
+    ] as const, false);
 
     useSyncLanguageWithRouter();
+
+    const {
+        save
+    } = useCache('workspaces', workspaceAtom);
 
     const {
         loading,
@@ -61,6 +61,16 @@ export default function BaseLayout(props: OwnBaseLayoutProps) {
     } = useApplicationStore(
         useShallow(store => store),
     );
+
+    useEffect(() => {
+        if (!initialWorkspace) return;
+
+        save({
+            ...initialWorkspace,
+            id: 'current',
+            _id: initialWorkspace.id,
+        });
+    }, [initialWorkspace,]);
 
     const childProps: BaseLayoutProps = {
         children,

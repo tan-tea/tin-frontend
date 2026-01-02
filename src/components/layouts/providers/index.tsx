@@ -2,10 +2,10 @@
 
 import type { ReactNode } from 'react';
 
-import { useState } from 'react';
-import { minutesToMilliseconds } from 'date-fns';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import { QueryClientProvider } from '@tanstack/react-query';
+
+import { getQueryClient } from 'app/get-query-client';
 
 import { DialogProvider } from 'shared/contexts/dialog';
 import { DatabaseProvider } from 'shared/contexts/database';
@@ -24,19 +24,7 @@ export default function Providers(props: ProvidersProps) {
     'use memo'
     const { children } = props;
 
-    const [queryClient] = useState(
-        () => new QueryClient({
-            defaultOptions: {
-                queries: {
-                    staleTime: minutesToMilliseconds(5),
-                    refetchOnWindowFocus: true,
-                    gcTime: minutesToMilliseconds(1),
-                    retry: 3,
-                    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-                },
-            },
-        })
-    );
+    const queryClient = getQueryClient();
 
     return (
         <DatabaseProvider>

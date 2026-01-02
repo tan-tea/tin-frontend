@@ -2,23 +2,20 @@
 
 import type { FC, MouseEventHandler } from 'react';
 
-import { useTranslations, } from 'next-intl';
-import { motion, Variants } from 'motion/react';
+import { Variants } from 'motion/react';
 
 import { useGeolocation } from 'shared/hooks';
 import { useDialog } from 'shared/contexts/dialog';
 
-import {
-    Tooltip,
-    IconButton,
-} from 'ui/index';
-import { MapPin } from 'components/icons';
+import { IconButton } from 'ui/button';
+import { Icon, MapPin } from 'components/icons';
 
-type LocationButtonProps = object;
+type LocationButtonProps = Readonly<object>;
 
 const variants: Variants = {
   pulse: {
-    scale: [1, 1.15, 1],
+    opacity: 1,
+    scale: [1, 0.95, 1],
     transition: {
       duration: 1.2,
       repeat: Infinity,
@@ -29,8 +26,6 @@ const variants: Variants = {
 
 const LocationButton: FC<LocationButtonProps> = () => {
     'use memo'
-    const t = useTranslations('location');
-
     const { isWatching } = useGeolocation();
 
     const {
@@ -44,21 +39,16 @@ const LocationButton: FC<LocationButtonProps> = () => {
     const selected = isWatching || isLocationDialogOpen;
 
     return (
-        <Tooltip title={t('tooltip')}>
-            <motion.div
-                animate={isWatching && !isLocationDialogOpen ? 'pulse' : ''}
-                variants={variants}
-                className='justify-self-start'
-            >
-                <IconButton
-                    borderless
-                    size='md'
-                    selected={selected}
-                    icon={MapPin}
-                    onClick={handleClick}
-                />
-            </motion.div>
-        </Tooltip>
+        <IconButton
+            initial={{
+                opacity: 1,
+            }}
+            animate={(isWatching && !isLocationDialogOpen) && 'pulse'}
+            variants={variants}
+            onClick={handleClick}
+        >
+            <Icon value={MapPin}/>
+        </IconButton>
     );
 };
 

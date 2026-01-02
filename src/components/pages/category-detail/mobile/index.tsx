@@ -38,7 +38,11 @@ const CategoryDetailMobile: FC<CategoryDetailMobileProps> = ({
         >
             <Titlebar
                 title={label}
-                renderStart={() => <BackButton/>}
+                renderStart={() => (
+                    <div>
+                        <BackButton/>
+                    </div>
+                )}
             />
             <CategoryContent/>
         </Section>

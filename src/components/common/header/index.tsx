@@ -61,7 +61,7 @@ export default function Header(props: OwnHeaderProps) {
     return (
         <DeviceDetector
             MobileComponent={<HeaderMobile {...childProps}/>}
-            DesktopComponent={<HeaderDesktop {...childProps}/>}
+            DesktopComponent={<HeaderMobile {...childProps}/>}
         />
     );
 };

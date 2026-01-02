@@ -18,7 +18,7 @@ import {
     DialogActions,
 } from 'ui/index';
 import { Wrapper } from 'ui/layout';
-import { ButtonRoot, TriggerButton } from 'ui/button';
+import { Button, TriggerButton } from 'ui/button';
 import { Heading, Paragraph } from 'ui/text';
 
 const dialog = tv({
@@ -230,7 +230,7 @@ DialogDescription.displayName = 'DialogDescription';
 
 type DialogCloseProps = DialogVariants
     & ComponentProps<typeof BaseDialog.Close>
-    & ComponentProps<typeof ButtonRoot>;;
+    & ComponentProps<typeof Button>;;
 
 const DialogClose: FC<DialogCloseProps> = ({
     className,
@@ -246,7 +246,7 @@ const DialogClose: FC<DialogCloseProps> = ({
             className={close({
                 className: className as ClassValue,
             })}
-            render={<ButtonRoot/>}
+            render={<Button/>}
         />
     );
 };

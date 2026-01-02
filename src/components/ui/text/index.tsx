@@ -72,9 +72,13 @@ const text = tv({
         through: {
             true: {
                 root: 'line-through',
+                heading: 'line-through',
+                paragraph: 'line-through',
             },
             false: {
                 root: 'no-underline',
+                heading: 'no-underline',
+                paragraph: 'no-underline',
             },
         },
         truncate: {
@@ -116,11 +120,7 @@ const Heading: FC<HeadingProps> = ({
     ...props
 }) => {
     'use memo'
-    const { heading } = text({
-        level,
-        color,
-        through,
-    });
+    const { heading } = text();
 
     const Wrapper = Object.hasOwn(headingLevelMap, level)
         ? headingLevelMap?.[level]
@@ -136,6 +136,8 @@ const Heading: FC<HeadingProps> = ({
             className={heading({
                 level,
                 className,
+                color,
+                through,
             })}
         />
     );
@@ -148,6 +150,7 @@ type ParagraphProps = TextVariants & ComponentProps<typeof motion.p>;
 const Paragraph: FC<ParagraphProps> = ({
     level = '4',
     color,
+    through,
     className,
     ...props
 }) => {
@@ -163,6 +166,7 @@ const Paragraph: FC<ParagraphProps> = ({
                 className,
                 level,
                 color,
+                through,
             })}
         />
     );

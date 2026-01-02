@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import dynamic from 'next/dynamic';
 
@@ -17,24 +17,22 @@ import DeviceDetector from 'common/device-detector';
 
 import PlatformMobileSkeleton from './mobile/skeleton';
 
-const PlatformMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-        loading: () => <PlatformMobileSkeleton/>,
-    },
-);
+const PlatformMobile = dynamic(() => import('./mobile'), {
+    ssr: false,
+    loading: () => <PlatformMobileSkeleton/>,
+});
 
 type OwnPlatformProps = Readonly<{ shops: Array<Shop> }>;
 
-export type PlatformProps = OwnPlatformProps & Readonly<{
-    t: ReturnType<typeof useTranslations>;
-    workspace: Workspace;
-    multipleStores: boolean;
-}>;
+export type PlatformProps = OwnPlatformProps &
+    Readonly<{
+        t: ReturnType<typeof useTranslations>;
+        workspace: Workspace;
+        multipleStores: boolean;
+    }>;
 
 export default function Platform(props: OwnPlatformProps) {
-    'use memo'
+    'use memo';
     const { shops } = props;
 
     useHideUI({
@@ -48,27 +46,17 @@ export default function Platform(props: OwnPlatformProps) {
 
     const workspace = useAtomValue(workspaceAtom);
 
-    const multipleStores = useMemo<boolean>(
-        () => shops.length > 1,
-        [shops]
-    );
+    const multipleStores = useMemo<boolean>(() => shops.length > 1, [shops]);
 
-    useEffect(
-        () => {
-            if (multipleStores) return;
+    useEffect(() => {
+        if (multipleStores) return;
 
-            const mainStore = shops.find(s => s.isPrimary) ?? shops.at(0);
+        const mainStore = shops.find((s) => s.isPrimary) ?? shops.at(0);
 
-            if (!mainStore) return;
+        if (!mainStore) return;
 
-            navigate(`/store/${mainStore.slug}`);
-        },
-        [
-            shops,
-            navigate,
-            multipleStores,
-        ]
-    );
+        navigate(`/store/${mainStore.slug}`);
+    }, [shops, navigate, multipleStores]);
 
     const childProps: PlatformProps = {
         t,
@@ -81,8 +69,8 @@ export default function Platform(props: OwnPlatformProps) {
 
     return (
         <DeviceDetector
-            MobileComponent={<PlatformMobile {...childProps}/>}
-            DesktopComponent={<PlatformMobile {...childProps}/>}
+            MobileComponent={<PlatformMobile {...childProps} />}
+            DesktopComponent={<PlatformMobile {...childProps} />}
         />
     );
 }

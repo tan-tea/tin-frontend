@@ -1,22 +1,11 @@
 'use client'
 
-import type {
-    FC,
-    Ref,
-    MouseEvent,
-    KeyboardEvent,
-    ComponentProps,
-} from 'react';
+import type { FC, JSX, ComponentProps } from 'react';
 import type { VariantProps, ClassValue } from 'tailwind-variants';
 
 import { tv } from 'tailwind-variants';
 import { motion, MotionProps, MotionNodeAnimationOptions } from 'motion/react';
 import { Button as BaseButton } from '@base-ui/react/button';
-
-import {
-    default as RootButton,
-    ButtonProps as RootButtonProps,
-} from '@mui/material/Button';
 
 const baseButton = tv({
     base: [
@@ -56,6 +45,10 @@ const baseButton = tv({
                 'text-dark-600 dark:text-light-400',
                 'border-none bg-transparent',
             ],
+            background: [
+                'bg-light-400 dark:bg-dark-600',
+                'text-dark-600 dark:text-light-400'
+            ],
         },
         rounded: {
             none: 'rounded-none',
@@ -74,11 +67,12 @@ const baseButton = tv({
             sm: 'px-4 py-1 text-sm',
             md: 'px-6 py-2.5 text-base',
             lg: 'px-8 py-2.5 text-lg',
+            icon: 'p-2 text-[length:inherit]'
         },
         variant: {
             filled: 'data-[disabled]:bg-gray-200',
-            outline: '',
-            text: '',
+            outline: 'data-[disabled]:border-gray-200 data-[disabled]:text-gray-200',
+            text: 'data-[disabled]:text-gray-200',
         },
     },
     defaultVariants: {
@@ -90,24 +84,24 @@ const baseButton = tv({
     },
     compoundVariants: [
         {
-            color: ['primary', 'secondary', 'default'],
+            color: ['primary', 'secondary', 'default', 'background'],
             variant: 'filled',
             className: [
                 'text-[color:inherit] border-transparent',
             ],
         },
         {
-            color: ['primary', 'secondary', 'default'],
+            color: ['primary', 'secondary', 'default', 'background'],
             variant: 'outline',
             className: [
                 'bg-transparent border',
             ],
         },
         {
-            color: ['primary', 'secondary', 'default'],
+            color: ['primary', 'secondary', 'default', 'background'],
             variant: 'text',
             className: [
-                'bg-transparent border-transparent',
+                'bg-transparent border-none',
             ],
         },
         {
@@ -142,7 +136,7 @@ const BUTTON_ROOT_ANIMATION: MotionNodeAnimationOptions = {
     },
 } as const;
 
-const ButtonRoot: FC<ButtonRootProps> = ({
+const Button: FC<ButtonRootProps> = ({
     className,
     color,
     rounded,
@@ -171,10 +165,10 @@ const ButtonRoot: FC<ButtonRootProps> = ({
     );
 };
 
-ButtonRoot.displayName = 'ButtonRoot';
+Button.displayName = 'Button';
 
 type TriggerButtonProps = Omit<
-    ComponentProps<typeof ButtonRoot>,
+    ComponentProps<typeof Button>,
     'size'
     | 'variant'
     | 'color'
@@ -186,7 +180,7 @@ const TriggerButton: FC<TriggerButtonProps> = ({ ...props }) => {
     'use memo'
 
     return (
-        <ButtonRoot
+        <Button
             size='none'
             variant='text'
             color='none'
@@ -200,119 +194,30 @@ const TriggerButton: FC<TriggerButtonProps> = ({ ...props }) => {
 
 TriggerButton.displayName = 'TriggerButton';
 
-export {
-    ButtonRoot,
-    TriggerButton,
+type IconButtonProps = ComponentProps<typeof Button> & {
+    children: JSX.Element;
 };
 
-const button = tv({
-    base: 'normal-case rounded-lg',
-    variants: {
-        color: {
-            primary: 'bg-primary text-white border-white',
-            secondary: 'bg-secondary text-white',
-        },
-        rounded: {
-            sm: 'rounded-sm',
-            md: 'rounded-md',
-            lg: 'rounded-lg',
-            xl: 'rounded-xl',
-            xxl: 'rounded-2xl',
-            full: 'rounded-full',
-        },
-        mobile: {
-            true: 'py-3 text-sm',
-        },
-        selected: {
-            true: '',
-        }
-    },
-    defaultVariants: {
-        rounded: 'md',
-        selected: false,
-    }
-});
-
-type ButtonVariants = BaseButtonVariants & VariantProps<typeof button>;
-
-type ButtonProps = ButtonVariants & ComponentProps<'button'> & MotionNodeAnimationOptions & {
-    block?: boolean;
-    loading?: boolean;
-    allowEnter?: boolean;
-    children: RootButtonProps['children'];
-    size?: RootButtonProps['size'];
-    startIcon?: RootButtonProps['startIcon'];
-    endIcon?: RootButtonProps['endIcon'];
-    color?: RootButtonProps['color'];
-    variant?: RootButtonProps['variant'];
-    disableRipple?: RootButtonProps['disableRipple'];
-    component?: RootButtonProps['component'];
-    ref?: Ref<HTMLButtonElement>;
-};
-
-const Button: FC<ButtonProps> = (props) => {
-    const {
-        ref,
-        children,
-        size,
-        selected,
-        className,
-        startIcon,
-        endIcon,
-        mobile,
-        rounded,
-        disableRipple,
-        color = 'primary',
-        variant = 'outlined',
-        tabIndex = 0,
-        block = false,
-        loading = false,
-        allowEnter = false,
-        disabled = false,
-        onClick,
-        onKeyDown,
-        ...rest
-    } = props;
-
-    const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-        if (allowEnter && onClick && event?.key === 'Enter') {
-            event?.preventDefault();
-            onClick?.({ ...event, } as unknown as MouseEvent<HTMLButtonElement>);
-        }
-    };
+const IconButton: FC<IconButtonProps> = ({
+    ...props
+}) => {
 
     return (
-        <RootButton
-            {...rest}
-            // component={motion.button}
-            className={button({
-                mobile,
-                rounded,
-                className,
-                ...(selected && {
-                    color,
-                }),
-            })}
-            ref={ref}
-            size={size}
-            variant={variant}
-            color={color}
-            fullWidth={block}
-            tabIndex={tabIndex}
-            disabled={disabled}
-            disableRipple={disableRipple}
-            onClick={onClick}
-            onKeyDown={(event) => {
-                if (onKeyDown) onKeyDown?.(event);
-                handleKeyDown(event);
-            }}
-            startIcon={startIcon}
-            endIcon={endIcon}
-        >
-            {loading && <>Loading...</>}
-            {!loading && children}
-        </RootButton>
+        <Button
+            size='icon'
+            variant='text'
+            color='background'
+            rounded='full'
+            {...props}
+            data-slot='button-icon'
+        />
     );
 };
 
-export default Button;
+IconButton.displayName = 'IconButton';
+
+export {
+    Button,
+    TriggerButton,
+    IconButton,
+};

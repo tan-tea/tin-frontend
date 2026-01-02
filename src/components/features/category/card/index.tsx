@@ -95,6 +95,7 @@ const CategoryCard: FC<CategoryCardProps> = ({
                     rounded='full'
                     className={avatar()}>
                     <AvatarImage
+                        loading='eager'
                         quality={100}
                         fill={false}
                         src={banner}

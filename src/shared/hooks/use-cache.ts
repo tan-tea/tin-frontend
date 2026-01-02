@@ -83,6 +83,8 @@ export const useCache = <T>(
         async (item, key) => {
             const now = Date.now();
 
+            const primaryKey = key ?? item._id;
+
             const itemWithTimestamp: Timestamped<T> = {
                 ...item,
                 createdAt: now,
@@ -90,7 +92,7 @@ export const useCache = <T>(
             };
 
             try {
-                await table.put(itemWithTimestamp, key);
+                await table.put(itemWithTimestamp, primaryKey);
             } catch (e) {
                 console.error(e);
             } finally {

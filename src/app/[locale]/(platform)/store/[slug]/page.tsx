@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
+import { fetchWithBackoff } from 'lib/utils';
 import {
     getOffersByShop,
     getShopDetailsBySlug,
 } from 'app/actions';
-import { fetchWithBackoff } from 'lib/utils';
+import { getQueryClient } from 'app/get-query-client';
 
 import StoreBySlug from 'pages/store-by-slug';
 
@@ -64,9 +66,20 @@ export default async function Page(props: PageProps) {
 
     const slug = (await params).slug;
 
-    const shopBySlug = await getShopDetailsBySlug(slug);
+    const queryClient = getQueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ['shop-by-slug', slug],
+        queryFn: () => getShopDetailsBySlug(slug),
+    });
+
+    const shopBySlug = queryClient.getQueryData<
+        Awaited<ReturnType<typeof getShopDetailsBySlug>>
+    >(['shop-by-slug', slug]);
     if (!shopBySlug) return notFound();
 
+    // TODO: use react query
+    // queryClient.prefetchQuery({})
     let offersByShop: Awaited<ReturnType<typeof getOffersByShop>>;
     try{
         offersByShop = await getOffersByShop(shopBySlug.id);
@@ -75,6 +88,8 @@ export default async function Page(props: PageProps) {
     }
 
     return (
-        <StoreBySlug shop={shopBySlug} offers={offersByShop}/>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <StoreBySlug slug={slug} shop={shopBySlug} offers={offersByShop}/>
+        </HydrationBoundary>
     );
 }

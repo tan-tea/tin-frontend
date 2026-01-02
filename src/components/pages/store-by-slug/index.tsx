@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 
-import { useHydrateAtoms } from 'jotai/utils';
 import { useTranslations } from 'next-intl';
+import { useHydrateAtoms } from 'jotai/utils';
 
 import type {
     Shop,
@@ -21,15 +21,8 @@ const StoreBySlugMobile = dynamic(
     },
 );
 
-const StoreBySlugDesktop = dynamic(
-    () => import('./desktop'),
-    {
-        ssr: false,
-        loading: () => <></>,
-    },
-);
-
 type OwnStoreBySlugProps = Readonly<{
+    slug: string;
     shop: Shop;
     offers: Array<Offer>;
 }>;
@@ -40,7 +33,7 @@ export type StoreBySlugProps = OwnStoreBySlugProps & {
 
 export default function StoreBySlug(props: OwnStoreBySlugProps) {
     'use memo'
-    const { shop, offers } = props;
+    const { slug, shop, offers } = props;
 
     useHydrateAtoms([
         [shopAtom, shop] as any,
@@ -51,6 +44,7 @@ export default function StoreBySlug(props: OwnStoreBySlugProps) {
 
     const childProps: StoreBySlugProps = {
         t,
+        slug,
         shop,
         offers,
     };

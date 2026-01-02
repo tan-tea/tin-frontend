@@ -14,7 +14,7 @@ import {
 } from 'shared/hooks';
 
 import { Paragraph } from 'ui/text';
-import { ButtonRoot } from 'ui/button';
+import { Button } from 'ui/button';
 import { Section, Wrapper } from 'ui/layout';
 
 import type { ItemBySlugProps } from 'pages/item-by-slug';
@@ -76,9 +76,13 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
         >
             <Titlebar
                 position='fixed'
-                renderStart={() => <BackButton variant='rounded'/>}
+                renderStart={() => (
+                    <div>
+                        <BackButton/>
+                    </div>
+                )}
                 renderEnd={() => (
-                    <div className='ml-auto bg-white p-1 rounded-full flex items-center gap-x-2'>
+                    <div className='ml-auto'>
                         <ShareButton shareableItem={{
                             heading: offer?.title,
                             description: offer?.description,
@@ -127,7 +131,7 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                 )} */}
             </div>
             <Wrapper ref={buttonRef} className='fixed bottom-0 left-0 w-full h-auto p-4 bg-light-400 dark:bg-dark-300'>
-                <ButtonRoot
+                <Button
                     animate={{
                         opacity: 1,
                         scale: [1,  1.035, 1],
@@ -143,7 +147,7 @@ const ItemBySlugMobile: FC<ItemBySlugMobileProps> = ({
                     onClick={handleClick}
                 >
                     {t('button')}
-                </ButtonRoot>
+                </Button>
             </Wrapper>
         </Section>
     );

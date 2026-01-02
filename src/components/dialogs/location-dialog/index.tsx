@@ -18,7 +18,7 @@ import {
     DialogTitle,
     DialogViewport,
 } from 'ui/dialog';
-import { ButtonRoot } from 'ui/button';
+import { Button } from 'ui/button';
 
 type LocationDialogProps = Readonly<object>;
 
@@ -72,13 +72,13 @@ const LocationDialog: FC<LocationDialogProps> = () => {
                             }
                         </DialogDescription>
                         <div className='w-full flex flex-col gap-y-3'>
-                            <ButtonRoot
+                            <Button
                                 disabled={isDisabled}
                                 onClick={handleClick}
                             >
                                 {notLocationActive && t('location.dialog.button')}
                                 {locationActive && t('sharingLocation')}
-                            </ButtonRoot>
+                            </Button>
                             <DialogClose variant='outline'>
                                 {t('shared.close')}
                             </DialogClose>

@@ -1,30 +1,12 @@
 'use client'
 
-import type {
-    FC,
-    MouseEventHandler
-} from 'react'
-import {
-    tv,
-    type VariantProps
-} from 'tailwind-variants'
+import type { FC, MouseEventHandler } from 'react'
+import type { VariantProps } from 'tailwind-variants';
 
 import { useShare } from 'shared/hooks';
 
-import {
-    Box,
-    Tooltip,
-    IconButton
-} from 'ui/index';
-import { Share } from 'components/icons';
-
-const shareButton = tv({
-    slots: {
-        container: 'justify-self-center',
-    },
-});
-
-type ShareButtonVariants = VariantProps<typeof shareButton>;
+import { IconButton } from 'ui/button';
+import { Icon, Share } from 'components/icons';
 
 type Item = {
     heading: string;
@@ -32,7 +14,7 @@ type Item = {
     source?: string;
 };
 
-type ShareButtonProps = ShareButtonVariants & {
+type ShareButtonProps = {
     shareableItem: Item;
 };
 
@@ -40,10 +22,6 @@ const ShareButton: FC<ShareButtonProps> = ({
     shareableItem,
 }) => {
     'use memo'
-    const {
-        container,
-    } = shareButton();
-
     const {
         share,
         isSupported,
@@ -62,17 +40,9 @@ const ShareButton: FC<ShareButtonProps> = ({
     if (!isSupported) return null;
 
     return (
-        <Tooltip title={'share'}>
-            <Box className={container()}>
-                <IconButton
-                    selected
-                    borderless
-                    color='primary'
-                    icon={Share}
-                    onClick={handleClick}
-                />
-            </Box>
-        </Tooltip>
+        <IconButton onClick={handleClick}>
+            <Icon value={Share}/>
+        </IconButton>
     );
 }
 

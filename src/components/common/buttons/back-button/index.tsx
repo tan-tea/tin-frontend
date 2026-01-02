@@ -1,96 +1,24 @@
-'use client'
+'use client';
 
 import type { FC } from 'react';
-import type { VariantProps } from 'tailwind-variants';
 
-import { tv, cn } from 'tailwind-variants';
-import { useTranslations, } from 'next-intl';
-import { motion, MotionNodeAnimationOptions } from 'motion/react';
+import { useNavigation } from 'shared/hooks';
 
-import { useNavigation, } from 'shared/hooks';
+import { IconButton } from 'ui/button';
+import { Icon, MoveLeft } from 'components/icons';
 
-import { Paragraph } from 'ui/text';
-import { IconButton } from 'ui/index';
-import { MoveLeft, } from 'components/icons';
+type BackButtonProps = Readonly<object>;
 
-const backButton = tv({
-    slots: {
-        container: 'flex items-center gap-x-1 cursor-pointer',
-        button: 'top-0 left-0 text-inherit',
-        label: 'text-xs font-semibold text-inherit',
-    },
-    variants: {
-        variant: {
-            rounded: {
-                container: cn(
-                    'p-1 rounded-full',
-                    'bg-white dark:bg-dark-600'
-                ),
-                button: 'text-dark-600 dark:text-light-600'
-            },
-            normal: {
-                container: cn('text-dark-600 dark:text-light-600'),
-            },
-        },
-    },
-});
-
-type BackButtonVariants = VariantProps<typeof backButton>;
-
-type BackButtonProps = BackButtonVariants & {
-    className?: string;
-    showLabel?: boolean;
-    showAnimation?: boolean;
-};
-
-const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
-    initial: {
-        transform: 'translateX(-100px)',
-    },
-    animate: {
-        transform: 'translateX(0px)',
-    },
-    transition: {
-        type: 'spring',
-        duration: 2.5,
-    },
-}
-
-const BackButton: FC<BackButtonProps> = ({
-    className,
-    showLabel = false,
-    showAnimation = true,
-    variant = 'normal',
-}) => {
-    'use memo'
-    const {
-        container,
-        button,
-        label,
-    } = backButton({
-        variant,
-    });
-
-    const t = useTranslations();
-
+const BackButton: FC<BackButtonProps> = () => {
+    'use memo';
     const { back } = useNavigation();
 
+    const handleClick = async () => await back();
+
     return (
-        <motion.div
-            {...(showAnimation && DEFAULT_ANIMATION)}
-            className={container()}
-            onClick={async () => await back()}
-        >
-            <IconButton
-                size='md'
-                borderless
-                className={button({
-                    className,
-                })}
-                icon={MoveLeft}
-            />
-            {showLabel && <Paragraph className={label()}>{t('shared.back')}</Paragraph>}
-        </motion.div>
+        <IconButton onClick={handleClick}>
+            <Icon value={MoveLeft} />
+        </IconButton>
     );
 };
 

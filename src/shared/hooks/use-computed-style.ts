@@ -4,7 +4,7 @@ import {
     useCallback,
 } from 'react';
 
-import { useWindowSize } from './useWindowSize';
+import { useWindowSize } from './use-window-size';
 
 export const useComputedStyle = <T extends HTMLElement>(element: T | null) => {
     const [style, setStyle] = useState<CSSStyleDeclaration | null>(null);

@@ -11,7 +11,6 @@ import {
 
 import { HeaderProps } from 'components/common/header';
 
-import ThemeButton from 'common/buttons/ThemeButton';
 import LanguageButton from 'common/buttons/LanguageButton';
 import LocationButton from 'common/buttons/LocationButton';
 
@@ -32,7 +31,6 @@ const HeaderDesktop: FC<HeaderProps> = (
                     className='ml-auto h-full flex items-center gap-x-4'
                 >
                     <LocationButton/>
-                    <ThemeButton/>
                     <LanguageButton/>
                 </Box>
             </Box>

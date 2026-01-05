@@ -16,7 +16,6 @@ const PlatformMobile: FC<PlatformMobileProps> = ({
     t,
     shops,
     workspace,
-    multipleStores,
 }) => {
     'use memo'
 

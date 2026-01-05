@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-import { useMemo } from 'react';
 import {
     MapCameraProps,
     MapCameraChangedEvent,
@@ -21,26 +20,29 @@ import {
 import { useApplicationStore, } from 'shared/stores/application-store';
 import { defaultInitState } from 'shared/stores/application-store/constants';
 
-import DeviceDetector from 'common/device-detector';
+import { useShopsByWorkspaceData } from 'pages/platform/hooks';
 
-import LocationMobileSkeleton from './mobile/skeleton';
+import Loading from 'pages/loading';
+import DeviceDetector from 'common/device-detector';
 
 const LocationMobile = dynamic(
     () => import('./mobile'),
     {
         ssr: false,
-        loading: () => <LocationMobileSkeleton/>
+        loading: () => <Loading/>
     },
 );
 
-type OwnLocationProps = {
-    shops: Array<Shop>;
-};
+type Props = Readonly<{
+    locale: string;
+    workspaceId: string;
+}>;
 
-export type LocationProps = OwnLocationProps & {
+export type LocationProps = Props & {
+    t: ReturnType<typeof useTranslations>;
+    shops: Array<Shop>;
     camera: MapCameraProps;
     geolocation: GeolocationPosition | null;
-    t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
     onCameraChanged: (camera: MapCameraChangedEvent) => void;
     onLocatePin?: (geolocation: {
@@ -49,9 +51,9 @@ export type LocationProps = OwnLocationProps & {
     }) => void;
 };
 
-export default function Location(props: OwnLocationProps) {
+export default function Location(props: Props) {
     'use memo'
-    const { shops } = props;
+    const { locale, workspaceId } = props;
 
     useHideUI({
         hideHeader: true,
@@ -65,10 +67,10 @@ export default function Location(props: OwnLocationProps) {
         useShallow(store => store),
     );
 
-    const primaryShop = useMemo(
-        () => shops?.find?.(shop => shop.isPrimary === true),
-        [shops,]
-    );
+    const {
+        shops,
+        primaryShop,
+    } = useShopsByWorkspaceData(workspaceId);
 
     const [camera, setCamera,] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
@@ -81,6 +83,8 @@ export default function Location(props: OwnLocationProps) {
     const childProps: LocationProps = {
         t,
         shops,
+        locale,
+        workspaceId,
         navigation,
         geolocation,
         camera,

@@ -182,7 +182,7 @@ export default async function RootLayout(
                                 enableCssLayer: true,
                             }}
                         >
-                            <Toaster position='bottom-center'/>
+                            <Toaster position='top-center'/>
                             <Providers>
                                 {children}
                             </Providers>

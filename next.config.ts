@@ -15,6 +15,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const nextConfig: NextConfig = {
     output: 'standalone',
     devIndicators: false,
+    // cacheComponents: true,
     compiler: {
         removeConsole: isProd,
     },

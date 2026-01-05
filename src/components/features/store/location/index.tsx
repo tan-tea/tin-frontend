@@ -24,7 +24,7 @@ const StoreLocation: FC<StoreLocationProps> = ({
             return [
                 address?.street,
                 address?.number,
-            ].filter(Boolean).join(', ');
+            ].filter(Boolean).join(' ');
         },
         [address],
     );

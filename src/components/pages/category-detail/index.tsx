@@ -7,33 +7,31 @@ import { useTranslations } from 'next-intl';
 import type {
     Category
 } from 'shared/models';
-import { currentCategoryAtom } from 'shared/state';
-import { useHideUI, useHydrateAndSyncAtom } from 'shared/hooks';
+import { useHideUI } from 'shared/hooks';
 
+import { useCategoryOffersData } from './hooks';
+
+import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 const CategoryDetailMobile = dynamic(
     () => import('./mobile'),
     {
         ssr: false,
-        loading: () => <>Loading...</>
+        loading: () => <Loading/>
     },
 );
 
-type OwnCategoryDetailProps = {
-    slug: string;
+type Props = Readonly<{ slug: string; }>;
+
+export type CategoryDetailProps = Props & {
+    t: ReturnType<typeof useTranslations>;
     category: Category;
 };
 
-export type CategoryDetailProps = OwnCategoryDetailProps & {
-    t: ReturnType<typeof useTranslations>;
-};
-
-export default function CategoryDetail(props: OwnCategoryDetailProps) {
+export default function CategoryDetail(props: Props) {
     'use memo'
-    useHydrateAndSyncAtom([
-        [currentCategoryAtom, props.category],
-    ]);
+    const { slug } = props;
 
     useHideUI({
         hideHeader: true,
@@ -42,10 +40,20 @@ export default function CategoryDetail(props: OwnCategoryDetailProps) {
 
     const t = useTranslations();
 
+    const {
+        category,
+        isLoading,
+    } = useCategoryOffersData(slug);
+
     const childProps: CategoryDetailProps = {
         ...props,
         t,
+        category,
     };
+
+    const loading = isLoading;
+
+    if (loading) return <Loading/>;
 
     return (
         <DeviceDetector

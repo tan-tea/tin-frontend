@@ -33,7 +33,7 @@ const HeaderDesktop = dynamic(
     },
 );
 
-type OwnHeaderProps = object;
+type Props = object;
 
 export type HeaderProps = {
     scrolling: boolean;
@@ -42,7 +42,7 @@ export type HeaderProps = {
     shops: Array<Shop>;
 };
 
-export default function Header(props: OwnHeaderProps) {
+export default function Header(props: Props) {
     'use memo'
     const {} = props;
 

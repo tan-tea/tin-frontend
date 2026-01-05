@@ -10,8 +10,10 @@ function makeQueryClient() {
         defaultOptions: {
             queries: {
                 staleTime: minutesToMilliseconds(1),
+                refetchOnMount: true,
+                refetchOnReconnect: true,
                 refetchOnWindowFocus: true,
-                gcTime: minutesToMilliseconds(1),
+                gcTime: minutesToMilliseconds(10),
                 retry: 3,
                 retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
             },

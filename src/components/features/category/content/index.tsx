@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 
 import { useAtomValue } from 'jotai';
 
-import { currentCategoryAtom } from 'shared/state';
+import { categoryAtom } from 'shared/state';
 
 import { Wrapper } from 'ui/layout';
 
@@ -21,7 +21,7 @@ type CategoryContentProps = Readonly<object>;
 
 const CategoryContent: FC<CategoryContentProps> = () => {
     'use memo'
-    const category = useAtomValue(currentCategoryAtom);
+    const category = useAtomValue(categoryAtom);
 
     if (!category) return null;
 

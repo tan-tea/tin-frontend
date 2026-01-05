@@ -119,7 +119,7 @@
         "placeholder": "Buscar productos",
         "recents": "Búsquedas recientes"
     },
-    "productDetail": {
+    "OfferDetail": {
         "title": "Detalles del producto",
         "availableOptions": "Opciones disponibles",
         "description": "Descripción",

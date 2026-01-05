@@ -5,7 +5,7 @@ import type { VariantProps } from 'tailwind-variants';
 
 import dynamic from 'next/dynamic';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { tv, cn } from 'tailwind-variants';
 import { useTranslations } from 'next-intl';
 
@@ -36,7 +36,7 @@ const OfferCard = dynamic(
 
 const list = tv({
     slots: {
-        root: cn('size-full flex flex-col gap-y-2 p-4'),
+        root: cn('size-full flex flex-col gap-y-2 p-4 pt-2'),
         actions: cn('flex items-center'),
         actionsTitle: cn('font-nunito font-bold text-lg leading-5'),
         list: cn('size-full'),
@@ -99,12 +99,6 @@ const OfferList: FC<OfferListProps> = ({
         if (!newView) setView('grid')
         else setView(newView);
     };
-
-    // useEffect(() => {
-    //     if (defaultView && forceDefaultView) {
-    //         setView(defaultView);
-    //     }
-    // }, [defaultView, forceDefaultView, setView]);
 
     return (
         <Wrapper className={root()}>

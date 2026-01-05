@@ -1,12 +1,12 @@
 import contextFactory from 'shared/contexts/contextFactory';
-import useDyanmicThemeContextState from 'shared/contexts/dynamic-theme/useDynamicThemeContextState';
+import contextState from 'shared/contexts/dynamic-theme/use-dynamic-theme';
 
 const {
-    Provider,
-    useContext,
-} = contextFactory(useDyanmicThemeContextState);
+    Provider: DynamicThemeProvider,
+    useContext: useDynamicTheme,
+} = contextFactory(contextState);
 
 export {
-    Provider as DynamicThemeProvider,
-    useContext as useDynamicTheme,
-}
+    DynamicThemeProvider,
+    useDynamicTheme,
+};

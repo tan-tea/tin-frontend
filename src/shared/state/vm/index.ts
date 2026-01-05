@@ -1,13 +1,33 @@
 import { atom } from 'jotai';
+import { queryClientAtom } from 'jotai-tanstack-query';
 
-import type {
-    Shop,
-    Offer,
+import db from 'lib/db';
+
+import {
+    type Shop,
+    type Offer,
+    Cart,
 } from 'shared/models';
 
 import { workspaceAtom } from '../wm';
 
 export const shopAtom = atom<Shop | null>(null);
+
+export const cachedShopAtom = atom(
+    null,
+    async (get, set, shop: Shop) => {
+        await db.table('shops').put({
+            ...shop,
+            id: 'current',
+            _id: shop.id,
+        });
+
+        set(shopAtom, shop);
+
+        const queryClient = get(queryClientAtom);
+        queryClient.setQueryData(['shop-by-slug'], shop);
+    },
+);
 
 export const currentShopAtom = atom(
     (get) => {
@@ -19,9 +39,72 @@ export const currentShopAtom = atom(
 
         return workspace?.shops?.find(shop => shop?.isPrimary) || null;
     },
-    // (_, set, newShop: Shop) => {
-    //     set(shopAtom, newShop);
-    // }
+);
+
+export const shopsAtom = atom<Array<Shop>>([]);
+
+export const cachedShopsAtom = atom(
+    null,
+    async (get, set, shops: Array<Shop>) => {
+        await db.table('shops').bulkPut(
+            shops.map(shop => ({ ...shop, _id: shop.id })),
+        );
+
+        set(shopsAtom, shops);
+
+        const queryClient = get(queryClientAtom);
+        queryClient.setQueryData(['shops-by-workspace'], shops);
+    },
+);
+
+export const offerAtom = atom<Offer | null>(null);
+
+export const cachedOfferAtom = atom(
+    null,
+    async (get, set, offer: Offer) => {
+        await db.table('offers').put({
+            ...offer,
+            id: 'current',
+            _id: offer.id,
+        });
+
+        set(offerAtom, offer);
+
+        const queryClient = get(queryClientAtom);
+        queryClient.setQueryData(['offer-by-slug'], offer);
+    },
 );
 
 export const offersAtom = atom<Array<Offer>>([]);
+
+export const cachedOffersAtom = atom(
+    null,
+    async (get, set, offers: Array<Offer>) => {
+        await db.table('offers').bulkPut(
+            offers.map(offer => ({ ...offer, _id: offer.id })),
+        );
+
+        set(offersAtom, offers);
+
+        const queryClient = get(queryClientAtom);
+        queryClient.setQueryData(['offers-by-shop'], offers);
+    },
+);
+
+export const cartAtom = atom<Cart | null>();
+
+export const cachedCartAtom = atom(
+    null,
+    async (get, set, cart: Cart) => {
+        await db.table('carts').put({
+            ...cart,
+            id: 'current',
+            _id: cart.id,
+        });
+
+        set(cartAtom, cart);
+
+        const queryClient = get(queryClientAtom);
+        queryClient.setQueryData(['cart'], cart);
+    },
+);

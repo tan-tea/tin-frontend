@@ -22,6 +22,7 @@
     "goBackError": "",
     "shopNotFound": "",
     "headquarter": "",
+    "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "metadata": {
         "applicationName": "",
         "siteName": "",
@@ -115,7 +116,7 @@
         "placeholder": "Buscar productos",
         "recents": "Recientes"
     },
-    "productDetail": {
+    "OfferDetail": {
         "title": "",
         "availableOptions": "",
         "description": "",

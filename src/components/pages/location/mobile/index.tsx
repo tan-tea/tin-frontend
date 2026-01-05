@@ -2,6 +2,8 @@
 
 import type { FC, ComponentProps } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useId, useMemo } from 'react';
 
 import { clientEnv } from 'env/client';
@@ -19,8 +21,14 @@ import type {
 
 import Titlebar from 'common/titlebar';
 import BackButton from 'common/buttons/back-button';
-import LocationButton from 'common/buttons/LocationButton';
-import LocationContent from 'pages/location/components/LocationContent';
+import LocationButton from 'common/buttons/location-button';
+
+const LocationContent = dynamic(
+    () => import('features/location/content'),
+    {
+        ssr: false,
+    },
+);
 
 type Marker = {
     latitude: number;
@@ -63,7 +71,7 @@ const LocationMobile: FC<LocationMobileProps> = ({
             className='flex flex-col h-auto'
         >
             <Titlebar
-                position='fixed'
+                position='absolute'
                 renderStart={() => (
                     <div>
                         <BackButton/>

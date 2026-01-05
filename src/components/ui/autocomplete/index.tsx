@@ -7,7 +7,7 @@ import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete'
 
-import Input from 'ui/field/input';
+import { Input } from 'ui/input';
 
 const autocomplete = tv({
     slots: {

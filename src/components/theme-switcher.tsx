@@ -2,6 +2,8 @@
 
 import type { FC } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
@@ -12,9 +14,14 @@ import {
     SunIcon,
 } from 'components/icons';
 
-import Switcher, {
-    type SwitcherOption
-} from './switcher';
+import type { SwitcherOption } from './switcher';
+
+const Switcher = dynamic(
+    () => import('./switcher'),
+    {
+        ssr: false,
+    },
+);
 
 const options: Array<SwitcherOption> = [
     {

@@ -32,8 +32,8 @@ import {
     AutocompleteTrigger,
 } from 'ui/autocomplete';
 
-import SearchBox from './Box';
-import SearchButton from './Button';
+import SearchBox from './box';
+import SearchButton from './button';
 
 type SearchProps = object;
 

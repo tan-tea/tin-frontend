@@ -4,8 +4,6 @@ import {
     useMemo,
     useCallback,
 } from 'react';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { useAtomCallback } from 'jotai/utils';
 import { millisecondsToMinutes } from 'date-fns';
 
 import type {
@@ -23,8 +21,9 @@ type HiddenId<T> = T & {
     _id?: string;
 };
 
-type UseCache<T> = {
+type Cache<T> = {
     load: (key?: string, maxAge?: number) => Promise<T | null>;
+    loadMany: (maxAge?: number) => Promise<T | null>;
     save: (
         item: HiddenId<T>,
         key?: string
@@ -33,29 +32,16 @@ type UseCache<T> = {
     getAge: (key?: string) => Promise<number | Array<number> | null>;
 };
 
-export const useCache = <T>(
-    entity: keyof CacheDatabaseTables,
-    atom: PrimitiveAtom<T>,
-): UseCache<T> => {
+export const useCache = <T>(entity: keyof CacheDatabaseTables): Cache<T> => {
     'use memo'
-    const setAtom = useSetAtom(atom);
-    const atomValue = useAtomValue(atom);
-
-    const atomCallback = useAtomCallback(
-        useCallback((get, set) => {
-            const currentValue = get(atom);
-
-        }, [atom]),
-    );
-
-    const { database } = useDatabase();
+    const database = useDatabase();
 
     const table = useMemo(
-        () => database.table(entity),
+        () => database.current.table(entity),
         [database, entity,],
     );
 
-    const load: UseCache<T>['load'] = useCallback(
+    const load: Cache<T>['load'] = useCallback(
         async (key, maxAge = 10) => {
             const age = await getAge(key);
             if (Array.isArray(age)) {
@@ -69,17 +55,19 @@ export const useCache = <T>(
                 ? await table.get(key)
                 : await table.toArray();
 
-            const result = stored ?? atomValue;
-
-            setAtom(result);
+            const result = stored;
 
             return result;
         },
         [table,],
     );
 
+    const loadMany: Cache<T>['loadMany'] = useCallback(
+        async (maxAge = 10) => load(undefined, maxAge),
+        [table,],
+    );
 
-    const save: UseCache<T>['save'] = useCallback(
+    const save: Cache<T>['save'] = useCallback(
         async (item, key) => {
             const now = Date.now();
 
@@ -95,14 +83,12 @@ export const useCache = <T>(
                 await table.put(itemWithTimestamp, primaryKey);
             } catch (e) {
                 console.error(e);
-            } finally {
-                setAtom(item);
-            }
+            } finally {}
         },
         [table,],
     );
 
-    const saveMany: UseCache<T>['saveMany'] = useCallback(
+    const saveMany: Cache<T>['saveMany'] = useCallback(
         async (items) => {
             try {
                 if (!Array.isArray(items)) return;
@@ -117,7 +103,7 @@ export const useCache = <T>(
         [table,],
     );
 
-    const getAge: UseCache<T>['getAge'] = useCallback(
+    const getAge: Cache<T>['getAge'] = useCallback(
         async (key) => {
             const fromMillisecondsToMinutes = (timestamp: number) =>
                 millisecondsToMinutes(Date.now() - timestamp);
@@ -141,6 +127,7 @@ export const useCache = <T>(
 
     return {
         load,
+        loadMany,
         save,
         saveMany,
         getAge,

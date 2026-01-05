@@ -1,12 +1,12 @@
 import contextFactory from 'shared/contexts/contextFactory';
-import useDatabaseContextState from 'shared/contexts/database/useDatabaseContextState';
+import contextState from 'shared/contexts/database/use-database';
 
 const {
-    Provider,
-    useContext,
-} = contextFactory(useDatabaseContextState);
+    Provider: DatabaseProvider,
+    useContext: useDatabase,
+} = contextFactory(contextState);
 
 export {
-    Provider as DatabaseProvider,
-    useContext as useDatabase,
+    DatabaseProvider,
+    useDatabase,
 };

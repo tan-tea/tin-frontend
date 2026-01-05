@@ -35,7 +35,7 @@ const header = tv({
             },
             center: {
                 wrapper: cn('grid grid-cols-5 items-center'),
-                navigation: cn('flex items-center'),
+                navigation: cn('flex items-center gap-x-3'),
             },
         },
     },

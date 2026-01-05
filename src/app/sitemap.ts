@@ -2,12 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { clientEnv } from 'env/client';
 
-import { getPathname } from 'lib/i18n/navigation';
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const es = getPathname({ locale: 'es', href: '/' });
-    const en = getPathname({ locale: 'en', href: '/' });
-
     const baseUrl = clientEnv.NEXT_PUBLIC_SITE_URL;
 
     return [

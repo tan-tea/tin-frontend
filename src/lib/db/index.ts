@@ -12,6 +12,8 @@ import type {
     Workspace,
     Category,
     Customization,
+    Shop,
+    Cart,
 } from 'shared/models';
 
 export interface CacheDatabaseTables {
@@ -20,6 +22,8 @@ export interface CacheDatabaseTables {
     readonly customizations: EntityTable<Customization, 'id'>;
     readonly offers: EntityTable<Offer, 'id'>;
     readonly categories: EntityTable<Category, 'id'>;
+    readonly shops: EntityTable<Shop, 'id'>;
+    readonly carts: EntityTable<Cart, 'id'>;
 }
 
 export class CacheDatabase extends Dexie implements CacheDatabaseTables {
@@ -28,6 +32,8 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
     customizations!: EntityTable<Customization, 'id'>;
     offers!: EntityTable<Offer, 'id'>;
     categories!: EntityTable<Category, 'id'>;
+    shops!: EntityTable<Shop, 'id'>;
+    carts!: EntityTable<Cart, 'id'>;
 
     constructor() {
         super('cache', {
@@ -44,6 +50,8 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
             customizations: 'id',
             offers: 'id',
             categories: 'id',
+            shops: 'id',
+            carts: 'id',
         });
     }
 }

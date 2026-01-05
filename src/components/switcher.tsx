@@ -1,17 +1,13 @@
 'use client';
 
-import type {
-    FC,
-    JSX,
-} from 'react';
+import type { FC, JSX } from 'react';
+
 import {
     useState,
     useEffect,
 } from 'react';
-import { tv } from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
-
-import { cn } from 'lib/utils';
 
 const switcher = tv({});
 

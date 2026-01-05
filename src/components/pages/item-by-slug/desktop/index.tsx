@@ -2,27 +2,20 @@
 
 import type { FC, } from 'react';
 
-import {
-    Box,
-} from 'ui/index';
+import type {
+    ItemBySlugProps,
+} from 'pages/item-by-slug';
 
-import { ItemBySlugProps, } from 'components/pages/item-by-slug';
+type Props = ItemBySlugProps;
 
-type ProductDetailDesktopProps = ItemBySlugProps;
-
-const ProductDetailDesktop: FC<ProductDetailDesktopProps> = (
-    props: ProductDetailDesktopProps
-) => {
-    const {
-        t,
-    } = props;
+const ProductDetailDesktop: FC<Props> = ({
+    t
+}) => {
+    'use memo'
 
     return (
-        <Box
-            component='section'
-            className='min-h-dvh-screen-mobile bg-inherit size-full overflow-hidden'
-        >
-        </Box>
+        <div className='min-h-dvh-screen-mobile bg-inherit size-full overflow-hidden'>
+        </div>
     );
 };
 

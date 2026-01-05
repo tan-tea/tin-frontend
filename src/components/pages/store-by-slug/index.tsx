@@ -3,51 +3,66 @@
 import dynamic from 'next/dynamic';
 
 import { useTranslations } from 'next-intl';
-import { useHydrateAtoms } from 'jotai/utils';
 
 import type {
     Shop,
     Offer,
 } from 'shared/models';
-import { offersAtom, shopAtom } from 'shared/state';
 
+import {
+    useOffersByShopData,
+    useShopBySlugData
+} from './hooks';
+
+import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 const StoreBySlugMobile = dynamic(
     () => import('./mobile'),
     {
         ssr: false,
-        loading: () => <></>,
+        loading: () => <Loading/>,
     },
 );
 
-type OwnStoreBySlugProps = Readonly<{
+type Props = Readonly<{
     slug: string;
-    shop: Shop;
-    offers: Array<Offer>;
+    shopId: string;
 }>;
 
-export type StoreBySlugProps = OwnStoreBySlugProps & {
+export type StoreBySlugProps = Props & {
     t: ReturnType<typeof useTranslations>;
+    shop: Shop;
+    offers: Array<Offer>;
 };
 
-export default function StoreBySlug(props: OwnStoreBySlugProps) {
+export default function StoreBySlug(props: Props) {
     'use memo'
-    const { slug, shop, offers } = props;
-
-    useHydrateAtoms([
-        [shopAtom, shop] as any,
-        [offersAtom, offers] as any,
-    ]);
+    const { slug, shopId } = props;
 
     const t = useTranslations();
+
+    const {
+        shop,
+        isLoading: isLoadingShop,
+    } = useShopBySlugData(slug);
+
+    const {
+        offers,
+        isLoading: isLoadingOffers,
+    } = useOffersByShopData(shopId);
 
     const childProps: StoreBySlugProps = {
         t,
         slug,
+        shopId,
         shop,
         offers,
     };
+
+    const loading = isLoadingOffers || isLoadingShop;
+
+    if (loading) return <Loading/>
 
     return (
         <DeviceDetector

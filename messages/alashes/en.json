@@ -20,6 +20,7 @@
     "selectHeadquarter": "Selecciona la sucursal m\u00e1s cercana a ti",
     "goBackError": "Ups... Algo sali\u00f3 al volver atr\u00e1s. Te redirigimos al inicio.",
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
+    "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
@@ -117,7 +118,7 @@
         "placeholder": "Buscar servicios",
         "recents": "Recientes"
     },
-    "productDetail": {
+    "OfferDetail": {
         "title": "Detalles del producto",
         "availableOptions": "Opciones disponibles",
         "description": "Descripción",

@@ -4,13 +4,9 @@ import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 
-import type {
-    Category
-} from 'shared/models';
-import { workspaceAtom } from 'shared/state';
+import { categoriesAtom } from 'shared/state';
 
 import { Wrapper } from 'ui/layout';
 
@@ -29,13 +25,7 @@ type CategoryListProps = Readonly<object>;
 const CategoryList: FC<CategoryListProps> = () => {
     'use memo'
 
-    const workspace = useAtomValue(workspaceAtom);
-
-    const categories = useMemo<Array<Category>>(
-        () => (workspace?.categories ?? [])
-            .sort((a, b) => a?.position - b?.position),
-        [workspace],
-    );
+    const categories = useAtomValue(categoriesAtom);
 
     return (
         <Wrapper className='px-4 py-2 flex items-stretch gap-x-4 overflow-x-scroll scrollbar-hide'>

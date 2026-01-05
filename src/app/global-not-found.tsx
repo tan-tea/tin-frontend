@@ -8,11 +8,10 @@ import {
     Poppins,
     Raleway,
 } from 'next/font/google';
+import { cn } from 'tailwind-variants';
 
-import { cn } from 'lib/utils';
-
-import { Heading } from 'ui/text';
-import { ExternalLink, InternalLink } from 'ui/link';
+import { Heading, Paragraph } from 'ui/text';
+import { ExternalLink } from 'ui/link';
 
 const poppins = Poppins({
     subsets: ['latin',],
@@ -55,7 +54,10 @@ export default async function GlobalNotFoundPage(
 
     const locale = (await params).locale;
 
-    const t = await getTranslations('notFound');
+    const t = await getTranslations({
+        locale,
+        namespace: 'notFound',
+    });
 
     return (
         <html
@@ -72,7 +74,7 @@ export default async function GlobalNotFoundPage(
                     <main className='h-dvh overflow-hidden'>
                         <div className='size-full flex flex-col items-center justify-center p-6 text-center'>
                             <Heading level='1'>{t('title')}</Heading>
-                            <p>{t('description')}</p>
+                            <Paragraph>{t('description')}</Paragraph>
                             <ExternalLink
                                 href='/'
                                 rel='noopener noreferrer'

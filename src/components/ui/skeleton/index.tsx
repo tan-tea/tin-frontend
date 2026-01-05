@@ -1,17 +1,11 @@
 'use client'
 
-import type {
-    FC,
-} from 'react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps
-} from 'tailwind-variants';
+import type { FC } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
 
-import Box from 'ui/box';
+import { tv } from 'tailwind-variants';
 
-export const skeleton = tv({
+const skeleton = tv({
     base: 'w-full bg-[var(--mui-palette-grey-100)] dark:bg-[var(--mui-palette-grey-600)] animate-pulse',
     variants: {
         rounded: {
@@ -29,9 +23,9 @@ export const skeleton = tv({
     compoundVariants: [],
 });
 
-export type SkeletonVariants = VariantProps<typeof skeleton>;
+type SkeletonVariants = VariantProps<typeof skeleton>;
 
-export type SkeletonProps = SkeletonVariants & {
+type SkeletonProps = SkeletonVariants & {
     className?: ClassValue;
 };
 
@@ -42,7 +36,7 @@ const Skeleton: FC<SkeletonProps> = (props) => {
     } = props;
 
     return (
-        <Box className={skeleton({
+        <div className={skeleton({
             rounded,
             className,
         })}/>

@@ -2,7 +2,11 @@
 
 import type { FC, JSX } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useShallow } from 'zustand/shallow';
+
+import { locales } from 'lib/i18n/constants';
 
 import { useApplicationStore } from 'shared/stores/application-store';
 
@@ -11,10 +15,14 @@ import {
     Es,
 } from 'components/icons';
 
-import Switcher, {
-    type SwitcherOption
-} from './switcher';
-import { locales } from 'lib/i18n/constants';
+import type { SwitcherOption } from './switcher';
+
+const Switcher = dynamic(
+    () => import('./switcher'),
+    {
+        ssr: false,
+    },
+);
 
 type Locale = typeof locales[number];
 

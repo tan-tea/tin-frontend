@@ -44,13 +44,13 @@ type ExpandableTextProps = ExpandableTextVariants & {
     className?: ClassValue;
 };
 
-const DEFAULT_ANIMATION: MotionNodeAnimationOptions = {
+const EXPANDABLE_TEXT_ANIMATION: MotionNodeAnimationOptions = {
     transition: {
         type: 'spring',
         duration: 0.4,
         bounce: 0.15,
     },
-};
+} as const;
 
 const ExpandableText: FC<ExpandableTextProps> = ({
     text,
@@ -74,7 +74,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
 
     const animate = useMemo<MotionNodeAnimationOptions>(
         () => ({
-            ...DEFAULT_ANIMATION,
+            ...EXPANDABLE_TEXT_ANIMATION,
             layout: true,
         }),
         [],
@@ -110,6 +110,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 {displayText}{' '}
                 {expandable && (
                     <motion.button
+                        type='button'
                         transition={{
                             type: 'tween',
                             duration: 0.25,

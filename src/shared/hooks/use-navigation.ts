@@ -47,7 +47,7 @@ function resolvePathname(pathname: string, params: RouteParams) {
 }
 
 export const useNavigation: UseNavigationHandler = () => {
-    const { database } = useDatabase();
+    const database = useDatabase();
 
     const t = useTranslations();
     const router = useRouter();
@@ -72,7 +72,7 @@ export const useNavigation: UseNavigationHandler = () => {
      */
     const saveHistory = useCallback(
         async (history: History) => {
-            return database?.history?.put({
+            return database.current.history?.put({
                 ...history,
                 createdAt: formatISO(new Date()),
                 modifiedAt: formatISO(new Date()),
@@ -82,7 +82,7 @@ export const useNavigation: UseNavigationHandler = () => {
     );
 
     const findAllHistoryFromNow = useCallback(async () => {
-        return database?.history
+        return database.current?.history
             ?.where('createdAt')
             ?.belowOrEqual(formatISO(new Date()))
             ?.sortBy('createdAt');
@@ -103,18 +103,18 @@ export const useNavigation: UseNavigationHandler = () => {
         };
 
         const [count, records] = await Promise.all([
-            database.history.count(),
+            database.current.history.count(),
             findAllHistoryFromNow(),
         ]);
 
-        if (count < MAX_HISTORY_RECORDS) {
+        if (count <= MAX_HISTORY_RECORDS) {
             return saveHistory(newRecord);
         }
 
         const oldest = records?.[0];
         if (!oldest) return saveHistory(newRecord);
 
-        await Promise.all([database.history.delete(oldest.key), saveHistory(newRecord)]);
+        await Promise.all([database.current.history.delete(oldest.key), saveHistory(newRecord)]);
     }, [database, resolvedPathname, searchParams, findAllHistoryFromNow, saveHistory]);
 
     useEffect(() => {
@@ -139,7 +139,6 @@ export const useNavigation: UseNavigationHandler = () => {
         } catch (error) {
             toast.error(t('goBackError'));
             console.error('Something went wrong in go back');
-        } finally {
             return navigate('/', { scroll: false });
         }
     };

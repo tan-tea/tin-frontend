@@ -52,11 +52,20 @@ export function formatCurrency(
         'USD': 'en-EN',
     };
 
+    const roundToCOP = (price: number) => {
+        return Math.floor(price / 50) * 50;
+    }
+
+    const roundMap = {
+        'COP': roundToCOP(value),
+        'USD': value,
+    };
+
     return Intl.NumberFormat(localesAsCurrency[currency], {
         style: 'currency',
         currency,
         maximumFractionDigits: 0,
-    }).format(value);
+    }).format(roundMap[currency]);
 }
 
 export function formatAddress(address: Address): string | null {

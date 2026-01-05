@@ -1,25 +1,15 @@
 'use client'
 
-import type { FC, ComponentProps, ReactNode } from 'react';
+import type { FC, ComponentProps } from 'react';
 import type { VariantProps, ClassValue } from 'tailwind-variants';
 
-import { memo } from 'react';
 import { tv, cn } from 'tailwind-variants';
-import { motion, MotionNodeAnimationOptions } from 'motion/react';
+import { motion } from 'motion/react';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
-import {
-    default as RootDialog,
-    DialogProps as RootDialogProps,
-} from '@mui/material/Dialog';
 
-import {
-    DialogTitle as Title,
-    DialogContent,
-    DialogActions,
-} from 'ui/index';
 import { Wrapper } from 'ui/layout';
-import { Button, TriggerButton } from 'ui/button';
 import { Heading, Paragraph } from 'ui/text';
+import { Button, TriggerButton } from 'ui/button';
 
 const dialog = tv({
     slots: {
@@ -264,54 +254,3 @@ export {
     DialogDescription,
     DialogClose,
 };
-
-type DialogProps = DialogVariants & Pick<
-    RootDialogProps,
-    'id'
-    | 'className'
-    | 'open'
-    | 'onClose'
-    | 'maxWidth'
-    | 'disableEscapeKeyDown'
-> & {
-    title?: string;
-    content?: ReactNode;
-    actions?: ReactNode;
-};
-
-const Dialog: FC<DialogProps> = (props: DialogProps) => {
-    const {
-        title,
-        content,
-        actions,
-        className,
-        ...rest
-    } = props;
-
-    const {
-        papper,
-    } = dialog();
-
-    return (
-        <RootDialog
-            tabIndex={-1}
-            keepMounted
-            fullWidth
-            maxWidth='lg'
-            scroll='body'
-            {...rest}
-            className={className}
-            slotProps={{
-                paper: {
-                    className: papper(),
-                },
-            }}
-        >
-            {title && <Title>{title}</Title>}
-            {content && <DialogContent>{content}</DialogContent>}
-            {actions && <DialogActions>{actions}</DialogActions>}
-        </RootDialog>
-    );
-};
-
-export default memo(Dialog);

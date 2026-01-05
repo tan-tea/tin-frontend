@@ -1,26 +1,19 @@
 'use client'
 
-import type {
-    FC,
-    ReactNode,
-    ReactElement,
-} from 'react';
+import type { ReactNode } from 'react';
+
 import { ThemeProvider } from '@mui/material';
 
 import { useDynamicTheme } from 'shared/contexts/dynamic-theme';
 
-type ThemeProviderLayoutProps = {
+type Props = Readonly<{
     children: ReactNode;
-};
+}>;
 
-export default function ThemeLayout(
-    props: ThemeProviderLayoutProps
-): ReactElement<FC<ThemeProviderLayoutProps>> {
+export default function ThemeLayout(props: Props) {
     const { children, } = props;
 
-    const {
-        theme,
-    } = useDynamicTheme();
+    const theme = useDynamicTheme();
 
     return (
         <ThemeProvider theme={theme}>

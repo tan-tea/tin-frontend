@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material';
 
 export type ThemeOptions = Parameters<typeof createTheme>[0];
 
-const DEFAULT_THEME: ThemeOptions = {
+export default {
     cssVariables: true,
     palette: {
         'primary': {
@@ -67,6 +67,4 @@ const DEFAULT_THEME: ThemeOptions = {
     components: {
         MuiTextField: {}
     }
-};
-
-export default DEFAULT_THEME;
+} as ThemeOptions;

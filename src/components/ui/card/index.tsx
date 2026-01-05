@@ -1,14 +1,11 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
-import { memo } from 'react';
-import {
-    tv,
-    type VariantProps,
-} from 'tailwind-variants';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+
+import Image from 'next/image';
+
+import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 import {
     Card as BaseCard,
@@ -19,15 +16,8 @@ import {
     CardContent as BaseCardContent,
     CardActionArea as BaseCardActionArea,
 } from '@mui/material';
-import {
-    default as RootCard,
-    CardProps as RootCardProps,
-} from '@mui/material/Card';
 
-import Image from 'next/image';
-
-import { cn } from 'lib/utils';
-import { Link } from 'lib/i18n/navigation';
+import { InternalLink } from 'ui/link';
 
 const card = tv({
     slots: {
@@ -214,7 +204,7 @@ export const CardActions: FC<CardActionsProps> = ({
 }
 
 type CardActionsAreaProps = ComponentProps<typeof BaseCardActionArea>
-& ComponentProps<typeof Link>
+& ComponentProps<typeof InternalLink>
 & CardVariants;
 
 export const CardActionsArea: FC<CardActionsAreaProps> = ({
@@ -227,7 +217,7 @@ export const CardActionsArea: FC<CardActionsAreaProps> = ({
     return (
         <BaseCardActionArea
             {...props}
-            LinkComponent={Link}
+            LinkComponent={InternalLink}
             data-slot='card-actions-area'
             className={actionsArea({
                 className,
@@ -256,33 +246,3 @@ export const CardCollapse: FC<CardCollapseProps> = ({
         />
     );
 }
-
-type CardProps = CardVariants & RootCardProps;
-
-const Card: FC<CardProps> = (props) => {
-    const {
-        rounded,
-        shadow,
-        variant,
-        children,
-        className,
-        ...rest
-    } = props;
-
-    const { root } = card();
-
-    return (
-        <RootCard
-            {...rest}
-            variant={variant}
-            children={children}
-            className={root({
-                rounded,
-                shadow,
-                className,
-            })}
-        />
-    );
-};
-
-export default memo(Card);

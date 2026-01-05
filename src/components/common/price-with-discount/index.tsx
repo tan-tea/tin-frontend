@@ -85,10 +85,6 @@ type PriceWithDiscountProps = Omit<ProductCardVariants, 'hasDiscount'> & {
     className?: string;
 };
 
-function roundToCOP(price: number) {
-    return Math.floor(price / 50) * 50;
-}
-
 const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
     price,
     size,
@@ -130,7 +126,7 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
                     color='primary'
                     className={valueWithDiscount()}
                 >
-                    {formatCurrency('COP', roundToCOP(priceWithDiscountApplied))}
+                    {formatCurrency('COP', priceWithDiscountApplied)}
                 </Heading>
             )}
             <div className='flex items-center gap-x-1'>
@@ -145,7 +141,7 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
                     through={hasDiscount}
                     className={value()}
                 >
-                    {formatCurrency('COP', roundToCOP(price))}
+                    {formatCurrency('COP', price)}
                 </Heading>
             </div>
         </Wrapper>

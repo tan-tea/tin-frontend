@@ -1,20 +1,14 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+
 import { motion } from 'motion/react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { Field as BaseField, } from '@base-ui/react/field';
 
-import { cn } from 'lib/utils';
-
-import Input from 'ui/field/input';
+import { Input } from 'ui/input';
+import { Paragraph } from 'ui/text';
 
 const field = tv({
     slots: {
@@ -30,6 +24,8 @@ const field = tv({
             'dark:text-light-600'
         ),
         error: cn(''),
+        description: '',
+        item: '',
     },
     variants: {
         color: {
@@ -44,34 +40,39 @@ const field = tv({
 
 type FieldVariants = VariantProps<typeof field>;
 
-type FieldProps = ComponentProps<typeof BaseField.Root> & FieldVariants;
+type FieldProps = FieldVariants
+    & ComponentProps<typeof BaseField.Root>
+    & ComponentProps<typeof motion.div>;
 
-export const Field: FC<FieldProps> = ({
-    color,
-    disabled,
+const Field: FC<FieldProps> = ({
+    className,
     ...props
 }) => {
     'use memo'
-    const { root } = field({
-        color,
-    });
+    const { root } = field({ ...props });
 
     return (
         <BaseField.Root
             {...props}
             data-slot='field'
             className={root({
-                className: props.className as ClassValue,
+                className,
             })}
+            render={<motion.div/>}
         />
     );
 }
 
-type FieldControlProps = ComponentProps<typeof BaseField.Control>
-& ComponentProps<typeof Input>
-& FieldVariants;
+Field.displayName = 'Field';
 
-export const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
+type FieldControlProps = FieldVariants
+    & ComponentProps<typeof BaseField.Control>
+    & ComponentProps<typeof Input>
+
+const FieldControl: FC<FieldControlProps> = ({
+    className,
+    ...props
+}) => {
     'use memo'
     const { control } = field({ ...props });
 
@@ -81,46 +82,135 @@ export const FieldControl: FC<FieldControlProps> = ({ ...props }) => {
             render={<Input/>}
             {...props}
             data-slot='field-control'
-            className={control()}
+            className={control({
+                className,
+            })}
         />
     );
 }
 
 FieldControl.displayName = 'FieldControl';
 
-type FieldLabelProps = ComponentProps<typeof BaseField.Label>
-& FieldVariants;
+type FieldLabelProps =  FieldVariants
+    & ComponentProps<typeof BaseField.Label>
+    & ComponentProps<typeof motion.label>;
 
-export const FieldLabel: FC<FieldLabelProps> = ({ ...props }) => {
+const FieldLabel: FC<FieldLabelProps> = ({
+    className,
+    ...props
+}) => {
     'use memo'
-    const { label } = field();
+    const { label } = field({ ...props });
 
     return (
         <BaseField.Label
             {...props}
             data-slot='field-label'
-            render={<motion.label/>}
             className={label({
-                className: props.className as ClassValue,
+                className,
             })}
+            render={<motion.label/>}
         />
-    )
+    );
 }
 
-type FieldErrorProps = ComponentProps<typeof BaseField.Error>
-& FieldVariants;
+FieldLabel.displayName = 'FieldLabel';
 
-export const FieldError: FC<FieldErrorProps> = ({ ...props }) => {
+type FieldErrorProps = FieldVariants
+    & ComponentProps<typeof BaseField.Error>
+    & ComponentProps<typeof motion.div>;
+
+const FieldError: FC<FieldErrorProps> = ({
+    className,
+    ...props
+}) => {
     'use memo'
-    const { error } = field();
+    const { error } = field({ ...props });
 
     return (
         <BaseField.Error
-            {...error}
+            {...props}
             data-slot='field-error'
             className={error({
-                className: props.className as ClassValue,
+                className,
             })}
+            render={<motion.div/>}
         />
     );
+}
+
+FieldError.displayName = 'FieldError';
+
+type FieldDescriptionProps = FieldVariants
+    & ComponentProps<typeof BaseField.Description>
+    & ComponentProps<typeof Paragraph>;
+
+const FieldDescription: FC<FieldDescriptionProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { description } = field({ ...props });
+
+    return (
+        <BaseField.Description
+            {...props}
+            data-slot='field-description'
+            className={description({
+                className,
+            })}
+            render={<Paragraph/>}
+        />
+    );
+}
+
+FieldDescription.displayName = 'FieldDescription';
+
+type FieldItemProps = FieldVariants
+    & ComponentProps<typeof BaseField.Item>
+    & ComponentProps<typeof motion.div>;
+
+const FieldItem: FC<FieldItemProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { item } = field({ ...props });
+
+    return (
+        <BaseField.Item
+            {...props}
+            data-slot='field-item'
+            className={item({
+                className,
+            })}
+            render={<motion.div/>}
+        />
+    );
+}
+
+FieldItem.displayName = 'FieldItem';
+
+type FieldValidityProps = FieldVariants & ComponentProps<typeof BaseField.Validity>
+
+const FieldValidity: FC<FieldValidityProps> = ({ ...props }) => {
+    'use memo'
+    return (
+        <BaseField.Validity
+            {...props}
+            data-slot='field-vailidity'
+        />
+    );
+}
+
+FieldValidity.displayName = 'FieldValidity';
+
+export {
+    Field,
+    FieldControl,
+    FieldLabel,
+    FieldError,
+    FieldDescription,
+    FieldItem,
+    FieldValidity,
 }

@@ -1,31 +1,20 @@
 'use client'
 
+import type { FC } from 'react';
+
 import type {
-    FC,
-} from 'react';
-
-import {
-    Box,
-} from 'ui/index';
-
-import { LocationProps, } from 'components/pages/location';
+    LocationProps,
+} from 'pages/location';
 
 type BrowseDesktopProps = LocationProps;
 
-const BrowseDesktop: FC<BrowseDesktopProps> = (
-    props: BrowseDesktopProps
-) => {
-    const {
-        t,
-    } = props;
-
+const BrowseDesktop: FC<BrowseDesktopProps> = ({
+    t
+}) => {
     return (
-        <Box
-            component='section'
-            className='h-dvh-screen-mobile w-full overflow-hidden'
-        >
+        <div className='h-dvh-screen-mobile w-full overflow-hidden'>
             Map Desktop
-        </Box>
+        </div>
     );
 };
 

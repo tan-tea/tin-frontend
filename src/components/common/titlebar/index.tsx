@@ -39,7 +39,7 @@ const titlebar = tv({
                 wrapper: 'relative bg-transparent',
             },
             absolute: {
-                wrapper: 'absolute bg-transparent'
+                wrapper: 'absolute bg-transparent border-none'
             },
             fixed: {
                 wrapper: 'fixed bg-transparent border-none',

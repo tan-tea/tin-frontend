@@ -1,23 +1,18 @@
 'use client'
 
-import type {
-    FC,
-    ComponentProps,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
 
 import {
     motion,
     AnimatePresence,
     MotionNodeAnimationOptions,
 } from 'motion/react';
-import {
-    tv,
-    type VariantProps,
-    type ClassValue,
-} from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
 
-import { cn } from 'lib/utils';
+import { Heading } from 'ui/text';
+import { TriggerButton } from 'ui/button';
 
 const accordion = tv({
     slots: {
@@ -28,11 +23,11 @@ const accordion = tv({
         ),
         header: cn('rounded-[inherit] m-0 text-base font-bold font-secondary'),
         trigger: cn(
-            'px-4 py-2.5 box-border relative flex w-full gap-4 items-center justify-between font-[family:inherit] outline-none',
+            'px-4 py-4 box-border relative flex w-full gap-4 items-center justify-between font-[family:inherit] outline-none',
             'data-[panel-open]:rounded-b-none data-[panel-open]:border-b border-b-light-600 dark:border-b-dark-400',
         ),
         panel: cn(
-            'flex-1 h-auto box-border p-4',
+            'flex-1 h-auto box-border p-4 pt-1.5',
             'data-[starting-style]:h-0 data-[ending-style]:h-0',
         ),
     },
@@ -42,8 +37,8 @@ const accordion = tv({
 type AccordionVariants = VariantProps<typeof accordion>;
 
 type AccordionProps = AccordionVariants
-& ComponentProps<typeof motion.div>
-& ComponentProps<typeof BaseAccordion.Root>;
+    & ComponentProps<typeof motion.div>
+    & ComponentProps<typeof BaseAccordion.Root>;
 
 export const Accordion: FC<AccordionProps> = ({
     className,
@@ -70,7 +65,7 @@ type AccordionItemProps = AccordionVariants
 
 const ACCORDION_ITEM_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        x: -320,
+        x: -9999,
     },
     animate: {
         x: 0,
@@ -102,8 +97,8 @@ export const AccordionItem: FC<AccordionItemProps> = ({
 }
 
 type AccordionHeaderProps = AccordionVariants
-& ComponentProps<typeof motion.h3>
-& ComponentProps<typeof BaseAccordion.Header>;
+    & ComponentProps<typeof Heading>
+    & ComponentProps<typeof BaseAccordion.Header>;
 
 export const AccordionHeader: FC<AccordionHeaderProps> = ({
     className,
@@ -119,14 +114,14 @@ export const AccordionHeader: FC<AccordionHeaderProps> = ({
             className={header({
                 className: className as ClassValue,
             })}
-            render={<motion.h3/>}
+            render={<Heading/>}
         />
     );
 }
 
 type AccordionTriggerProps = AccordionVariants
-& ComponentProps<typeof motion.button>
-& ComponentProps<typeof BaseAccordion.Trigger>;
+    & ComponentProps<typeof TriggerButton>
+    & ComponentProps<typeof BaseAccordion.Trigger>;
 
 export const AccordionTrigger: FC<AccordionTriggerProps> = ({
     className,
@@ -142,7 +137,7 @@ export const AccordionTrigger: FC<AccordionTriggerProps> = ({
             className={trigger({
                 className: className as ClassValue,
             })}
-            render={<motion.button/>}
+            render={<TriggerButton/>}
         />
     );
 }

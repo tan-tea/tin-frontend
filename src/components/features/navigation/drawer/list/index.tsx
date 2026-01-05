@@ -10,6 +10,7 @@ import { cn } from 'lib/utils';
 
 import {
     MapPin,
+    ShoppingCart
 } from 'components/icons';
 
 import NavigationDrawerListItem from './item';
@@ -23,6 +24,12 @@ const NavigationDrawerList: FC<NavigationDrawerListProps> = () => {
     const t = useTranslations();
 
     const links: Array<ComponentProps<typeof NavigationDrawerListItem>> = [
+        {
+            href: '/cart',
+            label: 'Carrito de compras',
+            isExternal: false,
+            icon: ShoppingCart,
+        },
         {
             href: '/location',
             label: t('location.tooltip'),

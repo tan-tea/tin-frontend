@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-import { useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
@@ -13,59 +13,73 @@ import type {
 import { workspaceAtom } from 'shared/state';
 import { useHideUI, useNavigation } from 'shared/hooks';
 
+import { useShopsByWorkspaceData } from './hooks';
+
+import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 import PlatformMobileSkeleton from './mobile/skeleton';
 
-const PlatformMobile = dynamic(() => import('./mobile'), {
-    ssr: false,
-    loading: () => <PlatformMobileSkeleton/>,
-});
+const PlatformMobile = dynamic(
+    () => import('./mobile'),
+    {
+        ssr: false,
+        loading: () => <PlatformMobileSkeleton/>,
+    }
+);
 
-type OwnPlatformProps = Readonly<{ shops: Array<Shop> }>;
+type Props = Readonly<{
+    locale: string;
+    workspaceId: string;
+}>;
 
-export type PlatformProps = OwnPlatformProps &
-    Readonly<{
-        t: ReturnType<typeof useTranslations>;
-        workspace: Workspace;
-        multipleStores: boolean;
-    }>;
+export type PlatformProps = Readonly<{
+    t: ReturnType<typeof useTranslations>;
+    shops: Array<Shop>;
+    primaryShop: Shop | null;
+    hasMultipleShops: boolean;
+    workspace: Workspace;
+}>;
 
-export default function Platform(props: OwnPlatformProps) {
+export default function Platform(props: Props) {
     'use memo';
-    const { shops } = props;
+    const { workspaceId } = props;
 
     useHideUI({
         hideHeader: true,
         hideBottomNavigation: true,
     });
 
-    const { navigate } = useNavigation();
-
     const t = useTranslations();
+
+    const { navigate } = useNavigation();
 
     const workspace = useAtomValue(workspaceAtom);
 
-    const multipleStores = useMemo<boolean>(() => shops.length > 1, [shops]);
+    const {
+        shops,
+        primaryShop,
+        hasMultipleShops,
+        isLoading,
+    } = useShopsByWorkspaceData(workspaceId);
 
-    useEffect(() => {
-        if (multipleStores) return;
+    // useEffect(() => {
+    //     if (hasMultipleShops) return;
+    //     if (!primaryShop) return;
 
-        const mainStore = shops.find((s) => s.isPrimary) ?? shops.at(0);
-
-        if (!mainStore) return;
-
-        navigate(`/store/${mainStore.slug}`);
-    }, [shops, navigate, multipleStores]);
+    //     navigate(`/store/${primaryShop.slug}`);
+    // }, [shops, primaryShop, hasMultipleShops, navigate]);
 
     const childProps: PlatformProps = {
         t,
         shops,
-        multipleStores,
+        primaryShop,
+        hasMultipleShops,
         workspace: workspace!,
     };
 
-    if (!multipleStores) return null;
+    // if (isLoading || !hasMultipleShops) return <Loading/>
+    if (isLoading) return <Loading/>
 
     return (
         <DeviceDetector

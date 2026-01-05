@@ -43,7 +43,14 @@ async function getOfferBySlug(slug: string): Promise<Offer> {
         .from('offers')
         .select(`
             *,
-            category:categories ( * )
+            category:categories ( * ),
+            option_groups:offer_option_groups (
+                *,
+                group:option_groups (
+                    *,
+                    options ( * )
+                )
+            )
         `)
         .eq('slug', slug)
         .eq('is_active', true)
@@ -301,8 +308,10 @@ async function getShopBySlug(slug: string): Promise<Shop> {
     return result;
 }
 
-async function getCategoryWithOffersBySlug(slug: string): Promise<Category | null> {
+async function getCategoryWithOffersBySlug(slug: string): Promise<Category> {
     const supabase = await createClient();
+
+    const now = formatISO(new Date());
 
     const { data, error } = await supabase
         .from('categories')
@@ -312,6 +321,9 @@ async function getCategoryWithOffersBySlug(slug: string): Promise<Category | nul
         `)
         .eq('slug', slug)
         .eq('workspace_id', clientEnv.NEXT_PUBLIC_WORKSPACE_ID)
+        .lte('offers.start_date', now)
+        .gte('offers.end_date', now)
+        .eq('offers.is_active', true)
         .single();
 
     if (error && !data) {

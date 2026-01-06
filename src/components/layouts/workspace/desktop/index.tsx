@@ -4,15 +4,15 @@ import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import type { WorkspaceLayoutProps } from 'components/layouts/workspace';
+import type { WorkspaceLayoutProps } from 'layouts/workspace';
 
 const Header = dynamic(
     () => import('components/common/header'),
 );
 
-type BaseLayoutDesktopProps = WorkspaceLayoutProps;
+type Props = WorkspaceLayoutProps;
 
-const BaseLayoutDesktop: FC<BaseLayoutDesktopProps> = ({
+const BaseLayoutDesktop: FC<Props> = ({
     children,
     showHeader,
     showBottomNavigation,

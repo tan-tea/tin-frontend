@@ -7,15 +7,15 @@ import dynamic from 'next/dynamic';
 import { Fragment } from 'react';
 import { cn } from 'tailwind-variants';
 
-import type { WorkspaceLayoutProps } from 'components/layouts/workspace';
+import type { WorkspaceLayoutProps } from 'layouts/workspace';
 
 const Header = dynamic(
     () => import('components/common/header'),
 );
 
-type BaseLayoutMobileProps = WorkspaceLayoutProps;
+type Props = WorkspaceLayoutProps;
 
-const BaseLayoutMobile: FC<BaseLayoutMobileProps> = ({
+const BaseLayoutMobile: FC<Props> = ({
     children,
     showHeader,
 }) => {

@@ -2,10 +2,9 @@
 
 import type { FC } from 'react';
 
-import { Link } from 'lib/i18n/navigation';
-
 import { Section } from 'ui/layout';
 import { Paragraph } from 'ui/text';
+import { InternalLink } from 'ui/link';
 
 import type { NotFoundProps, } from 'pages/not-found';
 
@@ -29,7 +28,7 @@ const NotFoundDesktop: FC<NotFoundDesktopProps> = ({
                         {description}
                     </Paragraph>
                     <div className='flex items-center gap-x-4'>
-                        <Link href='/'>{navigation}</Link>
+                        <InternalLink href='/'>{navigation}</InternalLink>
                     </div>
                 </div>
             </div>

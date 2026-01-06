@@ -79,7 +79,8 @@ export default function Platform(props: Props) {
     };
 
     // if (isLoading || !hasMultipleShops) return <Loading/>
-    if (isLoading) return <Loading/>
+    const loading = isLoading;
+    if (loading) return <Loading/>
 
     return (
         <DeviceDetector

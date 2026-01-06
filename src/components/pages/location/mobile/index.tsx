@@ -36,9 +36,9 @@ type Marker = {
     pin: ComponentProps<typeof Pin>['glyph'];
 };
 
-type LocationMobileProps = LocationProps;
+type Props = LocationProps;
 
-const LocationMobile: FC<LocationMobileProps> = ({
+const LocationMobile: FC<Props> = ({
     t,
     shops,
     camera,
@@ -100,9 +100,9 @@ const LocationMobile: FC<LocationMobileProps> = ({
                             lng: geolocation?.coords?.longitude || 0,
                         }}
                     />
-                    {markers.map(marker => (
+                    {markers.map((marker, index) => (
                         <AdvancedMarker
-                            key={`${uniqueId}-${Date.now()}`}
+                            key={`${index}-${uniqueId}-${Date.now()}`}
                             position={{
                                 lat: marker?.latitude,
                                 lng: marker?.longitude,
@@ -117,10 +117,7 @@ const LocationMobile: FC<LocationMobileProps> = ({
                     ))}
                 </Map>
             </div>
-            <LocationContent
-                shops={shops}
-                onFocusInMap={(geolocation) => onLocatePin && onLocatePin({ ...geolocation })}
-            />
+            <LocationContent onFocusInMap={(geolocation) => onLocatePin && onLocatePin({ ...geolocation })}/>
         </Section>
     );
 };

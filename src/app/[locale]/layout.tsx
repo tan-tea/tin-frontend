@@ -55,10 +55,10 @@ const nunito = Nunito_Sans({
     weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000',],
 });
 
-type RootLayoutProps = {
+type Props = Readonly<{
     children: ReactNode;
     params: Promise<{ locale: string; }>;
-};
+}>;
 
 export const viewport: Viewport = {
     width: 'device-width',
@@ -80,7 +80,7 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(
-    props: RootLayoutProps
+    props: Props
 ): Promise<Metadata> {
     const {
         params
@@ -114,6 +114,14 @@ export async function generateMetadata(
                 url: 'https://www.yimall.co'
             }
         ],
+        formatDetection: {
+            telephone: false,
+        },
+        appleWebApp: {
+            capable: true,
+            statusBarStyle: 'default',
+            title: t('siteName'),
+        },
         openGraph: {
             title: t('siteName'),
             url: clientEnv.NEXT_PUBLIC_SITE_URL,
@@ -141,9 +149,7 @@ export async function generateMetadata(
     };
 }
 
-export default async function RootLayout(
-    props: RootLayoutProps
-) {
+export default async function RootLayout(props: Props) {
     const {
         params,
         children,
@@ -159,8 +165,9 @@ export default async function RootLayout(
 
     return (
         <html
-            lang={locale}
+            dir='ltr'
             translate='no'
+            lang={locale}
             suppressHydrationWarning
         >
             <body

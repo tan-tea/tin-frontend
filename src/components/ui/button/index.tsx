@@ -101,7 +101,7 @@ const baseButton = tv({
             color: ['primary', 'secondary', 'default', 'background'],
             variant: 'text',
             className: [
-                'bg-transparent border-none',
+                'border-none',
             ],
         },
         {

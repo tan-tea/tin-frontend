@@ -294,6 +294,7 @@ async function getShopBySlug(slug: string): Promise<Shop> {
             *
         `)
         .eq('slug', slug)
+        .eq('workspace_id', clientEnv.NEXT_PUBLIC_WORKSPACE_ID)
         .single();
 
     if (error && !data) {

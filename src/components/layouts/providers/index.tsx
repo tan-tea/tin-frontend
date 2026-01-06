@@ -16,11 +16,11 @@ import { ApplicationStoreProvider } from 'shared/stores/application-store';
 import ThemeLayout from 'layouts/theme';
 import ThemeWatcher from 'components/theme-watcher';
 
-type ProvidersProps = {
+type Props = Readonly<{
     children: ReactNode;
-};
+}>;
 
-export default function Providers(props: ProvidersProps) {
+export default function Providers(props: Props) {
     'use memo'
     const { children } = props;
 

@@ -3,9 +3,12 @@
 import type { FC } from 'react';
 
 import { useMemo, useState } from 'react';
+import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
 import { formatAddress } from 'lib/utils';
+
+import { shopsAtom } from 'shared/state';
 
 import { IconButton } from 'ui/index';
 import { Heading, Paragraph } from 'ui/text';
@@ -24,9 +27,6 @@ import {
     ExternalLink,
 } from 'components/icons';
 
-import type {
-    LocationProps,
-} from 'pages/location';
 import NavigationBreadcrumb from 'features/navigation/breadcrumb';
 
 type Coords = {
@@ -34,18 +34,19 @@ type Coords = {
     lng: number;
 };
 
-type LocationContentProps = Pick<LocationProps, 'shops'> & {
+type Props = Readonly<{
     onFocusInMap: (coords: Coords) => void;
-};
+}>;
 
-const LocationContent: FC<LocationContentProps> = ({
-    shops,
+const LocationContent: FC<Props> = ({
     onFocusInMap,
 }) => {
     'use memo'
     const t = useTranslations();
 
-    const [open, setOpen] = useState<boolean>(false);
+    const shops = useAtomValue(shopsAtom);
+
+    const [values, setValues] = useState<Array<string>>(shops.map(s => s.id));
 
     const availableShops = useMemo<typeof shops>(
         () => (shops ?? [])
@@ -69,59 +70,69 @@ const LocationContent: FC<LocationContentProps> = ({
     }
 
     return (
-        // <div className='flex-1 size-full overflow-y-auto scrollbar-hide'>
         <div className='flex-1 flex flex-col'>
             <div className='flex-1 flex flex-col gap-y-4 p-4'>
                 <NavigationBreadcrumb/>
-                <Accordion>
-                    {availableShops.map(shop => (
-                        <AccordionItem key={shop?.id} onOpenChange={(o) => setOpen(o)}>
-                            <AccordionHeader>
-                                <AccordionTrigger>
-                                    <div className='flex flex-col text-start'>
-                                        {shop?.isPrimary && (
-                                            <Heading level='4' className='font-normal'>
-                                                {t('headquarter')}
+                <Accordion
+                    multiple
+                    value={values}
+                    onValueChange={(value) => setValues(value)}
+                    className='flex flex-col gap-y-4'
+                >
+                    {availableShops.map(shop => {
+                        if (!shop) return null;
+
+                        const open = values.includes(shop.id);
+
+                        return (
+                            <AccordionItem key={shop.id} value={shop?.id}>
+                                <AccordionHeader>
+                                    <AccordionTrigger>
+                                        <div className='flex flex-col text-start'>
+                                            {shop?.isPrimary && (
+                                                <Heading level='4' className='font-normal'>
+                                                    {t('headquarter')}
+                                                </Heading>
+                                            )}
+                                            <Heading color='primary' level='3'>
+                                                {shop?.name}
                                             </Heading>
-                                        )}
-                                        <Heading color='primary' level='3'>
-                                            {shop?.name}
-                                        </Heading>
+                                        </div>
+                                        {open
+                                            ? <Icon value={ChevronUp}/>
+                                            : <Icon value={ChevronDown}/>
+                                        }
+                                    </AccordionTrigger>
+                                </AccordionHeader>
+                                <AccordionPanel>
+                                    <div className='flex flex-col gap-y-1'>
+                                        <Heading level='4'>{t('address')}</Heading>
+                                        <Paragraph>
+                                            {formatAddress(shop?.address)}
+                                        </Paragraph>
                                     </div>
-                                    {open
-                                        ? <Icon value={ChevronUp}/>
-                                        : <Icon value={ChevronDown}/>
-                                    }
-                                </AccordionTrigger>
-                            </AccordionHeader>
-                            <AccordionPanel>
-                                <div className='flex flex-col gap-y-1'>
-                                    <Heading level='4'>{t('address')}</Heading>
-                                    <Paragraph>
-                                        {formatAddress(shop?.address)}
-                                    </Paragraph>
-                                </div>
-                                <div className='mt-4 flex justify-end gap-x-4'>
-                                    <IconButton
-                                        icon={Focus}
-                                        rounded='full'
-                                        onClick={() => handleFocusInMap({
-                                            lat: shop.geolocation.latitude,
-                                            lng: shop.geolocation.longitude,
-                                        })}
-                                    />
-                                    <IconButton
-                                        icon={ExternalLink}
-                                        rounded='full'
-                                        onClick={() => navigateToGoogleMaps({
-                                            lat: shop.geolocation.latitude,
-                                            lng: shop.geolocation.longitude,
-                                        })}
-                                    />
-                                </div>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    ))}
+                                    <div className='mt-4 flex justify-end gap-x-4'>
+                                        <IconButton
+                                            icon={Focus}
+                                            rounded='full'
+                                            onClick={() => handleFocusInMap({
+                                                lat: shop.geolocation.latitude,
+                                                lng: shop.geolocation.longitude,
+                                            })}
+                                        />
+                                        <IconButton
+                                            icon={ExternalLink}
+                                            rounded='full'
+                                            onClick={() => navigateToGoogleMaps({
+                                                lat: shop.geolocation.latitude,
+                                                lng: shop.geolocation.longitude,
+                                            })}
+                                        />
+                                    </div>
+                                </AccordionPanel>
+                            </AccordionItem>
+                        );
+                    })}
                 </Accordion>
             </div>
         </div>

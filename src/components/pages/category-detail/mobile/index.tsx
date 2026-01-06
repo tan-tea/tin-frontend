@@ -28,13 +28,14 @@ const CategoryDetailMobile: FC<CategoryDetailMobileProps> = ({
 }) => {
     'use memo'
     const {
-        label
+        label,
+        description,
     } = category;
 
     return (
         <Section
-            aria-label='category detail'
-            aria-description='Lorem ipsum'
+            aria-label={label}
+            aria-description={description}
         >
             <Titlebar
                 title={label}

@@ -22,19 +22,18 @@ type CategoryContentProps = Readonly<object>;
 const CategoryContent: FC<CategoryContentProps> = () => {
     'use memo'
     const category = useAtomValue(categoryAtom);
-
     if (!category) return null;
 
     const { offers } = category;
 
     return (
         <Wrapper className='flex flex-col'>
-                <OfferList
-                    offers={offers}
-                    defaultView='list'
-                    forceDefaultView
-                    showActions={false}
-                />
+            <OfferList
+                offers={offers}
+                defaultView='list'
+                forceDefaultView
+                showActions={false}
+            />
         </Wrapper>
     );
 };

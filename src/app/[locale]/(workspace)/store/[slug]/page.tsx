@@ -32,18 +32,18 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         locale,
     });
 
-    const shopBySlug = await fetchWithBackoff<
+    const shop = await fetchWithBackoff<
         ReturnType<typeof getShopDetailsBySlug>,
         typeof getShopDetailsBySlug,
         Parameters<typeof getShopDetailsBySlug>
     >(getShopDetailsBySlug, [slug]);
 
-    if (!shopBySlug) return {
+    if (!shop) return {
         title: t('shopNotFound'),
     };
 
-    const title = shopBySlug.name,
-        description = '';
+    const title = shop.name,
+        description = shop.description;
 
     return {
         title,

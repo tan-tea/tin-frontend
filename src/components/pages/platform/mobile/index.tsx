@@ -10,9 +10,9 @@ import ApplicationLogo from 'common/application-logo';
 import StoreCard from 'features/store/card';
 import NavigationDrawer from 'features/navigation/drawer';
 
-type PlatformMobileProps = PlatformProps;
+type Props = PlatformProps;
 
-const PlatformMobile: FC<PlatformMobileProps> = ({
+const PlatformMobile: FC<Props> = ({
     t,
     shops,
     workspace,
@@ -36,9 +36,9 @@ const PlatformMobile: FC<PlatformMobileProps> = ({
                     </div>
                     {shops && shops?.length > 0 && (
                         <div className='mt-auto flex flex-col gap-y-4'>
-                            <Paragraph className='text-center font-bold'>
+                            {/* <Paragraph className='text-center font-bold'>
                                 {t('selectHeadquarter')}
-                            </Paragraph>
+                            </Paragraph> */}
                             {shops.map(shop => (
                                 <StoreCard key={shop.id} shop={shop}/>
                             ))}

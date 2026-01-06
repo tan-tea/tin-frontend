@@ -2,10 +2,9 @@
 
 import type { FC } from 'react';
 
-import { Link } from 'lib/i18n/navigation';
-
 import { Section } from 'ui/layout';
 import { Paragraph } from 'ui/text';
+import { InternalLink } from 'ui/link';
 
 import type { NotFoundProps, } from 'pages/not-found';
 
@@ -28,7 +27,12 @@ const NotFoundMobile: FC<NotFoundMobileProps> = (props) => {
                     <Paragraph className='text-sm text-gray-800 text-center'>
                         {description}
                     </Paragraph>
-                    <Link href='/'>{navigation}</Link>
+                    <InternalLink
+                        href='/'
+                        className='dark:text-[var(--mui-palette-primary-main)]'
+                    >
+                        {navigation}
+                    </InternalLink>
                 </div>
             </div>
         </Section>

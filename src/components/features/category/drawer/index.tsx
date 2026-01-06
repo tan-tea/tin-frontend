@@ -9,6 +9,7 @@ import {
     DrawerContent,
     DrawerTitle,
 } from 'ui/drawer';
+import { Paragraph } from 'ui/text';
 
 import { useCategoryOffersData } from 'pages/category-detail/hooks';
 
@@ -44,7 +45,12 @@ const CategoryDrawer: FC<Props> = ({
         >
             <DrawerContent className='h-[95%] data-[vaul-drawer-direction=bottom]:max-h-[100dvh]'>
                 <div className='size-full overflow-y-auto scrollbar-hide md:scrollbar-default'>
-                    <DrawerTitle className='px-4 pt-4'>{category.label}</DrawerTitle>
+                    <div className='flex flex-col gap-y-2 px-4 pt-4 mb-4'>
+                        <DrawerTitle>{category.label}</DrawerTitle>
+                        {category.description && (
+                            <Paragraph>{category.description}</Paragraph>
+                        )}
+                    </div>
                     <CategoryContent/>
                 </div>
             </DrawerContent>

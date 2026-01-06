@@ -16,7 +16,7 @@ const breadcrumb = tv({
         item: cn('inline-flex items-center gap-1.5'),
         link: cn('transition-colors'),
         page: cn('font-normal text-[length:inherit] text-[var(--mui-palette-primary-main)]'),
-        separator: cn('[&>svg]:size-3.5'),
+        separator: cn('[&>svg]:size-3.5 [&>svg]:text-dark-600 dark:[&>svg]:text-light-400'),
         ellipsis: cn('flex size-9 items-center justify-center'),
     },
     variants: {},

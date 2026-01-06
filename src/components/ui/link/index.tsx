@@ -9,7 +9,7 @@ import { tv, cn } from 'tailwind-variants';
 import { Link as BaseLink } from 'lib/i18n/navigation';
 
 const link = tv({
-    base: cn('hover:text-[var(--mui-palette-primary-main)]'),
+    base: cn('text-dark-600 dark:text-light-400 hover:text-[var(--mui-palette-primary-main)]'),
 });
 
 type LinkVariants = VariantProps<typeof link>;

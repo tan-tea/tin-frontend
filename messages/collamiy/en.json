@@ -22,14 +22,14 @@
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "headquarter": "Sucursal",
     "metadata": {
-        "applicationName": "La Perreria",
-        "siteName": "La Perreria — Perros Calientes Personalizados a tu gusto y Hamburguesas en Armenia, Quindío",
-        "titleTemplate": "%s | La Perreria",
-        "description": "La Perrería es el lugar ideal en Armenia, Quindío, para disfrutar comida rápida personalizada. Perros calientes a tu gusto con 14 ingredientes y salsas ilimitadas, hamburguesas jugosas y salchipapas irresistibles.",
-        "keywords": "perros calientes personalizados, perros calientes en Armenia, hamburguesas en Armenia, comida rápida en Armenia, hot dogs personalizados, hamburguesas artesanales, comida rápida Armenia Quindío, perros calientes Armenia Quindío, hamburguesas Armenia Quindío, mejores perros calientes en Armenia, restaurantes de comida rápida en Armenia, perros calientes a tu gusto, hamburguesas jugosas, salchipapas crujientes, combos de comida rápida, pan artesanal, comida rápida personalizada, dónde comer perros calientes en Armenia, perros calientes personalizados en Armenia, hamburguesas artesanales en Armenia, comida rápida con domicilio en Armenia, perros calientes con muchos ingredientes",
+        "applicationName": "Collamiy",
+        "siteName": "Collamiy — Catálogo digital de productos fácil y rápido",
+        "titleTemplate": "%s | Collamiy",
+        "description": "Collamiy es un espacio pensado para disfrutar productos de forma simple y cómoda. A través de su catálogo digital, puedes explorar bebidas, snacks y postres cuidadosamente seleccionados, con información clara y siempre disponible desde cualquier dispositivo.",
+        "keywords": "catálogo digital, menú digital, menú online, catálogo online, menú para negocios, catálogo para restaurantes, menú digital para celulares, menú sin app, catálogo accesible desde cualquier dispositivo, menú con dominio propio, catálogo digital moderno, menú digital profesional, carta digital, menú web, catálogo para pequeños negocios, presencia digital para negocios, menú fácil y rápido, catálogo digital de productos",
         "location": {
-            "title": "Ubicaci\u00f3n y Direcci\u00f3n — Comida R\u00e1pida en Armenia",
-            "description": "Visita La Perrería en Armenia, Quindío. Conoce nuestra ubicaci\u00f3n, direcci\u00f3n y c\u00f3mo llegar para disfrutar perros calientes, hamburguesas y comida r\u00e1pida preparada al momento."
+            "title": "Ubicaci\u00f3n y Direcci\u00f3n",
+            "description": "Visita Collamiy. Conoce nuestra ubicaci\u00f3n, direcci\u00f3n y c\u00f3mo llegar para disfrutar de nuestra comida preparada al momento."
         },
         "privacy": {
             "title": "Política de Privacidad — Protección de Datos y Uso de la Informaci\u00f3n",
@@ -41,7 +41,7 @@
         },
         "notFound": {
             "title": "Página no encontrada",
-            "description": "La página que buscas no está disponible. Explora nuestro menú de hamburguesas, perros calientes y comida rápida en La Perrería"
+            "description": "La página que buscas no está disponible. Explora nuestro menú lleno de antojos para ti."
         }
     },
     "shared": {

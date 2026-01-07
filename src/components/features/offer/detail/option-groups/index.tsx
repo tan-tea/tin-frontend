@@ -2,9 +2,12 @@
 
 import type { FC } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import {
     useMemo,
     Fragment,
+    useState,
 } from 'react';
 import { useAtomValue } from 'jotai';
 import { useFormatter, useTranslations } from 'next-intl';
@@ -30,8 +33,16 @@ import {
     CheckboxGroup,
     CheckboxIndicator,
 } from 'ui/checkbox';
+import { ChevronUp, ChevronDown } from 'components/icons';
 
 import type { OptionGroups } from 'pages/item-by-slug';
+
+const OptionLabel = dynamic(
+    () => import('./option-label'),
+    {
+        ssr: false,
+    },
+);
 
 type Props = Readonly<{
     control: Control<OptionGroups>
@@ -52,6 +63,8 @@ const OfferDetailOptionGroups: FC<Props> = ({
         [currentOffer]
     );
 
+    const [openedGroups, setOpenedGroups] = useState<Array<string>>(optionGroups.map(o => o.group.id));
+
     const { errors } = useFormState({
         control,
     });
@@ -59,7 +72,8 @@ const OfferDetailOptionGroups: FC<Props> = ({
     return (
         <Accordion
             multiple
-            defaultValue={optionGroups.map(o => o.group.id)} // open all accordions available per offer
+            value={openedGroups} // open all accordions available per offer
+            onValueChange={(value) => setOpenedGroups(value)}
             className='flex flex-col gap-y-4'
         >
             {optionGroups.map(optionGroup => {
@@ -69,6 +83,7 @@ const OfferDetailOptionGroups: FC<Props> = ({
                 const isRequired = group.required;
                 const isSingleSelection = group.max === 1;
                 const isSingleOption = group.options.length === 1;
+                const isGroupOpen = openedGroups.includes(groupId);
 
                 return (
                     <AccordionItem key={groupId} value={groupId}>
@@ -86,6 +101,8 @@ const OfferDetailOptionGroups: FC<Props> = ({
                                         }
                                     </Paragraph>
                                 </div>
+                                {isGroupOpen && <ChevronUp/>}
+                                {!isGroupOpen && <ChevronDown/>}
                             </AccordionTrigger>
                         </AccordionHeader>
                         {!isSingleOption && (
@@ -94,69 +111,50 @@ const OfferDetailOptionGroups: FC<Props> = ({
                                     name={`options.${groupId}`}
                                     control={control}
                                     defaultValue={[]}
-                                    render={({ field, }) => (
-                                        <Fragment>
-                                            {isSingleSelection && (
-                                                <RadioGroup
-                                                    value={field.value?.[0]}
-                                                    onValueChange={(value) => field.onChange([value])}
-                                                    required={isRequired}
+                                    render={({ field, }) => {
+                                        const getControls = () => {
+                                            return isSingleOption ? {
+                                                value: field?.value?.[0],
+                                                onChange: (v: unknown) => field.onChange([v]),
+                                                Wrapper: RadioGroup,
+                                                Control: Radio,
+                                                Indicator: RadioIndicator,
+                                            } : {
+                                                value: field.value,
+                                                onChange: (v: unknown) => field.onChange(v),
+                                                Wrapper: CheckboxGroup,
+                                                Control: Checkbox,
+                                                Indicator: CheckboxIndicator,
+                                            };
+                                        }
+
+                                        const {
+                                            value,
+                                            onChange,
+                                            Wrapper,
+                                            Control,
+                                            Indicator,
+                                        } = getControls();
+
+                                        return (
+                                            <Fragment>
+                                                <Wrapper
+                                                    value={value as any}
+                                                    onValueChange={onChange}
                                                     aria-required={isRequired}
+                                                    className='gap-y-4'
                                                 >
-                                                    {group.options.map(option => {
-                                                        return (
-                                                            <label key={option.id} className='w-full flex items-center justify-between gap-x-2'>
-                                                                <div className='flex flex-col gap-y-1'>
-                                                                    <span>
-                                                                        {option.name}
-                                                                    </span>
-                                                                    {option.priceDelta > 0 && (
-                                                                        <span>
-                                                                            {formatter.number(option.priceDelta, {
-                                                                                currency: 'COP',
-                                                                            })}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                                <Radio value={option.id}>
-                                                                    <RadioIndicator/>
-                                                                </Radio>
-                                                            </label>
-                                                        );
-                                                    })}
-                                                </RadioGroup>
-                                            )}
-                                            {!isSingleSelection && (
-                                                <CheckboxGroup
-                                                    value={field.value}
-                                                    onValueChange={(value) => field.onChange(value)}
-                                                    aria-required={isRequired}
-                                                >
-                                                    {group.options.map(option => {
-                                                        return (
-                                                            <label key={option.id} className='w-full flex items-center justify-between gap-x-2'>
-                                                                <div className='flex flex-col gap-y-1'>
-                                                                    <span>
-                                                                        {option.name}
-                                                                    </span>
-                                                                    {option.priceDelta > 0 && (
-                                                                        <span>
-                                                                            +{formatter.number(option.priceDelta, {
-                                                                                currency: 'COP',
-                                                                            })}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                                <Checkbox value={option.id}>
-                                                                    <CheckboxIndicator/>
-                                                                </Checkbox>
-                                                            </label>
-                                                        );
-                                                    })}
-                                                </CheckboxGroup>
-                                            )}
-                                        </Fragment>
-                                    )}
+                                                    {group.options.map(option => (
+                                                        <OptionLabel key={option.id} option={option}>
+                                                            <Control value={option.id}>
+                                                                <Indicator/>
+                                                            </Control>
+                                                        </OptionLabel>
+                                                    ))}
+                                                </Wrapper>
+                                            </Fragment>
+                                        )
+                                    }}
                                 />
                             </AccordionPanel>
                         )}

@@ -4,16 +4,16 @@ import type { FC, ComponentProps } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { useId, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { clientEnv } from 'env/client';
 
-import { Section } from 'ui/layout';
 import {
     Map,
     Pin,
     AdvancedMarker,
 } from 'ui/map';
+import { Section } from 'ui/layout';
 
 import type {
     LocationProps,
@@ -44,11 +44,8 @@ const LocationMobile: FC<Props> = ({
     camera,
     geolocation,
     onCameraChanged,
-    onLocatePin,
 }) => {
     'use memo'
-    const uniqueId = useId();
-
     const markers: Array<Marker> = useMemo(
         () => (shops ?? [])
             ?.filter(shop => shop.geolocation && !shop.address.isOnline)
@@ -68,22 +65,14 @@ const LocationMobile: FC<Props> = ({
         <Section
             aria-label={t('metadata.location.title')}
             aria-description={t('metadata.location.description')}
-            className='flex flex-col h-auto'
+            className='h-dvh overflow-hidden'
         >
             <Titlebar
                 position='absolute'
-                renderStart={() => (
-                    <div>
-                        <BackButton/>
-                    </div>
-                )}
-                renderEnd={() => (
-                    <div className='ml-auto'>
-                        <LocationButton/>
-                    </div>
-                )}
+                renderStart={() => <div><BackButton/></div>}
+                renderEnd={() => <div className='ml-auto'><LocationButton/></div>}
             />
-            <div className='h-[420px] shrink-0'>
+            <div className='size-full shrink-0'>
                 <Map
                     mapId={clientEnv.NEXT_PUBLIC_GOOGLE_MAP_ID}
                     zoom={camera?.zoom}
@@ -101,8 +90,8 @@ const LocationMobile: FC<Props> = ({
                         }}
                     />
                     {markers.map((marker, index) => (
-                        <AdvancedMarker
-                            key={`${index}-${uniqueId}-${Date.now()}`}
+                        <LocationContent
+                            key={`${index}-${Date.now()}`}
                             position={{
                                 lat: marker?.latitude,
                                 lng: marker?.longitude,
@@ -113,11 +102,10 @@ const LocationMobile: FC<Props> = ({
                                 glyphColor={'var(--mui-palette-primary-main)'}
                                 borderColor={'transparent'}
                             />
-                        </AdvancedMarker>
+                        </LocationContent>
                     ))}
                 </Map>
             </div>
-            <LocationContent onFocusInMap={(geolocation) => onLocatePin && onLocatePin({ ...geolocation })}/>
         </Section>
     );
 };

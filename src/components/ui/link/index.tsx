@@ -38,17 +38,17 @@ InternalLink.displayName = 'InternalLink';
 
 const ExternalLink: FC<LinkProps> = ({
     href,
-    rel,
-    target,
     children,
     className,
+    ...props
 }) => {
     'use memo'
 
     return (
         <motion.a
-            rel={rel}
-            target={target}
+            rel='noopener noreferrer'
+            target='_blank'
+            {...props as any}
             href={href.toString()}
             className={link({
                 className,

@@ -68,6 +68,14 @@ const text = tv({
                 heading: 'text-[var(--mui-palette-primary-main)]',
                 paragraph: 'text-[var(--mui-palette-primary-main)]',
             },
+            dark: {
+                heading: 'text-dark-600',
+                paragraph: 'text-dark-600',
+            },
+            light: {
+                heading: 'text-light-400',
+                paragraph: 'text-light-400',
+            }
         },
         through: {
             true: {

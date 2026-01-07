@@ -1,9 +1,5 @@
 'use client'
 
-import {
-    type FC,
-    type ReactElement,
-} from 'react';
 import { useTranslations, } from 'next-intl';
 
 import {
@@ -14,18 +10,15 @@ import {
 import DeviceDetector from 'common/device-detector';
 
 import TermsMobile from './mobile';
-// import SearchDesktop from './desktop';
 
-type Props = object;
+type Props = Readonly<{ locale: string; }>;
 
 export type TermsProps = {
     t: ReturnType<typeof useTranslations>;
     navigation: ReturnType<typeof useNavigation>;
 };
 
-export default function Terms(
-    props: Props,
-): ReactElement<FC<Props>> {
+export default function Terms(props: Props) {
     const {} = props;
 
     useHideUI({

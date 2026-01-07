@@ -45,10 +45,6 @@ export type LocationProps = Props & {
     geolocation: GeolocationPosition | null;
     navigation: ReturnType<typeof useNavigation>;
     onCameraChanged: (camera: MapCameraChangedEvent) => void;
-    onLocatePin?: (geolocation: {
-        lat: number;
-        lng: number;
-    }) => void;
 };
 
 export default function Location(props: Props) {
@@ -72,12 +68,12 @@ export default function Location(props: Props) {
         primaryShop,
     } = useShopsByWorkspaceData(workspaceId);
 
-    const [camera, setCamera,] = useLocalStorage<MapCameraProps>('mapCamera', {
+    const [camera, setCamera] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
-            lat: primaryShop?.geolocation.latitude || geolocation?.coords?.latitude! || defaultInitState.geolocation.coords.latitude,
-            lng: primaryShop?.geolocation.longitude ||  geolocation?.coords?.longitude! || defaultInitState.geolocation.coords.longitude,
+            lat: primaryShop?.geolocation?.latitude ?? geolocation?.coords?.latitude ?? defaultInitState.geolocation.coords.latitude,
+            lng: primaryShop?.geolocation?.longitude ??  geolocation?.coords?.longitude ?? defaultInitState.geolocation.coords.longitude,
         },
-        zoom: 17.5,
+        zoom: 4.5,
     });
 
     const childProps: LocationProps = {
@@ -88,13 +84,6 @@ export default function Location(props: Props) {
         navigation,
         geolocation,
         camera,
-        onLocatePin: (geolocation) => setCamera({
-            center: {
-                lat: geolocation.lat,
-                lng: geolocation.lng,
-            },
-            zoom: 19,
-        }),
         onCameraChanged: (event) => setCamera(event?.detail),
     };
 

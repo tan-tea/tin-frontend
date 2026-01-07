@@ -1,34 +1,29 @@
 import type { Metadata, } from 'next';
 
 import { getTranslations } from 'next-intl/server';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { clientEnv } from 'env/client';
 import { getShopsDetailsByWorkspace } from 'app/actions';
 import { getQueryClient } from 'app/get-query-client';
 
-import { fetchWithBackoff } from 'lib/utils';
-
-import type {
-    Shop
-} from 'shared/models';
-
 import Location from 'pages/location';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 type PageProps = Readonly<{
     params: Promise<{
-        locale: string
+        locale: string;
     }>
 }>;
 
-export async function generateMetadata(
-    props: PageProps
-): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const { params } = props;
 
-    const _ = (await params).locale;
+    const locale = (await params).locale;
 
-    const t = await getTranslations('metadata');
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
+    });
 
     return {
         title: t('location.title'),
@@ -56,7 +51,7 @@ export default async function Page(props: PageProps) {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <Location locale={locale} workspaceId={workspaceId} />
+            <Location locale={locale} workspaceId={workspaceId}/>
         </HydrationBoundary>
     );
 };

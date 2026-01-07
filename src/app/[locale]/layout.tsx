@@ -79,14 +79,10 @@ export const viewport: Viewport = {
     ],
 };
 
-export async function generateMetadata(
-    props: Props
-): Promise<Metadata> {
-    const {
-        params
-    } = props;
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const { params } = props;
 
-    const { locale } = await params;
+    const locale = (await params).locale;
 
     const t = await getTranslations({
         locale,
@@ -108,6 +104,7 @@ export async function generateMetadata(
         applicationName: t('applicationName'),
         description: t('description'),
         creator: 'Brian Castro',
+        publisher: 'yimall.co',
         authors: [
             {
                 name: 'yimall.co',

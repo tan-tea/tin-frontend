@@ -36,9 +36,9 @@ const PlatformMobile: FC<Props> = ({
                     </div>
                     {shops && shops?.length > 0 && (
                         <div className='mt-auto flex flex-col gap-y-4'>
-                            {/* <Paragraph className='text-center font-bold'>
+                            <Paragraph className='text-center font-medium'>
                                 {t('selectHeadquarter')}
-                            </Paragraph> */}
+                            </Paragraph>
                             {shops.map(shop => (
                                 <StoreCard key={shop.id} shop={shop}/>
                             ))}

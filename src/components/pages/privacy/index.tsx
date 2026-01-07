@@ -14,16 +14,18 @@ import {
 } from 'shared/hooks';
 import { workspaceAtom } from 'shared/state';
 
+import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 const PrivacyMobile = dynamic(
     () => import('./mobile'),
     {
         ssr: false,
+        loading: () => <Loading/>
     },
 );
 
-type Props = Readonly<object>;
+type Props = Readonly<{ locale: string; }>;
 
 export type PrivacyProps = Props & {
     t: ReturnType<typeof useTranslations>;
@@ -33,7 +35,7 @@ export type PrivacyProps = Props & {
 
 export default function Privacy(props: Props) {
     'use memo'
-    const {} = props;
+    const { locale } = props;
 
     useHideUI({
         hideHeader: true,
@@ -43,12 +45,18 @@ export default function Privacy(props: Props) {
     const t = useTranslations();
     const navigation = useNavigation();
 
+    const { navigate } = useNavigation();
+
     const workspace = useAtomValue(workspaceAtom);
 
-    if (!workspace) return null;
+    if (!workspace) {
+        navigate('not-found');
+        return null;
+    }
 
     const childProps: PrivacyProps = {
         t,
+        locale,
         navigation,
         workspace,
     };

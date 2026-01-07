@@ -24,10 +24,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     };
 }
 
-export default function Page(props: PageProps) {
-    const {} = props;
+export default async function Page(props: PageProps) {
+    const { params } = props;
+
+    const locale = (await params).locale;
 
     return (
-        <Privacy/>
+        <Privacy locale={locale}/>
     );
 };

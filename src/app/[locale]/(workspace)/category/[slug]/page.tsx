@@ -15,9 +15,34 @@ type PageProps = Readonly<{
     }>;
 }>;
 
-export async function generateMetadata(): Promise<Metadata> {
-    // TODO: create metadata.
-    return {};
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+    const { params } = props;
+
+    const slug = (await params).slug;
+
+    const queryClient = getQueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ['category-offers-by-slug', slug],
+        queryFn: () => getCategoryWithOffers(slug),
+    });
+
+    const category = queryClient.getQueryData<
+        Awaited<ReturnType<typeof getCategoryWithOffers>>
+    >(['category-offers-by-slug', slug]);
+    if (!category) return {};
+
+    const title = category.label,
+        description = category.description;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+        },
+    };
 };
 
 export default async function Page(props: PageProps) {

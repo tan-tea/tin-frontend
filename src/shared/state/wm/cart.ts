@@ -89,10 +89,10 @@ export const cartItemsTotalPriceAtom = atom(async (get) => {
     const items = cart.items;
     if (!items) return 0;
 
-    let total = items
-        .filter(i => i.totalPrice)
-        .map(i => i.totalPrice)
-        .reduce((prev, curr = 0) => (prev ?? 0) + curr);
+    let total = items.reduce(
+        (sum, item) => sum + (item.totalPrice ?? 0),
+        0
+    );
 
     return total;
 });

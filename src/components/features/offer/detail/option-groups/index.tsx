@@ -10,7 +10,7 @@ import {
     useState,
 } from 'react';
 import { useAtomValue } from 'jotai';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Control, Controller, useFormState } from 'react-hook-form';
 
 import { offerAtom } from 'shared/state';
@@ -35,7 +35,7 @@ import {
 } from 'ui/checkbox';
 import { ChevronUp, ChevronDown } from 'components/icons';
 
-import type { OptionGroups } from 'pages/item-by-slug';
+import type { OptionGroups } from 'pages/item-by-slug/schemas';
 
 const OptionLabel = dynamic(
     () => import('./option-label'),
@@ -53,7 +53,6 @@ const OfferDetailOptionGroups: FC<Props> = ({
 }) => {
     'use memo'
     const t = useTranslations();
-    const formatter = useFormatter();
 
     const currentOffer = useAtomValue(offerAtom);
 

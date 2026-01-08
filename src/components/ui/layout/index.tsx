@@ -15,21 +15,34 @@ const layout = tv({
         header: cn('z-50 w-full overflow-hidden transition-transform duration-300 ease-in-out'),
     },
     variants: {
+        direction: {
+            bottom: {
+                wrapper: 'bottom-0 left-1/2 -translate-x-1/2'
+            },
+            top: {
+                wrapper: 'top-0 mx-auto',
+            },
+        },
         position: {
             fixed: {
                 header: 'fixed',
+                wrapper: 'fixed',
             },
             absolute: {
                 header: 'absolute',
+                wrapper: 'absolute',
             },
             sticky: {
                 header: 'sticky',
+                wrapper: 'sticky',
             },
             static: {
-                header: 'static'
+                header: 'static',
+                wrapper: 'static',
             },
             relative: {
                 header: 'relative',
+                wrapper: 'relative',
             },
         },
         scrolling: {
@@ -207,6 +220,8 @@ const WRAPPER_ANIMATION: MotionNodeAnimationOptions = {
 
 const Wrapper: FC<WrapperProps> = ({
     className,
+    position,
+    direction,
     ...props
 }) => {
     'use memo'
@@ -219,6 +234,8 @@ const Wrapper: FC<WrapperProps> = ({
             data-slot='layout-wrapper'
             className={wrapper({
                 className,
+                position,
+                direction,
             })}
         />
     );

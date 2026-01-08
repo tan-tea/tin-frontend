@@ -29,16 +29,12 @@ const CartMobile: FC<Props> = ({
 
     return (
         <Section
-            aria-label='category detail'
+            aria-label=''
             aria-description='Lorem ipsum'
         >
             <Titlebar
                 title='Carrito de compras'
-                renderStart={() => (
-                    <div>
-                        <BackButton/>
-                    </div>
-                )}
+                renderStart={() => (<div><BackButton/></div>)}
             />
             <CartContent/>
         </Section>

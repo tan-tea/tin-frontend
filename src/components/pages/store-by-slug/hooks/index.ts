@@ -8,6 +8,18 @@ import { getOffersByShop, getShopDetailsBySlug } from 'app/actions';
 
 import { cachedOffersAtom, cachedShopAtom } from 'shared/state';
 
+export function useOffersByShop(shopId: string) {
+    return useSuspenseQuery({
+        queryKey: ['offers-by-shop', shopId],
+        queryFn: () => getOffersByShop(shopId),
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
+        staleTime: minutesToMilliseconds(1),
+        gcTime: minutesToMilliseconds(2.5),
+        retry: 2,
+    });
+}
+
 export function useOffersByShopData(shopId: string) {
     'use memo'
     const setCachedOffers = useSetAtom(cachedOffersAtom);
@@ -19,15 +31,7 @@ export function useOffersByShopData(shopId: string) {
         isSuccess,
         isLoading,
         ...query
-    } = useSuspenseQuery({
-        queryKey: ['offers-by-shop', shopId],
-        queryFn: () => getOffersByShop(shopId),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        staleTime: minutesToMilliseconds(1),
-        gcTime: minutesToMilliseconds(2.5),
-        retry: 2,
-    });
+    } = useOffersByShop(shopId);
 
     useEffect(() => {
         if (!data) return;
@@ -51,6 +55,16 @@ export function useOffersByShopData(shopId: string) {
     };
 }
 
+export function useShopBySlug(slug: string) {
+    return useSuspenseQuery({
+        queryKey: ['shop-by-slug', slug],
+        queryFn: () => getShopDetailsBySlug(slug),
+        staleTime: minutesToMilliseconds(10),
+        gcTime: minutesToMilliseconds(30),
+        retry: 2,
+    });
+}
+
 export function useShopBySlugData(slug: string) {
     'use memo'
     const setCachedShop = useSetAtom(cachedShopAtom);
@@ -62,13 +76,7 @@ export function useShopBySlugData(slug: string) {
         isSuccess,
         isLoading,
         ...query
-    } = useSuspenseQuery({
-        queryKey: ['shop-by-slug', slug],
-        queryFn: () => getShopDetailsBySlug(slug),
-        staleTime: minutesToMilliseconds(10),
-        gcTime: minutesToMilliseconds(30),
-        retry: 2,
-    });
+    } = useShopBySlug(slug);
 
     useEffect(() => {
         if (!data) return;

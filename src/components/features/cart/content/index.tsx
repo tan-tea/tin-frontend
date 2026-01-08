@@ -23,8 +23,6 @@ const CartContent: FC<Props> = () => {
     'use memo'
     const cart = useAtomValue(cartAtom);
 
-    // if (!cart) return null;
-
     return (
         <Wrapper className='flex flex-col'>
             {JSON.stringify(cart)}

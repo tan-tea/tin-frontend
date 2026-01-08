@@ -11,11 +11,21 @@ import type { WorkspaceLayoutProps } from 'layouts/workspace';
 
 const Header = dynamic(
     () => import('components/common/header'),
+    {
+        ssr: false,
+    },
+);
+
+const CartFloat = dynamic(
+    () => import('features/cart/float'),
+    {
+        ssr: false,
+    },
 );
 
 type Props = WorkspaceLayoutProps;
 
-const BaseLayoutMobile: FC<Props> = ({
+const WorkspaceLayoutMobile: FC<Props> = ({
     children,
     showHeader,
 }) => {
@@ -29,9 +39,10 @@ const BaseLayoutMobile: FC<Props> = ({
                 showHeader && 'top-header-mobile',
             )}>
                 {children}
+                <CartFloat/>
             </div>
         </Fragment>
     );
 }
 
-export default BaseLayoutMobile;
+export default WorkspaceLayoutMobile;

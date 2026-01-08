@@ -4,6 +4,9 @@ import dynamic from 'next/dynamic';
 
 import { useTranslations } from 'next-intl';
 
+import type {
+    Cart
+} from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
 import Loading from 'pages/loading';

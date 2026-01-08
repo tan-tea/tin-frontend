@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 
-import { notFound } from 'next/navigation';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { getQueryClient } from 'app/get-query-client';
-import { getCategoryWithOffers } from 'app/actions';
 
 import Cart from 'pages/cart';
 
@@ -22,8 +20,6 @@ export default async function Page(props: PageProps) {
     const locale = (await params).locale;
 
     const queryClient = getQueryClient();
-
-    // return notFound();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

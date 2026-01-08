@@ -4,6 +4,7 @@ import { queryClientAtom } from 'jotai-tanstack-query';
 import db from 'lib/db';
 
 import type {
+    Cart,
     Category,
     Workspace,
     Customization,
@@ -68,5 +69,5 @@ export const cachedCategoryAtom = atom(
 
         const queryClient = get(queryClientAtom);
         queryClient.setQueryData(['category-offers-by-slug'], category);
-    }
-)
+    },
+);

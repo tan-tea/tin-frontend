@@ -110,25 +110,32 @@ async function getOffersByShopId(shopId: string): Promise<Array<Offer>> {
 
     const now = formatISO(new Date());
 
-    const { data, error } = await supabase
+    const offersWithShopsQuery = supabase
         .from('offers')
-        .select('*')
-        .eq('shop_id', shopId)
+        .select(`
+            *,
+            shops!inner!shop_offers (
+                *
+            )`
+        )
+        .eq('shops.id', shopId)
         .lte('start_date', now)
         .gte('end_date', now)
         .eq('is_active', true)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: true });
 
-    if (error && !data) {
+    const { data, error } = await offersWithShopsQuery;
+
+    if (error) {
         console.error('error', error);
         return [];
     }
 
-    const result = camelcaseKeys(data, { deep: true }) as Array<Offer>;
+    const offersWithShops = camelcaseKeys(data, { deep: true }) as any as Array<Offer>;
 
-    setCachedOffersByShopId(shopId, result);
+    setCachedOffersByShopId(shopId, offersWithShops);
 
-    return result;
+    return offersWithShops;
 }
 
 async function getOffersByCriteria(
@@ -143,26 +150,6 @@ async function getOffersByCriteria(
 
     const { data, error } = await supabase
         .from('offers')
-        // .select(`
-        //     id,
-        //     title,
-        //     description,
-        //     slug,
-        //     categories!inner (
-        //         category_id,
-        //         id,
-        //         label,
-        //         description
-        //     )
-        // `)
-        // .or(`title.ilike.%${query}%,description.ilike.%${query}%,slug.ilike.%${query}%,categories.label.ilike.%${query}%,categories.description.ilike.%${query}%`, {
-        //     referencedTable: 'categories',
-        //     foreignTable: 'categories',
-        // })
-        // .lte('start_date', now)
-        // .gte('end_date', now)
-        // .eq('is_active', true)
-        // .range(skip, top);
         .select(`
             id,
             title,
@@ -291,7 +278,14 @@ async function getShopBySlug(slug: string): Promise<Shop> {
     const { data, error } = await supabase
         .from('shops')
         .select(`
-            *
+            *,
+            workspace:workspaces!workspace_id ( * ),
+            address:addresses!address_id ( * ),
+            geolocation:geolocations!geolocation_id ( * ),
+            schedules:schedules!shop_id (
+                *,
+                timeSlots:schedule_time_slots!schedule_id ( * )
+            )
         `)
         .eq('slug', slug)
         .eq('workspace_id', clientEnv.NEXT_PUBLIC_WORKSPACE_ID)

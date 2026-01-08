@@ -90,21 +90,3 @@ export const cachedOffersAtom = atom(
         queryClient.setQueryData(['offers-by-shop'], offers);
     },
 );
-
-export const cartAtom = atom<Cart | null>();
-
-export const cachedCartAtom = atom(
-    null,
-    async (get, set, cart: Cart) => {
-        await db.table('carts').put({
-            ...cart,
-            id: 'current',
-            _id: cart.id,
-        });
-
-        set(cartAtom, cart);
-
-        const queryClient = get(queryClientAtom);
-        queryClient.setQueryData(['cart'], cart);
-    },
-);

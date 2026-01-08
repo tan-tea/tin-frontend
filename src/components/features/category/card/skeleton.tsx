@@ -6,7 +6,7 @@ import Skeleton from 'ui/skeleton'
 
 const CategoryCardSkeleton: FC = () => <Skeleton
     rounded='xl'
-    className='w-[70px] h-[100px]'
+    className='shrink-0 flex-1 grow w-[120px] h-[100px]'
 />
 
 export default CategoryCardSkeleton;

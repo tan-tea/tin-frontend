@@ -3,8 +3,12 @@
 import type { FC } from 'react';
 
 import { useState } from 'react';
+import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
+import { cartItemsCountAtom } from 'shared/state';
+
+import { Badge } from 'ui/badge';
 import {
     Drawer,
     DrawerTitle,
@@ -23,17 +27,24 @@ import LanguageSwitcher from 'components/language-switcher';
 import NavigationDrawerList from './list';
 import NavigationDrawerFooter from './footer';
 
-type NavigationDrawerProps = object;
+type Props = Readonly<object>;
 
-const NavigationDrawer: FC<NavigationDrawerProps> = () => {
+const NavigationDrawer: FC<Props> = () => {
     'use memo';
     const t = useTranslations();
+
+    const cartItemsCount = useAtomValue(cartItemsCountAtom);
 
     const [open, setOpen] = useState<boolean>(false);
 
     return (
         <Drawer onOpenChange={(o) => setOpen(o)}>
-            <DrawerTrigger selected={open}>
+            <DrawerTrigger selected={open} className='relative'>
+                {cartItemsCount > 0 && (
+                    <Badge className='absolute -top-2.5 -right-2.5'>
+                        {cartItemsCount}
+                    </Badge>
+                )}
                 <Icon selected={open} value={LayoutGrid}/>
             </DrawerTrigger>
             <DrawerContent className='flex flex-col h-[90%]'>

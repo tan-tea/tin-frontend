@@ -47,7 +47,7 @@ export default function Platform(props: Props) {
 
     useHideUI({
         hideHeader: true,
-        hideBottomNavigation: true,
+        hideBottomNavigation: false,
     });
 
     const t = useTranslations();

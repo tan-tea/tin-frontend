@@ -8,8 +8,6 @@ export {
     cachedOfferAtom,
     offersAtom,
     cachedOffersAtom,
-    cartAtom,
-    cachedCartAtom,
 } from './vm';
 export {
     workspaceAtom,
@@ -20,3 +18,12 @@ export {
     categoryAtom,
     cachedCategoryAtom,
 } from './wm';
+export {
+    cartAtom,
+    cartBaseAtom,
+    loadCartAtom,
+    cachedCartAtom,
+    addToCartAtom,
+    cartItemsCountAtom,
+    cartItemsTotalPriceAtom,
+} from './wm/cart';

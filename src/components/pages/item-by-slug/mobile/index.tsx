@@ -81,7 +81,7 @@ const ItemBySlugMobile: FC<Props> = ({
     'use memo'
     const formatter = useFormatter();
 
-    const { navigate } = useNavigation();
+    const { back } = useNavigation();
 
     const {
         control,
@@ -151,7 +151,7 @@ const ItemBySlugMobile: FC<Props> = ({
 
         addToCart(newItem);
         toast.success(`${offer.title} añadido al carrito.`);
-        navigate('/cart');
+        back();
     }
 
     const disabled = !isValid;
@@ -212,7 +212,7 @@ const ItemBySlugMobile: FC<Props> = ({
                             },
                         })}
                         disabled={disabled}
-                        className='flex-col'
+                        className='flex-col text-black font-bold'
                     >
                         {t('button')}
                         <span className='font-alternative text-sm'>

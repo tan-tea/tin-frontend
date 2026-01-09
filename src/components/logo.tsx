@@ -12,8 +12,6 @@ import { Link } from 'lib/i18n/navigation';
 import { customizationAtom } from 'shared/state';
 import { useNavigation } from 'shared/hooks';
 
-import Skeleton from 'ui/skeleton';
-
 import { ExternalLink } from 'ui/link';
 import {
     Menu,
@@ -37,7 +35,6 @@ const ApplicationLogo = dynamic(
     () => import('common/application-logo'),
     {
         ssr: false,
-        loading: () => <Skeleton rounded='md' className='h-10 w-[100px]'/>
     },
 );
 
@@ -78,7 +75,7 @@ const Logo: FC<Props> = () => {
 
     return (
         <Menu>
-            <MenuTrigger className='h-10'>
+            <MenuTrigger className='w-full relative h-10'>
                 <ApplicationLogo/>
             </MenuTrigger>
             <MenuPortal>

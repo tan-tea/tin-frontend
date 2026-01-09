@@ -130,7 +130,8 @@ const OfferCardMediaImage: FC<OfferCardMediaImageProps> = ({
     return (
         <CardMediaImage
             {...props}
-            priority
+            preload
+            loading='eager'
             src={src ?? BlankImage}
             width={200}
             height={200}
@@ -305,13 +306,14 @@ const OfferCard: FC<OfferCardProps> = ({
     'use memo'
     const { root, actionsArea } = offerCard({
         variant,
-    })
+    });
 
     const { slug } = useParams<{ slug: string }>();
 
     const Content = contentMap?.[variant] || contentMap?.['complete'];
 
     const target = `/store/${slug}/item/${props.offer.slug}`;
+    // const target = `./item/${props.offer.slug}`;
 
     return (
         <CardRoot rounded='xl' className={root()}>

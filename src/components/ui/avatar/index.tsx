@@ -3,19 +3,16 @@
 import type { FC, ComponentProps } from 'react';
 import type { VariantProps, ClassValue } from 'tailwind-variants';
 
-import { tv } from 'tailwind-variants';
+import Image from 'next/image';
+
+import { tv, cn } from 'tailwind-variants';
 import { motion, } from 'motion/react';
 import { Avatar as BaseAvatar, } from '@base-ui/react/avatar';
 
-import Image from 'next/image';
-
-import { cn } from 'lib/utils';
-
-export const avatar = tv({
+const avatar = tv({
     slots: {
         root: cn(
-            'inline-flex justify-center items-center border',
-            'border-[var(--mui-palette-grey-600)]/25 align-middle',
+            'inline-flex justify-center items-center align-middle',
             'rounded-full select-none overflow-hidden text-base bg-white dark:border-light-400'
         ),
         fallback: cn('size-full flex items-center justify-center text-sm p-0.5 font-medium font-primary'),

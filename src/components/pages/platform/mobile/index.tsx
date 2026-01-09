@@ -3,12 +3,20 @@
 import type { FC } from 'react';
 import type { PlatformProps } from 'pages/platform';
 
+import dynamic from 'next/dynamic';
+
 import { Main } from 'ui/layout';
 import { Paragraph } from 'ui/text';
 
-import ApplicationLogo from 'common/application-logo';
 import StoreCard from 'features/store/card';
 import NavigationDrawer from 'features/navigation/drawer';
+
+const ApplicationLogo = dynamic(
+    () => import('common/application-logo'),
+    {
+        ssr: false,
+    },
+);
 
 type Props = PlatformProps;
 

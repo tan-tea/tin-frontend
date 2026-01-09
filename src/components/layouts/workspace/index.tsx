@@ -2,10 +2,9 @@
 
 import type { ReactNode } from 'react';
 
-import { useAtom } from 'jotai';
 import { useShallow, } from 'zustand/react/shallow';
 
-import { loadCartAtom } from 'shared/state';
+import { loadCartAtom, loadHistoryAtom } from 'shared/state';
 import { useHydrateAndSyncAtom, useSyncLanguageWithRouter } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
@@ -15,7 +14,6 @@ import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 import WorkspaceLayoutMobile from './mobile';
-import WorkspaceLayoutDesktop from './desktop';
 
 type Props = Readonly<{
     children: ReactNode;
@@ -34,8 +32,9 @@ export default function WorkspaceLayout(props: Props) {
     useSyncLanguageWithRouter();
 
     useHydrateAndSyncAtom([
-        [loadCartAtom, null] as any
-    ], false);
+        [loadCartAtom, null],
+        [loadHistoryAtom, []],
+    ] as any, false);
 
     const { isLoading } = useWorkspaceData(workspaceId)
 
@@ -61,7 +60,7 @@ export default function WorkspaceLayout(props: Props) {
     return (
         <DeviceDetector
             MobileComponent={<WorkspaceLayoutMobile {...childProps}/>}
-            DesktopComponent={<WorkspaceLayoutDesktop {...childProps}/>}
+            DesktopComponent={<WorkspaceLayoutMobile {...childProps}/>}
         />
     );
 }

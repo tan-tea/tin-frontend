@@ -126,7 +126,8 @@ export {
     MoreHorizontal,
     Slash,
     Clock,
-    ShoppingCart
+    ShoppingCart,
+    Check,
 } from 'lucide-react';
 export {
     SiTiktok,

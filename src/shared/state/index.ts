@@ -23,7 +23,15 @@ export {
     cartBaseAtom,
     loadCartAtom,
     cachedCartAtom,
-    addToCartAtom,
+    addItemToCartAtom,
     cartItemsCountAtom,
     cartItemsTotalPriceAtom,
 } from './wm/cart';
+export {
+    historyAtom,
+    historyBaseAtom,
+    loadHistoryAtom,
+    cachedHistoryAtom,
+    addToHistoryAtom,
+    historyCountAtom,
+} from './app/history';

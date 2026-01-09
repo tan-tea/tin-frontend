@@ -16,7 +16,6 @@ import { Heading, Paragraph } from 'ui/text';
 import { IconButton } from 'ui/button';
 import { Icon, ShoppingCart } from 'components/icons';
 import { useFormatter } from 'next-intl';
-import { Badge } from 'ui/badge';
 
 type Props = Readonly<object>;
 
@@ -60,7 +59,7 @@ const CartFloat: FC<Props> = () => {
                 }}
                 animate='pulse'
                 variants={variants}
-                className='size-full flex items-center gap-x-2 px-2 py-2 pr-4.5 rounded-full bg-light-400 dark:bg-dark-300 cursor-pointer'
+                className='size-full flex items-center gap-x-2 px-2 py-2 pr-4.5 rounded-full bg-light-600 dark:bg-dark-500 cursor-pointer'
                 onClick={() => navigate('/cart')}
             >
                 <div>

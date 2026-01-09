@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { Fragment } from 'react';
+import { Fragment, Activity } from 'react';
 import { cn } from 'tailwind-variants';
 
 import type { WorkspaceLayoutProps } from 'layouts/workspace';
@@ -31,9 +31,13 @@ const WorkspaceLayoutMobile: FC<Props> = ({
 }) => {
     'use memo'
 
+    const visibibility = showHeader ? 'visible' : 'hidden';
+
     return (
         <Fragment>
-            {showHeader && <Header/>}
+            <Activity mode={visibibility}>
+                <Header/>
+            </Activity>
             <div className={cn(
                 'relative bg-inherit scrollbar-hide dark:bg-dark-600 dark:text-light-600',
                 showHeader && 'top-header-mobile',

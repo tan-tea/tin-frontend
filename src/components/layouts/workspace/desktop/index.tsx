@@ -12,7 +12,7 @@ const Header = dynamic(
 
 type Props = WorkspaceLayoutProps;
 
-const BaseLayoutDesktop: FC<Props> = ({
+const WorkspaceLayoutDesktop: FC<Props> = ({
     children,
     showHeader,
     showBottomNavigation,
@@ -29,4 +29,4 @@ const BaseLayoutDesktop: FC<Props> = ({
     );
 }
 
-export default BaseLayoutDesktop;
+export default WorkspaceLayoutDesktop;

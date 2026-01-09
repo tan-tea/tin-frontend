@@ -15,9 +15,8 @@ type UseScroll = {
     lastScrollY: number;
 };
 
-type UseScrollHandler = () => UseScroll;
-
-export const useScroll: UseScrollHandler = () => {
+export function useScroll(): UseScroll {
+    'use memo'
     const [scroll, setScroll] = useState<Scroll>({
         x: 0,
         y: 0,

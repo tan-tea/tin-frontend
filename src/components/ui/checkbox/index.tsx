@@ -8,6 +8,8 @@ import { tv } from 'tailwind-variants';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
 
+import { Check } from 'components/icons';
+
 const checkbox = tv({
     slots: {
         group: ['flex flex-col items-start gap-y-2'],
@@ -88,7 +90,9 @@ const CheckboxIndicator: FC<CheckboxIndicatorProps> = ({
             className={indicator({
                 className: className as ClassValue,
             })}
-        />
+        >
+            {props.children ?? <Check/>}
+        </BaseCheckbox.Indicator>
     );
 }
 

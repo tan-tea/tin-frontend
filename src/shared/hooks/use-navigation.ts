@@ -4,9 +4,7 @@ import {
     useCallback,
     useTransition
 } from 'react';
-import { toast } from 'sonner';
-import { formatISO } from 'date-fns';
-import { useTranslations } from 'next-intl';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { useRouter, usePathname } from 'lib/i18n/navigation';
@@ -14,9 +12,10 @@ import { useRouter, usePathname } from 'lib/i18n/navigation';
 import type {
     History
 } from 'shared/models';
-import { useDatabase } from 'shared/contexts/database';
-
-const MAX_HISTORY_RECORDS = 20;
+import {
+    historyAtom,
+    addToHistoryAtom,
+} from 'shared/state';
 
 type RouteParams = Record<string, string | string[]>;
 
@@ -28,7 +27,7 @@ type UseNavigation = {
     params: ReturnType<typeof useParams>;
     searchParams: ReturnType<typeof useSearchParams>;
     navigate: (href: any, options?: NavigationOptions) => void;
-    back: () => void | Promise<void>;
+    back: () => void;
     isActivePath: (path: string) => boolean;
     changeLanguage: (locale: string) => void;
     isChangingLanguage: boolean;
@@ -46,10 +45,21 @@ function resolvePathname(pathname: string, params: RouteParams) {
     return resolved;
 }
 
-export const useNavigation: UseNavigationHandler = () => {
-    const database = useDatabase();
+let intent: 'push' | 'back' = 'push';
 
-    const t = useTranslations();
+function markBackNavigation() {
+    intent = 'back';
+};
+
+function shouldRecordNavigation() {
+    const record = intent === 'push';
+    intent = 'push';
+    return record;
+};
+
+export const useNavigation: UseNavigationHandler = () => {
+    'use memo'
+
     const router = useRouter();
     const pathname = usePathname();
     const params = useParams<RouteParams>();
@@ -57,90 +67,56 @@ export const useNavigation: UseNavigationHandler = () => {
 
     const [isPending, startTransition] = useTransition();
 
+    const history = useAtomValue(historyAtom);
+    const addToHistory = useSetAtom(addToHistoryAtom);
+
     /**
      * Ruta real (sin [slug])
      */
     const resolvedPathname = useMemo(() => resolvePathname(pathname, params), [pathname, params]);
 
+    useEffect(
+        () => {
+            if (!shouldRecordNavigation()) return;
+
+            const last = history?.[history.length - 1];
+            if (last?.path === resolvedPathname) return;
+
+            const record: History = {
+                url: window?.location?.href!,
+                key: resolvedPathname,
+                path: resolvedPathname,
+                hash: window?.location?.hash!,
+                params: searchParams.toString(),
+            };
+
+            addToHistory(record);
+        },
+        [resolvePathname, searchParams],
+    );
+
     /**
      * Navegación básica
      */
-    const navigate: UseNavigation['navigate'] = router.push;
-
-    /**
-     * Guardar historial
-     */
-    const saveHistory = useCallback(
-        async (history: History) => {
-            return database.current.history?.put({
-                ...history,
-                createdAt: formatISO(new Date()),
-                modifiedAt: formatISO(new Date()),
-            });
-        },
-        [database],
+    const navigate = useCallback<UseNavigation['navigate']>(
+        (path, options) => router.push(path, options),
+        [router],
     );
-
-    const findAllHistoryFromNow = useCallback(async () => {
-        return database.current?.history
-            ?.where('createdAt')
-            ?.belowOrEqual(formatISO(new Date()))
-            ?.sortBy('createdAt');
-    }, [database]);
-
-    /**
-     * Sincronizar historial
-     */
-    const syncHistory = useCallback(async () => {
-        if (!database) return;
-
-        const newRecord: History = {
-            url: window.location.href,
-            key: resolvedPathname,
-            path: resolvedPathname,
-            hash: typeof window !== 'undefined' ? window.location.hash : '',
-            params: [...searchParams.entries()].map(([k, v]) => `${k}=${v}`),
-        };
-
-        const [count, records] = await Promise.all([
-            database.current.history.count(),
-            findAllHistoryFromNow(),
-        ]);
-
-        if (count <= MAX_HISTORY_RECORDS) {
-            return saveHistory(newRecord);
-        }
-
-        const oldest = records?.[0];
-        if (!oldest) return saveHistory(newRecord);
-
-        await Promise.all([database.current.history.delete(oldest.key), saveHistory(newRecord)]);
-    }, [database, resolvedPathname, searchParams, findAllHistoryFromNow, saveHistory]);
-
-    useEffect(() => {
-        syncHistory().catch(console.error);
-    }, [syncHistory]);
 
     /**
      * Back inteligente
      */
-    const back: UseNavigation['back'] = async () => {
-        const records = await findAllHistoryFromNow();
-        if (!records?.length) return navigate('/');
+    const back: UseNavigation['back'] = () => {
+        markBackNavigation();
 
-        try {
-            for (let i = records.length - 1; i >= 0; i--) {
-                if (records[i].path !== resolvedPathname) {
-                    return navigate(records[i].path, {
-                        scroll: false,
-                    });
-                }
-            }
-        } catch (error) {
-            toast.error(t('goBackError'));
-            console.error('Something went wrong in go back');
-            return navigate('/', { scroll: false });
-        }
+        const path =
+            history
+            ?.slice()
+            .reverse()
+            .find(r => r.path && r.path !== resolvedPathname)
+            ?.path ?? '/';
+
+        navigate(path, { scroll: true });
     };
 
     /**

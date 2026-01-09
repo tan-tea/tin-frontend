@@ -24,9 +24,7 @@ const logo = tv({
             full: 'size-full',
         },
     },
-    defaultVariants: {
-        size: 'md',
-    },
+    defaultVariants: {},
 });
 
 type LogoVariants = VariantProps<typeof logo>;

@@ -120,19 +120,16 @@ type ButtonRootProps = BaseButtonVariants
 
 const BUTTON_ROOT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
-        opacity: 0,
+        // scale: 0.90,
     },
     animate: {
-        opacity: 1,
-    },
-    exit: {
-        opacity: 0,
+        // scale: 1,
     },
     transition: {
-        opacity: {
-            type: 'spring',
-            duration: 0.25,
-        },
+        // scale: {
+        //     type: 'spring',
+        //     duration: 0.25,
+        // },
     },
 } as const;
 

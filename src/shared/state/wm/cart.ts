@@ -22,9 +22,8 @@ export const cartAtom = atom(
 
 export const loadCartAtom = atom(
     null,
-    async (_get, set) => {
+    async (_, set) => {
         const stored = await db.table<Cart>('carts').get('current');
-
         if (stored) {
             set(cartBaseAtom, stored);
         }
@@ -47,7 +46,7 @@ export const cachedCartAtom = atom(
     },
 );
 
-export const addToCartAtom = atom(
+export const addItemToCartAtom = atom(
     null,
     (get, set, newCartItem: CartItem) => {
         const currentCart = get(cartAtom);

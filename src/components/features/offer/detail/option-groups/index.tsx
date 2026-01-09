@@ -86,10 +86,10 @@ const OfferDetailOptionGroups: FC<Props> = ({
 
                 return (
                     <AccordionItem key={groupId} value={groupId}>
-                        <AccordionHeader>
-                            <AccordionTrigger>
+                        <AccordionHeader className='p-4'>
+                            {group.name}
+                            <AccordionTrigger className='p-0'>
                                 <div className='flex flex-col items-start justify-center'>
-                                    {group.name}
                                     <Paragraph>
                                         {!errors.options?.[groupId]
                                             ? t('test', {

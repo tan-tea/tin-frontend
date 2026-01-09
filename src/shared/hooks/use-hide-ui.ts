@@ -1,6 +1,4 @@
-import {
-    useEffect,
-} from 'react';
+import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
@@ -12,9 +10,7 @@ type UseHideUIProps = {
     hideBottomNavigation?: boolean;
 };
 
-type UseHideUIHandler = (props: UseHideUIProps) => UseHideUI;
-
-export const useHideUI: UseHideUIHandler = (props: UseHideUIProps) => {
+export function useHideUI(props: UseHideUIProps): UseHideUI {
     const {
         hideHeader = true,
         hideBottomNavigation = true,

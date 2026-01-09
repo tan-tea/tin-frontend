@@ -77,6 +77,7 @@ export default async function GlobalNotFoundPage(
                             <Paragraph>{t('description')}</Paragraph>
                             <ExternalLink
                                 href='/'
+                                target='_self'
                                 rel='noopener noreferrer'
                                 referrerPolicy='no-referrer'
                                 className='mt-4 px-6 py-2.5 rounded-full border border-dark-600 text-dark-600'

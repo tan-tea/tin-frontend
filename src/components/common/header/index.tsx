@@ -2,18 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-import { useAtomValue } from 'jotai';
-
-import type {
-    Shop,
-    Workspace,
-    Customization,
-} from 'shared/models';
 import { useScroll } from 'shared/hooks';
-import {
-    workspaceAtom,
-    customizationAtom,
-} from 'shared/state';
 
 import DeviceDetector from 'common/device-detector';
 
@@ -26,20 +15,10 @@ const HeaderMobile = dynamic(
     },
 );
 
-const HeaderDesktop = dynamic(
-    () => import('./desktop'),
-    {
-        loading: () => <HeaderMobileSkeleton/>,
-    },
-);
-
-type Props = object;
+type Props = Readonly<object>;
 
 export type HeaderProps = {
     scrolling: boolean;
-    workspace: Workspace | null;
-    customization: Customization | null;
-    shops: Array<Shop>;
 };
 
 export default function Header(props: Props) {
@@ -48,14 +27,8 @@ export default function Header(props: Props) {
 
     const { moving } = useScroll();
 
-    const workspace = useAtomValue(workspaceAtom);
-    const customization = useAtomValue(customizationAtom)
-
     const childProps: HeaderProps = {
         scrolling: moving,
-        workspace,
-        customization,
-        shops: workspace?.shops || [],
     };
 
     return (

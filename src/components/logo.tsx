@@ -48,7 +48,7 @@ type Navigation = {
     children: ReactNode;
 };
 
-type LogoProps = object;
+type Props = Readonly<object>;
 
 const platformMap = {
     'whatsapp': SiWhatsapp,
@@ -57,7 +57,7 @@ const platformMap = {
     'facebook': SiFacebook,
 } as const;
 
-const Logo: FC<LogoProps> = () => {
+const Logo: FC<Props> = () => {
     'use memo'
     const t = useTranslations();
 

@@ -17,8 +17,8 @@ import type {
     CartItem,
     CartItemOption,
 } from 'shared/models';
-import { addToCartAtom, cartAtom } from 'shared/state';
-import { useComputedStyle } from 'shared/hooks';
+import { addItemToCartAtom, cartAtom } from 'shared/state';
+import { useComputedStyle, useNavigation } from 'shared/hooks';
 
 import { Button } from 'ui/button';
 import { Section, Wrapper } from 'ui/layout';
@@ -81,6 +81,8 @@ const ItemBySlugMobile: FC<Props> = ({
     'use memo'
     const formatter = useFormatter();
 
+    const { navigate } = useNavigation();
+
     const {
         control,
         handleSubmit,
@@ -105,7 +107,7 @@ const ItemBySlugMobile: FC<Props> = ({
     const buttonComputedStyle = useComputedStyle(buttonRef.current);
 
     const currentCart = useAtomValue(cartAtom);
-    const addToCart = useSetAtom(addToCartAtom);
+    const addToCart = useSetAtom(addItemToCartAtom);
 
     const onSubmit = (data: OptionGroups) => {
         if (!isValid) {
@@ -128,6 +130,7 @@ const ItemBySlugMobile: FC<Props> = ({
                     cartItemId,
                     optionId: option.id,
                     optionGroupId: key,
+                    optionGroupName: selectedGroup.group.name,
                     optionName: option.name,
                     price: option.priceDelta,
                 });
@@ -148,6 +151,7 @@ const ItemBySlugMobile: FC<Props> = ({
 
         addToCart(newItem);
         toast.success(`${offer.title} añadido al carrito.`);
+        navigate('/cart');
     }
 
     const disabled = !isValid;

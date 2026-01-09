@@ -11,6 +11,18 @@ import { getShopsDetailsByWorkspace } from 'app/actions';
 
 import { cachedShopsAtom } from 'shared/state';
 
+export function useShopsByWorkspace(workspaceId: string) {
+    return useSuspenseQuery({
+        queryKey: ['shops-by-workspace', workspaceId],
+        queryFn: () => getShopsDetailsByWorkspace(workspaceId),
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
+        staleTime: secondsToMilliseconds(30),
+        gcTime: minutesToMilliseconds(5),
+        retry: 2,
+    });
+}
+
 export function useShopsByWorkspaceData(workspaceId: string) {
     'use memo'
     const setCachedShops = useSetAtom(cachedShopsAtom);
@@ -22,15 +34,7 @@ export function useShopsByWorkspaceData(workspaceId: string) {
         isSuccess,
         isLoading,
         ...query
-    } = useSuspenseQuery({
-        queryKey: ['shops-by-workspace', workspaceId],
-        queryFn: () => getShopsDetailsByWorkspace(workspaceId),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        staleTime: secondsToMilliseconds(30),
-        gcTime: minutesToMilliseconds(5),
-        retry: 2,
-    });
+    } = useShopsByWorkspace(workspaceId);
 
     useEffect(() => {
         if (!data) return;

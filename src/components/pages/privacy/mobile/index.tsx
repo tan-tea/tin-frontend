@@ -13,7 +13,6 @@ type PrivacyMobileProps = Readonly<PrivacyProps>;
 
 const PrivacyMobile: FC<PrivacyMobileProps> = ({
     t,
-    navigation,
     workspace,
 }) => {
     'use memo'
@@ -22,9 +21,9 @@ const PrivacyMobile: FC<PrivacyMobileProps> = ({
         <Section
             aria-label={t('metadata.privacy.title')}
             aria-description={t('metadata.privacy.description')}
-            className='md:scrollbar-default'
+            className='h-full md:scrollbar-default'
         >
-            <div className='p-4 flex flex-col gap-y-4 md:max-w-4xl md:mx-auto'>
+            <div className='size-full p-4 flex flex-col gap-y-4 md:max-w-4xl md:mx-auto'>
                 <RichText>
                     {(tags) => t.rich('Privacy.content', {
                         ...tags,

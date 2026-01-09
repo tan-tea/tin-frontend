@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-import { useAtomValue } from 'jotai';
 import { useTranslations, } from 'next-intl';
 
 import type {
@@ -12,7 +11,8 @@ import {
     useHideUI,
     useNavigation,
 } from 'shared/hooks';
-import { workspaceAtom } from 'shared/state';
+
+import { useWorkspaceData } from 'layouts/workspace/hooks';
 
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
@@ -25,17 +25,20 @@ const PrivacyMobile = dynamic(
     },
 );
 
-type Props = Readonly<{ locale: string; }>;
+type Props = Readonly<{
+    locale: string;
+    workspaceId: string;
+}>;
 
 export type PrivacyProps = Props & {
     t: ReturnType<typeof useTranslations>;
-    navigation: ReturnType<typeof useNavigation>;
+    navigate: ReturnType<typeof useNavigation>['navigate'];
     workspace: Workspace;
 };
 
 export default function Privacy(props: Props) {
     'use memo'
-    const { locale } = props;
+    const { locale, workspaceId } = props;
 
     useHideUI({
         hideHeader: true,
@@ -43,11 +46,10 @@ export default function Privacy(props: Props) {
     });
 
     const t = useTranslations();
-    const navigation = useNavigation();
 
     const { navigate } = useNavigation();
 
-    const workspace = useAtomValue(workspaceAtom);
+    const { workspace } = useWorkspaceData(workspaceId);
 
     if (!workspace) {
         navigate('not-found');
@@ -57,7 +59,8 @@ export default function Privacy(props: Props) {
     const childProps: PrivacyProps = {
         t,
         locale,
-        navigation,
+        workspaceId,
+        navigate,
         workspace,
     };
 

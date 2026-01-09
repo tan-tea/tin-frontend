@@ -1,6 +1,10 @@
 import type { Metadata, } from 'next';
 
 import { getTranslations } from 'next-intl/server';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
+import { clientEnv } from 'env/client';
+import { getQueryClient } from 'app/get-query-client';
 
 import Privacy from 'pages/privacy';
 
@@ -29,7 +33,13 @@ export default async function Page(props: PageProps) {
 
     const locale = (await params).locale;
 
+    const workspaceId = clientEnv.NEXT_PUBLIC_WORKSPACE_ID;
+
+    const queryClient = getQueryClient()
+
     return (
-        <Privacy locale={locale}/>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <Privacy locale={locale} workspaceId={workspaceId}/>
+        </HydrationBoundary>
     );
 };

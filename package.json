@@ -8,8 +8,8 @@
         "url": "https://github.com/briancastro-bc"
     },
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
+        "dev": "next dev --turbopack",
+        "build": "next build --turbopack",
         "start": "next start",
         "lint": "eslint ."
     },
@@ -25,6 +25,7 @@
         "@mui/material-nextjs": "^7.3.6",
         "@next/env": "16.1.1",
         "@radix-ui/react-slot": "^1.2.4",
+        "@serwist/turbopack": "latest",
         "@supabase/ssr": "^0.7.0",
         "@supabase/supabase-js": "^2.58.0",
         "@t3-oss/env-nextjs": "^0.13.8",
@@ -60,6 +61,7 @@
         "reflect-metadata": "^0.2.2",
         "remeda": "^2.32.0",
         "server-only": "^0.0.1",
+        "serwist": "10.0.0-preview.14",
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.4.0",
         "tailwind-scrollbar-hide": "^4.0.0",
@@ -76,15 +78,16 @@
     "devDependencies": {
         "@builder.io/partytown": "^0.10.3",
         "@tanstack/eslint-plugin-query": "^5.74.7",
-        "@types/node": "^20",
+        "@types/node": "^22.19.4",
         "@types/react": "19.2.3",
         "@types/react-dom": "19.2.3",
         "babel-plugin-react-compiler": "^1.0.0",
+        "esbuild-wasm": "0.27.2",
         "eslint": "^9",
         "eslint-config-next": "16.1.1",
         "eslint-config-prettier": "^10.1.2",
         "eslint-plugin-prettier": "^5.2.6",
         "prettier": "^3.5.3",
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.3"
     }
 }

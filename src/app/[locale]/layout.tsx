@@ -24,6 +24,7 @@ import { clientEnv } from 'env/client';
 
 import { routing } from 'lib/i18n/routing';
 import { locales } from 'lib/i18n/constants';
+import { SerwistProvider } from 'lib/serwist';
 
 import Providers from 'layouts/providers';
 
@@ -188,7 +189,14 @@ export default async function RootLayout(props: Props) {
                         >
                             <Toaster position='top-center'/>
                             <Providers>
-                                {children}
+                                <SerwistProvider
+                                    swUrl='/serwist/sw.js'
+                                    options={{
+                                        scope: '/',
+                                    }}
+                                >
+                                    {children}
+                                </SerwistProvider>
                             </Providers>
                         </AppRouterCacheProvider>
                     </NextIntlClientProvider>

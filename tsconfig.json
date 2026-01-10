@@ -2,9 +2,10 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "WebWorker"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,6 +15,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
@@ -79,7 +81,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "public/workers/background.js",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

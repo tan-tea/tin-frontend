@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
     output: 'standalone',
     devIndicators: false,
     // cacheComponents: true,
+    reactStrictMode: true,
     compiler: {
         removeConsole: isProd,
     },
@@ -26,6 +27,7 @@ const nextConfig: NextConfig = {
         '@t3-oss/env-nextjs',
         '@t3-oss/env-core',
     ],
+    serverExternalPackages: ['esbuild-wasm'],
     allowedDevOrigins: ['http://172.23.94.42'],
     experimental: {
         useCache: true,

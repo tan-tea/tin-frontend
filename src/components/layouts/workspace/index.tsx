@@ -4,7 +4,10 @@ import type { ReactNode } from 'react';
 
 import { useShallow, } from 'zustand/react/shallow';
 
-import { loadCartAtom, loadHistoryAtom } from 'shared/state';
+import {
+    loadCartAtom,
+    loadHistoryAtom,
+} from 'shared/state';
 import { useHydrateAndSyncAtom, useSyncLanguageWithRouter } from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 

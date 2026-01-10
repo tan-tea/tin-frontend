@@ -1,14 +1,16 @@
 export {
-    shopAtom,
-    cachedShopAtom,
-    shopsAtom,
-    cachedShopsAtom,
-    currentShopAtom,
     offerAtom,
     cachedOfferAtom,
     offersAtom,
     cachedOffersAtom,
-} from './vm';
+} from './vm/offer';
+export {
+    shopAtom,
+    shopBaseAtom,
+    cachedShopAtom,
+    shopsAtom,
+    cachedShopsAtom,
+} from './vm/shop';
 export {
     workspaceAtom,
     cachedWorkspaceAtom,

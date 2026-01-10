@@ -10,6 +10,6 @@ export { useWindowSize } from './use-window-size';
 export { useGeolocation } from './use-geolocation';
 export { useLocalStorage } from './use-local-storage';
 export { useComputedStyle } from './use-computed-style';
-export { useStoreAvailability } from './use-store-availability';
+export { useScheduleAvailability } from './use-schedule-availability';
 export { useHydrateAndSyncAtom } from './use-hydrate-sync-atom';
 export { useSyncLanguageWithRouter } from './use-sync-language-with-router';

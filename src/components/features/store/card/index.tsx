@@ -57,7 +57,7 @@ const StoreCard: FC<StoreCardProps> = ({
                     </div>
                 </CardContent>
                 <CardActions className='grid grid-cols-2 gap-2'>
-                    <StoreAvailability/>
+                    <StoreAvailability shop={shop}/>
                     <StoreLocation address={currentAddress}/>
                 </CardActions>
             </CardActionsArea>

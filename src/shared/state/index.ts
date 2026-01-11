@@ -26,6 +26,7 @@ export {
     loadCartAtom,
     cachedCartAtom,
     addItemToCartAtom,
+    removeItemFromCartAtom,
     cartItemsCountAtom,
     cartItemsTotalPriceAtom,
 } from './wm/cart';

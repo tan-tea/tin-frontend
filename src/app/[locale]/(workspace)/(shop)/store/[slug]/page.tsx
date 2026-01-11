@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { fetchWithBackoff } from 'lib/utils';
 import {
     getOffersByShop,
     getShopDetailsBySlug,
@@ -32,11 +31,16 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         locale,
     });
 
-    const shop = await fetchWithBackoff<
-        ReturnType<typeof getShopDetailsBySlug>,
-        typeof getShopDetailsBySlug,
-        Parameters<typeof getShopDetailsBySlug>
-    >(getShopDetailsBySlug, [slug]);
+    const queryClient = getQueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ['shop-by-slug', slug],
+        queryFn: () => getShopDetailsBySlug(slug),
+    });
+
+    const shop = queryClient.getQueryData<
+        Awaited<ReturnType<typeof getShopDetailsBySlug>>
+    >(['shop-by-slug', slug]);
 
     if (!shop) return {
         title: t('shopNotFound'),

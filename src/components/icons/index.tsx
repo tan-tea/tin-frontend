@@ -128,6 +128,7 @@ export {
     Clock,
     ShoppingCart,
     Check,
+    Trash,
 } from 'lucide-react';
 export {
     SiTiktok,

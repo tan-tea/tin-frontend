@@ -2,7 +2,8 @@
 
 import type { FC, ReactNode } from 'react';
 
-import { useFormatter } from 'next-intl';
+import { Fragment } from 'react';
+import { useFormatter, useTranslations } from 'next-intl';
 
 import type {
     Option
@@ -24,17 +25,25 @@ const OptionLabel: FC<Props> = ({
     children,
 }) => {
     'use memo'
+    const t = useTranslations();
     const formatter = useFormatter();
+
+    const priceIsDefined = (Boolean(option.priceDelta) && option.priceDelta > 0);
 
     return (
         <Field className='flex flex-row items-center justify-between'>
             <div className='flex flex-col gap-y-2'>
                 <FieldLabel>{option.name}</FieldLabel>
                 <FieldDescription>
-                    +{formatter.number(option.priceDelta, {
-                        currency: 'COP',
-                        currencySign: 'standard',
-                    })}
+                    {priceIsDefined && (
+                        <Fragment>
+                            +{formatter.number(option.priceDelta, {
+                                currency: 'COP',
+                                currencySign: 'standard',
+                            })}
+                        </Fragment>
+                    )}
+                    {!priceIsDefined && t('included')}
                 </FieldDescription>
             </div>
             {children}

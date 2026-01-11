@@ -6,16 +6,16 @@ import type { Variants } from 'motion/react';
 import { useAtomValue } from 'jotai';
 import { motion } from 'motion/react';
 import { useShallow } from 'zustand/shallow';
+import { useFormatter, useTranslations } from 'next-intl';
 
 import { useNavigation } from 'shared/hooks';
-import { cartAtom, cartItemsCountAtom, cartItemsTotalPriceAtom } from 'shared/state';
+import { cartItemsCountAtom, cartItemsTotalPriceAtom } from 'shared/state';
 import { useApplicationStore } from 'shared/stores/application-store';
 
 import { Wrapper } from 'ui/layout';
-import { Heading, Paragraph } from 'ui/text';
 import { IconButton } from 'ui/button';
+import { Heading, Paragraph } from 'ui/text';
 import { Icon, ShoppingCart } from 'components/icons';
-import { useFormatter } from 'next-intl';
 
 type Props = Readonly<object>;
 
@@ -39,9 +39,9 @@ const CartFloat: FC<Props> = () => {
         useShallow(store => store),
     );
 
+    const t = useTranslations('Cart');
     const formatter = useFormatter();
 
-    const cart = useAtomValue(cartAtom);
     const cartItemsCount = useAtomValue(cartItemsCountAtom);
     const cartItemsTotalPrice = useAtomValue(cartItemsTotalPriceAtom);
 
@@ -69,7 +69,7 @@ const CartFloat: FC<Props> = () => {
                 </div>
                 <div className='flex flex-col gap-y-1'>
                     <Paragraph level='4'>
-                        {cartItemsCount} items
+                        {t('items', { count: cartItemsCount })}
                     </Paragraph>
                     <Heading level='3' className='ml-auto font-primary-alt'>
                         ${formatter.number(cartItemsTotalPrice, {

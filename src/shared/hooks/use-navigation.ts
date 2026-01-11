@@ -24,7 +24,7 @@ type NavigationOptions = Parameters<ReturnType<typeof useRouter>['push']>[1];
 type UseNavigation = {
     router: ReturnType<typeof useRouter>;
     pathname: ReturnType<typeof usePathname>;
-    params: ReturnType<typeof useParams>;
+    params: ReturnType<typeof useParams<RouteParams>>;
     searchParams: ReturnType<typeof useSearchParams>;
     navigate: (href: any, options?: NavigationOptions) => void;
     back: () => void;

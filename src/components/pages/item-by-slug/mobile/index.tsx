@@ -81,7 +81,12 @@ const ItemBySlugMobile: FC<Props> = ({
     'use memo'
     const formatter = useFormatter();
 
-    const { back } = useNavigation();
+    const {
+        back,
+        params,
+    } = useNavigation();
+
+    const { slug } = params;
 
     const {
         control,
@@ -140,6 +145,7 @@ const ItemBySlugMobile: FC<Props> = ({
         const newItem: CartItem = {
             id: cartItemId,
             cartId: currentCart.id,
+            shopId: Array.isArray(slug) ? slug?.[0] : slug,
             offerId: offer.id,
             offerTitle: offer.title,
             basePrice: offer.price,

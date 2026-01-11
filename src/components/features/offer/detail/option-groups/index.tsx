@@ -112,7 +112,7 @@ const OfferDetailOptionGroups: FC<Props> = ({
                                     defaultValue={[]}
                                     render={({ field, }) => {
                                         const getControls = () => {
-                                            return isSingleOption ? {
+                                            return isSingleSelection ? {
                                                 value: field?.value?.[0],
                                                 onChange: (v: unknown) => field.onChange([v]),
                                                 Wrapper: RadioGroup,

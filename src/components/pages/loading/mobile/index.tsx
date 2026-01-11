@@ -18,14 +18,16 @@ import type { LoadingProps } from 'pages/loading';
 
 type LoadingMobileProps = LoadingProps;
 
-const LoadingMobile: FC<LoadingMobileProps> = ({ t }) => {
+const LoadingMobile: FC<LoadingMobileProps> = ({
+    t,
+}) => {
     'use memo';
     const lastIndex = useRef<number | null>(null);
 
     const messages = useMessages();
     const keys = Object.keys(messages.Loading.messages);
 
-    const [message, setMessage] = useState<string>('Loading.message');
+    const [message, setMessage] = useState<string>(`Loading.messages.${random(keys.length)}`);
 
     const getRandomIndex = () => {
         let index;

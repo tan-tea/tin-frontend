@@ -24,7 +24,7 @@ export type LoadingProps = Props & {
 
 export default function Loading(props: Props) {
     'use memo'
-    const {} = props;
+    const { } = props;
 
     const t = useTranslations();
     const navigation = useNavigation();

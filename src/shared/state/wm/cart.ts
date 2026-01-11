@@ -49,7 +49,7 @@ export const cachedCartAtom = atom(
 export const addItemToCartAtom = atom(
     null,
     (get, set, newCartItem: CartItem) => {
-        const currentCart = get(cartAtom);
+        const currentCart = get(cartBaseAtom);
 
         const existingItem = currentCart.items.find(
             item => item.offerId === newCartItem.offerId
@@ -64,8 +64,7 @@ export const addItemToCartAtom = atom(
                         ...item,
                         quantity: item.quantity + 1,
                         totalPrice: item.totalPrice + newCartItem.totalPrice
-                        }
-                    : item
+                    } : item
                 ),
             });
         } else {
@@ -77,21 +76,31 @@ export const addItemToCartAtom = atom(
     },
 );
 
-export const cartItemsCountAtom = atom(async (get) => {
-    const cart = get(cartAtom);
-    return cart.items.length ?? 0;
+export const removeItemFromCartAtom = atom(
+    null,
+    (get, set, id: string) => {
+        const currentCart = get(cartBaseAtom);
+
+        const existingItem = currentCart.items.find(
+            item => item.id === id
+        );
+
+        if (!existingItem) return;
+
+        set(cachedCartAtom, {
+            ...currentCart,
+            items: [...currentCart.items.filter(item => item.id !== existingItem.id)],
+        });
+    },
+);
+
+export const cartItemsCountAtom = atom((get) => {
+    return get(cartBaseAtom).items.length ?? 0;
 });
 
-export const cartItemsTotalPriceAtom = atom(async (get) => {
-    const cart = get(cartAtom);
-
-    const items = cart.items;
-    if (!items) return 0;
-
-    let total = items.reduce(
+export const cartItemsTotalPriceAtom = atom((get) => {
+    return get(cartBaseAtom).items.reduce(
         (sum, item) => sum + (item.totalPrice ?? 0),
         0
     );
-
-    return total;
 });

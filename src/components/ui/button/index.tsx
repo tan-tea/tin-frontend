@@ -30,6 +30,7 @@ const baseButton = tv({
                 'border-[var(--mui-palette-primary-main)]',
                 'text-[var(--mui-palette-primary-main)]',
                 'bg-[var(--mui-palette-primary-main)] hover:bg-[var(--mui-palette-primary-700)]',
+                '[&>svg]:text-[var(--mui-palette-primary-main)]'
             ],
             secondary: [
                 'border-[var(--mui-palette-primary-main)]',

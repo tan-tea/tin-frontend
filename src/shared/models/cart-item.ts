@@ -3,6 +3,7 @@ import { CartItemOption } from './cart-item-option';
 export interface CartItem {
     id: string;
     cartId: string;
+    shopId: string;
     offerId: string;
     offerTitle: string;
     basePrice: number;

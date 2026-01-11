@@ -22,6 +22,7 @@
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "headquarter": "Sucursal",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
+    "included": "Incluído",
     "metadata": {
         "applicationName": "La Perreria",
         "siteName": "La Perreria — Perros Calientes Personalizados a tu gusto y Hamburguesas en Armenia",
@@ -61,12 +62,18 @@
     "Loading": {
         "message": "Aguarda un momento...",
         "messages": {
-            "1": "<p>Tip: puedes cambiar el tema de la aplicación en el menu de opciones en la esquina superior derecha.</p>",
-            "2": "<p>Tip: puedes encontrar nuestras redes sociales al darle tap a nuestro logo.</p>",
-            "3": "<p>Consejo: utiliza el buscador para encontrar lo que deseas.</p>",
-            "4": "<p>Sabias que: puedes compartir nuestros productos al darle tap al botón de la esquina superior derecha.</p>",
-            "5": "<p>Sabias que: ver imágenes de comida aumenta el apetito</p>"
+            "0": "<p>Tip: puedes cambiar el tema de la aplicación en el menu de opciones en la esquina superior derecha.</p>",
+            "1": "<p>Tip: puedes encontrar nuestras redes sociales al darle tap a nuestro logo.</p>",
+            "2": "<p>Consejo: utiliza el buscador para encontrar lo que deseas.</p>",
+            "3": "<p>Sabias que: puedes compartir nuestros productos al darle tap al botón de la esquina superior derecha.</p>",
+            "4": "<p>Sabias que: ver imágenes de comida aumenta el apetito</p>"
         }
+    },
+    "Cart": {
+        "items": "{count} items",
+        "total": "Total: ",
+        "action": "Realizar pedido",
+        "emptyCart": "Ups! El carrito de compras esta vacío"
     },
     "theme": {
         "tooltip": "Cambiar tema",

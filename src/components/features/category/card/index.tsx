@@ -24,7 +24,7 @@ import { CardActionsArea } from 'ui/card';
 const categoryCard = tv({
     slots: {
         wrapper: 'shrink-0 px-2 py-2.5 pb-4 rounded-4xl w-26 min-h-[110px] border transition-all duration-200 cursor-pointer',
-        avatar: 'shrink-0 w-14 h-14 bg-[var(--mui-palette-primary-main)]',
+        avatar: 'relative shrink-0 w-14 h-14 bg-[var(--mui-palette-primary-main)]',
         text: 'w-full font-alternative text-xs leading-tight text-center break-words',
     },
     variants: {
@@ -89,14 +89,14 @@ const CategoryCard: FC<CategoryCardProps> = ({
                     rounded='full'
                     className={avatar()}>
                     <AvatarImage
+                        fill
+                        preload
                         loading='eager'
                         quality={100}
-                        fill={false}
                         src={banner}
-                        alt={label!}
-                        width={40}
-                        height={40}
-                        className='object-cover'
+                        alt={label}
+                        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                        className='object-cover rounded-[inherit]'
                     />
                     <AvatarFallback>
                         {getValueInitials(label!)}

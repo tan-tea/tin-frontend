@@ -13,15 +13,14 @@ import {
     useCallback,
     createContext,
 } from 'react';
-import { tv } from 'tailwind-variants';
+import { tv, cn } from 'tailwind-variants';
 import useEmblaCarousel, {
     type UseEmblaCarouselType
 } from 'embla-carousel-react';
 
 import { IconButton } from 'ui/index';
 import { ArrowLeft, ArrowRight } from 'components/icons';
-
-import { cn } from 'lib/utils';
+import { motion } from 'motion/react';
 
 const carousel = tv({});
 
@@ -58,13 +57,14 @@ function useCarousel() {
     return context;
 }
 
-const Carousel: FC<ComponentProps<'div'> & CarouselProps> = ({
+type CarouselRootProps = CarouselProps & ComponentProps<typeof motion.div>;
+
+const Carousel: FC<CarouselRootProps> = ({
     orientation = 'horizontal',
     opts,
     setApi,
     plugins,
     className,
-    children,
     ...props
 }) => {
     'use memo'
@@ -134,16 +134,14 @@ const Carousel: FC<ComponentProps<'div'> & CarouselProps> = ({
                 canScrollNext,
             }}
         >
-            <div
+            <motion.div
                 onKeyDownCapture={handleKeyDown}
                 className={cn('relative', className)}
-                role="region"
-                aria-roledescription="carousel"
-                data-slot="carousel"
+                role='region'
+                aria-roledescription='carousel'
+                data-slot='carousel'
                 {...props}
-            >
-                {children}
-            </div>
+            />
         </CarouselContext.Provider>
     );
 }
@@ -154,7 +152,7 @@ function CarouselContent({ className, ...props }: ComponentProps<'div'>) {
     return (
         <div
             ref={carouselRef}
-            className='overflow-hidden p-1'
+            className='size-full overflow-hidden p-0'
             data-slot='carousel-content'
         >
             <div
@@ -174,8 +172,8 @@ function CarouselItem({ className, ...props }: ComponentProps<'div'>) {
 
     return (
         <div
-            role="group"
-            aria-roledescription="slide"
+            role='group'
+            aria-roledescription='slide'
             data-slot='carousel-item'
             className={cn(
                 'min-w-0 shrink-0 grow-0 basis-full',

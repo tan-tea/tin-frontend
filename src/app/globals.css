@@ -127,7 +127,8 @@
     --color-dark-300: #2A2A2A;
     --color-dark-400: #1F1F1F;
     --color-dark-500: #181818;
-    --color-dark-600: #121212;
+    --color-dark-600: #000000;
+    /* --color-dark-600: #121212; */
 
     /* Main text: titles, important paragraphs */
     --color-light-400: #eceff4;

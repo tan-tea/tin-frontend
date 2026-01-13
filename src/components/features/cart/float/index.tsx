@@ -63,7 +63,7 @@ const CartFloat: FC<Props> = () => {
                 onClick={() => navigate('/cart')}
             >
                 <div>
-                    <IconButton color='primary'>
+                    <IconButton variant='outline' color='primary'>
                         <Icon value={ShoppingCart}/>
                     </IconButton>
                 </div>

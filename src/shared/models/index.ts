@@ -19,3 +19,4 @@ export type { OptionGroup } from './option-group';
 export type { Cart, CartStatus } from './cart';
 export type { CartItem } from './cart-item';
 export type { CartItemOption } from './cart-item-option';
+export type { OfferImage } from './offer-image';

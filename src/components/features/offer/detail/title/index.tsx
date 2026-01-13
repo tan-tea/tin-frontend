@@ -12,19 +12,19 @@ import { Heading, Paragraph } from 'ui/text';
 type Props = Readonly<object>;
 
 const OfferDetailTitle: FC<Props> = () => {
-    const currentOffer = useAtomValue(offerAtom);
-
+    'use memo'
+    const offer = useAtomValue(offerAtom);
     // TODO: return fallback.
-    if (!currentOffer) return null;
+    if (!offer) return null;
 
     return (
         <Wrapper className='w-full h-auto'>
             <Heading className='text-2xl leading-6'>
-                {currentOffer.title}
+                {offer.title}
             </Heading>
-            {currentOffer.category?.label && (
+            {offer.category?.label && (
                 <div className='flex-1 h-full flex items-center gap-x-1.5 flex-wrap mt-1'>
-                    <Paragraph level='3'>{currentOffer.category.label}</Paragraph>
+                    <Paragraph level='3'>{offer.category.label}</Paragraph>
                 </div>
             )}
         </Wrapper>

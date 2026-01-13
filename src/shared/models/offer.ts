@@ -3,6 +3,7 @@ import { OfferReadModel } from 'contexts/vm/offer/application/query/read-model/O
 import { Shop } from './shop';
 import { Category } from './category';
 import { Workspace } from './workspace';
+import { OfferImage } from './offer-image';
 import { OptionGroup } from './option-group';
 
 export type OfferType = 'service' | 'product';
@@ -17,6 +18,7 @@ export interface Offer extends OfferReadModel {
     shops: Array<Shop>;
     workspaceId: string;
     workspace: Workspace;
+    images: Array<OfferImage>;
     categoryId: string;
     category: Category | null;
     optionGroups: Array<OptionGroup>;

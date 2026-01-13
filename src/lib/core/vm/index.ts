@@ -44,6 +44,7 @@ async function getOfferBySlug(slug: string): Promise<Offer> {
         .select(`
             *,
             category:categories ( * ),
+            images:offer_images ( * ),
             option_groups:offer_option_groups (
                 *,
                 group:option_groups (
@@ -290,8 +291,6 @@ async function getShopBySlug(slug: string): Promise<Shop> {
         .eq('slug', slug)
         .eq('workspace_id', clientEnv.NEXT_PUBLIC_WORKSPACE_ID)
         .single();
-
-    console.log('data', data);
 
     if (error) {
         console.log('error', error);

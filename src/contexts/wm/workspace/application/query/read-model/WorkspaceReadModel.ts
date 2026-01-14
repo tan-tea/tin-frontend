@@ -8,7 +8,6 @@ export class WorkspaceReadModel implements WorkspacePrimitives {
     readonly tin: string;
     readonly isVerified: boolean;
     readonly createdAt: Date;
-    readonly shopsIds?: any[] | undefined;
 
     constructor(workspace: Workspace) {
         const primitives = workspace.toPrimitives();
@@ -20,6 +19,5 @@ export class WorkspaceReadModel implements WorkspacePrimitives {
         this.tin = primitives.tin;
         this.isVerified = primitives.isVerified;
         this.createdAt = primitives.createdAt;
-        this.shopsIds = primitives.shopsIds;
     }
 }

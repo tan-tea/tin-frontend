@@ -155,7 +155,8 @@ async function getOffersByCriteria(
             id,
             title,
             description,
-            slug
+            slug,
+            shop:shops!inner
         `)
         .or(`title.ilike.%${query}%,description.ilike.%${query}%,slug.ilike.%${query}%`)
         .lte('start_date', now)

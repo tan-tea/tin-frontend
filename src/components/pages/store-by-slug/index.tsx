@@ -61,7 +61,6 @@ export default function StoreBySlug(props: Props) {
     };
 
     const loading = isLoadingOffers || isLoadingShop;
-
     if (loading) return <Loading/>
 
     return (

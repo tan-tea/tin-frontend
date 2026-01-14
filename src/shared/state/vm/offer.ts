@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/db';
+import db from 'lib/dexie';
 
 import type {
     Offer,

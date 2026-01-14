@@ -8,7 +8,7 @@ import { millisecondsToMinutes } from 'date-fns';
 
 import type {
     CacheDatabaseTables
-} from 'lib/db';
+} from 'lib/dexie';
 
 import { useDatabase } from 'shared/contexts/database';
 

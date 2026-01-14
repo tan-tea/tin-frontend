@@ -7,7 +7,7 @@ import {
 
 import db, {
     CacheDatabase,
-} from 'lib/db';
+} from 'lib/dexie';
 
 type Database = CacheDatabase;
 

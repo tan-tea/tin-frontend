@@ -15,7 +15,7 @@ import {
 } from 'shared/state';
 
 const logo = tv({
-    base: 'object-contain box-border outline-none',
+    base: 'object-contain box-border outline-none object-center',
     variants: {
         size: {
             sm: 'h-12',
@@ -45,7 +45,7 @@ const ApplicationLogo: FC<ApplicationLogoProps> = ({
 
     const handleLoadComplete: LoadingCompleteHandler = (image) => {};
 
-    const src = customization?.logo ?? workspace?.logo ?? '/images/blank.svg';
+    const src = customization?.logo ?? '/images/blank.svg';
     const alt = workspace?.name ?? workspace?.description ?? t('metadata.siteName');
 
     return (

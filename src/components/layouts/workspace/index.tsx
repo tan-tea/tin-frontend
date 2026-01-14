@@ -6,9 +6,16 @@ import { useShallow, } from 'zustand/react/shallow';
 
 import {
     loadCartAtom,
+    loadCustomizationAtom,
     loadHistoryAtom,
+    loadWorkspaceAtom,
+    loadCategoryAtom,
+    loadShopAtom,
 } from 'shared/state';
-import { useHydrateAndSyncAtom, useSyncLanguageWithRouter } from 'shared/hooks';
+import {
+    useHydrateAndSyncAtom,
+    useSyncLanguageWithRouter
+} from 'shared/hooks';
 import { useApplicationStore, } from 'shared/stores/application-store';
 
 import { useWorkspaceData } from './hooks';
@@ -34,9 +41,17 @@ export default function WorkspaceLayout(props: Props) {
 
     useSyncLanguageWithRouter();
 
+    /**
+     * Atoms hydration and synchronization.
+     * Useful for persisting state across sessions and offline support.
+     */
     useHydrateAndSyncAtom([
         [loadCartAtom, null],
         [loadHistoryAtom, []],
+        [loadWorkspaceAtom, null],
+        [loadCustomizationAtom, null],
+        [loadCategoryAtom, null],
+        [loadShopAtom, null],
     ] as any, false);
 
     const { isLoading } = useWorkspaceData(workspaceId)
@@ -57,7 +72,6 @@ export default function WorkspaceLayout(props: Props) {
     };
 
     const loading = isLoading || globalLoading;
-
     if (loading) return <Loading/>;
 
     return (

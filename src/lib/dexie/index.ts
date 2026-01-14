@@ -1,4 +1,4 @@
-import 'lib/db/polyfill';
+import 'lib/dexie/polyfill';
 
 import type { EntityTable } from 'dexie';
 

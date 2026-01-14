@@ -1,13 +1,9 @@
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/db';
+import db from 'lib/dexie';
 
-import type {
-    Shop,
-} from 'shared/models';
-
-import { workspaceAtom } from '../wm';
+import type { Shop } from 'shared/models';
 
 export const shopBaseAtom = atom<Shop| null>(null);
 
@@ -22,9 +18,7 @@ export const loadShopAtom = atom(
     null,
     async (_, set) => {
         const stored = await db.table<Shop>('shops').get('current');
-        if (stored) {
-            set(shopBaseAtom, stored);
-        }
+        if (stored) set(shopBaseAtom, stored);
     },
 );
 

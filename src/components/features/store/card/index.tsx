@@ -9,20 +9,19 @@ import type {
     Address,
 } from 'shared/models';
 
-import { Heading, Paragraph } from 'ui/text';
+import { Heading } from 'ui/text';
+import { Button, IconButton } from 'ui/button';
 import {
     CardRoot,
     CardActionsArea,
     CardContent,
     CardActions,
 } from 'ui/card';
-import {
-    Icon,
-    Store,
-} from 'components/icons';
+import { Store } from 'components/icons';
 
 import StoreLocation from 'features/store/location';
 import StoreAvailability from 'features/store/availability';
+import { InternalLink } from 'ui/link';
 
 type StoreCardProps = Readonly<{
     shop: Shop;
@@ -37,28 +36,41 @@ const StoreCard: FC<StoreCardProps> = ({
         slug,
     } = shop;
 
-    const currentAddress = useMemo<Address | null>(
+    const address = useMemo<Address | null>(
         () => shop.address,
         [shop],
     );
 
     return (
-        <CardRoot className='h-auto rounded-2xl bg-light-400 dark:bg-dark-300'>
+        <CardRoot rounded='xxxl' className='h-auto bg-light-400 dark:bg-dark-300'>
             <CardActionsArea href={`/store/${slug}` as any}>
                 <CardContent className='h-auto'>
                     <div className='flex items-center gap-x-2.5'>
-                        <div className='p-2.5 border border-[var(--mui-palette-primary-main)] rounded-full'>
-                            <Icon selected value={Store}/>
+                        <div>
+                            <IconButton rounded='xl' variant='outline' color='background'>
+                                <Store/>
+                            </IconButton>
                         </div>
                         <div className='flex flex-col gap-y-1'>
-                            <Heading level='4'>{name}</Heading>
-                            <Paragraph level='5'>{slug}</Paragraph>
+                            <Heading level='2'>{name}</Heading>
+                            <Heading level='5'>{slug}</Heading>
                         </div>
                     </div>
                 </CardContent>
-                <CardActions className='grid grid-cols-2 gap-2'>
+                <CardActions className='grid grid-cols-1 gap-2'>
                     <StoreAvailability shop={shop}/>
-                    <StoreLocation address={currentAddress}/>
+                    <StoreLocation address={address!}/>
+                    <div className='mt-4'>
+                        <Button
+                            type='button'
+                            variant='text'
+                            color='primary'
+                        >
+                            <InternalLink href={`/store/${slug}` as any}>
+                                Ver productos
+                            </InternalLink>
+                        </Button>
+                    </div>
                 </CardActions>
             </CardActionsArea>
         </CardRoot>

@@ -56,7 +56,7 @@ const nunito = Nunito_Sans({
     weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000',],
 });
 
-type Props = Readonly<{
+type LayoutProps = Readonly<{
     children: ReactNode;
     params: Promise<{ locale: string; }>;
 }>;
@@ -80,7 +80,7 @@ export const viewport: Viewport = {
     ],
 };
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(props: LayoutProps): Promise<Metadata> {
     const { params } = props;
 
     const locale = (await params).locale;
@@ -147,13 +147,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     };
 }
 
-export default async function RootLayout(props: Props) {
-    const {
-        params,
-        children,
-    } = props;
+export default async function RootLayout(props: LayoutProps) {
+    const { params, children } = props;
 
-    const { locale, } = await params;
+    const { locale } = await params;
 
     if (!hasLocale(routing.locales, locale)) {
         notFound();

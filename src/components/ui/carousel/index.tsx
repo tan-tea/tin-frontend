@@ -13,6 +13,7 @@ import {
     useCallback,
     createContext,
 } from 'react';
+import { motion } from 'motion/react';
 import { tv, cn } from 'tailwind-variants';
 import useEmblaCarousel, {
     type UseEmblaCarouselType
@@ -20,7 +21,6 @@ import useEmblaCarousel, {
 
 import { IconButton } from 'ui/index';
 import { ArrowLeft, ArrowRight } from 'components/icons';
-import { motion } from 'motion/react';
 
 const carousel = tv({});
 
@@ -146,7 +146,13 @@ const Carousel: FC<CarouselRootProps> = ({
     );
 }
 
-function CarouselContent({ className, ...props }: ComponentProps<'div'>) {
+type CarouselContentProps = ComponentProps<'div'>;
+
+const CarouselContent: FC<CarouselContentProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
     const { carouselRef, orientation } = useCarousel();
 
     return (
@@ -167,7 +173,13 @@ function CarouselContent({ className, ...props }: ComponentProps<'div'>) {
     );
 }
 
-function CarouselItem({ className, ...props }: ComponentProps<'div'>) {
+type CarouselItemProps = ComponentProps<'div'>;
+
+const CarouselItem: FC<CarouselItemProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
     const { orientation } = useCarousel();
 
     return (

@@ -39,7 +39,7 @@ const ShareButton: FC<ShareButtonProps> = ({
     if (!isSupported) return null;
 
     return (
-        <IconButton onClick={handleClick}>
+        <IconButton variant='filled' color='background' onClick={handleClick}>
             <Icon value={Share}/>
         </IconButton>
     );

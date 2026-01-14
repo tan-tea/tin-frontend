@@ -40,6 +40,8 @@ const LocationButton: FC<LocationButtonProps> = () => {
 
     return (
         <IconButton
+            variant='filled'
+            color='background'
             initial={{
                 opacity: 1,
             }}

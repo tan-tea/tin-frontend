@@ -16,7 +16,6 @@ export interface WorkspacePrimitives {
     tin: string;
     isVerified: boolean;
     createdAt: Date;
-    shopsIds?: Array<any>;
 }
 
 export class Workspace extends AggregateRoot {
@@ -27,7 +26,6 @@ export class Workspace extends AggregateRoot {
     readonly tin: WorkspaceTin;
     readonly isVerified: WorkspaceIsVerified;
     readonly createdAt: Timestamp;
-    readonly shopsIds: Array<any> = [];
 
     constructor(
         id: WorkspaceId,

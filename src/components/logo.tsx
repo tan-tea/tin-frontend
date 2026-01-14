@@ -5,8 +5,6 @@ import type { FC, ReactNode } from 'react';
 import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
-import dynamic from 'next/dynamic';
-
 import { Link } from 'lib/i18n/navigation';
 
 import { customizationAtom } from 'shared/state';
@@ -31,12 +29,7 @@ import {
     SiFacebook,
 } from 'components/icons';
 
-const ApplicationLogo = dynamic(
-    () => import('common/application-logo'),
-    {
-        ssr: false,
-    },
-);
+import ApplicationLogo from 'common/application-logo';
 
 type Navigation = {
     href: string;

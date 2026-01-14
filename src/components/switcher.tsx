@@ -2,10 +2,6 @@
 
 import type { FC, JSX } from 'react';
 
-import {
-    useState,
-    useEffect,
-} from 'react';
 import { tv, cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 
@@ -70,15 +66,6 @@ const Switcher: FC<SwitcherProps> = ({
     setCurrent,
 }) => {
     'use memo'
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted) {
-        return <div className='flex h-7 w-24'/>;
-    }
 
     return (
         <motion.div

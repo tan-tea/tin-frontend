@@ -78,6 +78,7 @@ type OfferCardVariants = VariantProps<typeof offerCard>;
 
 type OfferCardProps = Omit<OfferCardVariants, 'hasDiscount'> & {
     offer: Offer;
+    target?: string;
     size?: ComponentProps<typeof PriceWithDiscount>['size'];
     showDescription?: boolean;
     showDiscountTimeLeft?: boolean;
@@ -301,6 +302,7 @@ const contentMap = {
 
 const OfferCard: FC<OfferCardProps> = ({
     variant = 'grid',
+    target,
     ...props
 }) => {
     'use memo'
@@ -312,12 +314,12 @@ const OfferCard: FC<OfferCardProps> = ({
 
     const Content = contentMap?.[variant] || contentMap?.['complete'];
 
-    const target = `/store/${slug}/item/${props.offer.slug}`;
+    const destination = target ?? `/store/${slug}/item/${props.offer.slug}`;
     // const target = `./item/${props.offer.slug}`;
 
     return (
         <CardRoot rounded='xl' className={root()}>
-            <CardActionsArea href={target as any} className={actionsArea()}>
+            <CardActionsArea href={destination as any} className={actionsArea()}>
                 <Content {...props}/>
             </CardActionsArea>
         </CardRoot>

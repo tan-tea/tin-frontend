@@ -2,12 +2,14 @@
 
 import type { FC } from 'react';
 
-import z from 'zod';
+import { z } from 'zod';
 import { useState } from 'react';
 import {
     useForm,
     Controller,
+    useWatch,
 } from 'react-hook-form';
+import { useAtomValue } from 'jotai';
 import { useParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from 'use-debounce';
@@ -15,6 +17,7 @@ import { useTranslations } from 'next-intl';
 
 import { cn } from 'lib/utils';
 
+import { shopAtom } from 'shared/state';
 import { useOffersCriteriaData } from 'shared/hooks/queries';
 
 import { InternalLink } from 'ui/link';
@@ -49,14 +52,13 @@ const Search: FC<SearchProps> = () => {
    'use memo'
     const t = useTranslations();
 
+    const shop = useAtomValue(shopAtom);
+
     const { slug } = useParams<{ slug: string }>();
 
-    const [open, setOpen] = useState<boolean>(false);
+    const [ open, setOpen ] = useState<boolean>(false);
 
-    const {
-        control,
-        watch,
-    } = useForm<SearchValues>({
+    const { control } = useForm<SearchValues>({
         resolver: zodResolver(SearchSchema),
         mode: 'all',
         reValidateMode: 'onChange',
@@ -65,8 +67,9 @@ const Search: FC<SearchProps> = () => {
         },
     });
 
-    const query = watch('query');
-    const [debouncedQuery] = useDebounce(query, WAIT_IN_MS);
+    const { query = '' } = useWatch({ control });
+
+    const [ debouncedQuery ] = useDebounce(query, WAIT_IN_MS);
 
     const {
         data,
@@ -76,6 +79,8 @@ const Search: FC<SearchProps> = () => {
     const isTyping = query !== debouncedQuery;
     const noResults = !isTyping && !isLoading && data && data.length === 0;
     const showEmpty = query && isTyping && !noResults;
+
+    if (!shop) return <div/>;
 
     return (
         <Controller

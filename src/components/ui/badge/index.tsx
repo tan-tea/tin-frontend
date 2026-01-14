@@ -7,8 +7,12 @@ import { tv } from 'tailwind-variants';
 import { motion } from 'motion/react';
 
 const badge = tv({
-    base: 'inline-flex items-center justify-center rounded-full border px-1 py-0 text-[10px] leading-[14px] font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
+    base: 'items-center justify-center rounded-full border px-1 py-0 text-[10px] leading-[14px] font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
     variants: {
+        position: {
+            default: 'inline-flex',
+            flex: 'flex',
+        },
         variant: {
             default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
             secondary: 'border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90',
@@ -18,6 +22,7 @@ const badge = tv({
     },
     defaultVariants: {
         variant: 'default',
+        position: 'default',
     },
 });
 
@@ -27,7 +32,8 @@ type BadgeProps = BadgeVariants & ComponentProps<typeof motion.span>;
 
 const Badge: FC<BadgeProps> = ({
     className,
-    variant,
+    variant = 'default',
+    position = 'default',
     ...props
 }) => {
     'use memo'
@@ -38,6 +44,7 @@ const Badge: FC<BadgeProps> = ({
             data-slot='badge'
             className={badge({
                 variant,
+                position,
                 className,
             })}
         />

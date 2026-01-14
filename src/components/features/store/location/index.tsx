@@ -4,6 +4,8 @@ import type { FC } from 'react';
 
 import { useMemo } from 'react';
 
+import { formatAddress } from 'lib/utils';
+
 import type {
     Address,
 } from 'shared/models';
@@ -19,22 +21,17 @@ const StoreLocation: FC<StoreLocationProps> = ({
     address,
 }) => {
     'use memo'
-    const formated = useMemo<string>(
-        () => {
-            return [
-                address?.street,
-                address?.number,
-            ].filter(Boolean).join(' ');
-        },
+    if (!address) return null;
+
+    const formatted = useMemo<string>(
+        () => formatAddress(address) ?? '',
         [address],
     );
-
-    if (!address) return null;
 
     return (
         <IconLabel
             icon={MapPin}
-            label={formated}
+            label={formatted}
         />
     );
 };

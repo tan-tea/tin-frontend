@@ -8,6 +8,18 @@ import { getWorkspaceDetailsById } from 'app/actions';
 
 import { cachedWorkspaceAtom } from 'shared/state';
 
+export function useWorkspace(workspaceId: string) {
+    return useSuspenseQuery({
+        queryKey: ['workspace', workspaceId],
+        queryFn: () => getWorkspaceDetailsById(workspaceId),
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
+        staleTime: minutesToMilliseconds(5),
+        gcTime: minutesToMilliseconds(10),
+        retry: 2,
+    });
+}
+
 export function useWorkspaceData(workspaceId: string) {
     'use memo'
     const setCachedWorkspace = useSetAtom(cachedWorkspaceAtom);
@@ -19,15 +31,7 @@ export function useWorkspaceData(workspaceId: string) {
         isSuccess,
         isLoading,
         ...query
-    } = useSuspenseQuery({
-        queryKey: ['workspace', workspaceId],
-        queryFn: () => getWorkspaceDetailsById(workspaceId),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        staleTime: minutesToMilliseconds(5),
-        gcTime: minutesToMilliseconds(10),
-        retry: 2,
-    });
+    } = useWorkspace(workspaceId);
 
     useEffect(() => {
         if (!data) return;

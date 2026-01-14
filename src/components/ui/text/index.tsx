@@ -29,7 +29,7 @@ const text = tv({
         root: cn('text-base font-normal m-0 p-0 text-inherit'),
         heading: cn('block font-secondary font-bold'),
         paragraph: cn('block font-primary-alt text-normal truncate'),
-        iconLabel: cn('flex flex-row items-center gap-x-1.5'),
+        iconLabel: cn('flex flex-row items-center gap-x-1.5 ml-0'),
         label: '',
     },
     variants: {
@@ -234,7 +234,7 @@ const IconLabel: FC<IconLabelProps> = ({
                 className,
             })}
         >
-            {icon && <Icon value={icon}/>}
+            {icon && <Icon value={icon} className='shrink-0'/>}
             <Paragraph truncate>{label}</Paragraph>
         </motion.div>
     );

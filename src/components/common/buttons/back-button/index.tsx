@@ -16,7 +16,7 @@ const BackButton: FC<BackButtonProps> = () => {
     const handleClick = async () => await back();
 
     return (
-        <IconButton onClick={handleClick}>
+        <IconButton variant='filled' color='background' onClick={handleClick}>
             <Icon value={MoveLeft} />
         </IconButton>
     );

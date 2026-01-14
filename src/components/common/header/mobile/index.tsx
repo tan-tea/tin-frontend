@@ -86,7 +86,7 @@ const CenterVariant: FC<HeaderMobileVariant> = ({
     return (
         <div className={wrapper()}>
             <Search/>
-            <div className='size-full col-span-3 flex items-center justify-center'>
+            <div className='size-full col-span-3 flex items-end justify-center'>
                 <Logo/>
             </div>
             <div className={navigation()}>

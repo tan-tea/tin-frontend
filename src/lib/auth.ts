@@ -1,12 +1,17 @@
-import 'server-only';
+// import 'server-only';
 
 import { config } from 'dotenv';
 import { milliseconds } from 'date-fns';
-import { betterAuth } from 'better-auth';
+import { betterAuth } from 'better-auth/minimal';
 import { nextCookies } from 'better-auth/next-js';
-import { genericOAuth } from 'better-auth/plugins';
+import { genericOAuth, lastLoginMethod } from 'better-auth/plugins';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
-import { serverEnv } from 'env/server';
+import * as schema from 'lib/db/schema';
+
+import { db } from 'lib/db';
+// import { clientEnv } from 'env/client';
+// import { serverEnv } from 'env/server';
 
 config({
     path: '.env.local'
@@ -15,11 +20,18 @@ config({
 const isProd = process.env.NODE_ENV === 'production';
 
 export const auth = betterAuth({
-    appName: 'myapp',
-    trustedOrigins: ['http://localhost:3000', 'https://alashes.vercel.app'],
+    appName: 'yimall.co',
+    experimental: { joins: true },
+    database: drizzleAdapter(db, {
+        provider: 'pg',
+        schema,
+        usePlural: true,
+    }),
+    // trustedOrigins: ['http://localhost:3000', clientEnv.NEXT_PUBLIC_SITE_URL],
+    trustedOrigins: ['*'],
     emailAndPassword: {
         enabled: true,
-        disableSignUp: false,
+        disableSignUp: true,
         autoSignIn: true,
         minPasswordLength: 6,
         resetPasswordTokenExpiresIn: milliseconds({ hours: 1 }),
@@ -68,19 +80,20 @@ export const auth = betterAuth({
         },
     },
     plugins: [
+        lastLoginMethod(),
+        // genericOAuth({
+        //     config: [
+        //         {
+        //             providerId: 'instagram',
+        //             clientId: serverEnv.INSTAGRAM_CLIENT_ID,
+        //             clientSecret: serverEnv.INSTAGRAM_CLIENT_SECRET,
+        //             authorizationUrl: serverEnv.INSTAGRAM_AUTHORIZE_URL,
+        //             redirectURI: serverEnv.INSTAGRAM_REDIRECT_URI,
+        //             tokenUrl: serverEnv.INSTAGRAM_TOKEN_URL,
+        //             scopes: serverEnv.INSTAGRAM_SCOPE.split(','),
+        //         },
+        //     ],
+        // }),
         nextCookies(),
-        genericOAuth({
-            config: [
-                {
-                    providerId: 'instagram',
-                    clientId: serverEnv.INSTAGRAM_CLIENT_ID,
-                    clientSecret: serverEnv.INSTAGRAM_CLIENT_SECRET,
-                    authorizationUrl: serverEnv.INSTAGRAM_AUTHORIZE_URL,
-                    redirectURI: serverEnv.INSTAGRAM_REDIRECT_URI,
-                    tokenUrl: serverEnv.INSTAGRAM_TOKEN_URL,
-                    scopes: serverEnv.INSTAGRAM_SCOPE!?.split?.(','),
-                },
-            ],
-        }),
     ],
 });

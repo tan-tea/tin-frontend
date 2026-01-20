@@ -8,6 +8,7 @@ import type {
     Shop,
     Address,
 } from 'shared/models';
+import { useNavigation, usePrefetch } from 'shared/hooks';
 
 import { Heading } from 'ui/text';
 import { Button, IconButton } from 'ui/button';
@@ -21,7 +22,6 @@ import { Store } from 'components/icons';
 
 import StoreLocation from 'features/store/location';
 import StoreAvailability from 'features/store/availability';
-import { InternalLink } from 'ui/link';
 
 type StoreCardProps = Readonly<{
     shop: Shop;
@@ -40,6 +40,9 @@ const StoreCard: FC<StoreCardProps> = ({
         () => shop.address,
         [shop],
     );
+
+    const { navigate } = useNavigation();
+    const { prefetchOnHover } = usePrefetch();
 
     return (
         <CardRoot rounded='xxxl' className='h-auto bg-light-400 dark:bg-dark-300'>
@@ -63,12 +66,12 @@ const StoreCard: FC<StoreCardProps> = ({
                     <div className='mt-4'>
                         <Button
                             type='button'
-                            variant='text'
+                            variant='outline'
                             color='primary'
+                            onMouseEnter={() => prefetchOnHover(`/store/${slug}`)}
+                            onClick={() => navigate(`/store/${slug}`)}
                         >
-                            <InternalLink href={`/store/${slug}` as any}>
-                                Ver productos
-                            </InternalLink>
+                            Ver productos
                         </Button>
                     </div>
                 </CardActions>

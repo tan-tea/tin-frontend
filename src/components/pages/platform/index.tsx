@@ -44,8 +44,6 @@ export default function Platform(props: Props) {
 
     const workspace = useAtomValue(workspaceAtom);
 
-    console.log('workspace', workspace);
-
     const {
         shops,
         primaryShop,

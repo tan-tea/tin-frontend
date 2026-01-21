@@ -24,9 +24,9 @@ export const addresses = p.pgTable(
             .notNull(),
     },
     (table) => [
-        p.index('addresses_street_idx').on(table.street),
-        p.index('addresses_city_idx').on(table.city),
-        p.index('addresses_country_idx').on(table.country),
+        p.index().on(table.street),
+        p.index().on(table.city),
+        p.index().on(table.country),
     ],
 );
 

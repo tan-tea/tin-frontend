@@ -22,7 +22,7 @@ export const offerImages = p.pgTable(
             .references(() => offers.id),
     },
     (table) => [
-        p.index('offer_images_image_idx').on(table.image),
+        p.index().on(table.image),
     ],
 );
 

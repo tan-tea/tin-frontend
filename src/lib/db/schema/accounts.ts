@@ -27,7 +27,8 @@ export const accounts = p.pgTable(
             .references(() => users.id, { onDelete: 'cascade' }),
     },
     (table) => [
-        p.index('account_user_id_idx').on(table.userId),
+        p.index().on(table.accountId),
+        p.index().on(table.providerId),
     ],
 );
 

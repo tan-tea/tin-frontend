@@ -16,7 +16,7 @@ export const verifications = p.pgTable(
             .notNull(),
     },
     (table) => [
-        p.index('verification_identifier_idx').on(table.identifier),
+        p.index().on(table.identifier),
     ],
 );
 

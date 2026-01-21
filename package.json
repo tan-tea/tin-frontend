@@ -39,7 +39,7 @@
         "date-fns": "^4.1.0",
         "dexie": "^4.0.11",
         "dotenv": "^17.2.3",
-        "drizzle-orm": "1.0.0-beta.11-05230d9",
+        "drizzle-orm": "0.45.1",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
         "fake-indexeddb": "^6.2.4",
@@ -86,13 +86,14 @@
         "@types/react": "19.2.3",
         "@types/react-dom": "19.2.3",
         "babel-plugin-react-compiler": "^1.0.0",
-        "drizzle-kit": "1.0.0-beta.11-05230d9",
+        "drizzle-kit": "0.31.8",
         "esbuild-wasm": "0.27.2",
         "eslint": "^9",
         "eslint-config-next": "16.1.1",
         "eslint-config-prettier": "^10.1.2",
         "eslint-plugin-prettier": "^5.2.6",
         "prettier": "^3.5.3",
+        "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     }
 }

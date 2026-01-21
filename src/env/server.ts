@@ -12,7 +12,7 @@ export const serverEnv = createEnv({
         INSTAGRAM_CLIENT_SECRET: z.string().min(1),
         INSTAGRAM_REDIRECT_URI: z.string().min(1),
         INSTAGRAM_TOKEN: z.string().min(1),
-        MAIN_DATABASE_URL: z.url(),
+        DATABASE_URL: z.url(),
         REPLICA_DATABASE_URL: z.string().optional(),
     },
     experimental__runtimeEnv: process.env,

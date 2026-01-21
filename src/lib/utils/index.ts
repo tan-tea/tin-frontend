@@ -194,3 +194,25 @@ export const setCached: SetCachedFn = (store, key, data, duration = 5) => {
         expiresAt: Date.now() + cacheDurationFactory(duration),
     });
 }
+
+export function slugify(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")                 // separa acentos
+        .replace(/[\u0300-\u036f]/g, "")  // elimina acentos
+        .replace(/[^a-z0-9\s-]/g, "")     // elimina caracteres especiales
+        .trim()
+        .replace(/\s+/g, "-")             // espacios → guiones
+        .replace(/-+/g, "-");             // evita guiones dobles
+}
+
+export function uniqueSlug(base: string, exists: (slug: string) => boolean) {
+    let slug = slugify(base);
+    let counter = 1;
+
+    while (exists(slug)) {
+        slug = `${slugify(base)}-${counter++}`;
+    }
+
+    return slug;
+}

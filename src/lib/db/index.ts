@@ -4,16 +4,16 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { serverEnv } from 'env/server';
 
-import { relations } from './relations';
+import * as schema from './schema';
 
 const client = new Pool({
-    connectionString: serverEnv.MAIN_DATABASE_URL,
+    connectionString: serverEnv.DATABASE_URL,
     ssl: true,
 });
 
 export const maindb = drizzle({
     client,
-    relations,
+    schema,
 });
 
 const replicaClient = new Pool({
@@ -23,7 +23,7 @@ const replicaClient = new Pool({
 
 export const replicadb = drizzle({
     client: replicaClient,
-    relations,
+    schema,
 });
 
 export const db = withReplicas(maindb, [replicadb]);

@@ -55,7 +55,7 @@
         "./src/components/common/*"
       ],
       "contexts/*": [
-        "./src/contexts/*"
+        "./src/_contexts/*"
       ],
       "icons/*": [
         "./src/components/icons/*"
@@ -82,7 +82,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "src/lib/db/schema/.keep"  ],
   "exclude": [
     "node_modules"
   ]

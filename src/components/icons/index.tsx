@@ -1,19 +1,14 @@
-import type {
-    FC,
-    ElementType,
-} from 'react';
-import { LucideProps } from 'lucide-react';
-import {
-    tv,
-    type ClassValue,
-    type VariantProps
-} from 'tailwind-variants';
+import type { FC, ElementType } from 'react';
+import type { VariantProps, ClassValue } from 'tailwind-variants';
 
-import Es from './Es';
-import En from './En';
-import Blob from './Blob';
-import Logo from './Logo';
-import Discord from './Discord';
+import { tv } from 'tailwind-variants';
+import { LucideProps } from 'lucide-react';
+
+import Es from './es';
+import En from './en';
+import Blob from './blob';
+import Logo from './logo';
+import Discord from './discord';
 
 const baseIcon = tv({
     base: 'size-6',
@@ -129,6 +124,7 @@ export {
     ShoppingCart,
     Check,
     Trash,
+    UserPlus,
 } from 'lucide-react';
 export {
     SiTiktok,

@@ -8,7 +8,6 @@ import { subcategories } from './subcategories';
 import { workspaces } from './workspaces';
 import { shopOffers } from './shop-offers';
 import { offerImages } from './offer-images';
-import { optionGroups } from './option-groups';
 import { cartItems } from './cart-items';
 import { appointments } from './appointments';
 import { offerOptionGroups } from './offer-option-groups';
@@ -32,7 +31,7 @@ export const offers = p.pgTable(
         banner: p.text('banner').notNull(),
         price: p.numeric('price', { precision: 12, scale: 2 }).notNull(),
         stock: p.integer('stock').default(0),
-        discount: p.smallint('discount').default(0),
+        discount: p.smallint('discount').default(0).notNull(),
         startDate: p.timestamp('start_date').defaultNow().notNull(),
         endDate: p.timestamp('end_date')
             .$default(() => new Date(9999, 11, 31))
@@ -49,7 +48,6 @@ export const offers = p.pgTable(
         subcategoryId: p.uuid('subcategory_id')
             .references(() => subcategories.id),
         shopId: p.uuid('shop_id') //TODO: pending to remove?
-            .notNull()
             .references(() => shops.id),
         workspaceId: p.uuid('workspace_id')
             .notNull()
@@ -77,7 +75,7 @@ export const offersRelations = relations(offers, ({ one, many }) => ({
         fields: [offers.workspaceId],
         references: [workspaces.id],
     }),
-    shopOffers: many(shopOffers),
+    offers: many(shopOffers),
     images: many(offerImages),
     optionGroups: many(offerOptionGroups),
     cartItems: many(cartItems),

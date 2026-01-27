@@ -1,17 +1,17 @@
 'use client'
 
+import type { Shop } from 'shared/models';
+
 import dynamic from 'next/dynamic';
 
 import {
     MapCameraProps,
     MapCameraChangedEvent,
 } from '@vis.gl/react-google-maps';
+import { Decimal } from 'decimal.js';
 import { useTranslations, } from 'next-intl';
 import { useShallow, } from 'zustand/react/shallow';
 
-import type {
-    Shop
-} from 'shared/models';
 import {
     useHideUI,
     useNavigation,
@@ -70,8 +70,8 @@ export default function Location(props: Props) {
 
     const [camera, setCamera] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
-            lat: primaryShop?.geolocation?.latitude ?? geolocation?.coords?.latitude ?? defaultInitState.geolocation.coords.latitude,
-            lng: primaryShop?.geolocation?.longitude ??  geolocation?.coords?.longitude ?? defaultInitState.geolocation.coords.longitude,
+            lat: Decimal(primaryShop?.geolocation?.latitude ?? geolocation?.coords?.latitude).toNumber() ?? defaultInitState.geolocation.coords.latitude,
+            lng: Decimal(primaryShop?.geolocation?.longitude ?? geolocation?.coords?.longitude).toNumber() ?? defaultInitState.geolocation.coords.longitude,
         },
         zoom: 4.5,
     });

@@ -2,7 +2,7 @@ import { atom } from 'jotai';
 import { formatISO } from 'date-fns';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
+import cache from 'lib/dexie';
 
 import type { History } from 'shared/models';
 
@@ -18,7 +18,7 @@ export const historyAtom = atom(
 export const loadHistoryAtom = atom(
     null,
     async (_, set) => {
-        const stored = await db.table<HiddenId<History>>('history').toArray();
+        const stored = await cache.table<HiddenId<History>>('history').toArray();
         if (stored) {
             set(historyBaseAtom, stored);
         }
@@ -28,7 +28,7 @@ export const loadHistoryAtom = atom(
 export const cachedHistoryAtom = atom(
     null,
     async (get, set, history: Array<History>) => {
-        await db.table<HiddenId<History>>('history').bulkPut(
+        await cache.table<HiddenId<History>>('history').bulkPut(
             history.map(h => ({
                 ...h,
                 _id: h.key,

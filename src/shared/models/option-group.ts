@@ -1,6 +1,5 @@
-import { Group } from './group';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface OptionGroup {
-    sortOrder: number;
-    group: Group;
-}
+import { offerOptionGroups } from 'lib/db/schema';
+
+export interface OptionGroup extends InferSelectModel<typeof offerOptionGroups> {}

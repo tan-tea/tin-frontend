@@ -30,6 +30,14 @@
         "titleTemplate": "",
         "description": "",
         "keywords": "",
+        "signin": {
+            "title": "",
+            "description": ""
+        },
+        "signup": {
+            "title": "",
+            "description": ""
+        },
         "location": {
             "title": "",
             "description": ""

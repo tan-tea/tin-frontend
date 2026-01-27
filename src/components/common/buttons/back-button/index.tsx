@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { useNavigation } from 'shared/hooks';
 
 import { IconButton } from 'ui/button';
-import { Icon, MoveLeft } from 'components/icons';
+import { ArrowLeft } from 'components/icons';
 
 type BackButtonProps = Readonly<object>;
 
@@ -16,8 +16,12 @@ const BackButton: FC<BackButtonProps> = () => {
     const handleClick = async () => await back();
 
     return (
-        <IconButton variant='filled' color='background' onClick={handleClick}>
-            <Icon value={MoveLeft} />
+        <IconButton
+            variant='filled'
+            color='background'
+            onClick={handleClick}
+        >
+            <ArrowLeft/>
         </IconButton>
     );
 };

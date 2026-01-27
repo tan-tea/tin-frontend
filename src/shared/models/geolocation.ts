@@ -1,7 +1,5 @@
-export interface Geolocation {
-    id: string;
-    latitude: number;
-    longitude: number;
-    accuracy: number;
-    createdAt: Date;
-}
+import type { InferSelectModel } from 'drizzle-orm';
+
+import { geolocations } from 'lib/db/schema';
+
+export interface Geolocation extends InferSelectModel<typeof geolocations> {}

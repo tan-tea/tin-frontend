@@ -4,14 +4,14 @@ import { useSetAtom } from 'jotai';
 import { minutesToMilliseconds } from 'date-fns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { getWorkspaceDetailsById } from 'app/actions';
+import { getVerifiedWorkspaceById } from 'app/actions';
 
 import { cachedWorkspaceAtom } from 'shared/state';
 
 export function useWorkspace(workspaceId: string) {
     return useSuspenseQuery({
-        queryKey: ['workspace', workspaceId],
-        queryFn: () => getWorkspaceDetailsById(workspaceId),
+        queryKey: ['workspace-by-id', workspaceId],
+        queryFn: () => getVerifiedWorkspaceById(workspaceId),
         refetchOnMount: true,
         refetchOnWindowFocus: true,
         staleTime: minutesToMilliseconds(5),

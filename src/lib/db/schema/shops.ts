@@ -22,8 +22,8 @@ export const shops = p.pgTable(
         }),
         banner: p.text('banner'),
         phone: p.varchar('phone', { length: 15 }),
-        isPrimary: p.boolean('is_primary').default(false),
-        isVerified: p.boolean('is_verified').default(false),
+        isPrimary: p.boolean('is_primary').default(false).notNull(),
+        isVerified: p.boolean('is_verified').default(false).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()
@@ -58,7 +58,7 @@ export const shopsRelations = relations(shops, ({ one, many }) => ({
         fields: [shops.workspaceId],
         references: [workspaces.id],
     }),
-    shopOffers: many(shopOffers),
+    offers: many(shopOffers),
     schedules: many(schedules),
     exceptions: many(exceptions),
     cartItems: many(cartItems),

@@ -1,27 +1,25 @@
 'use client'
 
 import type { FC } from 'react';
+import type { Offer } from 'shared/models';
 import type { PlatformProps } from 'pages/platform';
 
 import Autoplay from 'embla-carousel-autoplay';
 
-import { useAtomValue } from 'jotai';
 import { secondsToMilliseconds } from 'date-fns';
 
-import { offersAtom } from 'shared/state';
-
-import { Main } from 'ui/layout';
-import { Badge } from 'ui/badge';
-import { Heading } from 'ui/text';
-import { InternalLink } from 'ui/link';
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
 } from 'ui/carousel';
+import { Main } from 'ui/layout';
+import { Badge } from 'ui/badge';
+import { Heading } from 'ui/text';
+import { InternalLink } from 'ui/link';
 
 import StoreCard from 'features/store/card';
-import OfferCard from 'components/features/offer/card';
+import OfferCard from 'features/offer/card';
 
 type Props = PlatformProps;
 
@@ -31,7 +29,6 @@ const PlatformMobile: FC<Props> = ({
     workspace,
 }) => {
     'use memo'
-    const offers = useAtomValue(offersAtom);
 
     return (
         <Main
@@ -43,13 +40,19 @@ const PlatformMobile: FC<Props> = ({
             <Carousel className='size-full py-2 flex flex-col gap-y-6'>
                 <CarouselContent className='size-full ml-0'>
                     {shops.map(shop => {
+                        const offers = shop?.offers
+                            .map(o => o.offer)
+                            .filter((offer): offer is Offer => offer !== undefined);
+
+                        const hasOffers = offers && offers.length > 0;
+
                         return (
                             <CarouselItem key={shop.id} className='size-full grow flex flex-col gap-y-6 pl-0'>
                                 <Carousel
                                     opts={{ loop: true }}
                                     plugins={[
                                         Autoplay({
-                                            delay: secondsToMilliseconds(5),
+                                            delay: secondsToMilliseconds(2),
                                             playOnInit: true,
                                         }),
                                     ]}
@@ -68,37 +71,33 @@ const PlatformMobile: FC<Props> = ({
                                             ))}
                                         </CarouselContent>
                                 </Carousel>
-                                <Carousel>
-                                    <CarouselContent className='px-4'>
-                                        {shops.map(shop => (
-                                            <CarouselItem key={shop.id}>
-                                                <StoreCard shop={shop}/>
-                                            </CarouselItem>
-                                        ))}
-                                    </CarouselContent>
-                                </Carousel>
-                                <Carousel
-                                    opts={{ loop: true }}
-                                    plugins={[
-                                        Autoplay({
-                                            playOnInit: true,
-                                            delay: secondsToMilliseconds(10),
-                                        }),
-                                    ]}
-                                    className='flex flex-col gap-y-4 px-4'
-                                >
-                                    <div className='flex items-center justify-between'>
-                                        <Heading>Recientes</Heading>
-                                        <InternalLink href={`/store/${shops?.[0]?.slug}` as any}>Ver todos</InternalLink>
-                                    </div>
-                                    <CarouselContent>
-                                        {offers.map(offer => (
-                                            <CarouselItem key={offer.id}>
-                                                <OfferCard offer={offer}/>
-                                            </CarouselItem>
-                                        ))}
-                                    </CarouselContent>
-                                </Carousel>
+                                <div className='px-4'>
+                                    <StoreCard shop={shop}/>
+                                </div>
+                                {hasOffers && (
+                                    <Carousel
+                                        opts={{ loop: true }}
+                                        plugins={[
+                                            Autoplay({
+                                                playOnInit: true,
+                                                delay: secondsToMilliseconds(5),
+                                            }),
+                                        ]}
+                                        className='flex flex-col gap-y-4 px-4'
+                                    >
+                                        <div className='flex items-center justify-between'>
+                                            <Heading>Recientes</Heading>
+                                            <InternalLink href={`/store/${shop.slug}` as any}>Ver todos</InternalLink>
+                                        </div>
+                                        <CarouselContent>
+                                            {offers.map(offer => (
+                                                <CarouselItem key={offer.id} className='pl-4'>
+                                                    <OfferCard offer={offer}/>
+                                                </CarouselItem>
+                                            ))}
+                                        </CarouselContent>
+                                    </Carousel>
+                                )}
                             </CarouselItem>
                         )
                     })}

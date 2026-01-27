@@ -51,6 +51,8 @@ export default function Platform(props: Props) {
         isLoading,
     } = useShopsByWorkspaceData(workspaceId);
 
+    console.log('shops', shops);
+
     const childProps: PlatformProps = {
         t,
         shops,

@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
+import cache from 'lib/dexie';
 
 import type { Cart, CartItem } from 'shared/models';
 
@@ -21,7 +21,7 @@ export const cartAtom = atom(
 export const loadCartAtom = atom(
     null,
     async (_, set) => {
-        const stored = await db.table<Cart>('carts').get('current');
+        const stored = await cache.table<Cart>('carts').get('current');
         if (stored) set(cartBaseAtom, stored);
     },
 );
@@ -29,7 +29,7 @@ export const loadCartAtom = atom(
 export const cachedCartAtom = atom(
     null,
     async (get, set, cart: Cart) => {
-        await db.table<HiddenId<Cart>>('carts').put({
+        await cache.table<HiddenId<Cart>>('carts').put({
             ...cart,
             id: 'current',
             _id: cart.id,

@@ -7,7 +7,7 @@ import { users } from './users';
 export const accounts = p.pgTable(
     'accounts',
     {
-        id: p.uuid('id').primaryKey().defaultRandom(),
+        id: p.text('id').primaryKey(),
         accountId: p.text('account_id').notNull(),
         providerId: p.text('provider_id').notNull(),
         accessToken: p.text('access_token'),
@@ -22,7 +22,7 @@ export const accounts = p.pgTable(
             .defaultNow()
             .$onUpdate(() => new Date())
             .notNull(),
-        userId: p.uuid('user_id')
+        userId: p.text('user_id')
             .notNull()
             .references(() => users.id, { onDelete: 'cascade' }),
     },

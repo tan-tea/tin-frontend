@@ -1,12 +1,5 @@
-import { Category } from './category';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Subcategory {
-    id: string;
-    workspaceId: string;
-    categoryId: string;
-    category: Category;
-    label: string;
-    description: string;
-    position: number;
-    createdAt: Date;
-}
+import { subcategories } from 'lib/db/schema';
+
+export interface Subcategory extends InferSelectModel<typeof subcategories> {}

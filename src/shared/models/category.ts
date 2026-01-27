@@ -1,11 +1,5 @@
-import { CategoryReadModel } from 'contexts/wm/category/application/query/read-model/CategoryReadModel';
+import type { InferSelectModel } from 'drizzle-orm';
 
-import { Offer } from './offer';
-import { Subcategory } from './subcategory';
+import { categories } from 'lib/db/schema';
 
-export interface Category extends CategoryReadModel {
-    slug: string;
-    offers: Array<Offer>;
-    subcategoryId: string;
-    subcategory: Subcategory;
-}
+export interface Category extends InferSelectModel<typeof categories> {}

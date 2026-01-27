@@ -11,7 +11,7 @@ import { appointments } from './appointments';
 export const users = p.pgTable(
     'users',
     {
-        id: p.uuid('id').primaryKey().defaultRandom(),
+        id: p.text('id').primaryKey(),
         name: p.text('name').notNull(),
         email: p.text('email').notNull(),
         emailVerified: p.boolean('email_verified').default(false).notNull(),

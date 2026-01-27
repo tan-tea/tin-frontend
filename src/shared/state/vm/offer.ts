@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
+import cache from 'lib/dexie';
 
 import type {
     Offer,
@@ -12,7 +12,7 @@ export const offerAtom = atom<Offer | null>(null);
 export const cachedOfferAtom = atom(
     null,
     async (get, set, offer: Offer) => {
-        await db.table('offers').put({
+        await cache.table('offers').put({
             ...offer,
             id: 'current',
             _id: offer.id,
@@ -30,7 +30,7 @@ export const offersAtom = atom<Array<Offer>>([]);
 export const cachedOffersAtom = atom(
     null,
     async (get, set, offers: Array<Offer>) => {
-        await db.table('offers').bulkPut(
+        await cache.table('offers').bulkPut(
             offers.map(offer => ({ ...offer, _id: offer.id })),
         );
 

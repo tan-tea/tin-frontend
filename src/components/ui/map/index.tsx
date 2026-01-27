@@ -10,6 +10,7 @@ import {
     Pin as BasePin,
     InfoWindow as BaseInfoWindow,
     AdvancedMarker as BaseAdvanceMarker,
+    StaticMap as BaseStaticMap,
 } from '@vis.gl/react-google-maps';
 
 const map = tv({
@@ -17,6 +18,7 @@ const map = tv({
         root: cn('w-full min-h-[100%]'),
         infoWindow: cn(''),
         marker: cn(''),
+        staticMap: cn(''),
     },
     variants: {},
 });
@@ -25,7 +27,7 @@ type MapVariants = VariantProps<typeof map>;
 
 type MapProps = MapVariants & ComponentProps<typeof BaseMap>;
 
-export const Map: FC<MapProps> = ({
+const Map: FC<MapProps> = ({
     className,
     ...props
 }) => {
@@ -55,7 +57,7 @@ export const Map: FC<MapProps> = ({
 
 type PinProps = MapVariants & ComponentProps<typeof BasePin>;
 
-export const Pin: FC<PinProps> = ({ ...props }) => {
+const Pin: FC<PinProps> = ({ ...props }) => {
     'use memo'
 
     return (
@@ -65,7 +67,7 @@ export const Pin: FC<PinProps> = ({ ...props }) => {
 
 type AdvancedMarkerProps = MapVariants & ComponentProps<typeof BaseAdvanceMarker>;
 
-export const AdvancedMarker: FC<AdvancedMarkerProps> = ({
+const AdvancedMarker: FC<AdvancedMarkerProps> = ({
     className,
     ...props
 }) => {
@@ -85,7 +87,7 @@ export const AdvancedMarker: FC<AdvancedMarkerProps> = ({
 
 type InfoWindowProps = MapVariants & ComponentProps<typeof BaseInfoWindow>;
 
-export const InfoWindow: FC<InfoWindowProps> = ({
+const InfoWindow: FC<InfoWindowProps> = ({
     className,
     ...props
 }) => {
@@ -101,4 +103,32 @@ export const InfoWindow: FC<InfoWindowProps> = ({
             })}
         />
     );
+}
+
+type StaticMapProps = MapVariants & ComponentProps<typeof BaseStaticMap>;
+
+const StaticMap: FC<StaticMapProps> = ({
+    className,
+    ...props
+}) => {
+    'use memo'
+    const { staticMap } = map();
+
+    return (
+        <BaseStaticMap
+            {...props}
+            data-slot='map-static'
+            className={staticMap({
+                className,
+            })}
+        />
+    )
+}
+
+export {
+    Map,
+    Pin,
+    AdvancedMarker,
+    InfoWindow,
+    StaticMap,
 }

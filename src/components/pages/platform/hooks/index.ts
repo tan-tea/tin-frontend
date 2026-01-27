@@ -7,14 +7,14 @@ import {
 } from 'date-fns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { getShopsDetailsByWorkspace } from 'app/actions';
+import { getVerifiedShopsByWorkspace } from 'app/actions';
 
 import { cachedShopsAtom } from 'shared/state';
 
 export function useShopsByWorkspace(workspaceId: string) {
     return useSuspenseQuery({
         queryKey: ['shops-by-workspace', workspaceId],
-        queryFn: () => getShopsDetailsByWorkspace(workspaceId),
+        queryFn: () => getVerifiedShopsByWorkspace(workspaceId),
         refetchOnMount: true,
         refetchOnWindowFocus: true,
         staleTime: secondsToMilliseconds(30),

@@ -1,25 +1,5 @@
-import { OfferReadModel } from 'contexts/vm/offer/application/query/read-model/OfferReadModel';
+import type { InferSelectModel } from 'drizzle-orm';
 
-import { Shop } from './shop';
-import { Category } from './category';
-import { Workspace } from './workspace';
-import { OfferImage } from './offer-image';
-import { OptionGroup } from './option-group';
+import { offers } from 'lib/db/schema';
 
-export type OfferType = 'service' | 'product';
-
-export type OfferSchedulingType = 'provider' | 'capacity';
-
-export interface Offer extends OfferReadModel {
-    type: OfferType;
-    schedulingType: OfferSchedulingType;
-    duration: number;
-    slug: string;
-    shops: Array<Shop>;
-    workspaceId: string;
-    workspace: Workspace;
-    images: Array<OfferImage>;
-    categoryId: string;
-    category: Category | null;
-    optionGroups: Array<OptionGroup>;
-}
+export interface Offer extends InferSelectModel<typeof offers> {}

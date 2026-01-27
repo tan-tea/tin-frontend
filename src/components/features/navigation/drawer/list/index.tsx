@@ -6,10 +6,9 @@ import { useId } from 'react';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
-import { cn } from 'lib/utils';
-
 import {
     MapPin,
+    UserPlus,
     ShoppingCart
 } from 'components/icons';
 
@@ -25,8 +24,14 @@ const NavigationDrawerList: FC<NavigationDrawerListProps> = () => {
 
     const links: Array<ComponentProps<typeof NavigationDrawerListItem>> = [
         {
+            href: '/sign-up',
+            label: 'Registrate', //TODO: use t
+            isExternal: false,
+            icon: UserPlus,
+        },
+        {
             href: '/cart',
-            label: 'Carrito de compras',
+            label: 'Carrito de compras', //TODO: use t
             isExternal: false,
             icon: ShoppingCart,
         },
@@ -39,7 +44,7 @@ const NavigationDrawerList: FC<NavigationDrawerListProps> = () => {
     ];
 
     return (
-        <motion.div className={cn('w-full flex flex-col justify-center gap-y-4')}>
+        <motion.div className='w-full flex flex-col justify-center gap-y-4'>
             {links?.map?.((link, index) => <NavigationDrawerListItem key={`${uniqueId}-${index}`} {...link}/>)}
         </motion.div>
     );

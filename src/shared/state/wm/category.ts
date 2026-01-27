@@ -1,7 +1,7 @@
 import { atom, } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
+import cache from 'lib/dexie';
 
 import type { Category } from 'shared/models';
 
@@ -17,7 +17,7 @@ export const categoryAtom = atom(
 export const loadCategoryAtom = atom(
     null,
     async (_, set) => {
-        const stored = await db.table<Category>('categories').get('current');
+        const stored = await cache.table<Category>('categories').get('current');
         if (stored) set(categoryBaseAtom, stored);
     },
 );
@@ -25,7 +25,7 @@ export const loadCategoryAtom = atom(
 export const cachedCategoryAtom = atom(
     null,
     async (get, set, category: Category) => {
-        await db.table('categories').put({
+        await cache.table('categories').put({
             ...category,
             id: 'current',
             _id: category.id,

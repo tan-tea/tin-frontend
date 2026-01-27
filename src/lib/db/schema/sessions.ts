@@ -7,15 +7,17 @@ import { users } from './users';
 export const sessions = p.pgTable(
     'sessions',
     {
-        id: p.uuid('id').primaryKey().defaultRandom(),
+        id: p.text('id').primaryKey(),
         expiresAt: p.timestamp('expires_at').notNull(),
         token: p.text('token').unique().notNull(),
+        ipAddress: p.text("ip_address"),
+        userAgent: p.text("user_agent"),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()
             .$onUpdate(() => new Date())
             .notNull(),
-        userId: p.uuid('user_id')
+        userId: p.text('user_id')
             .notNull()
             .references(() => users.id, { onDelete: 'cascade' }),
     },

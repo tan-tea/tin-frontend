@@ -1,13 +1,11 @@
-import { WorkspaceReadModel } from 'contexts/wm/workspace/application/query/read-model/WorkspaceReadModel';
+import type { InferSelectModel } from 'drizzle-orm';
 
-import { Shop } from './shop';
-import { Category } from './category';
+import { workspaces } from 'lib/db/schema';
+
 import { Segment } from './segment';
+import { Category } from './category';
 
-export interface Workspace extends WorkspaceReadModel {
-    slug: string;
-    shops: Array<Shop>;
-    categories: Array<Category>;
-    segmentId: string;
+export interface Workspace extends InferSelectModel<typeof workspaces> {
     segment: Segment;
+    categories: Array<Category>;
 }

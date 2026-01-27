@@ -80,7 +80,7 @@ const priceWithDiscount = tv({
 type ProductCardVariants = VariantProps<typeof priceWithDiscount>;
 
 type PriceWithDiscountProps = Omit<ProductCardVariants, 'hasDiscount'> & {
-    price: number;
+    price: number | string;
     discount: number;
     className?: string;
 };
@@ -100,9 +100,14 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
         [discount,]
     );
 
+    const parsedPrice = useMemo<number>(
+        () => typeof price === 'string' ? Number(price) : price,
+        [price],
+    );
+
     const priceWithDiscountApplied = useMemo<number>(
-        () => price * (1 - discount / 100),
-        [price, discount,]
+        () => parsedPrice * (1 - discount / 100),
+        [parsedPrice, discount,]
     );
 
     const {
@@ -141,7 +146,7 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
                     through={hasDiscount}
                     className={value()}
                 >
-                    {formatCurrency('COP', price)}
+                    {formatCurrency('COP', parsedPrice)}
                 </Heading>
             </div>
         </Wrapper>

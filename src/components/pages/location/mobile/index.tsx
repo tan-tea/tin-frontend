@@ -1,10 +1,12 @@
 'use client'
 
 import type { FC, ComponentProps } from 'react';
+import type { LocationProps } from 'components/pages/location';
 
 import dynamic from 'next/dynamic';
 
 import { useMemo } from 'react';
+import { Decimal } from 'decimal.js';
 
 import { clientEnv } from 'env/client';
 
@@ -14,10 +16,6 @@ import {
     AdvancedMarker,
 } from 'ui/map';
 import { Section } from 'ui/layout';
-
-import type {
-    LocationProps,
-} from 'components/pages/location';
 
 import Titlebar from 'common/titlebar';
 import BackButton from 'common/buttons/back-button';
@@ -33,7 +31,6 @@ const LocationContent = dynamic(
 type Marker = {
     latitude: number;
     longitude: number;
-    pin: ComponentProps<typeof Pin>['glyph'];
 };
 
 type Props = LocationProps;
@@ -50,9 +47,8 @@ const LocationMobile: FC<Props> = ({
         () => (shops ?? [])
             ?.filter(shop => shop.geolocation && !shop.address.isOnline)
             ?.map(shop => ({
-                latitude: shop?.geolocation?.latitude!,
-                longitude: shop?.geolocation?.longitude!,
-                pin: shop?.workspace?.logo!,
+                latitude: Decimal(shop?.geolocation?.latitude!).toNumber(),
+                longitude: Decimal(shop?.geolocation?.longitude!).toNumber(),
             })),
         [shops,]
     );

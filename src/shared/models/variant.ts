@@ -1,3 +1,5 @@
-import { VariantReadModel } from 'contexts/wm/variant/application/query/read-model/VariantReadModel';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Variant extends VariantReadModel {}
+import { customizationColorVariants } from 'lib/db/schema';
+
+export interface Variant extends InferSelectModel<typeof customizationColorVariants> {}

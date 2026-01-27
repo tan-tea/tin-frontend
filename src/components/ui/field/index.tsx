@@ -3,6 +3,7 @@
 import type { FC, ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
+import { createContext, useContext } from 'react';
 import { motion } from 'motion/react';
 import { tv, cn } from 'tailwind-variants';
 import { Field as BaseField, } from '@base-ui/react/field';
@@ -13,14 +14,12 @@ import { Paragraph } from 'ui/text';
 const field = tv({
     slots: {
         root: cn(
-            'w-full border border-dark-600 ring ring-dark-600 py-4 px-4 rounded-lg',
-            // 'data-[focused]:ring-[var(--mui-palette-primary-main)] data-[focused]:border-[var(--mui-palette-primary-main)]',
+            'w-full outline-none',
             'dark:border-light-600 dark:ring-light-600'
         ),
         control: cn('dark:text-light-600'),
         label: cn(
             'text-sm leading-4 font-medium',
-            // 'data-[focused]:text-[var(--mui-palette-primary-main)]',
             'dark:text-light-600'
         ),
         error: cn(''),
@@ -30,15 +29,47 @@ const field = tv({
     variants: {
         color: {
             primary: {
-                root: cn('border-primary'),
+                root: cn('border-primary data-[focused]:border-[var(--mui-palette-primary-main)] data-[focused]:ring-[var(--mui-palette-primary-main)]'),
+                control: 'data-[focused]:border-[var(--mui-palette-primary-main)] data-[focused]:ring-[var(--mui-palette-primary-main)]',
+                label: 'data-[focused]:text-[var(--mui-palette-primary-main)]',
             },
         },
+        variant: {
+            normal: {},
+            outline: {
+                root: 'flex flex-col px-4 py-2 border ring rounded-xl border-neutral-600 ring-neutral-200',
+                control: '',
+                label: 'text-neutral-600',
+            },
+            external: {
+                root: 'flex flex-col gap-y-2',
+                control: 'border rounded-lg px-4 py-2.5',
+                label: '',
+            }
+        }
     },
-    defaultVariants: {},
+    defaultVariants: {
+        variant: 'normal',
+        color: 'primary',
+    },
     compoundVariants: [],
 });
 
 type FieldVariants = VariantProps<typeof field>;
+
+type FieldContextProps = FieldVariants;
+
+const FieldContext = createContext<FieldContextProps>({
+    color: 'primary',
+    variant: 'normal',
+});
+
+function useField() {
+    const context = useContext(FieldContext);
+    if (!context) throw new Error('Field subcomponents must be used inside field');
+
+    return context;
+}
 
 type FieldProps = FieldVariants
     & ComponentProps<typeof BaseField.Root>
@@ -52,14 +83,16 @@ const Field: FC<FieldProps> = ({
     const { root } = field({ ...props });
 
     return (
-        <BaseField.Root
-            {...props}
-            data-slot='field'
-            className={root({
-                className,
-            })}
-            render={<motion.div/>}
-        />
+        <FieldContext.Provider value={{...props}}>
+            <BaseField.Root
+                {...props}
+                data-slot='field'
+                className={root({
+                    className,
+                })}
+                render={<motion.div/>}
+            />
+        </FieldContext.Provider>
     );
 }
 
@@ -76,6 +109,14 @@ const FieldControl: FC<FieldControlProps> = ({
     'use memo'
     const { control } = field({ ...props });
 
+    const {
+        color: fieldColor,
+        variant: fieldVariant,
+    } = useField();
+
+    const color = fieldColor ?? props.color;
+    const variant = fieldVariant ?? props.variant;
+
     return (
         <BaseField.Control
             fullWidth
@@ -84,6 +125,8 @@ const FieldControl: FC<FieldControlProps> = ({
             data-slot='field-control'
             className={control({
                 className,
+                variant,
+                color,
             })}
         />
     );
@@ -102,12 +145,22 @@ const FieldLabel: FC<FieldLabelProps> = ({
     'use memo'
     const { label } = field({ ...props });
 
+    const {
+        color: fieldColor,
+        variant: fieldVariant,
+    } = useField();
+
+    const color = fieldColor ?? props.color;
+    const variant = fieldVariant ?? props.variant;
+
     return (
         <BaseField.Label
             {...props}
             data-slot='field-label'
             className={label({
                 className,
+                color,
+                variant,
             })}
             render={<motion.label/>}
         />
@@ -127,12 +180,22 @@ const FieldError: FC<FieldErrorProps> = ({
     'use memo'
     const { error } = field({ ...props });
 
+    const {
+        color: fieldColor,
+        variant: fieldVariant,
+    } = useField();
+
+    const color = fieldColor ?? props.color;
+    const variant = fieldVariant ?? props.variant;
+
     return (
         <BaseField.Error
             {...props}
             data-slot='field-error'
             className={error({
                 className,
+                color,
+                variant,
             })}
             render={<motion.div/>}
         />
@@ -152,12 +215,22 @@ const FieldDescription: FC<FieldDescriptionProps> = ({
     'use memo'
     const { description } = field({ ...props });
 
+    const {
+        color: fieldColor,
+        variant: fieldVariant,
+    } = useField();
+
+    const color = fieldColor ?? props.color;
+    const variant = fieldVariant ?? props.variant;
+
     return (
         <BaseField.Description
             {...props}
             data-slot='field-description'
             className={description({
                 className,
+                color,
+                variant,
             })}
             render={<Paragraph/>}
         />
@@ -177,12 +250,22 @@ const FieldItem: FC<FieldItemProps> = ({
     'use memo'
     const { item } = field({ ...props });
 
+    const {
+        color: fieldColor,
+        variant: fieldVariant,
+    } = useField();
+
+    const color = fieldColor ?? props.color;
+    const variant = fieldVariant ?? props.variant;
+
     return (
         <BaseField.Item
             {...props}
             data-slot='field-item'
             className={item({
                 className,
+                color,
+                variant,
             })}
             render={<motion.div/>}
         />

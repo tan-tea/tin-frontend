@@ -59,7 +59,9 @@ const Input: FC<InputProps> = ({
         const newValue = event?.target?.value || '';
 
         if (disabled) return;
-        if (regExp && newValue && !regExp.test(newValue)) return;
+
+        const validEntry = regExp.test(newValue);
+        if (regExp && newValue && !validEntry) return;
 
         if (onChange) onChange?.(event as any)
     };

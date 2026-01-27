@@ -1,9 +1,5 @@
-import { TimeSlot } from './time-slot';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Schedule {
-    id: string;
-    shopId: string;
-    dayOfWeek: number;
-    isClosed: boolean;
-    timeSlots: Array<TimeSlot>;
-}
+import { schedules } from 'lib/db/schema';
+
+export interface Schedule extends InferSelectModel<typeof schedules> {}

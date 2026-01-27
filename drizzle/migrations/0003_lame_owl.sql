@@ -1,0 +1,1 @@
+ALTER TABLE "offers" ALTER COLUMN "shop_id" DROP NOT NULL;

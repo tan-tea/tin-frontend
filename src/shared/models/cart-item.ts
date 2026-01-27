@@ -1,14 +1,5 @@
-import { CartItemOption } from './cart-item-option';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface CartItem {
-    id: string;
-    cartId: string;
-    shopId: string;
-    offerId: string;
-    offerTitle: string;
-    basePrice: number;
-    quantity: number;
-    totalPrice: number;
-    createdAt: Date;
-    options: Array<CartItemOption>;
-}
+import { cartItems } from 'lib/db/schema';
+
+export interface CartItem extends InferSelectModel<typeof cartItems> {}

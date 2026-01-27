@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { clientEnv } from 'env/client';
-import { getQueryClient } from 'app/get-query-client';
-import { getWorkspaceDetailsById, } from 'app/actions';
+import { getVerifiedWorkspaceById } from 'app/actions';
+import { cachedQueryClient } from 'app/get-query-client';
 
 import WorkspaceLayout from 'layouts/workspace';
 import LocationDialog from 'dialogs/location-dialog';
@@ -20,11 +20,11 @@ export default async function Layout(props: LayoutProps) {
 
     const workspaceId = clientEnv.NEXT_PUBLIC_WORKSPACE_ID;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
     queryClient.prefetchQuery({
-        queryKey: ['workspace', workspaceId],
-        queryFn: () => getWorkspaceDetailsById(workspaceId)
+        queryKey: ['workspace-by-id', workspaceId],
+        queryFn: () => getVerifiedWorkspaceById(workspaceId)
     });
 
     return (

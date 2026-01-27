@@ -8,6 +8,7 @@ import {
     useCallback,
     Fragment
 } from 'react';
+import { Decimal } from 'decimal.js';
 import { useAtomValue } from 'jotai';
 import { useAdvancedMarkerRef } from '@vis.gl/react-google-maps';
 
@@ -36,7 +37,8 @@ const LocationContent: FC<Props> = ({
 
     const currentShop = shops.find(
         (s) =>
-            s.geolocation.latitude === position?.lat && s.geolocation.longitude === position?.lng,
+            Decimal(s?.geolocation.latitude).toNumber() === position?.lat
+            && Decimal(s?.geolocation.longitude).toNumber() === position?.lng,
     );
 
     const [markerRef, marker] = useAdvancedMarkerRef();

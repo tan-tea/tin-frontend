@@ -1,3 +1,4 @@
+export * from './iam/user';
 export * from './vm/offer';
 export * from './vm/shop';
 export * from './wm/category';

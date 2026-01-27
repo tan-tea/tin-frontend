@@ -1,8 +1,5 @@
-export interface Option {
-    id: string;
-    name: string;
-    optionGroupId: string;
-    priceDelta: number;
-    isActive: boolean;
-    createdAt: Date;
-}
+import type { InferSelectModel } from 'drizzle-orm';
+
+import { options } from 'lib/db/schema';
+
+export interface Option extends InferSelectModel<typeof options> {}

@@ -7,3 +7,5 @@ export const authClient = createAuthClient({
         genericOAuthClient(),
     ],
 });
+
+export const { signIn, signUp, signOut, useSession, getSession, } = authClient;

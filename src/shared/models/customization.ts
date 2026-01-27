@@ -1,6 +1,5 @@
-import { CustomizationReadModel } from 'contexts/wm/customization/application/query/read-model/CustomizationReadModel';
-import { Color } from './color';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Customization extends CustomizationReadModel {
-    colors: Array<Color>;
-}
+import { customizations } from 'lib/db/schema';
+
+export interface Customization extends InferSelectModel<typeof customizations> {}

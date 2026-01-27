@@ -1,20 +1,13 @@
-import { ShopReadModel } from 'contexts/vm/shop/application/query/read-model/ShopReadModel';
+import type { InferSelectModel } from 'drizzle-orm';
 
-import { Workspace } from './workspace';
+import { shops } from 'lib/db/schema';
+
 import { Address } from './address';
 import { Geolocation } from './geolocation';
-import { Schedule } from './schedule';
+import { ShopOffers } from './shop-offers';
 
-export interface Shop extends ShopReadModel {
-    slug: string;
-    phone: string;
-    banner: string;
-    description: string;
-    workspace: Workspace;
-    workspaceId: string;
+export interface Shop extends InferSelectModel<typeof shops> {
     address: Address;
-    addressId: string;
     geolocation: Geolocation;
-    geolocationId: string;
-    schedules: Array<Schedule>;
+    offers: Array<ShopOffers>;
 }

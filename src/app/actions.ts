@@ -1,11 +1,8 @@
 'use server'
 
-import 'server-only';
+import { Decimal } from 'decimal.js';
 
-import {
-    getWorkspaceById,
-    getCustomizationByWorkspaceId,
-} from 'lib/core/wm';
+import { getCustomizationByWorkspaceId } from 'lib/core/wm';
 import {
     getOfferBySlug,
     getOffersByCriteria,
@@ -17,9 +14,13 @@ import {
     getCategoryWithOffersBySlug,
 } from 'lib/core/vm';
 
-export async function getWorkspaceDetailsById(id: string) {
+import { findVerifiedWorkspaceById } from 'contexts/wm';
+import { findVerifiedShopsByWorkspaceId } from 'contexts/vm';
+
+// ! NEW
+export async function getVerifiedWorkspaceById(id: string) {
     'use server'
-    return await getWorkspaceById(id);
+    return await findVerifiedWorkspaceById(id);
 }
 
 export async function getAllCustomizationByWorkspace(workspaceId: string) {
@@ -35,6 +36,20 @@ export async function getShopsSlugsByWorkspace(workspaceId: string) {
 export async function getShopDetailsBySlug(slug: string) {
     'use server'
     return await getShopBySlug(slug);
+}
+
+// ! NEW
+export async function getVerifiedShopsByWorkspace(workspaceId: string) {
+    'use server'
+    const shops = await findVerifiedShopsByWorkspaceId(workspaceId);
+    return shops.map(shop => ({
+        ...shop,
+        geolocation: {
+            ...shop.geolocation,
+            latitude: Decimal(shop.geolocation.latitude).toNumber(),
+            longitude: Decimal(shop.geolocation.longitude).toNumber(),
+        },
+    }))
 }
 
 export async function getShopsDetailsByWorkspace(workspaceId: string) {

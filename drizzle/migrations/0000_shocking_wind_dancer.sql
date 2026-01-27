@@ -1,5 +1,5 @@
 CREATE TABLE "accounts" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"account_id" text NOT NULL,
 	"provider_id" text NOT NULL,
 	"access_token" text,
@@ -11,7 +11,7 @@ CREATE TABLE "accounts" (
 	"password" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"user_id" uuid NOT NULL
+	"user_id" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "addresses" (
@@ -38,7 +38,7 @@ CREATE TABLE "appointments" (
 	"notes" varchar(1000),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"client_id" uuid,
+	"client_id" text,
 	"resource_id" uuid NOT NULL,
 	"offer_id" uuid NOT NULL
 );
@@ -92,7 +92,7 @@ CREATE TABLE "carts" (
 	"status" text DEFAULT 'open',
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"user_id" uuid NOT NULL
+	"user_id" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "categories" (
@@ -286,12 +286,12 @@ CREATE TABLE "segments" (
 );
 --> statement-breakpoint
 CREATE TABLE "sessions" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"expires_at" timestamp NOT NULL,
 	"token" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	CONSTRAINT "sessions_token_unique" UNIQUE("token")
 );
 --> statement-breakpoint
@@ -332,7 +332,7 @@ CREATE TABLE "subcategories" (
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
 	"email_verified" boolean DEFAULT false NOT NULL,
@@ -360,7 +360,7 @@ CREATE TABLE "waitlists" (
 	"status" text DEFAULT 'pending' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"client_id" uuid,
+	"client_id" text,
 	"resource_id" uuid NOT NULL,
 	"offer_id" uuid NOT NULL
 );
@@ -375,7 +375,7 @@ CREATE TABLE "workspaces" (
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"segment_id" uuid NOT NULL,
-	"owner_id" uuid NOT NULL
+	"owner_id" text NOT NULL
 );
 --> statement-breakpoint
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -422,10 +422,11 @@ ALTER TABLE "waitlists" ADD CONSTRAINT "waitlists_resource_id_scheduling_resourc
 ALTER TABLE "waitlists" ADD CONSTRAINT "waitlists_offer_id_offers_id_fk" FOREIGN KEY ("offer_id") REFERENCES "public"."offers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_segment_id_segments_id_fk" FOREIGN KEY ("segment_id") REFERENCES "public"."segments"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE cascade;--> statement-breakpoint
-CREATE INDEX "account_user_id_idx" ON "accounts" USING btree ("user_id");--> statement-breakpoint
-CREATE INDEX "addresses_street_idx" ON "addresses" USING btree ("street");--> statement-breakpoint
-CREATE INDEX "addresses_city_idx" ON "addresses" USING btree ("city");--> statement-breakpoint
-CREATE INDEX "addresses_country_idx" ON "addresses" USING btree ("country");--> statement-breakpoint
+CREATE INDEX "accounts_account_id_index" ON "accounts" USING btree ("account_id");--> statement-breakpoint
+CREATE INDEX "accounts_provider_id_index" ON "accounts" USING btree ("provider_id");--> statement-breakpoint
+CREATE INDEX "addresses_street_index" ON "addresses" USING btree ("street");--> statement-breakpoint
+CREATE INDEX "addresses_city_index" ON "addresses" USING btree ("city");--> statement-breakpoint
+CREATE INDEX "addresses_country_index" ON "addresses" USING btree ("country");--> statement-breakpoint
 CREATE INDEX "appointments_start_at_index" ON "appointments" USING btree ("start_at");--> statement-breakpoint
 CREATE INDEX "appointments_status_index" ON "appointments" USING btree ("status");--> statement-breakpoint
 CREATE INDEX "availabilities_weekday_index" ON "availabilities" USING btree ("weekday");--> statement-breakpoint
@@ -447,7 +448,7 @@ CREATE INDEX "exception_time_slots_end_time_index" ON "exception_time_slots" USI
 CREATE INDEX "exceptions_date_index" ON "exceptions" USING btree ("date");--> statement-breakpoint
 CREATE INDEX "geolocations_latitude_index" ON "geolocations" USING btree ("latitude");--> statement-breakpoint
 CREATE INDEX "geolocations_longitude_index" ON "geolocations" USING btree ("longitude");--> statement-breakpoint
-CREATE INDEX "offer_images_image_idx" ON "offer_images" USING btree ("image");--> statement-breakpoint
+CREATE INDEX "offer_images_image_index" ON "offer_images" USING btree ("image");--> statement-breakpoint
 CREATE INDEX "offers_title_index" ON "offers" USING btree ("title");--> statement-breakpoint
 CREATE INDEX "offers_slug_index" ON "offers" USING btree ("slug");--> statement-breakpoint
 CREATE INDEX "offers_start_date_index" ON "offers" USING btree ("start_date");--> statement-breakpoint
@@ -460,14 +461,14 @@ CREATE INDEX "schedules_day_of_week_index" ON "schedules" USING btree ("day_of_w
 CREATE INDEX "scheduling_resources_type_index" ON "scheduling_resources" USING btree ("type");--> statement-breakpoint
 CREATE INDEX "segments_name_index" ON "segments" USING btree ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX "segments_slug_index" ON "segments" USING btree ("slug");--> statement-breakpoint
-CREATE INDEX "session_user_id_idx" ON "sessions" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "sessions_user_id_index" ON "sessions" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "shops_name_index" ON "shops" USING btree ("name");--> statement-breakpoint
 CREATE INDEX "shops_slug_index" ON "shops" USING btree ("slug");--> statement-breakpoint
 CREATE INDEX "subcategories_label_index" ON "subcategories" USING btree ("label");--> statement-breakpoint
 CREATE INDEX "subcategories_slug_index" ON "subcategories" USING btree ("slug");--> statement-breakpoint
 CREATE INDEX "users_name_index" ON "users" USING btree ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX "users_email_index" ON "users" USING btree ("email");--> statement-breakpoint
-CREATE INDEX "verification_identifier_idx" ON "verification" USING btree ("identifier");--> statement-breakpoint
+CREATE INDEX "verification_identifier_index" ON "verification" USING btree ("identifier");--> statement-breakpoint
 CREATE INDEX "waitlists_desired_date_index" ON "waitlists" USING btree ("desired_date");--> statement-breakpoint
 CREATE INDEX "waitlists_status_index" ON "waitlists" USING btree ("status");--> statement-breakpoint
 CREATE INDEX "workspaces_name_index" ON "workspaces" USING btree ("name");--> statement-breakpoint

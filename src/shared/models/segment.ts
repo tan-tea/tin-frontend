@@ -1,9 +1,5 @@
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Segment {
-    id: string;
-    name: string;
-    slug: string;
-    description: string;
-    isActive: boolean;
-    createdAt: Date;
-}
+import { segments } from 'lib/db/schema';
+
+export interface Segment extends InferSelectModel<typeof segments> {}

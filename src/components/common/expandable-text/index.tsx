@@ -37,7 +37,7 @@ const expandableText = tv({
 type ExpandableTextVariants = VariantProps<typeof expandableText>;
 
 type ExpandableTextProps = ExpandableTextVariants & {
-    text: string;
+    text: string | null;
     maxLength?: number;
     showAnimation?: boolean;
     isExpandable?: boolean;
@@ -60,6 +60,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
     isExpandable = true,
 }) => {
     'use memo'
+    if (!text) return null;
+
     const uniqueId = useId();
 
     const [expanded, setExpanded] = useState<boolean>(false);

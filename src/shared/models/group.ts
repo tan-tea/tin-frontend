@@ -1,12 +1,5 @@
-import { Option } from './option';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export interface Group {
-    id: string;
-    name: string;
-    description: string;
-    required: boolean;
-    min: number;
-    max: number;
-    createdAt: Date;
-    options: Array<Option>;
-}
+import { optionGroups } from 'lib/db/schema';
+
+export interface Group extends InferSelectModel<typeof optionGroups> {}

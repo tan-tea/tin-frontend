@@ -1,5 +1,5 @@
 {
-  "id": "2ac30502-ebf2-4ed3-9471-ca5a3b5788a2",
+  "id": "13331765-5aeb-4791-a46f-dbb55c60d764",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,10 +10,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "account_id": {
           "name": "account_id",
@@ -85,17 +84,32 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {
-        "account_user_id_idx": {
-          "name": "account_user_id_idx",
+        "accounts_account_id_index": {
+          "name": "accounts_account_id_index",
           "columns": [
             {
-              "expression": "user_id",
+              "expression": "account_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "accounts_provider_id_index": {
+          "name": "accounts_provider_id_index",
+          "columns": [
+            {
+              "expression": "provider_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -210,8 +224,8 @@
         }
       },
       "indexes": {
-        "addresses_street_idx": {
-          "name": "addresses_street_idx",
+        "addresses_street_index": {
+          "name": "addresses_street_index",
           "columns": [
             {
               "expression": "street",
@@ -225,8 +239,8 @@
           "method": "btree",
           "with": {}
         },
-        "addresses_city_idx": {
-          "name": "addresses_city_idx",
+        "addresses_city_index": {
+          "name": "addresses_city_index",
           "columns": [
             {
               "expression": "city",
@@ -240,8 +254,8 @@
           "method": "btree",
           "with": {}
         },
-        "addresses_country_idx": {
-          "name": "addresses_country_idx",
+        "addresses_country_index": {
+          "name": "addresses_country_index",
           "columns": [
             {
               "expression": "country",
@@ -321,7 +335,7 @@
         },
         "client_id": {
           "name": "client_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -924,7 +938,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         }
@@ -1748,8 +1762,8 @@
         }
       },
       "indexes": {
-        "offer_images_image_idx": {
-          "name": "offer_images_image_idx",
+        "offer_images_image_index": {
+          "name": "offer_images_image_index",
           "columns": [
             {
               "expression": "image",
@@ -2716,10 +2730,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "expires_at": {
           "name": "expires_at",
@@ -2749,14 +2762,14 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {
-        "session_user_id_idx": {
-          "name": "session_user_id_idx",
+        "sessions_user_id_index": {
+          "name": "sessions_user_id_index",
           "columns": [
             {
               "expression": "user_id",
@@ -3176,10 +3189,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -3305,8 +3317,8 @@
         }
       },
       "indexes": {
-        "verification_identifier_idx": {
-          "name": "verification_identifier_idx",
+        "verification_identifier_index": {
+          "name": "verification_identifier_index",
           "columns": [
             {
               "expression": "identifier",
@@ -3393,7 +3405,7 @@
         },
         "client_id": {
           "name": "client_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -3553,7 +3565,7 @@
         },
         "owner_id": {
           "name": "owner_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         }

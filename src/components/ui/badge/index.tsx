@@ -13,6 +13,9 @@ const badge = tv({
             default: 'inline-flex',
             flex: 'flex',
         },
+        color: {
+            primary: '',
+        },
         variant: {
             default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
             secondary: 'border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90',

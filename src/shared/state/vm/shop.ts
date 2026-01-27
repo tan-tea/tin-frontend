@@ -1,9 +1,9 @@
+import type { Shop } from 'shared/models';
+
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
-
-import type { Shop } from 'shared/models';
+import cache from 'lib/dexie';
 
 export const shopBaseAtom = atom<Shop| null>(null);
 
@@ -17,7 +17,7 @@ export const shopAtom = atom(
 export const loadShopAtom = atom(
     null,
     async (_, set) => {
-        const stored = await db.table<Shop>('shops').get('current');
+        const stored = await cache.table<Shop>('shops').get('current');
         if (stored) set(shopBaseAtom, stored);
     },
 );
@@ -25,7 +25,7 @@ export const loadShopAtom = atom(
 export const cachedShopAtom = atom(
     null,
     async (get, set, shop: Shop) => {
-        await db.table('shops').put({
+        await cache.table('shops').put({
             ...shop,
             id: 'current',
             _id: shop.id,
@@ -38,16 +38,31 @@ export const cachedShopAtom = atom(
     },
 );
 
-export const shopsAtom = atom<Array<Shop>>([]);
+export const shopsBaseAtom = atom<Array<Shop>>([]);
+
+export const shopsAtom = atom(
+    (get) => get(shopsBaseAtom),
+    (_, set, shops: Array<Shop>) => {
+        set(shopsBaseAtom, shops);
+    },
+);
+
+export const loadShopsAtom = atom(
+    null,
+    async (_, set) => {
+        const stored = await cache.table<Shop>('shops').toArray();
+        if (stored && stored.length > 0) set(shopsBaseAtom, stored);
+    }
+)
 
 export const cachedShopsAtom = atom(
     null,
     async (get, set, shops: Array<Shop>) => {
-        await db.table('shops').bulkPut(
+        await cache.table('shops').bulkPut(
             shops.map(shop => ({ ...shop, _id: shop.id })),
         );
 
-        set(shopsAtom, shops);
+        set(shopsBaseAtom, shops);
 
         const queryClient = get(queryClientAtom);
         queryClient.setQueryData(['shops-by-workspace'], shops);

@@ -8,8 +8,12 @@ export const geolocations = p.pgTable(
     'geolocations',
     {
         id: p.uuid('id').primaryKey().defaultRandom(),
-        latitude: p.numeric('latitude', { precision: 9, scale: 6 }).notNull(),
-        longitude: p.numeric('longitude', { precision: 9, scale: 6 }).notNull(),
+        latitude: p.numeric('latitude', { precision: 9, scale: 6 })
+            .$type<number>()
+            .notNull(),
+        longitude: p.numeric('longitude', { precision: 9, scale: 6 })
+            .$type<number>()
+            .notNull(),
         accuracy: p.smallint('accuracy').default(5),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')

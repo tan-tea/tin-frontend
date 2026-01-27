@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
 import {
     isServer,
@@ -39,3 +40,7 @@ export function getQueryClient() {
         return browserQueryClient;
     }
 }
+
+export const cachedQueryClient = cache(
+    () => getQueryClient(),
+);

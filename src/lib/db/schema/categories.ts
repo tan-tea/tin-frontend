@@ -15,9 +15,14 @@ export const categories = p.pgTable(
         description: p.varchar('description', {
             length: 500,
         }),
-        position: p.smallint('position').default(0),
         banner: p.text('banner'),
+        position: p.smallint('position').default(0).notNull(),
+        isActive: p.boolean('is_active').default(true).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
+        updatedAt: p.timestamp('updated_at')
+            .defaultNow()
+            .$onUpdate(() => new Date())
+            .notNull(),
         workspaceId: p.uuid('workspace_id')
             .notNull()
             .references(() => workspaces.id),

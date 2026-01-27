@@ -8,6 +8,7 @@ import { customizations } from './customizations';
 import { categories } from './categories';
 import { subcategories } from './subcategories';
 import { shops } from './shops';
+import { offers } from './offers';
 
 export const workspaces = p.pgTable(
     'workspaces',
@@ -18,8 +19,8 @@ export const workspaces = p.pgTable(
         description: p.text('description'),
         tin: p.varchar('tin', {
             length: 15,
-        }).notNull(),
-        isVerfied: p.boolean('is_verified').default(false),
+        }),
+        isVerified: p.boolean('is_verified').default(false),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()
@@ -28,7 +29,7 @@ export const workspaces = p.pgTable(
         segmentId: p.uuid('segment_id')
             .notNull()
             .references(() => segments.id),
-        ownerId: p.uuid('owner_id')
+        ownerId: p.text('owner_id')
             .notNull()
             .references(() => users.id, {
                 onUpdate: 'cascade',
@@ -55,4 +56,5 @@ export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
     categories: many(categories),
     subcategories: many(subcategories),
     shops: many(shops),
+    offers: many(offers),
 }));

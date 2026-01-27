@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
-import db from 'lib/dexie';
+import cache from 'lib/dexie';
 
 import type { Customization } from 'shared/models';
 
@@ -15,7 +15,7 @@ export const customizationAtom = atom(
 export const loadCustomizationAtom = atom(
     null,
     async (_, set) => {
-        const stored = await db.table<Customization>('customizations').get('current');
+        const stored = await cache.table<Customization>('customizations').get('current');
         if (stored) set(customizationBaseAtom, stored);
     },
 );
@@ -23,7 +23,7 @@ export const loadCustomizationAtom = atom(
 export const cachedCustomizationAtom = atom(
     null,
     async (get, set, customization: Customization) => {
-        await db.table('customizations').put({
+        await cache.table('customizations').put({
             ...customization,
             id: 'current',
             _id: customization.id,

@@ -4,8 +4,8 @@ import { getTranslations, } from 'next-intl/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { clientEnv } from 'env/client';
-import { getQueryClient } from 'app/get-query-client';
-import { getShopsDetailsByWorkspace } from 'app/actions';
+import { cachedQueryClient } from 'app/get-query-client';
+import { getVerifiedShopsByWorkspace } from 'app/actions';
 
 import Platform from 'pages/platform';
 
@@ -36,11 +36,11 @@ export default async function Page(props: PageProps) {
 
     const workspaceId = clientEnv.NEXT_PUBLIC_WORKSPACE_ID;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
     queryClient.prefetchQuery({
         queryKey: ['shops-by-workspace', workspaceId],
-        queryFn: () => getShopsDetailsByWorkspace(workspaceId),
+        queryFn: () => getVerifiedShopsByWorkspace(workspaceId),
     });
 
     return (

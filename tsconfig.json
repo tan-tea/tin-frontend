@@ -55,7 +55,8 @@
         "./src/components/common/*"
       ],
       "contexts/*": [
-        "./src/_contexts/*"
+        "./src/_contexts/*",
+        "./src/contexts/*"
       ],
       "icons/*": [
         "./src/components/icons/*"

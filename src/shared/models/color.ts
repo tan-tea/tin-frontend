@@ -1,6 +1,5 @@
-import { ColorReadModel } from 'contexts/wm/color/application/query/read-model/ColorReadModel';
-import { Variant } from './variant';
+import { InferSelectModel } from 'drizzle-orm';
 
-export interface Color extends ColorReadModel {
-    variants: Array<Variant>;
-}
+import { customizationColors } from 'lib/db/schema';
+
+export interface Color extends InferSelectModel<typeof customizationColors> {}

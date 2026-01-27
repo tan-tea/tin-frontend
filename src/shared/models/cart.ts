@@ -1,11 +1,5 @@
-import { CartItem } from './cart-item';
+import type { InferSelectModel } from 'drizzle-orm';
 
-export type CartStatus = 'open' | 'submitted' | 'paid';
+import { carts } from 'lib/db/schema';
 
-export interface Cart {
-    id: string;
-    userId: string | null;
-    status: CartStatus;
-    createdAt: Date;
-    items: Array<CartItem>;
-}
+export interface Cart extends InferSelectModel<typeof carts> {}

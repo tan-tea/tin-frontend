@@ -14,6 +14,7 @@ import type {
     Customization,
     Shop,
     Cart,
+    User,
 } from 'shared/models';
 
 export interface CacheDatabaseTables {
@@ -24,6 +25,7 @@ export interface CacheDatabaseTables {
     readonly categories: EntityTable<Category, 'id'>;
     readonly shops: EntityTable<Shop, 'id'>;
     readonly carts: EntityTable<Cart, 'id'>;
+    readonly users: EntityTable<User, 'id'>;
 }
 
 export class CacheDatabase extends Dexie implements CacheDatabaseTables {
@@ -34,6 +36,7 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
     categories!: EntityTable<Category, 'id'>;
     shops!: EntityTable<Shop, 'id'>;
     carts!: EntityTable<Cart, 'id'>;
+    users!: EntityTable<User, 'id'>;
 
     constructor() {
         super('cache', {
@@ -52,6 +55,7 @@ export class CacheDatabase extends Dexie implements CacheDatabaseTables {
             categories: 'id',
             shops: 'id',
             carts: 'id',
+            users: 'id',
         });
     }
 }
@@ -63,6 +67,6 @@ declare global {
 if (!globalThis._dbInstance)
     globalThis._dbInstance = new CacheDatabase();
 
-const db: CacheDatabase = globalThis._dbInstance;
+const cache: CacheDatabase = globalThis._dbInstance;
 
-export default db;
+export default cache;

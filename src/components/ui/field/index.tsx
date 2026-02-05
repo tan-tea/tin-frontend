@@ -3,7 +3,11 @@
 import type { FC, ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 
-import { createContext, useContext } from 'react';
+import {
+    Fragment,
+    useContext,
+    createContext,
+} from 'react';
 import { motion } from 'motion/react';
 import { tv, cn } from 'tailwind-variants';
 import { Field as BaseField, } from '@base-ui/react/field';
@@ -118,17 +122,19 @@ const FieldControl: FC<FieldControlProps> = ({
     const variant = fieldVariant ?? props.variant;
 
     return (
-        <BaseField.Control
-            fullWidth
-            render={<Input/>}
-            {...props}
-            data-slot='field-control'
-            className={control({
-                className,
-                variant,
-                color,
-            })}
-        />
+        <Fragment>
+            <BaseField.Control
+                fullWidth
+                render={<Input/>}
+                {...props}
+                data-slot='field-control'
+                className={control({
+                    className,
+                    variant,
+                    color,
+                })}
+            />
+        </Fragment>
     );
 }
 

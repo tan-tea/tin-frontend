@@ -34,7 +34,7 @@ const OfferCard = dynamic(
     },
 );
 
-const list = tv({
+const offerList = tv({
     slots: {
         root: cn('size-full flex flex-col gap-y-2 p-4 pt-2'),
         actions: cn('flex items-center'),
@@ -62,7 +62,7 @@ const list = tv({
     },
 });
 
-type ListVariants = VariantProps<typeof list>;
+type ListVariants = VariantProps<typeof offerList>;
 
 type OfferListProps = {
     offers?: Array<Offer>;
@@ -81,15 +81,10 @@ const OfferList: FC<OfferListProps> = ({
     const {
         root,
         actions,
-        list: rootList,
-    } = list();
+        list,
+    } = offerList();
 
     const t = useTranslations();
-
-    const hasOffers = useMemo<boolean>(
-        () => offers && offers.length > 0,
-        [offers],
-    );
 
     const [ view, setView ] = useLocalStorage<ListVariants['view']>('list', defaultView);
 
@@ -99,6 +94,8 @@ const OfferList: FC<OfferListProps> = ({
         if (!newView) setView('grid')
         else setView(newView);
     };
+
+    const hasOffers = offers && offers.length > 0;
 
     return (
         <Wrapper className={root()}>
@@ -121,7 +118,7 @@ const OfferList: FC<OfferListProps> = ({
                     </ToggleGroup>
                 </div>
             )}
-            <div className={rootList({
+            <div className={list({
                 view,
             })}>
                 {hasOffers && offers.map(offer => <OfferCard

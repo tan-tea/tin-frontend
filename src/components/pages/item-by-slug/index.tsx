@@ -1,14 +1,13 @@
 'use client'
 
+import type { Offer } from 'shared/models';
+
 import dynamic from 'next/dynamic';
 
 import { useTranslations } from 'next-intl';
 import { createFormControl, UseFormReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import type {
-    Offer,
-} from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
 import { useOfferBySlugData } from './hooks';
@@ -17,12 +16,8 @@ import { createOptionGroupsSchema, OptionGroups } from './schemas';
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const ItemBySlugMobile = dynamic(
-    () => import('./mobile'),
-    {
-        loading: () => <Loading/>,
-    },
-);
+import ItemBySlugMobile from './mobile';
+import ItemBySlugDesktop from './desktop';
 
 type Props = Readonly<{
     itemSlug: string;
@@ -50,8 +45,14 @@ export default function ItemBySlug(props: Props) {
         isLoading,
     } = useOfferBySlugData(itemSlug);
 
+    if (isLoading) return <Loading/>;
+
+    if (!offer) return null;
+
+    const optionGroups = offer.optionGroups ?? [];
+
     const formControl = createFormControl<OptionGroups>({
-        resolver: zodResolver(createOptionGroupsSchema(offer.optionGroups)),
+        resolver: zodResolver(createOptionGroupsSchema(optionGroups)),
         mode: 'all',
         reValidateMode: 'onChange',
         values: {
@@ -65,8 +66,6 @@ export default function ItemBySlug(props: Props) {
         offer,
         formControl,
     };
-
-    if (isLoading) return <Loading/>;
 
     return (
         <DeviceDetector

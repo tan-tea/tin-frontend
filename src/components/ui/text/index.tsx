@@ -67,6 +67,7 @@ const text = tv({
             primary: {
                 heading: 'text-[var(--mui-palette-primary-main)]',
                 paragraph: 'text-[var(--mui-palette-primary-main)]',
+                iconLabel: 'text-[var(--mui-palette-primary-main)] [&>svg]:text-[var(--mui-palette-primary-main)]'
             },
             dark: {
                 heading: 'text-dark-600',
@@ -214,16 +215,13 @@ const ICON_LABEL_ANIMATION: MotionNodeAnimationOptions = {
 } as const;
 
 const IconLabel: FC<IconLabelProps> = ({
-    icon,
+    icon: Icon,
     label,
-    level,
     className,
     ...props
 }) => {
     'use memo'
-    const { iconLabel } = text({
-        level,
-    });
+    const { iconLabel } = text({ ...props });
 
     return (
         <motion.div
@@ -234,8 +232,8 @@ const IconLabel: FC<IconLabelProps> = ({
                 className,
             })}
         >
-            {icon && <Icon value={icon} className='shrink-0'/>}
-            <Paragraph truncate>{label}</Paragraph>
+            <Icon/>
+            <Paragraph truncate {...props}>{label}</Paragraph>
         </motion.div>
     );
 };
@@ -249,7 +247,7 @@ type RichTextTag = 'h1'
     | 'h5'
     | 'h6'
     | 'p'
-    | 'b';
+    | 'b'
 
 type RichTextProps = {
     children(tags: Record<RichTextTag, (chunks: ReactNode) => ReactNode>): ReactNode;

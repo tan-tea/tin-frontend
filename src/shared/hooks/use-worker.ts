@@ -1,7 +1,8 @@
+import type { RefObject } from 'react';
+
 import {
     useRef,
     useEffect,
-    type RefObject
 } from 'react';
 
 type UseWorker = RefObject<Worker | null>;

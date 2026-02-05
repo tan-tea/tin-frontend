@@ -12,6 +12,7 @@ import { getVerifiedShopsByWorkspace } from 'app/actions';
 import { cachedShopsAtom } from 'shared/state';
 
 export function useShopsByWorkspace(workspaceId: string) {
+    'use memo'
     return useSuspenseQuery({
         queryKey: ['shops-by-workspace', workspaceId],
         queryFn: () => getVerifiedShopsByWorkspace(workspaceId),

@@ -21,6 +21,7 @@ import {
 } from 'components/icons';
 
 import Titlebar from 'common/titlebar';
+import UserCard from 'features/user/card';
 import ThemeSwitcher from 'components/theme-switcher';
 import LanguageSwitcher from 'components/language-switcher';
 
@@ -57,7 +58,7 @@ const NavigationDrawer: FC<Props> = () => {
                             ease: 'easeIn',
                             duration: 0.15,
                         }}
-                        className='p-0 pb-4 mb-4'
+                        className='p-0 pb-4 mb-1.5'
                         renderStart={() => (
                             <DrawerTitle className='font-nunito font-bold leading-5'>
                                 {t('menu')}
@@ -70,6 +71,7 @@ const NavigationDrawer: FC<Props> = () => {
                             </div>
                         )}
                     />
+                    <UserCard/>
                     <NavigationDrawerList/>
                 </div>
                 <div className='mt-auto'>

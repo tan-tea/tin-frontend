@@ -52,7 +52,7 @@ export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
         fields: [workspaces.segmentId],
         references: [segments.id],
     }),
-    customizations: many(customizations),
+    customization: one(customizations),
     categories: many(categories),
     subcategories: many(subcategories),
     shops: many(shops),

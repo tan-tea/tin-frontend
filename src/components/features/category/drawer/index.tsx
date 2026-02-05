@@ -11,16 +11,26 @@ import {
 } from 'ui/drawer';
 import { Paragraph } from 'ui/text';
 
-import { useCategoryOffersData } from 'pages/category-detail/hooks';
+import { useCategoryBySlugData } from 'pages/category-detail/hooks';
 
 import CategoryContent from 'features/category/content';
 
-type Props = Readonly<{ slug: string; }>;
+type Props = Readonly<{
+    slug: string;
+    locale: string;
+}>;
 
 const CategoryDrawer: FC<Props> = ({
     slug,
 }) => {
     'use memo'
+    const {
+        category,
+        isLoading,
+    } = useCategoryBySlugData(slug);
+
+    if (isLoading) return null;
+
     const {
         router,
         isActivePath,
@@ -28,15 +38,6 @@ const CategoryDrawer: FC<Props> = ({
 
     // Determine if dialog is open when category/slug is on route, is navigate from dialog, this is false.
     const categoryIsActive = isActivePath(`/category/${slug}`);
-
-    const {
-        category,
-        isLoading,
-    } = useCategoryOffersData(slug);
-
-    const loading = isLoading;
-
-    if (loading) return null;
 
     return (
         <Drawer
@@ -51,7 +52,7 @@ const CategoryDrawer: FC<Props> = ({
                             <Paragraph>{category.description}</Paragraph>
                         )}
                     </div>
-                    <CategoryContent/>
+                    <CategoryContent categoryId={category.id}/>
                 </div>
             </DrawerContent>
         </Drawer>

@@ -2,14 +2,11 @@
 
 import type { FC } from 'react';
 
-import dynamic from 'next/dynamic';
-
 import { toast } from 'sonner';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useFormatter, useTranslations } from 'next-intl';
 
 import { clientEnv } from 'env/client';
-import { checkoutTool } from 'lib/tools';
 
 import {
     shopAtom,
@@ -48,8 +45,6 @@ const CartContent: FC<Props> = () => {
         if(removeItemFromCart) removeItemFromCart(itemId);
     };
 
-    console.log('cart items', cart.items);
-
     const handleCheckout = async () => {
         if (unavailable) {
             toast.error(t('emptyCart'));
@@ -58,7 +53,7 @@ const CartContent: FC<Props> = () => {
 
         let rawMessage = [
             'Hola, quiero agendar el servicio de \n',
-            cart.items.map(item => {
+            cart.items?.map(item => {
                 const groupName = item.options.map(o => o.optionGroupName)?.[0] ?? null;
 
                 return [
@@ -85,7 +80,7 @@ const CartContent: FC<Props> = () => {
                     {t('items', { count: cartItemsCount })}
                 </Paragraph>
                 <ul className='flex flex-col gap-y-4'>
-                    {cart.items.map(item => {
+                    {cart.items?.map(item => {
                         const groupName = item.options.map(o => o.optionGroupName)?.[0] ?? null;
 
                         return (

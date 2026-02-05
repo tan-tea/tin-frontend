@@ -22,12 +22,27 @@
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "Incluído",
+    "cart": "Carrito de compras",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "Jersey Shop",
         "siteName": "Ropa Original y Marcas Premium en Armenia, Quindio",
         "titleTemplate": "%s | Jersey Shop",
         "description": "Jersey Shop es una tienda de ropa ubicada en Armenia, Quindío, especializada en la venta de ropa y calzado 100% original de marcas reconocidas a nivel mundial. Encuentra las últimas colecciones de Nike, New Balance, Calvin Klein, Hugo Boss, Michael Kors, Guess, Karl Lagerfeld, Alo, Coach, Dyson y más, ideales para quienes buscan calidad, estilo y autenticidad. En Jersey Shop Armenia ofrecemos una experiencia de compra confiable, con productos originales, atención personalizada y opciones ideales para hombre y mujer. Visítanos y eleva tu estilo con marcas premium y moda de alta calidad.",
         "keywords": "Jersey Shop, Jersey Shop Armenia, tienda de ropa en Armenia, tienda de ropa Armenia Quindío, ropa original, ropa de marca original, marcas premium, ropa Nike original, Nike Armenia, Calvin Klein Armenia, Hugo Boss Armenia, New Balance Armenia, Michael Kors Armenia, Guess Armenia, Karl Lagerfeld Armenia, Alo Armenia, Coach Armenia, Monastery Armenia, ropa para hombre, ropa para mujer, calzado original, moda premium, streetwear premium, tienda de marcas originales, ropa de marca Colombia, tienda de ropa Colombia",
+        "signin": {
+            "title": "",
+            "description": ""
+        },
+        "signup": {
+            "title": "",
+            "description": ""
+        },
+        "category": {
+            "title": "",
+            "description": ""
+        },
         "location": {
             "title": "Jersey Shop Armenia, Quindío | Tienda de Ropa Original y Marcas Premium",
             "description": "Visita Jersey Shop en Armenia, Quindío, tu tienda de confianza para comprar ropa y calzado 100% original de marcas premium. Encuentra productos de Nike, New Balance, Calvin Klein, Hugo Boss, Michael Kors, Guess, Karl Lagerfeld, Alo, Coach y más, en un solo lugar."

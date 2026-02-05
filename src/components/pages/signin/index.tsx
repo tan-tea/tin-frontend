@@ -33,8 +33,9 @@ export default function Signin(props: Props) {
         mode: 'all',
         reValidateMode: 'onChange',
         values: {
-            email: null,
-            password: null,
+            email: '',
+            password: '',
+            remember: false,
         },
     });
 

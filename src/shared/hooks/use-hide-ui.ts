@@ -3,14 +3,12 @@ import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
 
-type UseHideUI = void;
-
-type UseHideUIProps = {
+type Props = {
     hideHeader?: boolean;
     hideBottomNavigation?: boolean;
 };
 
-export function useHideUI(props: UseHideUIProps): UseHideUI {
+export function useHideUI(props: Props): void {
     const {
         hideHeader = true,
         hideBottomNavigation = true,

@@ -2,20 +2,21 @@ import { toast } from 'sonner';
 import { useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import { minutesToMilliseconds } from 'date-fns';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 import { getOffersByShop, getShopDetailsBySlug } from 'app/actions';
 
 import { cachedOffersAtom, cachedShopAtom } from 'shared/state';
 
 export function useOffersByShop(shopId: string) {
-    return useSuspenseQuery({
+    return useInfiniteQuery({
         queryKey: ['offers-by-shop', shopId],
-        queryFn: () => getOffersByShop(shopId),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        staleTime: minutesToMilliseconds(1),
-        gcTime: minutesToMilliseconds(2.5),
+        queryFn: ({ pageParam = null }) => getOffersByShop(shopId, {
+            limit: 10,
+            cursor: pageParam as any,
+        }),
+        initialPageParam: null,
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
         retry: 2,
     });
 }
@@ -33,15 +34,17 @@ export function useOffersByShopData(shopId: string) {
         ...query
     } = useOffersByShop(shopId);
 
-    useEffect(() => {
-        if (!data) return;
+    const offers = data?.pages.flatMap(p => p.items) ?? [];
 
-        setCachedOffers(data);
+    useEffect(() => {
+        if (!data || !offers) return;
+
+        setCachedOffers(offers);
     }, [data, setCachedOffers]);
 
     useEffect(() => {
         if (isError && !isLoading) {
-            toast.error(error.message);
+            toast.error('Something went wrong!');
         }
     }, [isError, isLoading, error]);
 
@@ -51,7 +54,8 @@ export function useOffersByShopData(shopId: string) {
         isError,
         isLoading,
         isSuccess,
-        offers: data,
+        data,
+        offers,
     };
 }
 

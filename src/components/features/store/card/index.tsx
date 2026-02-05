@@ -66,7 +66,7 @@ const StoreCard: FC<StoreCardProps> = ({
                     <div className='mt-4'>
                         <Button
                             type='button'
-                            variant='outline'
+                            variant='filled'
                             color='primary'
                             onMouseEnter={() => prefetchOnHover(`/store/${slug}`)}
                             onClick={() => navigate(`/store/${slug}`)}

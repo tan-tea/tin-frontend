@@ -8,6 +8,20 @@ import { getOfferDetailsBySlug } from 'app/actions';
 
 import { cachedOfferAtom } from 'shared/state';
 
+export function useOfferBySlug(slug: string) {
+    'use memo'
+    return useSuspenseQuery({
+        queryKey: ['offer-by-slug', slug],
+        queryFn: () => getOfferDetailsBySlug(slug),
+        refetchOnMount: true,
+        refetchOnReconnect: true,
+        refetchOnWindowFocus: true,
+        staleTime: 0,
+        gcTime: minutesToMilliseconds(1),
+        retry: 3,
+    });
+}
+
 export function useOfferBySlugData(slug: string) {
     'use memo'
     const setCachedOffer = useSetAtom(cachedOfferAtom)
@@ -19,16 +33,7 @@ export function useOfferBySlugData(slug: string) {
         isSuccess,
         isLoading,
         ...query
-    } = useSuspenseQuery({
-        queryKey: ['offer-by-slug', slug],
-        queryFn: () => getOfferDetailsBySlug(slug),
-        refetchOnMount: true,
-        refetchOnReconnect: true,
-        refetchOnWindowFocus: true,
-        staleTime: minutesToMilliseconds(1),
-        gcTime: minutesToMilliseconds(5),
-        retry: 3,
-    });
+    } = useOfferBySlug(slug);
 
     useEffect(() => {
         if (!data) return;

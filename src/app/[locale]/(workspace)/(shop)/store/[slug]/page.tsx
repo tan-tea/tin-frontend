@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
+import type { Offer } from 'shared/models';
 
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, InfiniteData } from '@tanstack/react-query';
 
 import {
     getOffersByShop,
     getShopDetailsBySlug,
 } from 'app/actions';
-import { getQueryClient } from 'app/get-query-client';
+import { cachedQueryClient, getQueryClient } from 'app/get-query-client';
 
 import StoreBySlug from 'pages/store-by-slug';
 
@@ -70,7 +71,7 @@ export default async function Page(props: PageProps) {
 
     const slug = (await params).slug;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
     await queryClient.prefetchQuery({
         queryKey: ['shop-by-slug', slug],
@@ -80,13 +81,20 @@ export default async function Page(props: PageProps) {
     const shop = queryClient.getQueryData<
         Awaited<ReturnType<typeof getShopDetailsBySlug>>
     >(['shop-by-slug', slug]);
+
     if (!shop) return notFound();
 
     const shopId = shop.id;
 
-    queryClient.prefetchQuery({
+    queryClient.prefetchInfiniteQuery({
         queryKey: ['offers-by-shop', shopId],
-        queryFn: () => getOffersByShop(shopId),
+        queryFn: ({ pageParam = null }) =>
+            getOffersByShop(shopId, {
+            limit: 10,
+            cursor: pageParam ?? undefined,
+            }),
+        initialPageParam: null,
+        getNextPageParam: (lastPage: PaginatedResult<Offer>) => lastPage.nextCursor,
     });
 
     return (

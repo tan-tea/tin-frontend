@@ -24,6 +24,9 @@
     "headquarter": "",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "",
+    "cart": "",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "",
         "siteName": "",
@@ -35,6 +38,10 @@
             "description": ""
         },
         "signup": {
+            "title": "",
+            "description": ""
+        },
+        "category": {
             "title": "",
             "description": ""
         },
@@ -64,6 +71,13 @@
         "discount": "{discount}% off",
         "showMore": "",
         "showLess": ""
+    },
+    "Signin": {
+        "title": "Bienvenido 👋",
+        "description": "Accede con tu cuenta para disfrutar de una experiencia personalizada."
+    },
+    "Signup": {
+        "title": ""
     },
     "Privacy": {
         "content": ""

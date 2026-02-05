@@ -23,6 +23,9 @@
     "headquarter": "Sucursal",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "Incluído",
+    "cart": "Carrito de compras",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "Collamiy",
         "siteName": "Collamiy — Catálogo digital de productos fácil y rápido",
@@ -98,7 +101,7 @@
         }
     },
     "location": {
-        "tooltip": "Nuestra Ubicaci\u00f3n",
+        "tooltip": "Nuestra ubicaci\u00f3n",
         "dialog": {
             "title": "Ubicación",
             "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",

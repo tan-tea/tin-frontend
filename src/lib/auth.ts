@@ -25,7 +25,7 @@ export const auth = betterAuth({
     trustedOrigins: ['http://localhost:3000', clientEnv.NEXT_PUBLIC_SITE_URL],
     emailAndPassword: {
         enabled: true,
-        disableSignUp: false,
+        disableSignUp: true,
         autoSignIn: true,
         minPasswordLength: 6,
         resetPasswordTokenExpiresIn: milliseconds({ hours: 1 }),

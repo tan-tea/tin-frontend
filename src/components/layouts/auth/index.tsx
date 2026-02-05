@@ -45,16 +45,21 @@ export default function AuthLayout(props: Props) {
         [loadShopAtom, null],
     ] as any, false);
 
+    const sectionRef = useRef<HTMLElement | null>(null);
     const titlebarRef = useRef<HTMLDivElement | null>(null);
+
+    const sectionStyle = useComputedStyle(sectionRef.current);
     const titlebarStyle = useComputedStyle(titlebarRef.current);
 
+    const viewHeight = parseInt(sectionStyle?.height ?? '0');
     const contentSpacing = parseInt(titlebarStyle?.height ?? '0');
 
     return (
         <Section
-            aria-label=''
-            aria-description='Lorem ipsum'
-            className='h-dvh overflow-hidden'
+            ref={sectionRef}
+            aria-label={''}
+            aria-description={''}
+            className='overflow-hidden'
         >
             <Titlebar
                 ref={titlebarRef}
@@ -66,10 +71,8 @@ export default function AuthLayout(props: Props) {
                 </div>}
             />
             <div
-                className='relative size-full px-4 py-2'
-                style={{
-                    top: `${contentSpacing}px`,
-                }}
+                className='relative size-full px-4 py-4 flex flex-col'
+                style={{ top: `${contentSpacing}px`, }}
             >
                 {children}
             </div>

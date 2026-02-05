@@ -23,12 +23,27 @@
     "headquarter": "Sucursal",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "Incluído",
+    "cart": "Carrito de compras",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "La Perreria",
         "siteName": "La Perreria — Perros Calientes Personalizados a tu gusto y Hamburguesas en Armenia, Quindío",
         "titleTemplate": "%s | La Perreria",
         "description": "La Perrería es el lugar ideal en Armenia, Quindío, para disfrutar comida rápida personalizada. Perros calientes a tu gusto con 14 ingredientes y salsas ilimitadas, hamburguesas jugosas y salchipapas irresistibles.",
         "keywords": "perros calientes personalizados, perros calientes en Armenia, hamburguesas en Armenia, comida rápida en Armenia, hot dogs personalizados, hamburguesas artesanales, comida rápida Armenia Quindío, perros calientes Armenia Quindío, hamburguesas Armenia Quindío, mejores perros calientes en Armenia, restaurantes de comida rápida en Armenia, perros calientes a tu gusto, hamburguesas jugosas, salchipapas crujientes, combos de comida rápida, pan artesanal, comida rápida personalizada, dónde comer perros calientes en Armenia, perros calientes personalizados en Armenia, hamburguesas artesanales en Armenia, comida rápida con domicilio en Armenia, perros calientes con muchos ingredientes",
+        "signin": {
+            "title": "",
+            "description": ""
+        },
+        "signup": {
+            "title": "",
+            "description": ""
+        },
+        "category": {
+            "title": "",
+            "description": ""
+        },
         "location": {
             "title": "Ubicaci\u00f3n y Direcci\u00f3n — Comida R\u00e1pida en Armenia",
             "description": "Visita La Perrería en Armenia, Quindío. Conoce nuestra ubicaci\u00f3n, direcci\u00f3n y c\u00f3mo llegar para disfrutar perros calientes, hamburguesas y comida r\u00e1pida preparada al momento."
@@ -98,7 +113,7 @@
         }
     },
     "location": {
-        "tooltip": "Nuestra Ubicaci\u00f3n",
+        "tooltip": "Nuestra ubicaci\u00f3n",
         "dialog": {
             "title": "Ubicación",
             "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",

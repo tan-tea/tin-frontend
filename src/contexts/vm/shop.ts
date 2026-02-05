@@ -24,7 +24,7 @@ export async function findVerifiedShopsByWorkspaceId(workspaceId: string): Promi
                         limit: 5,
                     },
                 },
-                where: (fields, { and, eq, }) => and(
+                where: (fields, { eq, and }) => and(
                     eq(fields.isVerified, true),
                     eq(fields.workspaceId, workspaceId),
                 ),
@@ -34,6 +34,32 @@ export async function findVerifiedShopsByWorkspaceId(workspaceId: string): Promi
     } catch (error) {
         throw new Error(
             `Error on get shops by workspace id: ${workspaceId}`,
+            { cause: error, }
+        );
+    }
+}
+
+export async function findShopBySlugAndWorkspaceId(slug: string, workspaceId: string): Promise<Shop | null> {
+    try {
+        const shop = await getReadReplica()
+            .query
+            .shops
+            .findFirst({
+                with: {
+                    address: true,
+                    geolocation: true,
+                    schedules: true,
+                },
+                where: (fields, { eq, and }) => and(
+                    eq(fields.isVerified, true),
+                    eq(fields.slug, slug),
+                    eq(fields.workspaceId, workspaceId),
+                ),
+            });
+
+        return shop || null;
+    } catch (error) {
+        throw new Error(`Error on get shop by slug: ${slug}`,
             { cause: error, }
         );
     }

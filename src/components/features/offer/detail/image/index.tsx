@@ -29,9 +29,9 @@ type ImageOutput = {
 };
 
 function getImageFormat(images: Array<ImageInput>): Array<ImageOutput> {
-    return images.map(image => ({
+    return images?.map(image => ({
         src: image.image,
-        alt: image.description,
+        alt: image.description ?? '',
     }));
 }
 

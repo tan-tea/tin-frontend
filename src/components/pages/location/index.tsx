@@ -66,7 +66,10 @@ export default function Location(props: Props) {
     const {
         shops,
         primaryShop,
+        isLoading,
     } = useShopsByWorkspaceData(workspaceId);
+
+    if (isLoading) return <Loading/>
 
     const [camera, setCamera] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {

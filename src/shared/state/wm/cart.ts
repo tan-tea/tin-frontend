@@ -7,9 +7,10 @@ import type { Cart, CartItem } from 'shared/models';
 
 export const cartBaseAtom = atom<Cart>({
     id: crypto.randomUUID(),
-    userId: null,
+    userId: '',
     status: 'open',
     createdAt: new Date(),
+    updatedAt: new Date(),
     items: [],
 });
 
@@ -47,14 +48,14 @@ export const addItemToCartAtom = atom(
     (get, set, newCartItem: CartItem) => {
         const currentCart = get(cartBaseAtom);
 
-        const existingItem = currentCart.items.find(
+        const existingItem = currentCart.items?.find(
             item => item.offerId === newCartItem.offerId
         );
 
         if (existingItem) {
             set(cachedCartAtom, {
                 ...currentCart,
-                items: currentCart.items.map(item =>
+                items: currentCart.items?.map(item =>
                     item.id === existingItem.id
                     ? {
                         ...item,
@@ -66,7 +67,7 @@ export const addItemToCartAtom = atom(
         } else {
             set(cachedCartAtom, {
                 ...currentCart,
-                items: [...currentCart.items, newCartItem]
+                items: [...(currentCart?.items ?? []), newCartItem]
             });
         }
     },
@@ -77,7 +78,7 @@ export const removeItemFromCartAtom = atom(
     (get, set, id: string) => {
         const currentCart = get(cartBaseAtom);
 
-        const existingItem = currentCart.items.find(
+        const existingItem = currentCart.items?.find(
             item => item.id === id
         );
 
@@ -85,18 +86,18 @@ export const removeItemFromCartAtom = atom(
 
         set(cachedCartAtom, {
             ...currentCart,
-            items: [...currentCart.items.filter(item => item.id !== existingItem.id)],
+            items: [...(currentCart?.items ?? []).filter(item => item.id !== existingItem.id)],
         });
     },
 );
 
 export const cartItemsCountAtom = atom((get) => {
-    return get(cartBaseAtom).items.length ?? 0;
+    return get(cartBaseAtom)?.items?.length ?? 0;
 });
 
 export const cartItemsTotalPriceAtom = atom((get) => {
-    return get(cartBaseAtom).items.reduce(
+    return get(cartBaseAtom)?.items?.reduce(
         (sum, item) => sum + (item.totalPrice ?? 0),
         0
-    );
+    ) ?? 0;
 });

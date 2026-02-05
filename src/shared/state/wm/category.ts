@@ -1,9 +1,9 @@
+import type { Category } from 'shared/models';
+
 import { atom, } from 'jotai';
 import { queryClientAtom } from 'jotai-tanstack-query';
 
 import cache from 'lib/dexie';
-
-import type { Category } from 'shared/models';
 
 import { workspaceAtom } from './workspace';
 
@@ -34,7 +34,7 @@ export const cachedCategoryAtom = atom(
         set(categoryBaseAtom, category);
 
         const queryClient = get(queryClientAtom);
-        queryClient.setQueryData(['category-offers-by-slug'], category);
+        queryClient.setQueryData(['category-by-slug'], category);
     },
 );
 

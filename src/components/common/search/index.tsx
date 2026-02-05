@@ -2,7 +2,6 @@
 
 import type { FC } from 'react';
 
-import { z } from 'zod';
 import { useState } from 'react';
 import {
     useForm,
@@ -17,8 +16,7 @@ import { useTranslations } from 'next-intl';
 
 import { cn } from 'lib/utils';
 
-import { shopAtom } from 'shared/state';
-import { useOffersCriteriaData } from 'shared/hooks/queries';
+import { primaryShopAtom, shopAtom } from 'shared/state';
 
 import { InternalLink } from 'ui/link';
 import {
@@ -35,31 +33,29 @@ import {
     AutocompleteTrigger,
 } from 'ui/autocomplete';
 
+import { useSearchOffersData } from 'pages/search/hooks';
+import { SearchIn, searchInSchema } from 'pages/search/schemas';
+
 import SearchBox from './box';
 import SearchButton from './button';
 
-type SearchProps = object;
+type Props = Readonly<object>;
 
 const WAIT_IN_MS = 1000;
 
-const SearchSchema = z.object({
-    query: z.string(),
-});
-
-type SearchValues = z.infer<typeof SearchSchema>;
-
-const Search: FC<SearchProps> = () => {
+const Search: FC<Props> = () => {
    'use memo'
     const t = useTranslations();
 
     const shop = useAtomValue(shopAtom);
+    const primaryShop = useAtomValue(primaryShopAtom);
 
     const { slug } = useParams<{ slug: string }>();
 
     const [ open, setOpen ] = useState<boolean>(false);
 
-    const { control } = useForm<SearchValues>({
-        resolver: zodResolver(SearchSchema),
+    const { control } = useForm<SearchIn>({
+        resolver: zodResolver(searchInSchema()),
         mode: 'all',
         reValidateMode: 'onChange',
         values: {
@@ -72,12 +68,12 @@ const Search: FC<SearchProps> = () => {
     const [ debouncedQuery ] = useDebounce(query, WAIT_IN_MS);
 
     const {
-        data,
+        offers,
         isLoading,
-    } = useOffersCriteriaData(debouncedQuery);
+    } = useSearchOffersData({ query: debouncedQuery, shopId: shop?.id ?? primaryShop?.id! })
 
     const isTyping = query !== debouncedQuery;
-    const noResults = !isTyping && !isLoading && data && data.length === 0;
+    const noResults = !isTyping && !isLoading && offers && offers.length === 0;
     const showEmpty = query && isTyping && !noResults;
 
     if (!shop) return <div/>;
@@ -119,7 +115,7 @@ const Search: FC<SearchProps> = () => {
                                     </AutocompleteEmpty>
                                 )}
                                 <AutocompleteList>
-                                    {data && data?.map?.((offer) => (
+                                    {offers && offers?.map?.((offer) => (
                                         <AutocompleteItem key={offer.slug}>
                                             <InternalLink href={`./${slug}/item/${offer.slug}` as any}>
                                                 {offer.title}

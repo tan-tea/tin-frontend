@@ -14,7 +14,7 @@ export const offerOptionGroups = p.pgTable(
         optionGroupId: p.uuid('option_group_id')
             .notNull()
             .references(() => optionGroups.id, { onDelete: 'cascade' }),
-        sortOrder: p.smallint('sort_order').default(0),
+        sortOrder: p.smallint('sort_order').default(0).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()
@@ -31,6 +31,13 @@ export const offerOptionGroups = p.pgTable(
     ],
 );
 
-export const offerOptionGroupsRelations = relations(offerOptionGroups, ({}) => ({
-
+export const offerOptionGroupsRelations = relations(offerOptionGroups, ({ one }) => ({
+    offer: one(offers, {
+        fields: [offerOptionGroups.offerId],
+        references: [offers.id],
+    }),
+    group: one(optionGroups, {
+        fields: [offerOptionGroups.optionGroupId],
+        references: [optionGroups.id],
+    }),
 }));

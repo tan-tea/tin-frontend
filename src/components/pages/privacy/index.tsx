@@ -49,12 +49,14 @@ export default function Privacy(props: Props) {
 
     const { navigate } = useNavigation();
 
-    const { workspace } = useWorkspaceData(workspaceId);
+    const {
+        workspace,
+        isLoading,
+    } = useWorkspaceData(workspaceId);
 
-    if (!workspace) {
-        navigate('not-found');
-        return null;
-    }
+    if (isLoading) return <Loading/>
+
+    if (!workspace) return null;
 
     const childProps: PrivacyProps = {
         t,

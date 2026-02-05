@@ -1,13 +1,8 @@
 'use client'
-
 import type { FC, ReactNode } from 'react';
+import type { Option } from 'shared/models';
 
-import { Fragment } from 'react';
 import { useFormatter, useTranslations } from 'next-intl';
-
-import type {
-    Option
-} from 'shared/models';
 
 import {
     Field,
@@ -28,7 +23,8 @@ const OptionLabel: FC<Props> = ({
     const t = useTranslations();
     const formatter = useFormatter();
 
-    const priceIsDefined = (Boolean(option.priceDelta) && option.priceDelta > 0);
+    const price = option?.priceDelta ?? 0
+    const priceIsDefined = price > 0;
 
     return (
         <Field className='flex flex-row items-center justify-between'>
@@ -36,12 +32,11 @@ const OptionLabel: FC<Props> = ({
                 <FieldLabel>{option.name}</FieldLabel>
                 <FieldDescription>
                     {priceIsDefined && (
-                        <Fragment>
-                            +{formatter.number(option.priceDelta, {
-                                currency: 'COP',
-                                currencySign: 'standard',
-                            })}
-                        </Fragment>
+                        `+${formatter.number(price, {
+                            currency: 'COP',
+                            style: 'currency',
+                            currencySign: 'standard',
+                        })}`
                     )}
                     {!priceIsDefined && t('included')}
                 </FieldDescription>

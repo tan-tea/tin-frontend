@@ -24,14 +24,8 @@ const NavigationDrawerList: FC<NavigationDrawerListProps> = () => {
 
     const links: Array<ComponentProps<typeof NavigationDrawerListItem>> = [
         {
-            href: '/sign-up',
-            label: 'Registrate', //TODO: use t
-            isExternal: false,
-            icon: UserPlus,
-        },
-        {
             href: '/cart',
-            label: 'Carrito de compras', //TODO: use t
+            label: t('cart'),
             isExternal: false,
             icon: ShoppingCart,
         },

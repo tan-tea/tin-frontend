@@ -1,22 +1,27 @@
-'use client'
+'use client';
 
 import type { FC } from 'react';
+import type { StoreBySlugProps } from 'pages/store-by-slug';
 
 import { Section } from 'ui/layout';
 
-import type { StoreBySlugProps } from 'pages/store-by-slug';
-
+import LoadMoreTrigger from 'common/load-more-trigger';
 import OfferList from 'features/offer/list';
 import CategoryList from 'features/category/list';
 import NavigationBreadcrumb from 'features/navigation/breadcrumb';
 
-type StoreBySlugMobileProps = StoreBySlugProps
+type Props = StoreBySlugProps;
 
-const StoreBySlugMobile: FC<StoreBySlugMobileProps> = ({
+const StoreBySlugMobile: FC<Props> = ({
     shop,
     offers,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoadingOffers,
 }) => {
-    'use memo'
+    'use memo';
+
     return (
         <Section
             role='application'
@@ -29,8 +34,13 @@ const StoreBySlugMobile: FC<StoreBySlugMobileProps> = ({
             </div>
             <CategoryList/>
             <OfferList offers={offers}/>
+            <LoadMoreTrigger
+                onVisible={fetchNextPage}
+                disabled={isFetchingNextPage}
+                hasMore={hasNextPage}
+            />
         </Section>
     );
-}
+};
 
 export default StoreBySlugMobile;

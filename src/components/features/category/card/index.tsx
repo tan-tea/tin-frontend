@@ -77,7 +77,7 @@ const CategoryCard: FC<CategoryCardProps> = ({
         <Article
             whileTap={{ scale: 0.90 }}
             aria-label={label}
-            aria-description={description}
+            aria-description={description!}
             className={wrapper()}
         >
             <CardActionsArea
@@ -93,7 +93,7 @@ const CategoryCard: FC<CategoryCardProps> = ({
                         preload
                         loading='eager'
                         quality={100}
-                        src={banner}
+                        src={banner!}
                         alt={label}
                         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                         className='object-cover rounded-[inherit]'

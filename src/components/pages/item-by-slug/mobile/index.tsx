@@ -138,6 +138,8 @@ const ItemBySlugMobile: FC<Props> = ({
                     optionGroupName: selectedGroup.group.name,
                     optionName: option.name,
                     price: option.priceDelta,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
                 });
             }
         }
@@ -152,6 +154,7 @@ const ItemBySlugMobile: FC<Props> = ({
             quantity: 1,
             totalPrice,
             createdAt: new Date(),
+            updatedAt: new Date(),
             options,
         };
 
@@ -167,7 +170,7 @@ const ItemBySlugMobile: FC<Props> = ({
     return (
         <Section
             aria-label={offer.title}
-            aria-description={offer?.description}
+            aria-description={offerDescription}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Titlebar
@@ -177,7 +180,7 @@ const ItemBySlugMobile: FC<Props> = ({
                         <div className='ml-auto'>
                             <ShareButton shareableItem={{
                                 heading: offer?.title,
-                                description: offer?.description,
+                                description: offerDescription,
                             }}/>
                         </div>
                     )}

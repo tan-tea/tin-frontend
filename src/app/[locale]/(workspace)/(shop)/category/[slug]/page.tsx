@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { getCategoryWithOffers } from 'app/actions';
-import { getQueryClient } from 'app/get-query-client';
+import { getCategoryBySlug } from 'app/actions';
+import { cachedQueryClient } from 'app/get-query-client';
 
 import CategoryDetail from 'pages/category-detail';
 
@@ -19,21 +20,21 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const { params } = props;
 
     const slug = (await params).slug;
+    const locale = (await params).locale;
 
-    const queryClient = getQueryClient();
-
-    await queryClient.prefetchQuery({
-        queryKey: ['category-offers-by-slug', slug],
-        queryFn: () => getCategoryWithOffers(slug),
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
     });
 
-    const category = queryClient.getQueryData<
-        Awaited<ReturnType<typeof getCategoryWithOffers>>
-    >(['category-offers-by-slug', slug]);
-    if (!category) return {};
+    const category = await getCategoryBySlug(slug);
+
+    if (!category) return { title: t('notFound.title') };
+
+    if ('error' in category) return { title: category?.error };
 
     const title = category.label,
-        description = category.description;
+        description = category.description ?? t('category.description');
 
     return {
         title,
@@ -43,28 +44,26 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
             description,
         },
     };
-};
+}
 
 export default async function Page(props: PageProps) {
     const { params } = props;
 
     const slug = (await params).slug;
+    const locale = (await params).locale;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
-    await queryClient.prefetchQuery({
-        queryKey: ['category-offers-by-slug', slug],
-        queryFn: () => getCategoryWithOffers(slug),
+    const category = await queryClient.fetchQuery({
+        queryKey: ['category-by-slug', slug],
+        queryFn: () => getCategoryBySlug(slug),
     });
 
-    const category = queryClient.getQueryData<
-        Awaited<ReturnType<typeof getCategoryWithOffers>>
-    >(['category-offers-by-slug', slug]);
-    if (!category) return notFound();
+    if (!category || 'error' in category) return notFound();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <CategoryDetail slug={slug}/>
+            <CategoryDetail slug={slug} locale={locale}/>
         </HydrationBoundary>
     );
 }

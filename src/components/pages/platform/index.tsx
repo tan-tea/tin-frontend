@@ -1,14 +1,12 @@
 'use client';
+import type { Shop, Workspace } from 'shared/models';
 
 import dynamic from 'next/dynamic';
 
 import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
-import type {
-    Shop,
-    Workspace
-} from 'shared/models';
+import { useNavigation } from 'shared/hooks';
 import { workspaceAtom } from 'shared/state';
 
 import { useShopsByWorkspaceData } from './hooks';
@@ -30,6 +28,7 @@ type Props = Readonly<{
 
 export type PlatformProps = Readonly<{
     t: ReturnType<typeof useTranslations>;
+    navigation: ReturnType<typeof useNavigation>;
     shops: Array<Shop>;
     primaryShop: Shop | null;
     hasMultipleShops: boolean;
@@ -41,6 +40,7 @@ export default function Platform(props: Props) {
     const { workspaceId } = props;
 
     const t = useTranslations();
+    const navigation = useNavigation();
 
     const workspace = useAtomValue(workspaceAtom);
 
@@ -51,18 +51,16 @@ export default function Platform(props: Props) {
         isLoading,
     } = useShopsByWorkspaceData(workspaceId);
 
-    console.log('shops', shops);
+    if (isLoading) return <Loading/>
 
     const childProps: PlatformProps = {
         t,
+        navigation,
         shops,
         primaryShop,
         hasMultipleShops,
         workspace: workspace!,
     };
-
-    const loading = isLoading || !workspace;
-    if (loading) return <Loading/>
 
     return (
         <DeviceDetector

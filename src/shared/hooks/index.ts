@@ -1,4 +1,3 @@
-export { useCache } from './use-cache';
 export { useShare } from './use-share';
 export { useHideUI } from './use-hide-ui';
 export { useScroll } from './use-scroll';

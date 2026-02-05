@@ -15,8 +15,8 @@ export const optionGroups = p.pgTable(
             length: 500,
         }),
         required: p.boolean('required').default(false),
-        min: p.smallint('min').default(0),
-        max: p.smallint('max').default(1),
+        min: p.smallint('min').default(0).notNull(),
+        max: p.smallint('max').default(1).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()

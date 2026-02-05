@@ -28,5 +28,11 @@ export const routing = defineRouting({
         '/category/[slug]': {
             es: '/categoria/[slug]',
         },
+        '/sign-in': {
+            es: '/iniciar-sesion',
+        },
+        '/sign-up': {
+            es: '/registrarse',
+        },
     },
 });

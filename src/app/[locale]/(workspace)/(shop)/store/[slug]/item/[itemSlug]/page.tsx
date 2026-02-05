@@ -6,13 +6,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { clientEnv } from 'env/client';
 import { getOfferDetailsBySlug } from 'app/actions';
-import { getQueryClient } from 'app/get-query-client';
-
-import { fetchWithBackoff } from 'lib/utils';
-
-import type {
-    Offer
-} from 'shared/models';
+import { cachedQueryClient } from 'app/get-query-client';
 
 import ItemBySlug from 'pages/item-by-slug';
 
@@ -33,13 +27,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     const slug = (await params).slug;
     const itemSlug = (await params).itemSlug;
 
-    const t = await getTranslations('metadata');
+    const t = await getTranslations({
+        locale,
+        namespace: 'metadata',
+    });
 
-    const offer = await fetchWithBackoff<
-        Offer,
-        typeof getOfferDetailsBySlug,
-        Parameters<typeof getOfferDetailsBySlug>
-    >(getOfferDetailsBySlug, [itemSlug]);
+    const offer = await getOfferDetailsBySlug(itemSlug);
 
     if (!offer) return {
         title: t('siteName'),
@@ -48,7 +41,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
     const title = offer.title,
         description = offer.description,
-        url = `${clientEnv.NEXT_PUBLIC_SITE_URL}/${locale}/shop/${slug}/item/${itemSlug}`;
+        url = `${clientEnv.NEXT_PUBLIC_SITE_URL}/${locale}/store/${slug}/item/${itemSlug}`;
 
     return {
         title,
@@ -87,16 +80,13 @@ export default async function Page(props: PageProps) {
 
     const itemSlug = (await params).itemSlug;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
-    await queryClient.prefetchQuery({
+    const offer = await queryClient.fetchQuery({
         queryKey: ['offer-by-slug', itemSlug],
         queryFn: () => getOfferDetailsBySlug(itemSlug),
     });
 
-    const offer = queryClient.getQueryData<
-        Awaited<ReturnType<typeof getOfferDetailsBySlug>>
-    >(['offer-by-slug', itemSlug]);
     if (!offer) return notFound();
 
     return (

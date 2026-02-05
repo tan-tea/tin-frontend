@@ -68,3 +68,7 @@ export const cachedShopsAtom = atom(
         queryClient.setQueryData(['shops-by-workspace'], shops);
     },
 );
+
+export const primaryShopAtom = atom((get) => {
+    return get(shopsAtom).find(s => s.isPrimary);
+});

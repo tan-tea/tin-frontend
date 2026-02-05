@@ -27,9 +27,11 @@ export const offers = p.pgTable(
         slug: p.text('slug').notNull(),
         description: p.varchar('description', {
             length: 2500,
-        }),
+        }).notNull(),
         banner: p.text('banner').notNull(),
-        price: p.numeric('price', { precision: 12, scale: 2 }).notNull(),
+        price: p.numeric('price', { precision: 12, scale: 2 })
+            .$type<number>()
+            .notNull(),
         stock: p.integer('stock').default(0),
         discount: p.smallint('discount').default(0).notNull(),
         startDate: p.timestamp('start_date').defaultNow().notNull(),
@@ -75,7 +77,7 @@ export const offersRelations = relations(offers, ({ one, many }) => ({
         fields: [offers.workspaceId],
         references: [workspaces.id],
     }),
-    offers: many(shopOffers),
+    shops: many(shopOffers),
     images: many(offerImages),
     optionGroups: many(offerOptionGroups),
     cartItems: many(cartItems),

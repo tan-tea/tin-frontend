@@ -22,6 +22,9 @@
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "Incluído",
+    "cart": "Carrito de compras",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "Jersey Shop",
         "siteName": "Ropa Original y Marcas Premium en Armenia, Quindio",

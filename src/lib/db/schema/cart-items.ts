@@ -12,8 +12,12 @@ export const cartItems = p.pgTable(
     {
         id: p.uuid('id').primaryKey().defaultRandom(),
         offerTitle: p.text('offer_title').notNull(),
-        basePrice: p.numeric('base_price', { precision: 12, scale: 2 }).notNull(),
-        totalPrice: p.numeric('total_price', { precision: 12, scale: 2 }).notNull(),
+        basePrice: p.numeric('base_price', { precision: 12, scale: 2 })
+            .$type<number>()
+            .notNull(),
+        totalPrice: p.numeric('total_price', { precision: 12, scale: 2 })
+            .$type<number>()
+            .notNull(),
         quantity: p.integer('quantity').default(1).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')

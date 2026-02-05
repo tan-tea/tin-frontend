@@ -1,6 +1,7 @@
 'use client'
 
 import type { FC } from 'react';
+import type { OptionGroups } from 'pages/item-by-slug/schemas';
 
 import dynamic from 'next/dynamic';
 
@@ -35,8 +36,6 @@ import {
 } from 'ui/checkbox';
 import { ChevronUp, ChevronDown } from 'components/icons';
 
-import type { OptionGroups } from 'pages/item-by-slug/schemas';
-
 const OptionLabel = dynamic(
     () => import('./option-label'),
     {
@@ -62,7 +61,9 @@ const OfferDetailOptionGroups: FC<Props> = ({
         [currentOffer]
     );
 
-    const [openedGroups, setOpenedGroups] = useState<Array<string>>(optionGroups.map(o => o.group.id));
+    const [openedGroups, setOpenedGroups] = useState<Array<string>>(
+        optionGroups.map(o => o.group.id)
+    );
 
     const { errors } = useFormState({
         control,
@@ -78,10 +79,12 @@ const OfferDetailOptionGroups: FC<Props> = ({
             {optionGroups.map(optionGroup => {
                 const { group } = optionGroup;
 
+                if (!group) return null;
+
                 const groupId = group.id;
-                const isRequired = group.required;
+                const isRequired = Boolean(group.required);
                 const isSingleSelection = group.max === 1;
-                const isSingleOption = group.options.length === 1;
+                const isSingleOption = group.options?.length === 1;
                 const isGroupOpen = openedGroups.includes(groupId);
 
                 return (
@@ -143,7 +146,7 @@ const OfferDetailOptionGroups: FC<Props> = ({
                                                     aria-required={isRequired}
                                                     className='gap-y-4'
                                                 >
-                                                    {group.options.map(option => (
+                                                    {(group.options ?? [])?.map(option => (
                                                         <OptionLabel key={option.id} option={option}>
                                                             <Control value={option.id}>
                                                                 <Indicator/>

@@ -1,10 +1,6 @@
 import { cache } from 'react';
 import { minutesToMilliseconds } from 'date-fns';
-import {
-    isServer,
-    QueryClient,
-    defaultShouldDehydrateQuery,
-} from '@tanstack/react-query';
+import { isServer, QueryClient, defaultShouldDehydrateQuery } from '@tanstack/react-query';
 
 function makeQueryClient() {
     return new QueryClient({
@@ -20,12 +16,11 @@ function makeQueryClient() {
             },
             dehydrate: {
                 shouldDehydrateQuery: (query) =>
-                    defaultShouldDehydrateQuery(query)
-                    || query.state.status === 'pending',
+                    defaultShouldDehydrateQuery(query) || query.state.status === 'pending',
                 shouldRedactErrors: (error) => {
                     return false;
-                }
-            }
+                },
+            },
         },
     });
 }
@@ -41,6 +36,4 @@ export function getQueryClient() {
     }
 }
 
-export const cachedQueryClient = cache(
-    () => getQueryClient(),
-);
+export const cachedQueryClient = cache(() => getQueryClient());

@@ -1,13 +1,8 @@
 'use client'
 
-import dynamic from 'next/dynamic';
+import type { Shop, Offer } from 'shared/models';
 
 import { useTranslations } from 'next-intl';
-
-import type {
-    Shop,
-    Offer,
-} from 'shared/models';
 
 import {
     useOffersByShopData,
@@ -17,13 +12,8 @@ import {
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const StoreBySlugMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-        loading: () => <Loading/>,
-    },
-);
+import StoreBySlugMobile from './mobile';
+import StoreBySlugDesktop from './mobile';
 
 type Props = Readonly<{
     slug: string;
@@ -34,6 +24,10 @@ export type StoreBySlugProps = Props & {
     t: ReturnType<typeof useTranslations>;
     shop: Shop;
     offers: Array<Offer>;
+    fetchNextPage: any,
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
+    isLoadingOffers: boolean;
 };
 
 export default function StoreBySlug(props: Props) {
@@ -47,8 +41,15 @@ export default function StoreBySlug(props: Props) {
         isLoading: isLoadingShop,
     } = useShopBySlugData(slug);
 
+    if (isLoadingShop) return <Loading/>
+
+    if (!shop) return null;
+
     const {
         offers,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
         isLoading: isLoadingOffers,
     } = useOffersByShopData(shopId);
 
@@ -58,15 +59,16 @@ export default function StoreBySlug(props: Props) {
         shopId,
         shop,
         offers,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoadingOffers,
     };
-
-    const loading = isLoadingOffers || isLoadingShop;
-    if (loading) return <Loading/>
 
     return (
         <DeviceDetector
             MobileComponent={<StoreBySlugMobile {...childProps}/>}
-            DesktopComponent={<StoreBySlugMobile {...childProps}/>}
+            DesktopComponent={<StoreBySlugDesktop {...childProps}/>}
         />
     );
 }

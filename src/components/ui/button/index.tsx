@@ -103,7 +103,7 @@ const baseButton = tv({
             color: ['primary', 'secondary', 'default', 'background'],
             variant: 'text',
             className: [
-                'border-none',
+                'border-none bg-transparent',
             ],
         },
         {
@@ -118,7 +118,10 @@ type BaseButtonVariants = VariantProps<typeof baseButton>;
 
 type ButtonRootProps = BaseButtonVariants
     & MotionProps
-    & ComponentProps<typeof BaseButton>;
+    & ComponentProps<typeof BaseButton>
+    & {
+        loading?: boolean;
+    };
 
 const BUTTON_ROOT_ANIMATION: MotionNodeAnimationOptions = {
     initial: {
@@ -142,6 +145,8 @@ const Button: FC<ButtonRootProps> = ({
     variant,
     size,
     block,
+    children,
+    loading = false,
     ...props
 }) => {
     'use memo'
@@ -160,7 +165,12 @@ const Button: FC<ButtonRootProps> = ({
                 className: className as ClassValue,
             })}
             render={<motion.button/>}
-        />
+        >
+            {loading
+                ? <>Cargando...</>
+                : children
+            }
+        </BaseButton>
     );
 };
 

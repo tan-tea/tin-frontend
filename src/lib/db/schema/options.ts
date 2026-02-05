@@ -9,8 +9,11 @@ export const options = p.pgTable(
     {
         id: p.uuid('id').primaryKey().defaultRandom(),
         name: p.text('name').notNull(),
-        priceDelta: p.numeric('price_delta', { precision: 12, scale: 2 }).default('0.00'),
-        isActive: p.boolean('is_active').default(true),
+        priceDelta: p.numeric('price_delta', { precision: 12, scale: 2 })
+            .$type<number>()
+            .default(0.00)
+            .notNull(),
+        isActive: p.boolean('is_active').default(true).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()

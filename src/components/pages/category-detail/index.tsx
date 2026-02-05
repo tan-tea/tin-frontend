@@ -1,28 +1,23 @@
 'use client'
 
-import dynamic from 'next/dynamic';
+import type { Category } from 'shared/models';
 
 import { useTranslations } from 'next-intl';
 
-import type {
-    Category
-} from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
-import { useCategoryOffersData } from './hooks';
+import { useCategoryBySlugData } from './hooks';
 
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const CategoryDetailMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-        loading: () => <Loading/>
-    },
-);
+import CategoryDetailMobile from './mobile';
+import CategoryDetailDesktop from './mobile';
 
-type Props = Readonly<{ slug: string; }>;
+type Props = Readonly<{
+    slug: string;
+    locale: string;
+}>;
 
 export type CategoryDetailProps = Props & {
     t: ReturnType<typeof useTranslations>;
@@ -31,34 +26,33 @@ export type CategoryDetailProps = Props & {
 
 export default function CategoryDetail(props: Props) {
     'use memo'
-    const { slug } = props;
+    const { slug, locale } = props;
 
     useHideUI({
         hideHeader: true,
         hideBottomNavigation: true,
     });
 
-    const t = useTranslations();
-
     const {
         category,
         isLoading,
-    } = useCategoryOffersData(slug);
+    } = useCategoryBySlugData(slug);
+
+    if (isLoading) return <Loading/>;
+
+    const t = useTranslations();
 
     const childProps: CategoryDetailProps = {
-        ...props,
         t,
+        slug,
+        locale,
         category,
     };
-
-    const loading = isLoading;
-
-    if (loading) return <Loading/>;
 
     return (
         <DeviceDetector
             MobileComponent={<CategoryDetailMobile {...childProps}/>}
-            DesktopComponent={<CategoryDetailMobile {...childProps}/>}
+            DesktopComponent={<CategoryDetailDesktop {...childProps}/>}
         />
     );
 }

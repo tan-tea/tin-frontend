@@ -9,5 +9,5 @@ import { ShopOffers } from './shop-offers';
 export interface Shop extends InferSelectModel<typeof shops> {
     address: Address;
     geolocation: Geolocation;
-    offers: Array<ShopOffers>;
+    offers?: Array<ShopOffers>;
 }

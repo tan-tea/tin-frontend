@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { QueryClientProvider } from '@tanstack/react-query';
 
+import { clientEnv } from 'env/client';
 import { getQueryClient } from 'app/get-query-client';
 
 import { DialogProvider } from 'shared/contexts/dialog';
@@ -33,7 +34,7 @@ export default function Providers(props: Props) {
                     <DynamicThemeProvider>
                         <ThemeLayout>
                             <DialogProvider>
-                                <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+                                <APIProvider apiKey={clientEnv.NEXT_PUBLIC_GOOGLE_API_KEY}>
                                     <BreadcrumbProvider>
                                         {children}
                                     </BreadcrumbProvider>

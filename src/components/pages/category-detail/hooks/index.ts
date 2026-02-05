@@ -1,14 +1,27 @@
 import { toast } from 'sonner';
 import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { minutesToMilliseconds } from 'date-fns';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
-import { getCategoryWithOffers } from 'app/actions';
+import { getCategoryBySlug, getOffersByCategory } from 'app/actions';
 
-import { cachedCategoryAtom } from 'shared/state';
+import { cachedCategoryAtom, categoryAtom } from 'shared/state';
 
-export function useCategoryOffersData(slug: string) {
+function useCategoryBySlug(slug: string) {
+    'use memo'
+    return useSuspenseQuery({
+        queryKey: ['category-by-slug', slug],
+        queryFn: async () => {
+            const result = await getCategoryBySlug(slug);
+            if ('error' in result) throw new Error(result.error);
+
+            return result;
+        },
+        retry: 1,
+    });
+}
+
+export function useCategoryBySlugData(slug: string) {
     'use memo'
     const setCachedCategory = useSetAtom(cachedCategoryAtom);
 
@@ -16,37 +29,76 @@ export function useCategoryOffersData(slug: string) {
         data,
         error,
         isError,
-        isSuccess,
-        isLoading,
-        ...query
-    } = useSuspenseQuery({
-        queryKey: ['category-offers-by-slug', slug],
-        queryFn: () => getCategoryWithOffers(slug),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        staleTime: minutesToMilliseconds(2.5),
-        gcTime: minutesToMilliseconds(5),
-        retry: 2,
-    });
+        ...rest
+    } = useCategoryBySlug(slug);
 
     useEffect(() => {
         if (!data) return;
 
         setCachedCategory(data);
+    }, [data, setCachedCategory,]);
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(error.message);
+        }
+    }, [error, isError]);
+
+    return {
+        ...rest,
+        error,
+        isError,
+        category: data,
+    };
+}
+
+function useOffersByCategoryId(categoryId: string) {
+    'use memo'
+    return useInfiniteQuery({
+        queryKey: ['offers-by-category-id', categoryId],
+        queryFn: ({ pageParam = null }) => getOffersByCategory(categoryId, {
+            limit: 20,
+            cursor: pageParam as any,
+        }),
+        initialPageParam: null,
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+        retry: 2,
+    });
+}
+
+export function useOffersByCategoryIdData(categoryId: string) {
+    'use memo'
+    const cachedCategory = useAtomValue(categoryAtom);
+    const setCachedCategory = useSetAtom(cachedCategoryAtom);
+
+    const {
+        data,
+        error,
+        isError,
+        ...query
+    } = useOffersByCategoryId(categoryId)
+
+    const offers = data?.pages?.flatMap(p => p.items) ?? [];
+
+    useEffect(() => {
+        if (!data || !offers || !cachedCategory) return;
+
+        setCachedCategory({
+            ...cachedCategory,
+            offers,
+        });
     }, [data, setCachedCategory]);
 
     useEffect(() => {
-        if (isError && !isLoading) {
+        if (isError) {
             toast.error(error.message);
         }
-    }, [isError, isLoading, error]);
+    }, [isError, error]);
 
     return {
         ...query,
         error,
         isError,
-        isLoading,
-        isSuccess,
-        category: data,
+        offers,
     };
 }

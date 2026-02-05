@@ -12,7 +12,7 @@ export const cartItemOptions = p.pgTable(
         id: p.uuid('id').primaryKey().defaultRandom(),
         optionGroupName: p.text('option_group_name').notNull(),
         optionName: p.text('option_name').notNull(),
-        price: p.numeric('price', { precision: 12, scale: 2 }).notNull(),
+        price: p.numeric('price', { precision: 12, scale: 2 }).$type<number>().notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()

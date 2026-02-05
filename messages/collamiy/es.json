@@ -23,12 +23,27 @@
     "headquarter": "Sucursal",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
     "included": "Incluído",
+    "cart": "Carrito de compras",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
     "metadata": {
         "applicationName": "Collamiy",
         "siteName": "Collamiy — Catálogo digital de productos fácil y rápido",
         "titleTemplate": "%s | Collamiy",
         "description": "Collamiy es un espacio pensado para disfrutar productos de forma simple y cómoda. A través de su catálogo digital, puedes explorar bebidas, snacks y postres cuidadosamente seleccionados, con información clara y siempre disponible desde cualquier dispositivo.",
         "keywords": "catálogo digital, menú digital, menú online, catálogo online, menú para negocios, catálogo para restaurantes, menú digital para celulares, menú sin app, catálogo accesible desde cualquier dispositivo, menú con dominio propio, catálogo digital moderno, menú digital profesional, carta digital, menú web, catálogo para pequeños negocios, presencia digital para negocios, menú fácil y rápido, catálogo digital de productos",
+        "signin": {
+            "title": "",
+            "description": ""
+        },
+        "signup": {
+            "title": "",
+            "description": ""
+        },
+        "category": {
+            "title": "",
+            "description": ""
+        },
         "location": {
             "title": "Ubicaci\u00f3n y Direcci\u00f3n",
             "description": "Visita Collamiy. Conoce nuestra ubicaci\u00f3n, direcci\u00f3n y c\u00f3mo llegar para disfrutar de nuestra comida preparada al momento."
@@ -98,7 +113,7 @@
         }
     },
     "location": {
-        "tooltip": "Nuestra Ubicaci\u00f3n",
+        "tooltip": "Nuestra ubicaci\u00f3n",
         "dialog": {
             "title": "Ubicación",
             "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",

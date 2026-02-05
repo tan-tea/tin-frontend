@@ -2,29 +2,27 @@
 
 import type { FC } from 'react';
 
-import dynamic from 'next/dynamic';
-
-import { useAtomValue } from 'jotai';
-
-import { categoryAtom } from 'shared/state';
-
 import { Wrapper } from 'ui/layout';
 
-const OfferList = dynamic(
-    () => import('features/offer/list'),
-    {
-        ssr: false,
-    },
-);
+import { useOffersByCategoryIdData } from 'pages/category-detail/hooks';
 
-type CategoryContentProps = Readonly<object>;
+import OfferList from 'features/offer/list';
+import LoadMoreTrigger from 'common/load-more-trigger';
 
-const CategoryContent: FC<CategoryContentProps> = () => {
+type CategoryContentProps = Readonly<{
+    categoryId: string;
+}>;
+
+const CategoryContent: FC<CategoryContentProps> = ({
+    categoryId,
+}) => {
     'use memo'
-    const category = useAtomValue(categoryAtom);
-    if (!category) return null;
-
-    const { offers } = category;
+    const {
+        offers,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+    } = useOffersByCategoryIdData(categoryId);
 
     return (
         <Wrapper className='flex flex-col'>
@@ -33,6 +31,11 @@ const CategoryContent: FC<CategoryContentProps> = () => {
                 defaultView='list'
                 forceDefaultView
                 showActions={false}
+            />
+            <LoadMoreTrigger
+                onVisible={fetchNextPage}
+                disabled={isFetchingNextPage}
+                hasMore={hasNextPage}
             />
         </Wrapper>
     );

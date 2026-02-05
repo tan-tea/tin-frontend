@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { getQueryClient } from 'app/get-query-client';
+import { cachedQueryClient } from 'app/get-query-client';
 
 import Signin from 'pages/signin';
 
@@ -29,7 +29,7 @@ export default async function Page(props: PageProps) {
 
     const locale = (await params).locale;
 
-    const queryClient = getQueryClient();
+    const queryClient = cachedQueryClient();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

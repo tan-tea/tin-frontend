@@ -1,11 +1,9 @@
+import type { Schedule } from 'shared/models';
+
 import {
     useState,
     useEffect,
 } from 'react';
-
-import type {
-    Schedule
-} from 'shared/models';
 
 type Result = {
     isOpen: boolean;
@@ -35,7 +33,7 @@ export function useScheduleAvailability(schedule?: Schedule): Result {
         const now = new Date();
         const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
-        const isOpenNow = schedule.timeSlots.some((slot) => {
+        const isOpenNow = (schedule.timeSlots ?? []).some((slot) => {
             const start = toMinutes(getTimeWithoutTz(slot.startTime));
             const end = toMinutes(getTimeWithoutTz(slot.endTime));
 

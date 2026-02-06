@@ -12,11 +12,11 @@ import { CartItem } from './cart-item';
 
 export interface Offer extends InferSelectModel<typeof offers> {
     category?: Category;
-    subcategory: Subcategory | null;
+    subcategory?: Subcategory | null;
     workspace?: Workspace;
     shops?: Array<ShopOffers>;
-    images: Array<OfferImage>;
-    optionGroups: Array<OptionGroup>;
+    images?: Array<OfferImage>;
+    optionGroups?: Array<OptionGroup>;
     cartItems?: Array<CartItem>;
     appointments?: Array<any>;
 }

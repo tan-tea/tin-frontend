@@ -1,23 +1,21 @@
 'use client'
 
 import type { FC } from 'react';
+import type { Shop } from 'shared/models';
 
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
-import type {
-    Shop
-} from 'shared/models';
 import { useScheduleAvailability } from 'shared/hooks';
 
 import { IconLabel } from 'ui/text';
 import { Clock } from 'components/icons';
 
-type StoreAvailabilityProps = Readonly<{
+type Props = Readonly<{
     shop: Shop;
 }>;
 
-const StoreAvailability: FC<StoreAvailabilityProps> = ({
+const StoreAvailability: FC<Props> = ({
     shop,
 }) => {
     'use memo'

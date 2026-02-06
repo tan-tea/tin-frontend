@@ -11,7 +11,7 @@ export const addresses = p.pgTable(
         street: p.text('street').notNull(),
         number: p.text('number').notNull(),
         complement: p.text('complement'),
-        neighboorhood: p.text('neighborhood').notNull(),
+        neighborhood: p.text('neighborhood').notNull(),
         city: p.text('city').notNull(),
         state: p.text('state').notNull(),
         country: p.text('country').notNull(),

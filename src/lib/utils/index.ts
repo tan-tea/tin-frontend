@@ -107,10 +107,10 @@ export function getValueInitials(value: string): string {
 export function formatThemePalette(customization: Customization): PaletteOptions {
     const palette: { [key: string]: PaletteColorOptions } = {};
 
-    for (const color of customization.colors) {
+    for (const color of (customization?.colors ?? [])) {
         const variants: Record<string, any> = {};
 
-        for (const variant of color.variants) {
+        for (const variant of (color.variants ?? [])) {
             variants[variant.code] = variant.hex;
 
             if (variant.isMain) {
@@ -122,7 +122,7 @@ export function formatThemePalette(customization: Customization): PaletteOptions
             variants.main = Object.values(variants)[0];
         }
 
-        if (color.variants?.length > 0) {
+        if ((color.variants ?? [])?.length > 0) {
             palette[color.value] = variants;
         }
     }

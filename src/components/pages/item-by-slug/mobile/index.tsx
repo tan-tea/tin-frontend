@@ -58,7 +58,7 @@ function calculateOfferTotalPrice(
 
     if (!selectedOptions) return total;
 
-    for (const group of offer.optionGroups) {
+    for (const group of (offer.optionGroups ?? [])) {
         const selected = selectedOptions[group.group.id] ?? [];
 
         for (const option of group.group.options) {
@@ -124,7 +124,7 @@ const ItemBySlugMobile: FC<Props> = ({
 
         let options: Array<CartItemOption> = [];
         for (const [key, value] of Object.entries(data.options)) {
-            const selectedGroup = offer.optionGroups.find(o => o.group.id === key);
+            const selectedGroup = (offer?.optionGroups ?? []).find(o => o.group.id === key);
             if (!selectedGroup) continue;
 
             for (const option of selectedGroup.group.options) {

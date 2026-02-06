@@ -49,7 +49,7 @@ const OfferDetailImage: FC<Props> = () => {
                 image: offer.banner,
                 description: offer.title,
             },
-            ...offer.images.map(image => ({
+            ...(offer.images ?? []).map(image => ({
                 image: image.image,
                 description: image.description,
             })),

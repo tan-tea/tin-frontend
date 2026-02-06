@@ -186,15 +186,15 @@ export default async function RootLayout(props: LayoutProps) {
                         >
                             <Toaster position='top-center'/>
                             <Providers>
-                                {/* <SerwistProvider
+                                <SerwistProvider
                                     disable
                                     swUrl='/serwist/sw.js'
                                     options={{
                                         scope: '/',
                                     }}
-                                > */}
+                                >
                                     {children}
-                                {/* </SerwistProvider> */}
+                                </SerwistProvider>
                             </Providers>
                         </AppRouterCacheProvider>
                     </NextIntlClientProvider>

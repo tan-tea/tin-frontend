@@ -2,11 +2,12 @@ import 'server-only';
 
 import type { Offer } from 'shared/models';
 
+import { Decimal } from 'decimal.js';
 import { formatISO } from 'date-fns';
 import { eq, lte, gte } from 'drizzle-orm';
 
 import { getReadReplica } from 'lib/db';
-import { categories, offers } from 'lib/db/schema';
+import { offers, shopOffers } from 'lib/db/schema';
 
 const sharedWhereCondition = (fields: typeof offers._.columns) => {
     const iso = formatISO(new Date());
@@ -30,6 +31,11 @@ const withPagination = <T>(result: Array<T>, limit: number) => {
         last,
     };
 }
+
+const mapOfferWithCorrectFields: (offer: Offer) => Offer = (offer) => ({
+    ...offer,
+    price: Decimal(offer.price).toNumber(),
+});
 
 export async function findOfferBySlug(slug: string): Promise<Offer | null> {
     try {
@@ -57,7 +63,7 @@ export async function findOfferBySlug(slug: string): Promise<Offer | null> {
                 ),
             });
 
-        return offer || null;
+        return offer ? mapOfferWithCorrectFields(offer) : null;
     } catch (error) {
         throw new Error(
             `Can't get offer by slug: ${slug}`,
@@ -80,13 +86,22 @@ export async function findOffersByShopId(
                 with: {
                     category: true,
                     subcategory: true,
-                    shops: {
-                        where: (fields, { eq }) => eq(fields.shopId, shopId),
-                    },
+                    shops: true,
                 },
-                where: (fields, { and, or, lt, eq }) =>
+                where: (fields, { and, or, lt, eq, exists }) =>
                     and(
                         ...sharedWhereCondition(fields),
+                        exists(
+                            getReadReplica()
+                                .select({ id: shopOffers.offerId })
+                                .from(shopOffers)
+                                .where(
+                                    and(
+                                        eq(shopOffers.offerId, fields.id),
+                                        eq(shopOffers.shopId, shopId),
+                                    ),
+                                ),
+                        ),
                         cursor
                             ? or(
                                 lt(fields.updatedAt, new Date(cursor.updatedAt)),
@@ -112,7 +127,7 @@ export async function findOffersByShopId(
 
         return {
             items: offers.map(offer => ({
-                ...offer,
+                ...mapOfferWithCorrectFields(offer),
                 images: [],
                 optionGroups: [],
             })),
@@ -181,7 +196,7 @@ export async function findOffersByCategoryId(
 
         return {
             items: offers.map(offer => ({
-                ...offer,
+                ...mapOfferWithCorrectFields(offer),
                 images: [],
                 optionGroups: [],
             })),
@@ -217,9 +232,20 @@ export async function findOffersByCriteria(
                     subcategory: true,
                     shops: true,
                 },
-                where: (fields, { and, eq, or, lt, ilike, }) =>
+                where: (fields, { and, eq, or, lt, ilike, exists, }) =>
                     and(
                         ...sharedWhereCondition(fields),
+                        exists(
+                            getReadReplica()
+                                .select({ id: shopOffers.offerId })
+                                .from(shopOffers)
+                                .where(
+                                    and(
+                                        eq(shopOffers.offerId, fields.id),
+                                        eq(shopOffers.shopId, shopId),
+                                    ),
+                                ),
+                        ),
                         or(
                             ilike(fields.title, `%${query}%`),
                             ilike(fields.description, `%${query}%`),
@@ -250,7 +276,7 @@ export async function findOffersByCriteria(
 
          return {
             items: offers.map(offer => ({
-                ...offer,
+                ...mapOfferWithCorrectFields(offer),
                 images: [],
                 optionGroups: [],
             })),

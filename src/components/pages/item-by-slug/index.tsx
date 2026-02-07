@@ -2,8 +2,6 @@
 
 import type { Offer } from 'shared/models';
 
-import dynamic from 'next/dynamic';
-
 import { useTranslations } from 'next-intl';
 import { createFormControl, UseFormReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +15,7 @@ import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
 import ItemBySlugMobile from './mobile';
-import ItemBySlugDesktop from './desktop';
+import ItemBySlugDesktop from './mobile';
 
 type Props = Readonly<{
     itemSlug: string;
@@ -70,7 +68,7 @@ export default function ItemBySlug(props: Props) {
     return (
         <DeviceDetector
             MobileComponent={<ItemBySlugMobile {...childProps}/>}
-            DesktopComponent={<ItemBySlugMobile {...childProps}/>}
+            DesktopComponent={<ItemBySlugDesktop {...childProps}/>}
         />
     );
 };

@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import type { Offer } from 'shared/models';
 
+import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { dehydrate, HydrationBoundary, InfiniteData } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import {
     getOffersByShop,
     getShopDetailsBySlug,
 } from 'app/actions';
-import { cachedQueryClient, getQueryClient } from 'app/get-query-client';
+import { cachedQueryClient } from 'app/get-query-client';
 
 import StoreBySlug from 'pages/store-by-slug';
 
@@ -19,6 +20,10 @@ type PageProps = Readonly<{
         slug: string;
     }>;
 }>;
+
+const cachedGetShopDetailsBySlug = cache(
+    (slug: string) => getShopDetailsBySlug(slug),
+);
 
 export const dynamic = 'force-dynamic';
 
@@ -30,21 +35,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
     const t = await getTranslations({
         locale,
+        namespace: 'metadata',
     });
 
-    const queryClient = getQueryClient();
-
-    await queryClient.prefetchQuery({
-        queryKey: ['shop-by-slug', slug],
-        queryFn: () => getShopDetailsBySlug(slug),
-    });
-
-    const shop = queryClient.getQueryData<
-        Awaited<ReturnType<typeof getShopDetailsBySlug>>
-    >(['shop-by-slug', slug]);
+    const shop = await cachedGetShopDetailsBySlug(slug);
 
     if (!shop) return {
-        title: t('shopNotFound'),
+        title: t('notFound.title'),
+        description: t('notFound.description'),
     };
 
     const title = shop.name,
@@ -62,7 +60,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
             description,
             card: 'summary',
             creator: '@yimall.co',
-        }
+        },
     } as Metadata;
 }
 
@@ -70,17 +68,14 @@ export default async function Page(props: PageProps) {
     const { params } = props;
 
     const slug = (await params).slug;
+    const locale = (await params).locale;
 
     const queryClient = cachedQueryClient();
 
-    await queryClient.prefetchQuery({
+    const shop = await queryClient.fetchQuery({
         queryKey: ['shop-by-slug', slug],
-        queryFn: () => getShopDetailsBySlug(slug),
+        queryFn: () => cachedGetShopDetailsBySlug(slug),
     });
-
-    const shop = queryClient.getQueryData<
-        Awaited<ReturnType<typeof getShopDetailsBySlug>>
-    >(['shop-by-slug', slug]);
 
     if (!shop) return notFound();
 
@@ -90,8 +85,8 @@ export default async function Page(props: PageProps) {
         queryKey: ['offers-by-shop', shopId],
         queryFn: ({ pageParam = null }) =>
             getOffersByShop(shopId, {
-            limit: 10,
-            cursor: pageParam ?? undefined,
+                limit: 10,
+                cursor: pageParam ?? undefined,
             }),
         initialPageParam: null,
         getNextPageParam: (lastPage: PaginatedResult<Offer>) => lastPage.nextCursor,
@@ -99,7 +94,7 @@ export default async function Page(props: PageProps) {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <StoreBySlug slug={slug} shopId={shopId}/>
+            <StoreBySlug slug={slug} shopId={shopId} locale={locale}/>
         </HydrationBoundary>
     );
 }

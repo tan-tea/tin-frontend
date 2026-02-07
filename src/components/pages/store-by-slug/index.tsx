@@ -18,6 +18,7 @@ import StoreBySlugDesktop from './mobile';
 type Props = Readonly<{
     slug: string;
     shopId: string;
+    locale: string;
 }>;
 
 export type StoreBySlugProps = Props & {
@@ -32,7 +33,7 @@ export type StoreBySlugProps = Props & {
 
 export default function StoreBySlug(props: Props) {
     'use memo'
-    const { slug, shopId } = props;
+    const { slug, shopId, locale } = props;
 
     const t = useTranslations();
 
@@ -57,6 +58,7 @@ export default function StoreBySlug(props: Props) {
         t,
         slug,
         shopId,
+        locale,
         shop,
         offers,
         fetchNextPage,

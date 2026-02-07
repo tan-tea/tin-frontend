@@ -1,22 +1,23 @@
 'use client'
 
 import type { FC } from 'react';
+import type {
+    Offer,
+    CartItem,
+    CartItemOption,
+} from 'shared/models';
 import type { ItemBySlugProps } from 'pages/item-by-slug';
 import type { OptionGroups } from 'pages/item-by-slug/schemas';
 
 import dynamic from 'next/dynamic';
 
 import { toast } from 'sonner';
+import { Decimal } from 'decimal.js';
 import { useMemo, useRef } from 'react';
 import { useFormatter } from 'next-intl';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { useForm, useFormState, useWatch } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm, useFormState, useWatch } from 'react-hook-form';
 
-import type {
-    Offer,
-    CartItem,
-    CartItemOption,
-} from 'shared/models';
 import { addItemToCartAtom, cartAtom } from 'shared/state';
 import { useComputedStyle, useNavigation } from 'shared/hooks';
 
@@ -29,26 +30,9 @@ import BackButton from 'common/buttons/back-button';
 import ShareButton from 'common/buttons/share-button';
 import PriceWithDiscount from 'common/price-with-discount';
 
-const OfferImage = dynamic(
-    () => import('features/offer/detail/image'),
-    {
-        ssr: false,
-    },
-);
-
-const OfferTitle = dynamic(
-    () => import('features/offer/detail/title'),
-    {
-        ssr: false,
-    },
-);
-
-const OfferOptionGroups = dynamic(
-    () => import('features/offer/detail/option-groups'),
-    {
-        ssr: false,
-    },
-);
+import OfferImage from 'features/offer/detail/image';
+import OfferTitle from 'features/offer/detail/title';
+import OfferOptionGroups from 'features/offer/detail/option-groups';
 
 function calculateOfferTotalPrice(
   offer: Offer,
@@ -63,7 +47,7 @@ function calculateOfferTotalPrice(
 
         for (const option of group.group.options) {
             if (selected.includes(option.id)) {
-                total += option.priceDelta ?? 0;
+                total += Decimal(option.priceDelta).toNumber() ?? 0;
             }
         }
     }
@@ -104,9 +88,9 @@ const ItemBySlugMobile: FC<Props> = ({
         name: 'options',
     });
 
-    const totalPrice = useMemo<number>(() => {
-        return calculateOfferTotalPrice(offer, selectedOptions);
-    }, [offer, selectedOptions]);
+    const totalPrice = useMemo<number>(() =>
+        calculateOfferTotalPrice(offer, selectedOptions),
+    [offer, selectedOptions]);
 
     const buttonRef = useRef<HTMLDivElement | null>(null);
     const buttonComputedStyle = useComputedStyle(buttonRef.current);
@@ -114,12 +98,12 @@ const ItemBySlugMobile: FC<Props> = ({
     const currentCart = useAtomValue(cartAtom);
     const addToCart = useSetAtom(addItemToCartAtom);
 
-    const onSubmit = (data: OptionGroups) => {
-        if (!isValid) {
-            toast.error('Invalid form, please fix to continue');
-            return;
-        }
+    const onInvalid: SubmitErrorHandler<OptionGroups> = (errors) => {
+        console.log('errors', errors);
+        toast.error('Invalid form, please fix to continue');
+    }
 
+    const onSubmit: SubmitHandler<OptionGroups> = (data) => {
         const cartItemId = crypto.randomUUID();
 
         let options: Array<CartItemOption> = [];
@@ -172,7 +156,7 @@ const ItemBySlugMobile: FC<Props> = ({
             aria-label={offer.title}
             aria-description={offerDescription}
         >
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                 <Titlebar
                     position='absolute'
                     renderStart={() => (<div><BackButton/></div>)}
@@ -227,6 +211,7 @@ const ItemBySlugMobile: FC<Props> = ({
                         <span className='font-alternative text-sm'>
                             {formatter.number(totalPrice, {
                                 currency: 'COP',
+                                style: 'currency',
                             })}
                         </span>
                     </Button>

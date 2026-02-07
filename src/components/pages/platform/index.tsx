@@ -1,8 +1,6 @@
 'use client';
 import type { Shop, Workspace } from 'shared/models';
 
-import dynamic from 'next/dynamic';
-
 import { useAtomValue } from 'jotai';
 import { useTranslations } from 'next-intl';
 
@@ -14,12 +12,8 @@ import { useShopsByWorkspaceData } from './hooks';
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const PlatformMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-    }
-);
+import PlatformMobile from './mobile';
+import PlatformDesktop from './mobile';
 
 type Props = Readonly<{
     locale: string;
@@ -64,8 +58,8 @@ export default function Platform(props: Props) {
 
     return (
         <DeviceDetector
-            MobileComponent={<PlatformMobile {...childProps} />}
-            DesktopComponent={<PlatformMobile {...childProps} />}
+            MobileComponent={<PlatformMobile {...childProps}/>}
+            DesktopComponent={<PlatformDesktop {...childProps}/>}
         />
     );
 }

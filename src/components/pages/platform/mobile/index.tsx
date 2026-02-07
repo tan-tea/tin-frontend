@@ -29,6 +29,14 @@ import OfferCard from 'features/offer/card';
 
 type Props = PlatformProps;
 
+function chunkOffers<T>(items: T[], size: number): T[][] {
+    const chunks: T[][] = [];
+    for (let i = 0; i < items?.length; i += size) {
+        chunks.push(items.slice(i, i + size));
+    }
+    return chunks;
+};
+
 const PlatformMobile: FC<Props> = ({
     t,
     shops,
@@ -52,14 +60,6 @@ const PlatformMobile: FC<Props> = ({
                             .map(o => o.offer)
                             .filter((offer): offer is Offer => offer !== undefined);
 
-                        const chunkOffers = <T,>(items: T[], size: number): T[][] => {
-                            const chunks: T[][] = [];
-                            for (let i = 0; i < items.length; i += size) {
-                                chunks.push(items.slice(i, i + size));
-                            }
-                            return chunks;
-                        };
-
                         const hasOffers = offers && offers.length > 0;
                         const offersPairs = chunkOffers(offers, 2);
 
@@ -75,7 +75,7 @@ const PlatformMobile: FC<Props> = ({
                                     ]}
                                 >
                                         <CarouselContent className='items-center'>
-                                            {(workspace.categories ?? []).map(category => {
+                                            {(workspace?.categories ?? []).map(category => {
                                                 const target = `/category/${category.slug}`;
 
                                                 return (

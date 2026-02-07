@@ -22,7 +22,7 @@ function useSearchOffers(criteria: Criteria) {
             limit: 5,
             cursor: pageParam as any
         }),
-        enabled: !!shopId,
+        enabled: !!shopId && shopId !== 'current',
         initialPageParam: null,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
         retry: 1,

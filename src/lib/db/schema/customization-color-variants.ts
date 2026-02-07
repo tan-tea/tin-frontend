@@ -10,11 +10,11 @@ export const customizationColorVariants = p.pgTable(
         id: p.uuid('id').primaryKey().defaultRandom(),
         code: p.text('code').notNull(),
         hex: p.text('hex').notNull(),
-        r: p.smallint('r').default(0),
-        g: p.smallint('g').default(0),
-        b: p.smallint('b').default(0),
-        a: p.smallint('a').default(255),
-        isMain: p.boolean('is_main').default(false),
+        r: p.smallint('r').default(0).notNull(),
+        g: p.smallint('g').default(0).notNull(),
+        b: p.smallint('b').default(0).notNull(),
+        alpha: p.smallint('alpha').default(255).notNull(),
+        isMain: p.boolean('is_main').default(false).notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()
@@ -30,7 +30,7 @@ export const customizationColorVariants = p.pgTable(
         p.check('r_range', sql`${table.r} BETWEEN 0 AND 255`),
         p.check('g_range', sql`${table.g} BETWEEN 0 AND 255`),
         p.check('b_range', sql`${table.b} BETWEEN 0 AND 255`),
-        p.check('a_range', sql`${table.a} BETWEEN 0 AND 255`),
+        p.check('a_range', sql`${table.alpha} BETWEEN 0 AND 255`),
     ],
 );
 

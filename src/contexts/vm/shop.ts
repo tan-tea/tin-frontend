@@ -21,7 +21,7 @@ export async function findVerifiedShopsByWorkspaceId(workspaceId: string): Promi
                         orderBy: (fields, { desc }) => [
                             desc(fields.createdAt),
                         ],
-                        limit: 5,
+                        limit: 6,
                     },
                 },
                 where: (fields, { eq, and }) => and(

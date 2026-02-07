@@ -50,6 +50,10 @@ const Search: FC<Props> = () => {
     const shop = useAtomValue(shopAtom);
     const primaryShop = useAtomValue(primaryShopAtom);
 
+    const shopId = shop?.id ?? primaryShop?.id;
+
+    if (!shopId) return null;
+
     const { slug } = useParams<{ slug: string }>();
 
     const [ open, setOpen ] = useState<boolean>(false);
@@ -70,7 +74,7 @@ const Search: FC<Props> = () => {
     const {
         offers,
         isLoading,
-    } = useSearchOffersData({ query: debouncedQuery, shopId: shop?.id ?? primaryShop?.id! })
+    } = useSearchOffersData({ query: debouncedQuery, shopId, })
 
     const isTyping = query !== debouncedQuery;
     const noResults = !isTyping && !isLoading && offers && offers.length === 0;

@@ -1,0 +1,161 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "sharingLocation": "",
+    "discountTimeLeft": "{left}",
+    "allRightsReserved": "",
+    "privacyPolicy": "",
+    "termsOfService": "",
+    "discountPercentage": "{value}%",
+    "menu": "",
+    "exploreDiscounts": "",
+    "offers": "",
+    "goHome": "",
+    "socialMedia": "",
+    "navigation": "",
+    "typing": "",
+    "noResults": "",
+    "address": "",
+    "noscript": "",
+    "open": "",
+    "close": "",
+    "selectHeadquarter": "",
+    "goBackError": "",
+    "shopNotFound": "",
+    "headquarter": "",
+    "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
+    "included": "",
+    "cart": "",
+    "recents": "Productos recientes",
+    "showAll": "Ver todos",
+    "metadata": {
+        "applicationName": "",
+        "siteName": "",
+        "titleTemplate": "",
+        "description": "",
+        "keywords": "",
+        "signin": {
+            "title": "",
+            "description": ""
+        },
+        "signup": {
+            "title": "",
+            "description": ""
+        },
+        "category": {
+            "title": "",
+            "description": ""
+        },
+        "location": {
+            "title": "",
+            "description": ""
+        },
+        "privacy": {
+            "title": "",
+            "description": ""
+        },
+        "loading": {
+            "title": "",
+            "description": ""
+        },
+        "notFound": {
+            "title": "",
+            "description": ""
+        }
+    },
+    "shared": {
+        "back": "",
+        "cancel": "",
+        "close": "",
+        "accept": "",
+        "saveChanges": "",
+        "discount": "{discount}% off",
+        "showMore": "",
+        "showLess": ""
+    },
+    "Signin": {
+        "title": "Bienvenido 👋",
+        "description": "Accede con tu cuenta para disfrutar de una experiencia personalizada."
+    },
+    "Signup": {
+        "title": ""
+    },
+    "Privacy": {
+        "content": ""
+    },
+    "Loading": {
+        "message": ""
+    },
+    "Platform": {},
+    "Location": {},
+    "Cart": {
+        "items": "{count}",
+        "total": "",
+        "action": "",
+        "emptyCart": ""
+    },
+    "theme": {
+        "tooltip": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "system": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "dark": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "light": {
+                "title": "",
+                "label": "",
+                "description": ""
+            }
+        }
+    },
+    "location": {
+        "tooltip": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "button": ""
+        }
+    },
+    "language": {
+        "tooltip": "",
+        "dialog": {
+            "title": "",
+            "description": "",
+            "es": {
+                "title": "",
+                "label": "",
+                "description": ""
+            },
+            "en": {
+                "title": "",
+                "label": "",
+                "description": ""
+            }
+        }
+    },
+    "search": {
+        "tooltip": "Buscar",
+        "placeholder": "Buscar productos",
+        "recents": "Recientes"
+    },
+    "OfferDetail": {
+        "title": "",
+        "availableOptions": "",
+        "description": "",
+        "notProvided": "",
+        "button": "",
+        "message": "{name}"
+    },
+    "notFound": {
+        "title": "",
+        "description": "",
+        "home": ""
+    }
+}

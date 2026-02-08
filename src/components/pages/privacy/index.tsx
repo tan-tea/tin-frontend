@@ -1,12 +1,9 @@
 'use client'
 
-import dynamic from 'next/dynamic';
+import type { Workspace } from 'shared/models';
 
 import { useTranslations, } from 'next-intl';
 
-import type {
-    Workspace
-} from 'shared/models';
 import {
     useHideUI,
     useNavigation,
@@ -17,24 +14,19 @@ import { useWorkspaceData } from 'layouts/workspace/hooks';
 import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const PrivacyMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-        loading: () => <Loading/>
-    },
-);
+import PrivacyMobile from './mobile';
+import PrivacyDesktop from './mobile';
 
 type Props = Readonly<{
     locale: string;
     workspaceId: string;
 }>;
 
-export type PrivacyProps = Props & {
+export type PrivacyProps = Props & Readonly<{
     t: ReturnType<typeof useTranslations>;
     navigate: ReturnType<typeof useNavigation>['navigate'];
     workspace: Workspace;
-};
+}>;
 
 export default function Privacy(props: Props) {
     'use memo'
@@ -56,20 +48,18 @@ export default function Privacy(props: Props) {
 
     if (isLoading) return <Loading/>
 
-    if (!workspace) return null;
-
     const childProps: PrivacyProps = {
         t,
         locale,
         workspaceId,
         navigate,
-        workspace,
+        workspace: workspace!,
     };
 
     return (
         <DeviceDetector
             MobileComponent={<PrivacyMobile {...childProps}/>}
-            DesktopComponent={<PrivacyMobile {...childProps}/>}
+            DesktopComponent={<PrivacyDesktop {...childProps}/>}
         />
     );
 };

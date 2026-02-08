@@ -20,9 +20,9 @@ import {
 } from 'ui/dialog';
 import { Button } from 'ui/button';
 
-type LocationDialogProps = Readonly<object>;
+type Props = Readonly<object>;
 
-const LocationDialog: FC<LocationDialogProps> = () => {
+const LocationDialog: FC<Props> = () => {
     'use memo'
     const t = useTranslations();
 

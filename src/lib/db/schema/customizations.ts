@@ -22,12 +22,18 @@ export const customizations = p.pgTable(
         logo: p.text('logo').notNull(),
         fontPrimary: p.text('font_primary', {
             enum: fonts,
-        }).default('Poppins'),
+        }).default('Poppins').notNull(),
         fontSecondary: p.text('font_secondary', {
             enum: fonts,
-        }).default('Raleway'),
-        showName: p.boolean('show_name').default(false),
-        socialMedia: p.jsonb('social_media').$type<Array<SocialMedia>>(),
+        }).default('Raleway').notNull(),
+        showName: p
+            .boolean('show_name')
+            .default(false)
+            .notNull(),
+        socialMedia: p.jsonb('social_media')
+            .$type<Array<SocialMedia>>()
+            .default([])
+            .notNull(),
         createdAt: p.timestamp('created_at').defaultNow().notNull(),
         updatedAt: p.timestamp('updated_at')
             .defaultNow()

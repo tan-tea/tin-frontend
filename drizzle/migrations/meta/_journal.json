@@ -43,6 +43,13 @@
       "when": 1770363273866,
       "tag": "0005_previous_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770593404062,
+      "tag": "0006_solid_avengers",
+      "breakpoints": true
     }
   ]
 }

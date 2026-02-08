@@ -21,9 +21,7 @@ type PageProps = Readonly<{
     }>;
 }>;
 
-const cachedGetShopDetailsBySlug = cache(
-    (slug: string) => getShopDetailsBySlug(slug),
-);
+const cachedGetShopDetailsBySlug = cache(getShopDetailsBySlug);
 
 export const dynamic = 'force-dynamic';
 

@@ -1,17 +1,16 @@
 'use client'
 
 import type { FC } from 'react';
+import type { PrivacyProps } from 'pages/privacy';
 
 import { format } from 'date-fns';
 
 import { RichText } from 'ui/text';
 import { Section } from 'ui/layout';
 
-import type { PrivacyProps } from 'pages/privacy';
+type Props = Readonly<PrivacyProps>;
 
-type PrivacyMobileProps = Readonly<PrivacyProps>;
-
-const PrivacyMobile: FC<PrivacyMobileProps> = ({
+const PrivacyMobile: FC<Props> = ({
     t,
     workspace,
 }) => {

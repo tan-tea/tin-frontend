@@ -13,10 +13,10 @@ import SignupDesktop from './desktop';
 
 type Props = Readonly<{ locale: string; }>;
 
-export type SignupProps = Props & {
+export type SignupProps = Props & Readonly<{
     t: ReturnType<typeof useTranslations>;
     formControl: Omit<UseFormReturn<SignupUser>, 'formState'>;
-};
+}>;
 
 export default function Signup(props: Props) {
     'use memo'

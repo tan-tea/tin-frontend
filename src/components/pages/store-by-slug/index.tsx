@@ -21,7 +21,7 @@ type Props = Readonly<{
     locale: string;
 }>;
 
-export type StoreBySlugProps = Props & {
+export type StoreBySlugProps = Props & Readonly<{
     t: ReturnType<typeof useTranslations>;
     shop: Shop;
     offers: Array<Offer>;
@@ -29,7 +29,7 @@ export type StoreBySlugProps = Props & {
     hasNextPage: boolean;
     isFetchingNextPage: boolean;
     isLoadingOffers: boolean;
-};
+}>;
 
 export default function StoreBySlug(props: Props) {
     'use memo'
@@ -42,10 +42,6 @@ export default function StoreBySlug(props: Props) {
         isLoading: isLoadingShop,
     } = useShopBySlugData(slug);
 
-    if (isLoadingShop) return <Loading/>
-
-    if (!shop) return null;
-
     const {
         offers,
         fetchNextPage,
@@ -54,12 +50,14 @@ export default function StoreBySlug(props: Props) {
         isLoading: isLoadingOffers,
     } = useOffersByShopData(shopId);
 
+    if (isLoadingShop || isLoadingOffers) return <Loading/>
+
     const childProps: StoreBySlugProps = {
         t,
         slug,
         shopId,
         locale,
-        shop,
+        shop: shop!,
         offers,
         fetchNextPage,
         hasNextPage,

@@ -52,8 +52,6 @@ const Search: FC<Props> = () => {
 
     const shopId = shop?.id ?? primaryShop?.id;
 
-    if (!shopId) return null;
-
     const { slug } = useParams<{ slug: string }>();
 
     const [ open, setOpen ] = useState<boolean>(false);
@@ -74,7 +72,7 @@ const Search: FC<Props> = () => {
     const {
         offers,
         isLoading,
-    } = useSearchOffersData({ query: debouncedQuery, shopId, })
+    } = useSearchOffersData({ query: debouncedQuery, shopId: shopId!, })
 
     const isTyping = query !== debouncedQuery;
     const noResults = !isTyping && !isLoading && offers && offers.length === 0;

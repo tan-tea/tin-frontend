@@ -1,5 +1,6 @@
 import type { Metadata, } from 'next';
 
+import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations, } from 'next-intl/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -18,6 +19,8 @@ type PageProps = {
     }>;
 };
 
+const cachedGetOfferDetailsBySlug = cache(getOfferDetailsBySlug);
+
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
@@ -32,7 +35,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         namespace: 'metadata',
     });
 
-    const offer = await getOfferDetailsBySlug(itemSlug);
+    const offer = await cachedGetOfferDetailsBySlug(itemSlug);
 
     if (!offer) return {
         title: t('siteName'),
@@ -84,7 +87,7 @@ export default async function Page(props: PageProps) {
 
     const offer = await queryClient.fetchQuery({
         queryKey: ['offer-by-slug', itemSlug],
-        queryFn: () => getOfferDetailsBySlug(itemSlug),
+        queryFn: () => cachedGetOfferDetailsBySlug(itemSlug),
     });
 
     if (!offer) return notFound();

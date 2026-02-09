@@ -4,7 +4,7 @@ import type { Offer } from 'shared/models';
 
 import { Decimal } from 'decimal.js';
 import { formatISO } from 'date-fns';
-import { eq, lte, gte } from 'drizzle-orm';
+import { eq, lte, gte, or, isNull } from 'drizzle-orm';
 
 import { getReadReplica } from 'lib/db';
 import { offers, shopOffers } from 'lib/db/schema';
@@ -16,7 +16,10 @@ const sharedWhereCondition = (fields: typeof offers._.columns) => {
     return [
         eq(fields.isActive, true),
         lte(fields.startDate, now),
-        gte(fields.endDate, now),
+        or(
+            gte(fields.endDate, now),
+            isNull(fields.endDate),
+        ),
     ];
 }
 

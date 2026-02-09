@@ -14,6 +14,8 @@ type OwnNotFoundProps = {
 export type NotFoundProps = OwnNotFoundProps & object;
 
 export default function NotFound(props: OwnNotFoundProps) {
+    const {} = props;
+
     const childProps: NotFoundProps = {
         ...props,
     };

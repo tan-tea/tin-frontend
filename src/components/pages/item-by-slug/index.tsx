@@ -21,11 +21,11 @@ type Props = Readonly<{
     itemSlug: string;
 }>;
 
-export type ItemBySlugProps = Props & {
+export type ItemBySlugProps = Props & Readonly<{
     t: ReturnType<typeof useTranslations>;
     offer: Offer;
     formControl: Omit<UseFormReturn<OptionGroups>, 'formState'>;
-};
+}>;
 
 export default function ItemBySlug(props: Props) {
     'use memo'
@@ -43,11 +43,7 @@ export default function ItemBySlug(props: Props) {
         isLoading,
     } = useOfferBySlugData(itemSlug);
 
-    if (isLoading) return <Loading/>;
-
-    if (!offer) return null;
-
-    const optionGroups = offer.optionGroups ?? [];
+    const optionGroups = (offer?.optionGroups ?? []);
 
     const formControl = createFormControl<OptionGroups>({
         resolver: zodResolver(createOptionGroupsSchema(optionGroups)),
@@ -58,10 +54,12 @@ export default function ItemBySlug(props: Props) {
         },
     });
 
+    if (isLoading) return <Loading/>;
+
     const childProps: ItemBySlugProps = {
         t,
         itemSlug,
-        offer,
+        offer: offer!,
         formControl,
     };
 

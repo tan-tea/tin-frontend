@@ -69,8 +69,6 @@ export default function Location(props: Props) {
         isLoading,
     } = useShopsByWorkspaceData(workspaceId);
 
-    if (isLoading) return <Loading/>
-
     const [camera, setCamera] = useLocalStorage<MapCameraProps>('mapCamera', {
         center: {
             lat: Decimal(primaryShop?.geolocation?.latitude ?? geolocation?.coords?.latitude).toNumber() ?? defaultInitState.geolocation.coords.latitude,
@@ -78,6 +76,8 @@ export default function Location(props: Props) {
         },
         zoom: 4.5,
     });
+
+    if (isLoading) return <Loading/>
 
     const childProps: LocationProps = {
         t,

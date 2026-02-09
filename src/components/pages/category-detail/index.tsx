@@ -19,10 +19,10 @@ type Props = Readonly<{
     locale: string;
 }>;
 
-export type CategoryDetailProps = Props & {
+export type CategoryDetailProps = Props & Readonly<{
     t: ReturnType<typeof useTranslations>;
     category: Category;
-};
+}>;
 
 export default function CategoryDetail(props: Props) {
     'use memo'
@@ -33,14 +33,14 @@ export default function CategoryDetail(props: Props) {
         hideBottomNavigation: true,
     });
 
+    const t = useTranslations();
+
     const {
         category,
         isLoading,
     } = useCategoryBySlugData(slug);
 
     if (isLoading) return <Loading/>;
-
-    const t = useTranslations();
 
     const childProps: CategoryDetailProps = {
         t,

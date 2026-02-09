@@ -1,24 +1,15 @@
 'use client'
 
-import dynamic from 'next/dynamic';
+import type { Cart } from 'shared/models';
 
 import { useTranslations } from 'next-intl';
 
-import type {
-    Cart
-} from 'shared/models';
 import { useHideUI } from 'shared/hooks';
 
-import Loading from 'pages/loading';
 import DeviceDetector from 'common/device-detector';
 
-const CartMobile = dynamic(
-    () => import('./mobile'),
-    {
-        ssr: false,
-        loading: () => <Loading/>
-    },
-);
+import CartMobile from './mobile';
+import CartDesktop from './mobile';
 
 type Props = Readonly<{ locale: string; }>;
 
@@ -43,7 +34,7 @@ export default function Cart(props: Props) {
     return (
         <DeviceDetector
             MobileComponent={<CartMobile {...childProps}/>}
-            DesktopComponent={<CartMobile {...childProps}/>}
+            DesktopComponent={<CartDesktop {...childProps}/>}
         />
     );
 }

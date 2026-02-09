@@ -8,6 +8,7 @@ import { getVerifiedShopsByWorkspace } from 'app/actions';
 import { cachedQueryClient } from 'app/get-query-client';
 
 import Location from 'pages/location';
+import LocationDialog from 'dialogs/location-dialog';
 
 type PageProps = Readonly<{
     params: Promise<{
@@ -51,6 +52,7 @@ export default async function Page(props: PageProps) {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
+            <LocationDialog/>
             <Location locale={locale} workspaceId={workspaceId}/>
         </HydrationBoundary>
     );

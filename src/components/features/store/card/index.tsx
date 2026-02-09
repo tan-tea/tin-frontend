@@ -1,13 +1,11 @@
 'use client'
 
 import type { FC } from 'react';
+import type { Shop, Address } from 'shared/models';
 
 import { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 
-import type {
-    Shop,
-    Address,
-} from 'shared/models';
 import { useNavigation, usePrefetch } from 'shared/hooks';
 
 import { Heading } from 'ui/text';
@@ -23,11 +21,11 @@ import { Store } from 'components/icons';
 import StoreLocation from 'features/store/location';
 import StoreAvailability from 'features/store/availability';
 
-type StoreCardProps = Readonly<{
+type Props = Readonly<{
     shop: Shop;
 }>;
 
-const StoreCard: FC<StoreCardProps> = ({
+const StoreCard: FC<Props> = ({
     shop,
 }) => {
     'use memo'
@@ -35,6 +33,8 @@ const StoreCard: FC<StoreCardProps> = ({
         name,
         slug,
     } = shop;
+
+    const t = useTranslations();
 
     const address = useMemo<Address | null>(
         () => shop.address,
@@ -71,7 +71,7 @@ const StoreCard: FC<StoreCardProps> = ({
                             onMouseEnter={() => prefetchOnHover(`/store/${slug}`)}
                             onClick={() => navigate(`/store/${slug}`)}
                         >
-                            Ver productos
+                            {t('showProducts')}
                         </Button>
                     </div>
                 </CardActions>

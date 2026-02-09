@@ -73,46 +73,57 @@ const CartContent: FC<Props> = () => {
         );
     };
 
+    const haveItems = cart.items && cart.items?.length > 0;
+
     return (
         <div className='relative size-auto flex flex-col overflow-x-hidden'>
             <div className='size-full flex flex-col gap-y-2 px-4 py-4'>
                 <Paragraph>
                     {t('items', { count: cartItemsCount })}
                 </Paragraph>
-                <ul className='flex flex-col gap-y-4'>
-                    {cart.items?.map(item => {
-                        const groupName = item.options.map(o => o.optionGroupName)?.[0] ?? null;
+                {!haveItems && (
+                    <div className='relative size-full items-center justify-center text-center mt-6'>
+                        <Heading level='3'>
+                            {t('emptyCart')}
+                        </Heading>
+                    </div>
+                )}
+                {haveItems && (
+                    <ul className='flex flex-col gap-y-4'>
+                        {cart.items?.map(item => {
+                            const groupName = item.options.map(o => o.optionGroupName)?.[0] ?? null;
 
-                        return (
-                            <li key={item.id} className='flex items-center gap-x-2'>
-                                <div className='grow flex flex-col gap-y-1'>
-                                    <Heading level='3'>
-                                        {item.offerTitle}
-                                    </Heading>
-                                    {item.options.length > 0 && (
-                                        <Paragraph level='4'>
-                                            <b>{groupName}</b>: {' '}
-                                            {format.list(item.options.map(o => o.optionName))}
-                                        </Paragraph>
-                                    )}
-                                    <PriceWithDiscount
-                                        discount={0}
-                                        price={item.totalPrice}
-                                    />
-                                </div>
-                                <div>
-                                    <IconButton
-                                        color='primary'
-                                        variant='outline'
-                                        onClick={() => handleRemoveItemFromCart(item?.id)}
-                                    >
-                                        <Trash/>
-                                    </IconButton>
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
+                            return (
+                                <li key={item.id} className='flex items-center gap-x-2'>
+                                    <div className='grow flex flex-col gap-y-1'>
+                                        <Heading level='3'>
+                                            {item.offerTitle}
+                                        </Heading>
+                                        {item.options.length > 0 && (
+                                            <Paragraph level='4'>
+                                                <b>{groupName}</b>: {' '}
+                                                {format.list(item.options.map(o => o.optionName))}
+                                            </Paragraph>
+                                        )}
+                                        <PriceWithDiscount
+                                            discount={0}
+                                            price={item.totalPrice}
+                                        />
+                                    </div>
+                                    <div>
+                                        <IconButton
+                                            color='primary'
+                                            variant='outline'
+                                            onClick={() => handleRemoveItemFromCart(item?.id)}
+                                        >
+                                            <Trash/>
+                                        </IconButton>
+                                    </div>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                )}
             </div>
             <Wrapper
                 initial={{

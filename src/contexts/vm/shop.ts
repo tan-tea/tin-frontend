@@ -20,7 +20,11 @@ export async function findVerifiedShopsByWorkspaceId(workspaceId: string): Promi
                 with: {
                     address: true,
                     geolocation: true,
-                    schedules: true,
+                    schedules: {
+                        with: {
+                            timeSlots: true,
+                        },
+                    },
                     offers: {
                         with: {
                             offer: true,

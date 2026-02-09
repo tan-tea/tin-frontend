@@ -1,6 +1,6 @@
 'use client'
 
-import type { FC } from 'react';
+import type { FC, ComponentProps } from 'react';
 import type { Offer } from 'shared/models';
 import type { PlatformProps } from 'pages/platform';
 
@@ -46,6 +46,10 @@ const PlatformMobile: FC<Props> = ({
     'use memo'
     const { prefetchRoute } = usePrefetch();
 
+    const handleSlideChanged: ComponentProps<typeof Carousel>['onSlideChanged'] = (_, event) => {
+        console.log('changed', event);
+    }
+
     return (
         <Main
             role='application'
@@ -53,7 +57,9 @@ const PlatformMobile: FC<Props> = ({
             aria-description={t('metadata.description')}
             className='h-full min-h-0'
         >
-            <Carousel className='size-full py-2 flex flex-col gap-y-6'>
+            <Carousel
+                onSlideChanged={handleSlideChanged}
+                className='size-full py-2 flex flex-col gap-y-6'>
                 <CarouselContent className='size-full ml-0'>
                     {shops.map(shop => {
                         const offers = (shop?.offers ?? [])
@@ -113,10 +119,10 @@ const PlatformMobile: FC<Props> = ({
                                             <Heading>{t('recents')}</Heading>
                                             <InternalLink href={`/store/${shop.slug}` as any}>
                                                 <IconLabel
+                                                    dir='rtl'
                                                     icon={MoveRight}
                                                     color='primary'
                                                     label={t('showAll')}
-                                                    className='flex-row-reverse'
                                                 />
                                             </InternalLink>
                                         </div>
@@ -128,7 +134,11 @@ const PlatformMobile: FC<Props> = ({
                                                 >
                                                     <div className='grid grid-cols-2 gap-x-4'>
                                                         {pair.map(offer => (
-                                                            <OfferCard key={offer.id} offer={offer}/>
+                                                            <OfferCard
+                                                                key={offer.id}
+                                                                offer={offer}
+                                                                target={`/store/${shop.slug}/item/${offer.slug}`}
+                                                            />
                                                         ))}
                                                     </div>
                                                 </CarouselItem>

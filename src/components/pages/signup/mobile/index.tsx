@@ -55,8 +55,6 @@ const SignupMobile: FC<Props> = ({
         if (error) {
             toast.error(error.message);
         }
-
-        console.log('data', data);
     }
 
     const disabled = !isValid;

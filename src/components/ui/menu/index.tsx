@@ -23,7 +23,7 @@ const menu = tv({
         arrow: cn(''),
         item: cn(
             'pl-2 pr-4 py-2 flex items-center gap-x-2.5 text-sm leading-5',
-            'data-[highlighted]:bg-red-500 data-[disabled]:text-[var(--mui-palette-primary-main)]',
+            'data-[disabled]:text-[var(--mui-palette-primary-main)]',
             'dark:data-[disabled]:text-[var(--mui-palette-primary-main)] dark:text-white',
         ),
         group: cn(''),

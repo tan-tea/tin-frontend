@@ -29,7 +29,7 @@ const text = tv({
         root: cn('text-base font-normal m-0 p-0 text-inherit'),
         heading: cn('block font-secondary font-bold'),
         paragraph: cn('block font-primary-alt text-normal truncate'),
-        iconLabel: cn('flex flex-row items-center gap-x-1.5 ml-0'),
+        iconLabel: cn('grid grid-cols-[auto_1fr] items-center gap-x-2 ml-0'),
         label: '',
     },
     variants: {
@@ -67,15 +67,18 @@ const text = tv({
             primary: {
                 heading: 'text-[var(--mui-palette-primary-main)]',
                 paragraph: 'text-[var(--mui-palette-primary-main)]',
-                iconLabel: 'text-[var(--mui-palette-primary-main)] [&>svg]:text-[var(--mui-palette-primary-main)]'
+                // iconLabel: 'text-[var(--mui-palette-primary-main)] [&>svg]:text-[var(--mui-palette-primary-main)]'
+                iconLabel: '[&>svg]:text-[var(--mui-palette-primary-main)]'
             },
             dark: {
                 heading: 'text-dark-600',
                 paragraph: 'text-dark-600',
+                iconLabel: '[&>svg]:text-dark-600',
             },
             light: {
                 heading: 'text-light-400',
                 paragraph: 'text-light-400',
+                iconLabel: '[&>svg]:text-light-400',
             }
         },
         through: {
@@ -232,8 +235,8 @@ const IconLabel: FC<IconLabelProps> = ({
                 className,
             })}
         >
-            <Icon/>
-            <Paragraph truncate {...props}>{label}</Paragraph>
+            <Icon className='size-6'/>
+            <Paragraph truncate={false}>{label}</Paragraph>
         </motion.div>
     );
 };

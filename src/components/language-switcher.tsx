@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC, JSX } from 'react';
+import type { SwitcherOpts } from './switcher';
 
 import dynamic from 'next/dynamic';
 
@@ -15,7 +16,6 @@ import {
     Es,
 } from 'components/icons';
 
-import type { SwitcherOption } from './switcher';
 
 const Switcher = dynamic(
     () => import('./switcher'),
@@ -31,7 +31,7 @@ const iconMap: Record<Locale, JSX.Element> = {
     'es': <Es/>,
 } as const;
 
-const options: Array<SwitcherOption> = locales.map(locale => ({
+const options: Array<SwitcherOpts> = locales.map(locale => ({
     icon: iconMap[locale],
     value: locale,
 }));
@@ -49,6 +49,7 @@ const LanguageSwitcher: FC = () => {
 
     return (
         <Switcher
+            layoutId='language'
             current={language}
             setCurrent={setLanguage}
             options={options}

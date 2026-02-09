@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
+import type { SwitcherOpts } from './switcher';
 
 import dynamic from 'next/dynamic';
 
@@ -14,8 +15,6 @@ import {
     SunIcon,
 } from 'components/icons';
 
-import type { SwitcherOption } from './switcher';
-
 const Switcher = dynamic(
     () => import('./switcher'),
     {
@@ -23,7 +22,7 @@ const Switcher = dynamic(
     },
 );
 
-const options: Array<SwitcherOption> = [
+const options: Array<SwitcherOpts> = [
     {
         icon: <MonitorIcon/>,
         value: 'system',
@@ -49,6 +48,7 @@ const ThemeSwitcher: FC = () => {
 
     return (
         <Switcher
+            layoutId='theme'
             current={theme}
             setCurrent={setTheme}
             options={options}

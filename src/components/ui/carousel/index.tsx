@@ -5,6 +5,9 @@ import type {
     ComponentProps,
     KeyboardEvent,
 } from 'react';
+import type { UseEmblaCarouselType } from 'embla-carousel-react';
+
+import useEmblaCarousel from 'embla-carousel-react';
 
 import {
     useState,
@@ -15,9 +18,6 @@ import {
 } from 'react';
 import { motion } from 'motion/react';
 import { tv, cn } from 'tailwind-variants';
-import useEmblaCarousel, {
-    type UseEmblaCarouselType
-} from 'embla-carousel-react';
 
 import { IconButton } from 'ui/index';
 import { ArrowLeft, ArrowRight } from 'components/icons';
@@ -34,6 +34,8 @@ type CarouselProps = {
     plugins?: CarouselPlugin;
     orientation?: 'horizontal' | 'vertical';
     setApi?: (api: CarouselApi) => void;
+    onSlideChanged?: (api: CarouselApi, event: any) => void;
+
 };
 
 type CarouselContextProps = {
@@ -65,6 +67,7 @@ const Carousel: FC<CarouselRootProps> = ({
     setApi,
     plugins,
     className,
+    onSlideChanged,
     ...props
 }) => {
     'use memo'
@@ -78,11 +81,14 @@ const Carousel: FC<CarouselRootProps> = ({
     const [canScrollPrev, setCanScrollPrev] = useState(false);
     const [canScrollNext, setCanScrollNext] = useState(false);
 
-    const onSelect = useCallback((api: CarouselApi) => {
-        if (!api) return;
-        setCanScrollPrev(api.canScrollPrev());
-        setCanScrollNext(api.canScrollNext());
-    }, []);
+    const onSelect = useCallback(
+        (api: CarouselApi) => {
+            if (!api) return;
+            setCanScrollPrev(api.canScrollPrev());
+            setCanScrollNext(api.canScrollNext());
+        },
+        [],
+    );
 
     const scrollPrev = useCallback(() => {
         api?.scrollPrev();
@@ -105,6 +111,13 @@ const Carousel: FC<CarouselRootProps> = ({
         [scrollPrev, scrollNext],
     );
 
+    const handleSlideChanged = useCallback(
+        (api: CarouselApi, event: any) => {
+            if (onSlideChanged) onSlideChanged(api, event);
+        },
+        [onSlideChanged],
+    );
+
     useEffect(() => {
         if (!api || !setApi) return;
         setApi(api);
@@ -112,10 +125,14 @@ const Carousel: FC<CarouselRootProps> = ({
 
     useEffect(() => {
         if (!api) return;
-        onSelect(api);
-        api.on('reInit', onSelect);
-        api.on('select', onSelect);
 
+        onSelect(api);
+
+        api.on('reInit', onSelect);
+        api.on('select', (api, event) => {
+            onSelect(api);
+            handleSlideChanged(api, event);
+        });
         return () => {
             api?.off('select', onSelect);
         };

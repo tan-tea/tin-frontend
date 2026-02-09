@@ -2,26 +2,26 @@
 
 import type { FC, JSX } from 'react';
 
-import { tv, cn } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 import { motion } from 'motion/react';
 
-const switcher = tv({});
-
-type SwitcherOption = {
+type SwitcherOpts = {
     icon: JSX.Element;
     value: any;
-}
+};
 
-type SwitcherOptionProps = SwitcherOption & {
+type SwitcherOptionProps = SwitcherOpts & {
     isActive?: boolean;
     onClick?: (value: any) => void;
-}
+    layoutId: string;
+};
 
 const SwitcherOption: FC<SwitcherOptionProps> = ({
     icon,
     value,
     isActive,
     onClick,
+    layoutId,
 }) => {
     'use memo'
 
@@ -41,7 +41,7 @@ const SwitcherOption: FC<SwitcherOptionProps> = ({
             {icon}
             {isActive && (
                 <motion.div
-                    layoutId='theme-option'
+                    layoutId={layoutId}
                     transition={{
                         type: 'spring',
                         bounce: 0.3,
@@ -54,16 +54,18 @@ const SwitcherOption: FC<SwitcherOptionProps> = ({
     );
 }
 
-type SwitcherProps = {
+type SwitcherProps = Readonly<{
     current: any;
     setCurrent: (value: any) => void;
-    options: Array<SwitcherOption>;
-}
+    options: Array<SwitcherOpts>;
+    layoutId: string;
+}>;
 
 const Switcher: FC<SwitcherProps> = ({
     current,
     options,
     setCurrent,
+    layoutId,
 }) => {
     'use memo'
 
@@ -78,6 +80,7 @@ const Switcher: FC<SwitcherProps> = ({
             {options?.map?.((option) => {
                 return (
                     <SwitcherOption
+                        layoutId={`${layoutId}-option`}
                         key={option.value}
                         icon={option.icon}
                         value={option.value}
@@ -91,5 +94,5 @@ const Switcher: FC<SwitcherProps> = ({
     );
 }
 
-export type { SwitcherOption };
+export type { SwitcherOpts };
 export default Switcher;

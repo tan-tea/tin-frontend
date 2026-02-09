@@ -99,7 +99,6 @@ const ItemBySlugMobile: FC<Props> = ({
     const addToCart = useSetAtom(addItemToCartAtom);
 
     const onInvalid: SubmitErrorHandler<OptionGroups> = (errors) => {
-        console.log('errors', errors);
         toast.error('Invalid form, please fix to continue');
     }
 

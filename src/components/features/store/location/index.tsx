@@ -1,14 +1,11 @@
 'use client'
 
 import type { FC } from 'react';
+import type { Address } from 'shared/models';
 
 import { useMemo } from 'react';
 
 import { formatAddress } from 'lib/utils';
-
-import type {
-    Address,
-} from 'shared/models';
 
 import { IconLabel } from 'ui/text';
 import { MapPin } from 'components/icons';
@@ -30,6 +27,7 @@ const StoreLocation: FC<StoreLocationProps> = ({
 
     return (
         <IconLabel
+            color='primary'
             icon={MapPin}
             label={formatted}
         />

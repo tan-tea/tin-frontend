@@ -35,6 +35,7 @@ const StoreAvailability: FC<Props> = ({
 
     return (
         <IconLabel
+            color='primary'
             icon={Clock}
             label={isOpen ? t('open') : t('close')}
         />

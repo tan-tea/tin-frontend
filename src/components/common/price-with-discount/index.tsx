@@ -121,6 +121,9 @@ const PriceWithDiscount: FC<PriceWithDiscountProps> = ({
         orientation,
     });
 
+    // If there isnt price, dont show it.
+    if (parsedPrice === 0) return null;
+
     return (
         <Wrapper className={box({
             className,

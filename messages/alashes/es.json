@@ -1,30 +1,16 @@
 {
-    "sharingLocation": "Compartiendo ubicaci\u00f3n...",
-    "discountTimeLeft": "El descuento termina en: {left}",
-    "allRightsReserved": "\u00a9 {currentYear} - www.yimall.co",
-    "privacyPolicy": "Pol\u00edtica de privacidad",
-    "termsOfService": "T\u00e9rminos del servicio",
+    "discountTimeLeft": "{left}",
     "discountPercentage": "{value}%",
-    "menu": "Men\u00fa",
     "exploreDiscounts": "Explorar descuentos",
     "offers": "Servicios",
-    "goHome": "Ir al inicio",
-    "socialMedia": "Redes sociales",
-    "navigation": "Navegaci\u00f3n",
-    "typing": "Buscando...",
-    "noResults": "Sin resultados",
-    "address": "Direcci\u00f3n",
-    "noscript": "Esta aplicación requiere JavaScript para funcionar correctamente. Por favor, habilita JavaScript en tu navegador para continuar.",
     "open": "Abierto",
     "close": "Cerrado",
-    "selectHeadquarter": "Selecciona la sucursal m\u00e1s cercana a ti",
     "goBackError": "Ups... Algo sali\u00f3 al volver atr\u00e1s. Te redirigimos al inicio.",
     "shopNotFound": "Ups! Parece que la sucursal que buscas esta en construcci\u00f3n",
     "test": "{min, plural, =1 {{max, plural, =1 {Selecciona {min} opción} other {Escoge mínimo {min} y máximo {max} opciones}}} =0 {{max, plural, =0 {} other {Puedes escoger hasta {max} opciones}}} other {{max, plural, =0 {Escoge mínimo {min} opciones} other {Escoge mínimo {min} opciones y máximo {max}}}}}",
-    "included": "Incluído",
-    "cart": "Carrito de compras",
-    "recents": "Productos recientes",
+    "recents": "Recientes",
     "showAll": "Ver todos",
+    "showProducts": "Explorar servicios",
     "metadata": {
         "applicationName": "Alashes",
         "siteName": "Alashes — Extensiones de pestañas en Armenia, Quindio",
@@ -61,20 +47,10 @@
         }
     },
     "shared": {
-        "back": "Atr\u00e1s",
-        "cancel": "Cancelar",
-        "close": "Cerrar",
-        "accept": "Aceptar",
-        "saveChanges": "Guardar cambios",
-        "discount": "{discount}% off",
-        "showMore": "Leer m\u00e1s",
+        "showMore": "Muéstrame más",
         "showLess": "Ver menos"
     },
-    "Privacy": {
-        "content": "<h1>Política de Privacidad</h1>\n\n<p>Última actualización: {lastUpdate}</p>\n\n<h2>1. Introducción</h2>\n\n<p>Esta Política de Privacidad describe cómo <b>{workspace}</b> (en adelante, “la Plataforma”, “nosotros” o “nuestro”) recopila, usa, almacena, protege y trata los datos personales de los usuarios (en adelante, “el Usuario” o “los Usuarios”) que acceden y utilizan nuestra aplicación web.</p>\n\n<p>La Plataforma opera desde Colombia y presta servicios a usuarios y negocios ubicados tanto en Colombia como en otros países, incluidos territorios de la Unión Europea. Por ello, cumplimos con:</p>\n\n<p>- La Ley 1581 de 2012 y el Decreto 1377 de 2013 de Colombia.</p>\n<p>- El Reglamento General de Protección de Datos (GDPR – UE 2016/679).</p>\n\n<b>Al utilizar la Plataforma, el Usuario acepta las prácticas descritas en esta Política.</b>\n\n\n\n<h2>2. Responsable del Tratamiento de Datos</h2>\n\n<p>- Responsable: Brian Castro Bedoya</p>\n<p>- Correo de contacto: contact@yimall.co</p>\n<p>- País: Colombia</p>\n\n<p>Cuando la Plataforma actúe como intermediaria entre Usuarios y negocios de terceros, podrá actuar como Encargado del Tratamiento, siendo el negocio el Responsable de los datos que gestione.</p>\n\n\n\n<h2>3. Datos Personales que Recopilamos</h2>\n\n<h3>3.1 Datos de identificación</h3>\n<p>- Nombre y apellidos</p>\n<p>- Correo electrónico</p>\n<p>- Número de teléfono</p>\n<p>- Identificadores de usuario</p>\n\n<h3>3.2 Datos de uso</h3>\n<p>- Dirección IP</p>\n<p>- Tipo de dispositivo y navegador</p>\n<p>- Páginas visitadas y acciones dentro de la Plataforma</p>\n<p>- Fecha y hora de acceso</p>\n\n<h3>3.3 Datos de negocios de terceros</h3>\n\n<p>Cuando el Usuario interactúa con negocios registrados en la Plataforma, dichos negocios pueden recopilar información adicional necesaria para la prestación de sus servicios.</p>\n\n\n\n<h2>4. Finalidades del Tratamiento</h2>\n\n<p>Los datos personales serán tratados para:</p>\n\n<p>- Permitir el registro y autenticación de Usuarios.</p>\n<p>- Facilitar la interacción entre Usuarios y negocios de terceros.</p>\n<p>- Gestionar reservas, pedidos, servicios o productos.</p>\n<p>- Mejorar la experiencia del Usuario.</p>\n<p>- Enviar comunicaciones relacionadas con el servicio.</p>\n<p>- Cumplir obligaciones legales.</p>\n\n\n\n<h2>5. Base Legal del Tratamiento</h2>\n\n<h3>Colombia</h3>\n<p>- Consentimiento del titular.</p>\n<p>- Relación contractual.</p>\n<p>- Obligación legal.</p>\n\n<h3>Unión Europea (GDPR)</h3>\n<p>- Consentimiento.</p>\n<p>- Ejecución de contrato.</p>\n<p>- Obligación legal.</p>\n<p>- Interés legítimo.</p>\n\n\n\n<h2>6. Compartición de Datos con Terceros</h2>\n\n<p>Los datos personales podrán compartirse únicamente con:</p>\n\n<p>- Negocios de terceros que presten servicios al Usuario.</p>\n<p>- Proveedores tecnológicos.</p>\n<p>- Autoridades cuando la ley lo exija.</p>\n\n\n\n<h2>7. Transferencias Internacionales de Datos</h2>\n\n<p>Los datos pueden ser tratados fuera de Colombia. Garantizamos el cumplimiento de las normas colombianas y del GDPR.</p>\n\n\n\n<h2>8. Derechos de los Titulares</h2>\n\n<h3>Colombia</h3>\n<p>- Conocer, actualizar y rectificar los datos.</p>\n<p>- Solicitar prueba de autorización.</p>\n<p>- Revocar la autorización.</p>\n<p>- Solicitar supresión del dato.</p>\n\n<h3>GDPR</h3>\n<p>- Acceso</p>\n<p>- Rectificación</p>\n<p>- Supresión</p>\n<p>- Limitación</p>\n<p>- Portabilidad</p>\n<p>- Oposición</p>\n\n\n\n<h2>9. Seguridad de la Información</h2>\n\n<p>Implementamos medidas técnicas y organizativas razonables para proteger los datos personales.</p>\n\n\n\n<h2>10. Cookies</h2>\n\n<p>La Plataforma utiliza cookies para mejorar la experiencia del Usuario. El Usuario puede deshabilitarlas desde su navegador.</p>\n\n\n\n<h2>11. Menores de Edad</h2>\n\n<p>La Plataforma no está dirigida a menores de edad.</p>\n\n\n\n<h2>12. Modificaciones</h2>\n\n<p>Esta Política puede ser modificada en cualquier momento. Los cambios serán publicados en la Plataforma.</p>\n\n\n\n<h2>13. Contacto</h2>\n\n<p>Correo: contact@yimall.co</p>\n\n<b>Al utilizar la Plataforma, el Usuario declara haber leído y aceptado esta Política.</b>"
-    },
     "Loading": {
-        "message": "Cargando...",
         "messages": {
             "0": "<p>Tip: puedes cambiar el tema de la aplicación en el menu de opciones en la esquina superior derecha.</p>",
             "1": "<p>Tip: puedes encontrar nuestras redes sociales al darle tap a nuestro logo.</p>",
@@ -83,74 +59,10 @@
         }
     },
     "Cart": {
-        "items": "{count} items",
-        "total": "Total: ",
         "action": "Agendar servicio",
-        "emptyCart": "Ups! El carrito de compras esta vacío"
-    },
-    "theme": {
-        "tooltip": "Cambiar tema",
-        "dialog": {
-            "title": "Configuraci\u00f3n de apariencia",
-            "description": "Choose your preferred interface appearance. You have the option to pick a theme manually or enable automatic theme switching that aligns with your system settings.",
-            "system": {
-                "title": "Sistema",
-                "label": "Default",
-                "description": "This theme will use the theme your system is using."
-            },
-            "dark": {
-                "title": "Oscuro",
-                "label": "Dark mode",
-                "description": "Eye-friendly design for low-light environments."
-            },
-            "light": {
-                "title": "Claro",
-                "label": "Ligh mode",
-                "description": "Active when your system is configured to use light mode."
-            }
-        }
-    },
-    "location": {
-        "tooltip": "Nuestra ubicaci\u00f3n",
-        "dialog": {
-            "title": "Ubicaci\u00f3n",
-            "description": "Para saber que tan cerca estas de nosotros, permitenos conocer tu ubicaci\u00f3n y te daremos un punto de referencia.",
-            "button": "Compartir ubicacion"
-        }
-    },
-    "language": {
-        "tooltip": "Cambiar idioma",
-        "dialog": {
-            "title": "Configuraci\u00f3n del idioma",
-            "description": "",
-            "es": {
-                "title": "Español",
-                "label": "",
-                "description": ""
-            },
-            "en": {
-                "title": "Ingl\u00e9s",
-                "label": "",
-                "description": ""
-            }
-        }
+        "emptyCart": "¡Ups! Linda aún no tienes servicios en el carrito."
     },
     "search": {
-        "tooltip": "Buscar",
-        "placeholder": "Buscar servicios",
-        "recents": "Recientes"
-    },
-    "OfferDetail": {
-        "title": "Detalles del producto",
-        "availableOptions": "Opciones disponibles",
-        "description": "Descripción",
-        "notProvided": "Oops... No se ha proporcionado una descripción.",
-        "button": "Agregar al carrito",
-        "message": "Hola! Quiero recibir m\u00e1s informaci\u00f3n del producto: {name}"
-    },
-    "notFound": {
-        "title": "Ups... No pudimos encontrar lo que buscabas.",
-        "description": "Parece que esta página se perdi\u00f3 en el camino. Revisa la URL o vuelve al inicio.",
-        "home": "Regresar al catálogo"
+        "placeholder": "Buscar servicios"
     }
 }

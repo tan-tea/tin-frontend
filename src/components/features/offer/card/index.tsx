@@ -315,7 +315,6 @@ const OfferCard: FC<OfferCardProps> = ({
     const Content = contentMap?.[variant] || contentMap?.['complete'];
 
     const destination = target ?? `/store/${slug}/item/${props.offer.slug}`;
-    // const target = `./item/${props.offer.slug}`;
 
     return (
         <CardRoot rounded='xl' className={root()}>

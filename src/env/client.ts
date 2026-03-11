@@ -13,6 +13,7 @@ export const clientEnv = createEnv({
         ]).default('center').optional(),
         NEXT_PUBLIC_GOOGLE_MAP_ID: z.string().min(1),
         NEXT_PUBLIC_GOOGLE_API_KEY: z.string(),
+        NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional(),
     },
     runtimeEnv: {
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
@@ -22,5 +23,6 @@ export const clientEnv = createEnv({
         NEXT_PUBLIC_WORKSPACE_VARIANT: process.env.NEXT_PUBLIC_WORKSPACE_VARIANT,
         NEXT_PUBLIC_GOOGLE_MAP_ID: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID,
         NEXT_PUBLIC_GOOGLE_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+        NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     },
 });

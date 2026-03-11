@@ -144,6 +144,9 @@ export async function generateMetadata(props: LayoutProps): Promise<Metadata> {
                 href: `/favicons/${clientEnv.NEXT_PUBLIC_WORKSPACE_NAME ?? 'default'}.ico`,
             },
         },
+        other: {
+            'google-site-verification': clientEnv.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION!,
+        }
     };
 }
 

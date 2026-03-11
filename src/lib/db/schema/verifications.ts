@@ -20,6 +20,4 @@ export const verifications = p.pgTable(
     ],
 );
 
-export const verificationsRelations = relations(verifications, ({ }) => ({
-
-}));
+export const verificationsRelations = relations(verifications, ({ }) => ({}));

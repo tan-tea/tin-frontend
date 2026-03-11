@@ -3,10 +3,10 @@ import { useShallow } from 'zustand/shallow';
 
 import { useApplicationStore } from 'shared/stores/application-store';
 
-type Props = {
+type Props = Readonly<{
     hideHeader?: boolean;
     hideBottomNavigation?: boolean;
-};
+}>;
 
 export function useHideUI(props: Props): void {
     const {

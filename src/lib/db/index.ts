@@ -9,7 +9,7 @@ import * as schema from './schema';
 const client = new Pool({
     connectionString: serverEnv.DATABASE_URL,
     // ssl: {
-    //     rejectUnauthorized: false,
+    //     rejectUnauthorized: true,
     // },
 });
 
@@ -54,21 +54,16 @@ export const maindb = drizzle({
 });
 
 export const replicadb = drizzle({
-    // client: replicaClient,
     client,
     schema,
 });
 
 export const db = withReplicas(maindb, [replicadb]);
-// export const db = drizzle({
-//     client,
-//     schema,
-// });
 
 type ReplicaClient = (typeof db)['$replicas'][number];
 
 export function getReadReplica(): ReplicaClient {
-  return selectReplica(db.$replicas);
+    return selectReplica(db.$replicas);
 }
 
 export const allDatabases = [maindb, replicadb] as const;
